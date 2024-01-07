@@ -1,0 +1,123 @@
+
+
+.container-fluid{
+    margin-top: 10px;
+    .marginTop{
+      // margin-top: 16px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    .fa {
+      width: 25px;
+      text-align: center;
+    }
+    .mentorName {
+      font-family: 'jaldi', sans-serif;
+      color: #ff4935;
+    }
+}
+.shortNamedd{
+  .user-img{
+   border-radius: 50%;
+   width: 40px;
+   height: 40px;
+  }
+ }
+.logo{
+    height: 70px;
+    margin-left: 25px;
+}
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    // background-color: #111;
+    background-color: #ff4935;
+    overflow-x: hidden;
+    
+    transition: 0.5s;
+    padding-top: 60px;
+    p{
+      font-family: 'jaldi', sans-serif;
+      color: #FFFFFF;
+    }
+  }
+  .openNav{
+      margin-left: 15px;
+      color: #ff4935;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    // color: #818181;
+    color: #ffffff;
+    display: block;
+    transition: 0.8s;
+  }
+  
+  .sideNavOptions{
+    box-shadow: inset 0 0 0 0.09px #ff4935;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+  }
+  .sideNavOptions:hover{
+    box-shadow: inset 300px 0 0 0 #ffffff;
+    color: #ff4935 !important;
+  }
+  .active {
+    // padding: .5rem; /*********/
+    background: #ffffff;
+    // border-radius: .4rem 0rem 0rem .4rem;  /********/
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    color: #ff4935 !important;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  .searchBox{
+      margin-left: auto;
+      input{
+          border-radius: 20px 0px 0px 20px;
+      }
+      .faSearchDiv{
+          border-radius: 0px 20px 20px 0px !important;
+          background-color: #DD3664;
+          color: #ffffff;
+      }
+  }
+  .teacherNav{
+    border-bottom: 1px solid #ff4935;
+      //  box-shadow: 2px 2px 2px;
+      margin-top: 0px;
+      font-family: 'jaldi', sans-serif;
+      background-color: #FFFFFF;
+      position: fixed;
+      z-index: 3;
+    
+    .profileLogo{
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+    .profileName{
+      font-weight: bold;
+      color: #FFFFFF;
+    }
+  }
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }

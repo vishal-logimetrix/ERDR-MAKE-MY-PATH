@@ -1,0 +1,180 @@
+<div *ngIf="questionIds?.length > 0" class="mathjax bookmarkQuestions" #mathjax>
+    <div class="greyDiv">
+        <h2 class="heading">{{examDetails?.description}} <i class="fas fa-chevron-right"></i> </h2>
+        <!-- <h3>{{subjectName}}</h3> -->
+    </div>
+    <div class="blueDiv">
+        <h2 class="questionNumber">Question: {{currentQuestion}}/ {{questionIds?.length}} <i
+                class="fas fa-chevron-right"></i> </h2>
+        <h3 *ngIf="questionDetails?.type_of_question==='mcq'">Single Choice</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='mcc'">Multiple Choice
+        </h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='fillup'">Fill In The
+            Blanks</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='numerical'">Integral
+            value type</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='subjective'">Subjective</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='fillup_option'">
+            Fill up with option</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='boolean'">
+            True/ False</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='assertion'">
+            Assertion</h3>
+    </div>
+    <div class="questionDetailDiv">
+        <p *ngIf="question?.comprehension" class="font-sm-1 mb-1 comprehension-question"
+            [innerHtml]="question?.comprehension">
+        </p>
+        <!-- <h6 class="mb-0"><strong>Question: 10 Marks</strong></h6> -->
+
+        <ng-container *ngFor="let content of questionDetails?.contents">
+            <p class="font-sm-1 mb-0 olList" *ngIf="content?.language?.text == 'English'" [innerHtml]="content?.text | safeHtml"></p>
+        </ng-container>
+
+    </div>
+   
+    <div class="mt-3">
+
+        <!-- Options -->
+        <div class="mb-2 option-container">
+            <ul>
+                <li class="cursor-pointer mb-2 text-black"
+                    *ngFor="let option of mcqDetails; let optionIndex = index">
+                    <div class="d-flex" *ngIf="questionDetails?.type_of_question=='mcq'">
+                        <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                        <span *ngIf="option?.correct" class="ml-3 option-text font-sm-1 correctmcq" [innerHtml]="option?.text | safeHtml"></span>
+                        <ng-container *ngIf="selectedQuestion?.user_answer">
+                            <span *ngIf="!option?.correct && selectedQuestion?.user_answer[0] != option?.id" class="ml-3 option-text font-sm-1" [innerHtml]="option?.text | safeHtml"></span>
+                            <span *ngIf="!option?.correct && selectedQuestion?.user_answer[0] == option?.id" class="ml-3 option-text font-sm-1 incorrect" [innerHtml]="option?.text | safeHtml"></span>
+                        </ng-container>
+                        <ng-container *ngIf="!selectedQuestion?.user_answer">
+                            <span *ngIf="!option?.correct" class="ml-3 option-text font-sm-1" [innerHtml]="option?.text | safeHtml"></span>
+                            </ng-container>
+                    </div>
+                    <div class="d-flex" *ngIf="questionDetails?.type_of_question=='mcc' || questionDetails?.type_of_question=='assertion'">
+                        <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                        <ng-container *ngIf="!selectedQuestion?.user_answer">
+                            <span *ngIf="option?.correct" class="ml-3 option-text font-sm-1 correctmcq" [innerHtml]="option?.text | safeHtml"></span>
+                            <span *ngIf="!option?.correct" class="ml-3 option-text font-sm-1" [innerHtml]="option?.text | safeHtml"></span>
+                        </ng-container>
+                        <ng-container *ngIf="selectedQuestion?.user_answer">
+                            <span *ngIf="option?.correct && !(selectedQuestion?.user_answer.indexOf(option?.id) > -1)" class="ml-3 option-text font-sm-1 correctmcq" [innerHtml]="option?.text | safeHtml"></span>
+                            <span *ngIf="option?.correct && (selectedQuestion?.user_answer.indexOf(option?.id) > -1)" class="ml-3 option-text font-sm-1 commonmcq" [innerHtml]="option?.text | safeHtml"></span>
+                            <span *ngIf="!option?.correct && (selectedQuestion?.user_answer.indexOf(option?.id) > -1)" class="ml-3 option-text font-sm-1 incorrect" [innerHtml]="option?.text | safeHtml"></span>
+                            <span *ngIf="!option?.correct && !(selectedQuestion?.user_answer.indexOf(option?.id) > -1)" class="ml-3 option-text font-sm-1" [innerHtml]="option?.text | safeHtml"></span>
+                        </ng-container>
+                    </div>
+                    <div *ngIf="option['opt_image']"
+                        class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                        <div #optionImage>
+                            <button type="button" class="close-button d-none btn btn-link text-black"
+                                (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                            <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                        </div>
+                        <button class="p-2 btn btn-link text-black" type="button"
+                            (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                aria-hidden="true"></i></button>
+                    </div>
+                </li>
+                <ng-container *ngIf="(questionDetails?.type_of_question=='mcq' || questionDetails?.type_of_question=='mcc' || questionDetails?.type_of_question=='assertion') && !selectedQuestion?.user_answer">
+                   <b>Unanswered</b>
+                </ng-container>
+                <ng-container *ngIf="questionDetails?.type_of_question=='boolean'">
+                    <li *ngIf="booleanDetails?.option" class="cursor-pointer mb-2 text-black"><span class="ml-3 option-text font-sm-1 correctmcq">True</span></li>
+                    <li *ngIf="!booleanDetails?.option" class="cursor-pointer mb-2 text-black"><span class="ml-3 option-text font-sm-1">True</span></li>
+                    <li *ngIf="!booleanDetails?.option" class="cursor-pointer mb-2 text-black"><span class="ml-3 option-text font-sm-1 correctmcq">False</span></li>
+                    <li *ngIf="booleanDetails?.option" class="cursor-pointer mb-2 text-black"><span class="ml-3 option-text font-sm-1">False</span></li>
+                    <li *ngIf="convertBoolean(selectedQuestion?.user_answer) == true || convertBoolean(selectedQuestion?.user_answer) == false"><b>My Answer: </b>
+                        <span *ngIf="booleanDetails?.option == convertBoolean(selectedQuestion?.user_answer)" class="correctmcq text-capitalize">
+                            {{selectedQuestion?.user_answer}}
+                        </span>
+                        <span *ngIf="booleanDetails?.option != convertBoolean(selectedQuestion?.user_answer)" class="incorrect text-capitalize">
+                            {{selectedQuestion?.user_answer}}
+                        </span>
+                    </li>
+                    <li *ngIf="selectedQuestion?.user_answer != true && selectedQuestion?.user_answer != false && selectedQuestion?.user_answer != 'True' && selectedQuestion?.user_answer != 'False'"><b>Unanswered</b></li>
+                </ng-container>
+                <ng-container *ngIf="questionDetails?.type_of_question=='fillup'">
+                    <li><b>Answer: </b><span [innerHtml]="fillUpDetails?.text"></span></li>
+                    <li *ngIf="selectedQuestion?.user_answer"><b>My Answer: </b>
+                        <span *ngIf="fillUpDetails?.text == selectedQuestion?.user_answer" class="correctmcq">
+                            {{selectedQuestion?.user_answer}}
+                        </span>
+                        <span *ngIf="fillUpDetails?.text != selectedQuestion?.user_answer" class="incorrect">
+                            {{selectedQuestion?.user_answer}}
+                        </span>
+                    </li>
+                    <li *ngIf="!selectedQuestion?.user_answer"><b>Unanswered</b></li>
+                </ng-container>
+                <ng-container *ngIf="questionDetails?.type_of_question=='fillup_option'">
+                    <li class="cursor-pointer mb-2 text-black"
+                    *ngFor="let option of fillUpOptionDetails; let optionIndex = index">
+                        <div class="d-flex">
+                            <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                            <span *ngIf="option?.correct" class="ml-3 option-text font-sm-1 correctmcq" [innerHtml]="option?.text | safeHtml"></span>
+                            <span *ngIf="!option?.correct" class="ml-3 option-text font-sm-1" [innerHtml]="option?.text | safeHtml"></span>
+                        </div>
+                    </li>
+                    <li *ngIf="selectedQuestion?.user_answer"><b>My Answer: </b>
+                        <ng-container *ngFor="let option of fillUpOptionDetails; let optionIndex = index">
+                            <span *ngIf="option?.id == selectedQuestion?.user_answer && option?.correct" style="background: rgb(18, 182, 86)" [innerHtml]="option?.text | safeHtml">
+                            </span>
+                            <span *ngIf="option?.id == selectedQuestion?.user_answer && !option?.correct" style="background: rgb(182, 43, 18);" [innerHtml]="option?.text | safeHtml">
+                            </span>
+                        </ng-container>
+                    </li>
+                    <li *ngIf="!selectedQuestion?.user_answer"><b>Unanswered</b></li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+    <div class="nextDiv">
+        <div class="prevDiv">
+            <a href="javascript:void(0)" (click)="fetchPrev()">
+                <span><i class="fas fa-chevron-left"></i> Previous</span>
+            </a>
+        </div>
+        <div>
+            <a href="javascript:void(0)" (click)="fetchNext()">Next <i class="fas fa-chevron-right"></i> </a>
+        </div>
+    </div>
+    <div class="solutionShare">
+        <button class="btn btnSolution btn-sm" (click)="div2Function()">Solution</button>
+        <!-- <button class="btn btnUnmark btn-sm" (click)="unmark()">Unmark</button> -->
+        <!-- <button class="btn btnShare btn-sm">Share</button>  -->
+    </div>
+    <div *ngIf="div2" class="yellowDiv">
+        <h2 class="heading">Solution <i class="fas fa-chevron-right"></i> Question : {{currentQuestion}} /
+            {{questionIds?.length}}</h2>
+    </div>
+    <div *ngIf="div2" class="solutionDiv">
+        <div class="mt-2">
+            <p *ngIf="question?.comprehension" class="font-sm-1 mb-1 comprehension-question"
+                [innerHtml]="question?.comprehension">
+            </p>
+            <h6 class="mb-0" [innerHtml]="solutionDetails?.text | safeHtml"><strong></strong></h6>
+
+            <!-- <p class="font-sm-1 mb-0" > -->
+            <!-- [innerHtml]="question?.text" -->
+            <!-- As per RBI guuidelines cheque to be routed through the CTS clearing will not be entertained if they bear alteration in the ______ of the 
+        </p> -->
+        </div>
+       
+        <div class="mt-2 next-prev d-flex justify-content-center">
+            <button type="button" class="btn btn-danger" (click)="closeSolution()">Close Solution</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="questionIds?.length < 1">
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="row noQuestionRow">
+            <div class="col-md-6 text-center">
+                <div class="card shadow p-4">
+                    <h1>" You don't have any questions in Incorrect Question Solution! "</h1>
+                    <button class="btn btnBackDashboard btn-sm btn-success mt-3" routerLink="/assessment/dashboard">Back To Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

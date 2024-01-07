@@ -1,0 +1,28 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+
+$brandColor:   #32c5d2 !default;
+$darkblueReport:   #3f51b5 !default;
+$darkblueChallenge:   #06223a !default;
+$sideBarBlue:   #2b3c58 !default;
+$brandInfo:    #33b5e5 !default;
+$customPink: #ff6363;
+$customRed: #f44336;
+$customPurple: #8560a8;
+// stylelint-disable-next-line scss/dollar-variable-default
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    "dark-blue-report": $darkblueReport,
+    "dark-blue-challenge": $darkblueChallenge,
+    "side-bar-blue": $sideBarBlue,
+    "brand-color": $brandColor,
+    "brand-info":  $brandInfo,
+    "custom-pink": $customPink,
+    "custom-purple": $customPurple,
+    "custom-danger": $customRed
+  ),
+  $theme-colors
+);
+
+@import '../node_modules/bootstrap/scss/bootstrap.scss';

@@ -1,0 +1,1068 @@
+.makePaper {
+  padding-bottom: 50px;
+  .basicDetailImage {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 200px;
+    height: auto;
+  }
+  .breadcrumb {
+    background-color: #f5f4f4;
+    padding: 0px !important;
+    margin: 7px 0px 15px 0px !important;
+    a {
+      color: #007cbb;
+      font: {
+        size: 18px;
+        // weight: bold;
+      }
+      font-family: "jaldi";
+    }
+    a:hover {
+      text-decoration: underline;
+      color: #1b50a3;
+    }
+    span {
+      color: #808180;
+      font: {
+        size: 18px;
+        // weight: bold;
+      }
+      font-family: "jaldi";
+    }
+  }
+  .breadcrumb > li + li:before {
+    color: #808180;
+    content: ">>";
+    // font-weight: bold;
+    padding: 2px 5px 2px 2px;
+  }
+  .examTitle {
+    color: #000000;
+    font-family: "Jaldi", Sans-serif;
+    font-size: 3em;
+    line-height: 1em;
+    letter-spacing: 0px;
+    font-weight: bold;
+    span {
+        color: #007bba;
+    }
+}
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 2px solid #ffffff;
+  margin: 0 0 1em 0;
+  padding: 0;
+}
+  .formBg {
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+  .progressSectionDiv {
+    height: 100%;
+    position: relative;
+    // contain: content;
+    padding: 35px;
+    .desktopProgressSection {
+      display: block;
+      padding-top: 55px;
+      
+      .goalSettingSection {
+        position: absolute;
+        top: 118px;
+        left: 75px;
+        .goalSettingDiv {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          position: relative;
+          .circle {
+            width: 10px;
+            height: 10px;
+            margin-right: 10px;
+            border-radius: 50%;
+            border: 1px solid #8BD8FF;
+            z-index: 9;
+          }
+          .checkedBG {
+            background-color: #0598E2;
+          }
+          .currentBG {
+            background-color: #0598E2;
+          }
+          .nextBG {
+            background-color: #8BD8FF;
+          }
+          h3 {
+            font-family: 'jaldi', sans-serif;
+            font-size: 12px;
+          }
+        }
+        .gsHrLine {
+          border-left: 1px solid #0598E2;
+          height: 30px;
+          position: absolute;
+          top: 5px;
+          margin-left: 5px;
+          z-index: 1;
+        }
+      }
+      .horizontalLineOuter {
+        border-left: 1px solid #777777;
+        height: calc(100% - 70px);
+        position: absolute;
+        right: 0;
+        top: 35px;
+      }
+    }
+    h2 {
+      font-family: "jaldi", sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 26px;
+      line-height: 26px;
+      color: #545454;
+    }
+    .subHeading {
+      margin-bottom: 35px;
+      font-size: 16px;
+      font-family: "jaldi", sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      color: #545454;
+    }
+    label {
+      font-family: "jaldi", sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px;
+      color: #333333;
+      span {
+        color: #007bba;
+      }
+    }
+    input,
+    select {
+      border: 1px solid #333333;
+      box-sizing: border-box;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      width: 100%;
+      option {
+        font-family: "jaldi", sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+        color: #333333;
+      }
+    }
+    .skipStartButtonRow {
+      margin-top: 50px;
+    }
+    .btnNextButton {
+      width: 140px;
+      height: 45px;
+      background: #007cbb;
+      font-family: "jaldi", sans-serif;
+      border-radius: 25px;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
+      color: #ffffff;
+      z-index: 100;
+    }
+    .btnSkipButton {
+      width: 140px;
+      height: 45px;
+      background: #c1cbe2;
+      font-family: "jaldi", sans-serif;
+      border-radius: 25px;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
+      color: #333333;
+    }
+    .chooseChapterCard {
+      .stepSection {
+        .stepDiv {
+          display: flex;
+          margin-bottom: 20px;
+          .disableLink {
+            pointer-events: none;
+            cursor: default;
+            text-decoration: none;
+          }
+          a {
+            display: flex;
+          }
+          .stepCircle {
+            height: 60px;
+            width: 60px;
+            font-size: 21px;
+            padding: 15px 15px 15px 15px;
+            border-radius: 50%;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .checkedBG {
+            background-color: #0598E2;
+          }
+          .currentBG {
+            background-color: #0598E2;
+          }
+          .nextBG {
+            background-color: #8BD8FF;
+          }
+          .stepText {
+            margin-left: 25px;
+            .stepNumber {
+              h5 {
+                margin-bottom: 10px;
+                // color: #414247;
+                font-weight: 600;
+                font-size: 18px;
+                font-family: "jaldi", sans-serif;
+              }
+              .checkedColor {
+                color: #0fb827;
+              }
+              .currentColor {
+                h4 {
+                  color: #333333 !important;
+                font-weight: bold !important;
+                }
+              }
+              .nextColor {
+                h4 {
+                  color: #000000 !important;
+                font-weight: bold !important;
+                }
+              }
+            }
+            h3 {
+              font-size: 14px;
+              line-height: 1.5em;
+              font-weight: 400;
+              font-family: "jaldi", sans-serif;
+            }
+            .activeColor {
+              h3 {
+                color: #7a7a7a;
+              }
+            }
+            .inActiveColor {
+              h3 {
+                color: #cccccc;
+              }
+            }
+          }
+        }
+      }
+
+      h6 {
+        margin: -10px 0px 5px 0px;
+        text-align: center;
+        color: #5e6067;
+        font-family: "jaldi", Sans-serif;
+        font-size: 1em;
+        font-weight: 300;
+        line-height: 1.545em;
+        letter-spacing: 0px;
+      }
+      h4 {
+        font-family: "jaldi";
+        float: right;
+        color: #666766;
+        font-size: 20px;
+      }
+      hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #ffffff;
+        margin: 0 0 1em 0;
+        padding: 0;
+      }
+    }
+    .chapterCheckbox {
+      display: flex;
+      flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
+      .chooseChapterHeading {
+        font-family: "jaldi", sans-serif;
+        margin-bottom: 10px;
+      }
+      .mockPaper {
+        position: fixed;
+        right: 10px;
+        font-size: 23px;
+        width: 180px;
+        font-family: "jaldi";
+        border: 2px solid #2b2a28;
+      }
+      // .nextButton{
+      //     font-family: GOTHICB;
+      //     position: fixed;
+      //     right: 100px;
+      //     z-index: 10000;
+      //     bottom: 50px;
+      //     font-size: 25px;
+      //     color: #FFFFFF;
+      //     width: 140px;
+      //     border-radius: 8px;
+      //     background-color: #1DA9E7;
+      // }
+
+      label {
+        font-family: "Jaldi", Sans-serif;
+        font-size: 1.3em;
+        font-weight: 400;
+        text-transform: capitalize;
+        line-height: 1.273em;
+        letter-spacing: 0px;
+        padding-left: 18px;
+        color: #727272 !important;
+        span {
+          color: #727272 !important;
+        }
+      }
+      input.largerCheckBox {
+        width: 13px;
+        height: 13px;
+        margin-top: 6px;
+      }
+      .form-check {
+        margin: 5px 0px;
+      }
+    }
+    .subjectAssessment {
+      margin-bottom: 30px;
+    }
+    .examDetail {
+      background: #f2f2f2;
+      border-radius: 10px;
+      padding: 19px 24px;
+      width: 100%;
+      display: flex;
+      margin-bottom: 30px;
+      h2 {
+        font-family: "jaldi", sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 17px;
+        line-height: 20px;
+        color: #333333;
+        margin-right: 60px;
+        margin-bottom: 0px;
+      }
+    }
+    .instructionHeading {
+      font-family: "jaldi", sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+      color: #333333;
+    }
+    .squareDiv {
+      display: flex;
+      margin: {
+        top: 15px;
+      }
+      .squareOne {
+        width: 40px;
+        height: 40px;
+        background-color: #28a745;
+        border-radius: 5px;
+      }
+      .squareTwo {
+        width: 40px;
+        height: 40px;
+        background-color: #ed3433;
+        border-radius: 5px;
+      }
+      .squareThree {
+        width: 40px;
+        height: 40px;
+        background-color: #3379b7;
+        border-radius: 5px;
+      }
+      .squareFour {
+        width: 40px;
+        height: 40px;
+        background-color: #fdec00;
+        border-radius: 5px;
+      }
+      .squareFive {
+        width: 40px;
+        height: 40px;
+        background-color: #989898;
+        border-radius: 5px;
+      }
+      h6 {
+        font-family: "Jaldi", Sans-serif;
+        font-size: 1.2em;
+        font-weight: 400;
+        line-height: 1.273em;
+        letter-spacing: 0px;
+        color: #141824;
+        padding-left: 20px;
+        margin-top: 10px;
+      }
+      .fa-check {
+        color: #ffffff;
+        background: #6bb71e;
+        border-radius: 50%;
+        padding: 2px;
+        float: right;
+        font-size: 8px;
+      }
+      .fa-bookmark {
+        color: #ffffff;
+        background: #6bb71e;
+        border-radius: 50%;
+        padding: 3px;
+        float: left;
+        font-size: 8px;
+      }
+    }
+  }
+
+  .btnLeaderboard {
+    padding: 0;
+    font-family: "jaldi", Sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #007bba;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  .totalUser {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #18181b;
+    font-family: "jaldi", Sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+    line-height: 1.545em;
+    letter-spacing: 0px;
+    a {
+      color: #1b50a3;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0 7px;
+      font-family: "jaldi", Sans-serif;
+    }
+  }
+  input,
+  select {
+    border: 1px solid black;
+    background: #ffffff;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+  }
+  .mobileProgressSection {
+    display: none;
+  }
+  .card {
+    box-shadow: -3px -12px 27px -13px rgb(0 0 0 / 22%);
+    margin: 10px 10px 10px 10px;
+    padding: 2em 2em 2em 2em;
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h2 {
+      font-weight: 600;
+      font-size: 35px;
+      font-family: "Jaldi", sans-serif;
+      color: #333;
+      line-height: 1.2;
+      text-align: center;
+      span {
+        color: #007bba;
+      }
+    }
+  }
+  .progressSection {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    .statusCircle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 15px;
+      z-index: 5;
+    }
+    .checkedBG {
+      background-color: #0598E2;
+    }
+    .currentBG {
+      background-color: #0598E2;
+    }
+    .nextBG {
+      background-color: #8BD8FF;
+    }
+    .currentColor {
+      h4 {
+        color: #333333 !important;
+      font-weight: bold !important;
+      }
+    }
+    .nextColor {
+      h4 {
+        color: #000000 !important;
+      font-weight: bold !important;
+      }
+    }
+    h4 {
+      font-family: "jaldi", sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px;
+    }
+    .horizontalLine {
+      border-left: 2px solid;
+      height: 70px;
+      position: absolute;
+      top: 20px;
+      margin-left: 12px;
+      z-index: 1;
+    }
+    .currentBorderColor {
+      border-color: #27ae60;
+    }
+    .nextBorderColor {
+      border-color: #c1cbe2;
+    }
+  }
+}
+.card {
+  margin: 25px;
+  box-shadow: 0 0 30px rgba(33, 33, 33, 0.2);
+}
+
+
+.breadcrumb > li + li:before {
+  color: #000000;
+  content: ",   ";
+  padding: 0 0px;
+}
+
+.makePaper {
+  min-height: 100vh;
+  padding-top: 15px;
+
+  hr {
+    width: 100%;
+    // border: 1px solid #048ADF;
+  }
+  
+  h4 {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  
+  .custom-control.custom-checkbox {
+    padding-left: 0;
+    display: flex;
+  }
+
+  input[type="number"] {
+    background: transparent;
+    border: none;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  label.custom-control-label {
+    position: relative;
+    padding-right: 1.5rem;
+  }
+
+  label.custom-control-label::before,
+  label.custom-control-label::after {
+    right: 0;
+    left: auto;
+  }
+  ol {
+    padding-left: 220px;
+    li {
+      label {
+        font-family: "jaldi";
+        font-weight: normal;
+        font-size: 16px;
+        //   padding-top: 7px;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 992px) {
+  .makePaper {
+    .desktopProgressSection {
+      display: none !important;
+    }
+    .mobileProgressSection {
+      display: flex !important;
+      justify-content: space-between;
+      padding-top: 10px;
+      .col {
+        max-width: 25% !important;
+      }
+      .progressSection {
+        flex-direction: column;
+        align-items: baseline;
+        margin-bottom: 15px;
+        .statusCircle {
+          margin-right: 0px;
+          margin-bottom: 10px;
+        }
+        .horizontalLine {
+          border-top: 2px solid !important;
+          border-left: 0px;
+          width: 150%;
+          position: absolute;
+          top: 12px;
+          margin-left: 12px;
+          z-index: 1;
+        }
+        .currentBorderColor {
+          border-color: #0598E2 !important;
+        }
+        .nextBorderColor {
+          border-color: #8BD8FF !important;
+        }
+      }
+      .goalSettingSection {
+        position: absolute;
+        top: 70px;
+        left: 80px;
+        .goalSettingDiv {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          position: relative;
+          .circle {
+            width: 10px;
+            height: 10px;
+            margin-right: 10px;
+            border-radius: 50%;
+            border: 1px solid #8BD8FF;
+            z-index: 10;
+          }
+          .checkedBG {
+            background-color: #0598E2;
+          }
+          .currentBG {
+            background-color: #0598E2;
+          }
+          .nextBG {
+            background-color: #FFFFFF;
+          }
+          h3 {
+            font-family: 'jaldi', sans-serif;
+            font-size: 12px;
+          }
+        }
+        .gsHrLine {
+          border-left: 1px solid #0598E2;
+          height: 30px;
+          position: absolute;
+          top: 5px;
+          margin-left: 5px;
+          z-index: 1;
+        }
+      }
+    }
+    .progressSectionDiv {
+      padding: 20px;
+      input,
+      select {
+        width: 95%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .makePaper {
+    padding: 10px;
+    .progressSection {
+      margin-bottom: 0px;
+    }
+    .progressSectionDiv {
+      margin-bottom: 25px;
+      min-height: 10vh;
+      input,
+      select {
+        width: 100%;
+      }
+      
+    }
+    
+    .topStepsSection {
+      margin-top: 6vh;
+    }
+
+    .paperCard {
+      margin: 0px;
+    }
+    .nextButtonDesktop {
+      display: none;
+    }
+    .nextButtonMobile {
+      display: block;
+    }
+    .totalUser {
+      flex-wrap: wrap;
+      font-size: 20px;
+      // width: 91%;
+    }
+    .icon .tooltip:before {
+      left: 18%;
+    }
+    .icon {
+      span {
+        text-align: left;
+      }
+    }
+    .icon:hover {
+      .tooltip {
+        left: -18px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .makePaper {
+    .progressSection {
+      h4 {
+        line-height: 15px !important;
+        margin-top: 5px;
+      }
+    }
+    .mobileProgressSection {
+      h4 {
+        font-size: 14px;
+      }
+      .goalSettingSection {
+        top: 60px;
+        left: 60px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .makePaper {
+    .progressSection {
+      h4 {
+        line-height: 15px !important;
+        margin-top: 5px !important;
+      }
+    }
+    .mobileProgressSection {
+      .goalSettingSection {
+        top: 50px;
+        left: 48px;
+        h3 {
+          font-size: 10px !important;
+        }
+        .gsHrLine {
+          height: 25px;
+        }
+      }
+    }
+  }
+}
+
+.btnResetCopy {
+  display: none;
+}
+@media screen and (max-width: 767px) {
+  .basicDetailImage {
+    width: 125px !important;
+  }
+  .examTitle {
+    font-size: 2em;
+  }
+  .totalUser {
+    a, span {
+      font-size: 15px;
+    }
+    .btnLeaderboard {
+      font-size: 13px;
+    }
+  }
+  .breadcrumb {
+    a, span {
+      font-size: 15px;
+    }
+  }
+  .desktopProgressSection {
+    display: none;
+  }
+  .mobileProgressSection {
+    display: block;
+    .progressSection {
+      flex-direction: column;
+      h4 {
+        // text-align: center;
+        line-height: 1;
+        margin-top: 10px;
+      }
+      .statusCircle {
+        margin-right: 0px;
+      }
+      .horizontalLineMob {
+        border-top: 2px solid;
+        width: 100%;
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        z-index: 1;
+      }
+      .currentBorderColor {
+        border-color: #0598e2;
+      }
+      .nextBorderColor {
+        border-color: #8bd8ff;
+      }
+    }
+    .col {
+      max-width: 25% !important;
+    }
+  }
+  .slidecontainer {
+    margin-left: 0px;
+    width: 240px;
+  }
+  .resetRow {
+    display: none;
+  }
+  .btnResetCopy {
+    background-color: #fefefe;
+    border: 2px solid #d6d6d6;
+    font-family: "jaldi";
+    font-size: 23px;
+    width: 125px;
+    font-weight: bold;
+    // margin-right: 200px;
+    display: block;
+    position: absolute;
+    left: 10px;
+    bottom: 5px;
+  }
+  .lastRow {
+    margin-bottom: 20px;
+  }
+  // .nextButton{
+  //     position: absolute;
+  //     bottom: 2px;
+  //     margin-top: 10px;
+  // }
+
+  .makePaper {
+    .paperCard {
+      .formLabels {
+        font-size: 18px;
+        .subjects {
+          font-size: 14px;
+        }
+      }
+    }
+    ol {
+      padding-left: 22px;
+    }
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .mockButton,
+  .nextButton {
+    margin-top: 20px;
+  }
+  .makePaper {
+    .subjects {
+      .nav-tabs {
+        box-shadow: inset 0px -11px 8px -10px #adabab;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .nav-tabs::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+  .startPaperButton {
+    .resetAndProceed {
+      margin-top: 15px;
+      .btnResets {
+        margin-top: 15px;
+      }
+    }
+  }
+}
+@media screen and (min-width: 800px) {
+  .makePaper {
+    .nav-tabs {
+      justify-content: center;
+    }
+  }
+  .topDiv {
+    .firstDiv {
+      width: 40%;
+    }
+    .secondDiv {
+      width: 100px !important;
+    }
+    .thirdDiv {
+      width: 40%;
+      .custom-control-label::before {
+        width: 17px;
+        height: 17px;
+      }
+      .custom-control-label::after {
+        width: 17px;
+        height: 17px;
+      }
+      label.custom-control-label {
+        padding-right: 2.5rem !important;
+      }
+      #showTime {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .mockButtonMobile {
+    display: block;
+  }
+  .mockButton {
+    display: none;
+  }
+  .topDiv {
+    .firstDiv,
+    .secondDiv {
+      label {
+        font-size: 1.2em !important;
+      }
+    }
+    .thirdDiv {
+      label {
+        font-size: 0.9em !important;
+      }
+      p {
+        font-size: 0.9em !important;
+      }
+      .noOfProblems {
+        font-size: 0.9em !important;
+      }
+      .fa-caret-down {
+        font-size: 24px;
+        margin-right: 8px;
+      }
+      .fa-caret-up {
+        font-size: 24px;
+        margin-left: 8px;
+      }
+      .yesSpan {
+        font-size: 0.9em;
+      }
+    }
+  }
+  .progress-barContainer {
+    .loading-bar {
+      max-width: 320px !important;
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  .mockButtonMobile {
+    display: none;
+  }
+  .mockButton {
+    display: block;
+  }
+}
+@media screen and (max-width: 575px) {
+  .enterTitleGoal {
+    margin: 0px 5px;
+    input {
+      height: 55px;
+    }
+  }
+  .makePaper {
+    .goalNameLabel {
+      font-size: 22px;
+    }
+    ::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      font-size: 22px;
+    }
+    ::-moz-placeholder {
+      /* Firefox 19+ */
+      font-size: 22px;
+    }
+    :-ms-input-placeholder {
+      /* IE 10+ */
+      font-size: 22px;
+    }
+    :-moz-placeholder {
+      /* Firefox 18- */
+      font-size: 22px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  .makePaper {
+    .mobileProgressSection {
+      h4 {
+        font-size: 14px;
+      }
+    }
+  }
+}

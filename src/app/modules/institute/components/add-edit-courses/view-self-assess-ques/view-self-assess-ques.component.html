@@ -1,0 +1,28 @@
+<div class="container page_content">
+    <h1 style="text-align: center;"><b>{{examDetails?.title}}</b></h1>
+      <button type="button" class="btn btn-primary" id="std" routerLink="/institute/make-self-assess-ques" [queryParams]="{id: examId}">CREATE SELF ASSESS QUES</button>
+  <div id="table">
+      <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>Question Text</th>
+              <th>Order</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ques of pathQuestions">
+              <td>
+                 <strong [innerHtml]="ques?.question?.text"></strong> 
+              </td>
+              <td>{{ques?.order}}</td>
+              <td>
+                  <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/edit-self-assess-question" [queryParams]="{id: ques?.id}">EDIT QUESTION</button>
+                  <button type="button" class="btn ml-2" id="std_details" (click)="deleteQuestion(ques?.id)">DELETE</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+  
+  </div>

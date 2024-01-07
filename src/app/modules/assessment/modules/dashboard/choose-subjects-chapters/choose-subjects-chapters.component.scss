@@ -1,0 +1,49 @@
+.btn-success{
+    width: 150px;
+    border-radius: 20px;
+}
+.container{
+    font-family: CenturyGothicRegular;
+    .nav-link{
+        font-weight: bold;
+        font-size: 17px;
+    }
+    label
+    {
+        font-weight: bold;
+    }
+    hr{
+        width: 100%;
+    }
+    h2{
+        font-weight: bold;
+        font-size: 25px;
+        span{
+            color: #048ADF;
+        }
+    }
+    h4{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .card{
+        padding: 10px;
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+        border-radius: 15px;
+        .nav-pills .nav-link{
+            border: 1px solid skyblue;
+            margin: 5px;
+        }
+    }
+    .nav-pills .nav-link{
+        border: 1px solid #048ADF;
+        margin-top: 5px;
+    }
+}
+
+
+@media screen and (max-width:760px){
+    .chooseChapterCard{
+        margin-bottom: 10px;
+    }
+}

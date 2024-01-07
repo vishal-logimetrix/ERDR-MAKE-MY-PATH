@@ -1,0 +1,68 @@
+<div class="pppp container">
+    <!-- <nav aria-label="breadcrumb" >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="javascript:void(0)" routerLink="/organization/select-domain/{{batchId}}">Choose Domain</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><span>{{examDetails?.title}}</span></li>
+        </ol>
+      </nav> -->
+      <nav aria-label="breadcrumb" *ngIf="currentNode?.journey_nodes?.length >= 0">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/organization">Home</a></li>
+          <li *ngIf="domains?.length > 0" class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/organization/all-exams/{{batchId}}/{{domains[0]?.exam_category[0]?.id}}">{{domains[0]?.exam_category[0]?.title}}</a></li>
+          <!-- <li *ngIf="domains?.length > 0" class="breadcrumb-item"><a href="javascript:void(0)" routerLink="/organization/choose-subcategory/{{ domains[0]?.id }}" (click)="selectCourse(domains[0]?.id)"><span>{{domains[0]?.title}}</span></a></li> -->
+          <ng-container *ngFor="let node of currentNode?.journey_nodes">
+            <li class="breadcrumb-item"><a href="javascript:void(0)" routerLink="/organization/choose-subcategory/{{batchId}}/{{ domains[0]?.id }}" [queryParams]="{node: node?.node}">{{node?.title}}</a></li>
+          </ng-container>
+          <li class="breadcrumb-item active" aria-current="page"><span>{{examDetails?.title}}</span></li>
+        </ol>
+      </nav>
+    <div class="col-md-12 ">
+        <h2 class="examTitle text-center">{{examDetails?.title}}</h2>
+        <!-- <h3><b>Total Users: </b>{{totalusers}}</h3> -->
+        <div class="totalUser">
+            <div><span>Total Users : {{totalusers}}</span></div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row newCardRow d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-xl-4 col-lg-6 col-md-6 nopadding">
+                    <div class="card" >
+                        <h3 class="text-center">Exam <span>Overview</span></h3>
+                        <div class="imageDiv"><img src="assets/Mentor/examoverview.svg" alt=""></div>
+                        <button class="btn" routerLink="/organization/mypath/{{batchId}}/{{examId}}">GO AHEAD</button>
+                    </div>
+                    <div class="line"></div>
+                </div>
+                <!-- <div class="col-xl-4 col-lg-6 col-md-6 nopadding">
+
+                    <div class="card" >
+                        <h3 class="text-center">Make My <span>PRACTICE</span></h3>
+                        <div class="imageDiv"><img src="assets/Mentor/practice.svg" alt=""></div>
+                        <button class="btn" routerLink="/organization/make-assignment/{{batchId}}/{{examId}}"
+                        [queryParams]="{type: 'practice'}">CREATE PRACTICE</button>
+                    </div>
+                    <div class="line"></div>
+                </div> -->
+                <!-- <div class="col-xl-4 col-lg-6 col-md-6 nopadding">
+
+                    <div class="card">
+                        <h3 class="text-center">Make My <span>PAPER</span></h3>
+                        <div class="imageDiv"><img src="assets/Mentor/paper.svg" alt=""></div>
+                        <button class="btn" routerLink="/organization/make-paper/{{batchId}}/{{examId}}"
+                        [queryParams]="{type: 'paper'}">CREATE PAPER</button>
+                    </div>
+                </div> -->
+                <div class="col-md-12 mt-1 historyBookmark">
+                    <button class="btn border-0" routerLink="/organization/bookmarks/{{batchId}}" [queryParams]="{exam: examId}">my bookmarks<span><i class="fa fa-bookmark" aria-hidden="true"></i></span></button>
+                    <!-- <ul class="float-right">
+                        <li><a href="javascript:void(0)" routerLink="/organization/myexam-history/{{examId}}">MY HISTORY</a></li>
+                        <li><a routerLink="/organization/bookmarks" [queryParams]="{exam: examId}">MY BOOKMARKS</a></li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

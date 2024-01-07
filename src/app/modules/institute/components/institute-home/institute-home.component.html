@@ -1,0 +1,173 @@
+<div class="container page_content">
+  <div class="row">
+    <div class="col-md-4 mt-4">
+      <div class="card content-card" style="background-color:#673AB7">
+        <a href="javascript:void(0)" routerLink="/institute/domain-category" class="text-white font-weight-bold">
+          ADD/EDIT DOMAIN CATEGORY
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4 mt-4 pr-6">
+      <div class="card content-card" style="background-color:#9C27B0">
+        <a href="javascript:void(0)" routerLink="/institute/add-edit-domains" class="text-white font-weight-bold">
+          ADD/EDIT DOMAIN
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4 mt-4">
+      <div class="card content-card" style="background-color:#9C27B0">
+        <a href="javascript:void(0)" routerLink="/institute/exam-level" class="text-white font-weight-bold">
+          ADD/EDIT EXAM LEVEL
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4 mt-4 pr-6 pr-6">
+      <div class="card content-card" style="background-color:#673AB7">
+        <a href="javascript:void(0)" routerLink="/institute/add-edit-courses" class="text-white font-weight-bold">
+          ADD/EDIT EXAM
+        </a>
+      </div>
+    </div>
+    
+    <!-- <div class="col-md-4 mt-4 pr-6">
+        <div class="card content-card" style="background-color:#673AB7">
+          <a href="javascript:void(0)" routerLink="/institute/subject" class="text-white font-weight-bold">
+            ADD/EDIT SUBJECT
+          </a>
+        </div>
+      </div> -->
+      <!-- <div class="col-md-4 mt-4 pr-6">
+        <div class="card content-card" style="background-color:rgb(115, 192, 64)">
+          <a href="javascript:void(0)" routerLink="/institute/chapter" class="text-white font-weight-bold">
+            ADD/EDIT CHAPTER
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4 mt-4 pr-6">
+        <div class="card content-card" style="background-color:rgb(79, 153, 238)">
+          <a href="javascript:void(0)" routerLink="/institute/topic" class="text-white font-weight-bold">
+            ADD/EDIT TOPIC
+          </a>
+        </div>
+      </div> -->
+      <div class="col-md-4 mt-4 pr-6">
+          <div class="card content-card" style="background-color:rgb(24, 153, 132)">
+            <a href="javascript:void(0)" routerLink="/institute/question" class="text-white font-weight-bold">
+              VIEW/EDIT QUESTION
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4 pr-6">
+          <div class="card content-card" style="background-color:rgb(241, 155, 56)">
+            <a href="javascript:void(0)" routerLink="/institute/user-queries" class="text-white font-weight-bold">
+              USER QUERIES
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4 pr-6">
+          <div class="card content-card" style="background-color:rgb(192, 68, 64)">
+            <a href="javascript:void(0)" routerLink="/institute/reported-questions" class="text-white font-weight-bold">
+              REPORTED QUESTIONS
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4 pr-6 pr-6">
+          <div class="card content-card" style="background-color:#673AB7">
+            <a href="javascript:void(0)" routerLink="/institute/contact-us" class="text-white font-weight-bold">
+              CONTACT US
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4">
+          <div class="card content-card" style="background-color:#9C27B0">
+            <a href="javascript:void(0)" routerLink="/institute/manage-faq" class="text-white font-weight-bold">
+              MANAGE FAQ
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4">
+          <div class="card content-card" style="background-color:#9C27B0">
+            <a href="javascript:void(0)" routerLink="/institute/manage-mentorfaq" class="text-white font-weight-bold">
+              MANAGE MENTOR FAQ
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4">
+          <div class="card content-card" style="background-color:#9C27B0">
+            <a href="javascript:void(0)" routerLink="/institute/manage-states-cities" class="text-white font-weight-bold">
+              MANAGE STATES & CITIES
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4 pr-6">
+          <div class="card content-card" style="background-color:rgb(241, 155, 56)">
+            <a href="javascript:void(0)" routerLink="/institute/notification-requests" class="text-white font-weight-bold">
+              EXAM NOTIFICATION REQUESTS
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4 pr-6 pr-6">
+          <div class="card content-card" style="background-color:#673AB7">
+            <a href="javascript:void(0)" routerLink="/institute/manage-banners" class="text-white font-weight-bold">
+              BANNER IMAGES
+            </a>
+          </div>
+        </div>
+        <div *ngIf="!isContentManager" class="col-md-4 mt-4 pr-6 pr-6">
+          <div class="card content-card" style="background-color:#673AB7">
+            <a href="javascript:void(0)" routerLink="/institute/register-employee" class="text-white font-weight-bold">
+              REGISTER EMPLOYEE
+            </a>
+          </div>
+        </div>
+        <div *ngIf="!isContentManager" class="col-md-4 mt-4 pr-6 pr-6">
+          <div class="card content-card" style="background-color:#9C27B0">
+            <a href="javascript:void(0)" routerLink="/institute/mmp-admins" class="text-white font-weight-bold">
+              MMP ADMINS
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4 pr-6 pr-6">
+          <div class="card content-card" style="background-color:#673AB7">
+            <a href="javascript:void(0)" routerLink="/institute/all-selfassess-ques" class="text-white font-weight-bold">
+              SELF EVALUATION QUESTIONS
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4 pr-6 pr-6">
+          <div class="card content-card" style="background-color:rgb(241, 155, 56)">
+            <a href="javascript:void(0)" routerLink="/institute/create-school" class="text-white font-weight-bold">
+              CREATE SCHOOL
+            </a>
+          </div>
+        </div>
+        <div *ngIf="!isContentManager" class="col-md-4 mt-4 pr-6 pr-6">
+          <div class="card content-card" style="background-color:rgb(192, 68, 64)">
+            <a href="javascript:void(0)" routerLink="/institute/approve-schools" class="text-white font-weight-bold">
+              APPROVE SCHOOLS
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4">
+          <div class="card content-card" style="background-color:#9C27B0">
+            <a href="javascript:void(0)" routerLink="/institute/create-bulknotification" class="text-white font-weight-bold">
+              SEND BULK NOTIFICATION
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4 pr-6 pr-6">
+          <div class="card content-card" style="background-color:#673AB7">
+            <a href="javascript:void(0)" routerLink="/institute/approved-schools" class="text-white font-weight-bold">
+              APPROVED SCHOOLS
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 mt-4 pr-6 pr-6">
+          <div class="card content-card" style="background-color:rgb(241, 155, 56)">
+            <a href="javascript:void(0)" routerLink="/institute/manage-postquery-questions" class="text-white font-weight-bold">
+              POST QUERY QUESTIONS
+            </a>
+          </div>
+        </div>
+    </div>
+</div>

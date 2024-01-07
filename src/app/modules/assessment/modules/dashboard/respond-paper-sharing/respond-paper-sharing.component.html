@@ -1,0 +1,130 @@
+<div class="container instructionDiv">
+  <div *ngIf="isAuthenticated" class="row">
+    <div class="col-md-12">
+      <h2 class="topHeading" *ngIf="paperDetails?.paper_type == 'paper'">My Incoming <span>PAPER</span> Request</h2>
+      <h2 class="topHeading" *ngIf="paperDetails?.paper_type == 'practice'">My Incoming <span>PRACTICE</span> Request
+      </h2>
+      <!-- <h3 class="subHeading text-center">{{paperDetails?.learner_exam?.exam?.title}}</h3> -->
+    </div>
+    <div class="col-md-12">
+      <button routerLink="/assessment/dashboard/" class="btn float-left btnLeaderboard"><i
+          class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+    </div>
+    <div class="col-md-12">
+      <hr>
+    </div>
+    <div class="col-md-12">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-8">
+          <div class="card">
+            <h2 class="text-center">{{paperDetails?.learner_exam?.exam?.title}}</h2>
+            <h3>Subject(s) : <span *ngFor="let subject of paperDetails?.subjects,let i = index">{{subject?.title}}<span *ngIf="paperDetails?.subjects.length > 1 && paperDetails?.subjects.length > i +1">, </span></span></h3>
+            <h3 *ngIf="paperDetails?.paper_type == 'practice'">Chapter : <span>{{paperDetails?.chapters[0].title}}</span></h3>
+            <div class="timeSharedBy">
+              <div><h3>Total Time (In Min) : <span>{{paperDetails?.total_time}}</span></h3></div>
+              <div><h3>Shared By : <span>{{paperDetails?.full_name}}</span></h3></div>
+            </div>
+            <div class="timeSharedBy">
+              <div><h3>Total Questions : <span>{{paperDetails?.questions.length}}</span></h3></div>
+              <div><h3 *ngIf="paperDetails?.paper_type == 'paper'">Max. Marks : <span>{{paperDetails?.marks}}</span></h3></div>
+            </div>
+            <h3><span>Shared On : {{paperDetails?.learner_exam?.updated_at | date}}</span></h3>
+            <div *ngIf="paperDetails?.username != userProfileObj?.username" class="timeSharedBy allButtons">
+              <div *ngIf="isAccepted" class="">
+                <a class="btn btnShare disabledButton">Accepted</a>
+              </div>
+              <div *ngIf="isAccepted">
+                <a *ngIf="newpaperSubmitted" class="btn btnattempt disabledButton">Attempted</a>
+                <a *ngIf="!newpaperSubmitted && paperDetails?.paper_type == 'paper'" class="btn btnattempt"
+                  routerLink="/assessment/paper/test-instructions/{{paperDetails?.learner_exam?.exam?.id}}"
+                  [queryParams]="{paper: newlyCreatedPaperId}">Attempt Now</a>
+                  <a *ngIf="!newpaperSubmitted && paperDetails?.paper_type == 'practice'" class="btn btnattempt"
+                  routerLink="/assessment/paper/practice-paper/{{paperDetails?.learner_exam?.exam?.id}}" [queryParams]="{paper: newlyCreatedPaperId}"
+                  >Attempt Now</a>
+              </div>
+              <div *ngIf="!isAccepted && !submitStatus" class="">
+                <a class="btn btnShare  " (click)="acceptPaper()">
+                  Accept
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-md-4 offset-md-3 dataDiv">
+      <div *ngFor="let subject of paperDetails?.subjects">
+        <h5 [innerHtml]="subject.title"></h5>
+      </div>
+    </div> -->
+    <!-- <div class="col-md-4 offset-md-3 allData" *ngFor="let instruction of instructions">
+      <div>
+        <h6 [innerHtml]="instruction.instruction"></h6>
+      </div>
+    </div>
+    <div class="col-md-4 offset-md-3 allData">
+      <h6>Shared by: {{paperDetails?.full_name}}</h6>
+    </div>
+    <div *ngIf="paperDetails?.username != userProfileObj?.username" class="col-md-4 offset-md-3 allData">
+      <div *ngIf="isAccepted" class="mt-2">
+        <a class="btn btnShare ">Accepted</a>
+        <a *ngIf="newpaperSubmitted" class="btn btnattempt">Attempted</a>
+        <a *ngIf="!newpaperSubmitted" class="btn btnattempt"
+          routerLink="/assessment/paper/test-instructions/{{paperDetails?.learner_exam?.exam?.id}}"
+          [queryParams]="{paper: newlyCreatedPaperId}">Attempt Now</a>
+      </div>
+      <div *ngIf="!isAccepted && !submitStatus" class="mt-2">
+        <a class="btn btnShare  " (click)="acceptPaper()">
+          Accept
+        </a>
+      </div>
+    </div> -->
+    <div *ngIf="paperDetails?.username == userProfileObj?.username" class="col-md-4 offset-md-3 allData">
+      <div class="mt-2">
+        <a style="color: brown"><b>You can't accept the paper shared by you!</b></a>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!isAuthenticated" class="row">
+    <div class="col-md-12">
+      <h4 class="text-center mt-4 notLoggedIn">
+        “You need to login first in order to attempt the
+        <span>PAPER</span>/<span>PRACTICE</span> shared by your friend(s)”
+        <!-- You must Login first inorder to view the shared <span>PAPER</span>/<span>PRACTICE</span> -->
+      </h4>
+    </div>
+  </div>
+
+  <!-- <div class="row"> -->
+
+  <!-- </div> -->
+
+  <div class="row">
+    <!-- <div class="col-md-4 offset-md-3 mt-5 squareDiv" *ngFor="let instruction of instructions">
+          <div><h6 [innerHtml]="instruction.instruction"></h6></div>
+        </div> -->
+    <!-- <div class="col-md-4 offset-md-3 mt-5 squareDiv"> -->
+    <!-- <div class="squareFive">Exam</div> -->
+    <!-- <div><h6>Sharer: {{paperDetails?.full_name}}</h6></div>
+          </div> -->
+    <!-- <div class="col-md-4 mt-5  squareDiv">
+          <div><h6>Exam: {{paperDetails?.learner_exam?.exam?.title}}</h6></div>
+        </div> -->
+    <!-- <div class="col-md-4 mt-4 offset-md-3 squareDiv">
+          <div *ngIf="paperDetails?.show_time"><h6>Ideal Time Visible: Yes</h6></div>
+          <div *ngIf="!paperDetails?.show_time"><h6>Ideal Time Visible: No</h6></div>
+        </div> -->
+    <!-- <div class="col-md-12 d-flex justify-content-center">
+            <div *ngIf="isAccepted">
+                <a class="mt-5 btn btnShare btn-lg">Accepted</a>
+                <a class="mt-5 btn btnReAttempt btn-lg" routerLink="/assessment/paper/test-instructions/{{paperDetails?.learner_exam?.exam?.id}}" [queryParams]="{paper: paperDetails?.id}">Attempt Now</a>
+              </div>
+            <div *ngIf="!isAccepted">
+                <a class="btn btn-success  mt-5 ml-3 btn-lg" (click)="acceptPaper()">
+                    Accept
+                </a>
+            </div>
+          
+        </div> -->
+  </div>
+</div>

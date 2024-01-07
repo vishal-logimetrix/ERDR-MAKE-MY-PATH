@@ -1,0 +1,34 @@
+<div class="card">
+        <div class="card-body">
+            <p style="font-size: xx-large;font-weight: 400;">Instructions</p>
+            <hr>
+            <p style="font-size: larger;">Download The File For Question Uploading Instructions.</p>
+            <div class="row">
+                <div class="col-6">
+                    <button (click)="downloadFile()" type="button" class="btn btn-primary" id="design_details" >DOWNLOAD 
+                    <i class="fa fa-download"></i>
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="card">
+            <div class="card-body">
+                <p style="font-size: xx-large;font-weight: 400;text-align: center;">FORM</p>
+                <hr>
+                <div class="row" id="file">
+                    <p>Upload CSV <span style="color: red;">* </span>: &nbsp;&nbsp;</p>
+                    <!-- <input type="file" ng2FileSelect /> -->
+                    <input type="file" id="csvFile">
+                </div>
+                <button (click)="submitCSV()" type="button" class="btn btn-primary" id="design_details1" >SUBMIT
+                </button>
+                <div class="form-group row alert alert-success" id="successMsg" *ngIf="successMsg">
+                    {{ successMsg }}
+                </div>
+                <div class="form-group row alert alert-danger" id="errors" *ngIf="errors">
+                    {{ errors }}
+                </div>
+            </div>
+        </div>

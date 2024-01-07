@@ -1,0 +1,129 @@
+
+.container-sharing {
+  min-height: 100vh;
+  padding-bottom: 50px;
+  padding-top: 17px;
+  .btnLeaderboard {
+    padding: 0;
+    font-family: "jaldi", Sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #007bba;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  h2 {
+    color: #000000;
+    font-size: 3em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: "Jaldi", sans-serif;
+    text-align: center;
+    // margin-top: -15px;
+    span {
+      color: #007bba;
+      font-weight: 700;
+    }
+  }
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ffffff;
+    margin: 0 0 1em 0;
+    padding: 0;
+  }
+  .card {
+    background: #ffffff;
+    border-radius: 10px;
+    border: none;
+    padding: 15px 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    .paperCount {
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 22px;
+      font-family: "jaldi", sans-serif;
+    }
+    .paperPracticeName {
+      color: #000000;
+      font-weight: bold;
+      font-size: 19px;
+      font-family: "jaldi", sans-serif;
+      margin: 6px 0;
+    }
+    .allSubjects {
+      font-weight: bold;
+      font-size: 16px;
+      font-family: "jaldi", sans-serif;
+      margin: 4px 0;
+      span {
+        color: #5a5a5a;
+        font-weight: normal;
+      }
+    }
+    .attemptNow {
+      background: #ffffff;
+      border: 1px solid #fe9600;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.32);
+      border-radius: 5px;
+      color: #fe9600;
+      font-weight: bold;
+      font-size: 14px;
+      font-family: "jaldi", sans-serif;
+      width: 121.88px;
+      height: 29.6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .attemptNow:hover {
+      background-color: #fe9600;
+      color: #FFFFFF;
+    }
+    .reportCard {
+      background: #ffffff;
+      border: 1px solid #00c6ff;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.32);
+      border-radius: 5px;
+      color: #00c6ff;
+      font-weight: bold;
+      font-size: 14px;
+      font-family: "jaldi", sans-serif;
+      width: 121.88px;
+      height: 29.6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .reportCard:hover {
+      background-color: #00c6ff;
+      color: #FFFFFF;
+    }
+    .shareButton {
+      background: #ffffff;
+      border: 1px solid #0ada74;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.32);
+      border-radius: 5px;
+      color: #0ada74;
+      font-weight: bold;
+      font-size: 14px;
+      font-family: "jaldi", sans-serif;
+      width: 121.88px;
+      height: 29.6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .shareButton:hover {
+      background-color: #0ada74;
+      color: #FFFFFF;
+    }
+  }
+}

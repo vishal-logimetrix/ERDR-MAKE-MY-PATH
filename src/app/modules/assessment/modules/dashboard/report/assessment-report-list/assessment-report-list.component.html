@@ -1,0 +1,35 @@
+<div class="ol-section">
+  <div class="dashboard-content">
+    <div class="text-center">
+      <h1>Assessment Test Report</h1>
+      <p class="text-muted" *ngIf="allPackages.length!==0">
+        (Select test to continue)
+      </p>
+    </div>
+    <ng-container *ngFor="let pkg of allPackages">
+      <div class="row mt-4" *ngIf="pkg['report_available_status']">
+        <div class="col-md-12 mb-4">
+          <div class="detail-1">
+            <h4 class="package-title">{{pkg['packagedetails'].title}}</h4>
+          </div>
+        </div>
+        <ng-container *ngFor="let paper of pkg['packagedetails']['assessmentpaper']">
+          <div class="col-md-12 mb-4" *ngIf="paper['attempt_status']['attempted']">
+            <a class="text-white mock-paper" href="javascript:void(0)" (click)="viewReport(paper.id)">
+              <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                  <h4 class="test-title">{{paper.title}}</h4>
+                </div>
+              </div>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <div class="mt-2" *ngIf="!reportAvailable">
+      <h5 class="text-muted text-center">You have not taken any test</h5>
+    </div>
+
+  </div>
+</div>

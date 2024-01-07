@@ -1,0 +1,212 @@
+<!-- after login -->
+<div class="container">
+  <div class=" container-dashboard-home"> 
+    <div class="row topRow">
+      <div class="col-lg-9">
+      
+        <h2 class="deskHeading mainHeading">AI-Enabled Exam <br> Preparation Platform</h2>
+        <div class="row goal">
+          <ng-container *ngFor="let category of examCategories; let i = index">
+          <div *ngIf ="i == 0" class="col-lg-4 col-md-6 mb-3">
+            <div class="card">
+              <!-- <div class="card-body"> -->
+                <h5 class="card-title">{{category?.title}}/<span>Academics</span></h5>
+                <h6 class="card-subtitle mb-2 ">Popular goals</h6>
+                <ul>
+                  <li><span>CBSE 10th</span></li>
+                  <li><span>CBSE 12th</span></li>
+                  <li><span>ICSE 10th</span></li>
+                  <li><span>ICSE 12th</span></li>
+                  <li><span>NTSE</span></li>
+                  <li><span>ISTSE</span></li>
+                  <li><span>NSTSE</span></li>
+                  <li><span>NSEJS</span></li>
+                  <li><span>JNVST</span></li>
+                  <li><span>KVPY</span></li>
+                  <li><span>HBBVS</span></li>
+                </ul>
+                <div class="goalsImage">
+                  <img src="assets/3.png" alt="">
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button routerLink="/assessment/dashboard/all-exams/{{category?.id}}" class="btn btn-sm goAhead">Go Ahead</button>
+                </div>
+              <!-- </div> -->
+            </div>
+          </div>
+          <div *ngIf ="i == 1" class="col-lg-4 col-md-6 mb-3">
+            <div class="card">
+              <!-- <div class="card-body"> -->
+                <h5 class="card-title">{{category?.title}}</h5>
+                <h6 class="card-subtitle mb-2 ">Popular goals</h6>
+                <ul>
+                  <li><span>JEE (Main & Advanced)</span></li>
+                  <li><span>NEET</span></li>
+                  <li><span>CLAT</span></li>
+                  <li><span>NIFT</span></li>
+                  <li><span>NID</span></li>
+                  <li><span>NATA</span></li>
+                  <li><span>GATE</span></li>
+                  <li><span>CAT</span></li>
+                  <li><span>ICAR AIEEA</span></li>
+                  <li><span>WBJEE</span></li>
+                  <li><span>GRE</span></li>
+                  <li><span>SAT</span></li>
+                </ul>
+                <div class="goalsImage">
+                  <img src="assets/2.png" alt="">
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button routerLink="/assessment/dashboard/all-exams/{{category?.id}}" class="btn btn-sm goAhead">Go Ahead</button>
+                </div>
+              <!-- </div> -->
+            </div>
+          </div>
+          <div *ngIf ="i == 2" class="col-lg-4 col-md-6 mb-3">
+            <div class="card">
+              <!-- <div class="card-body"> -->
+               <div>
+                <h5 class="card-title">{{category?.title}}</h5>
+                <h6 class="card-subtitle mb-2 ">Popular goals</h6>
+                <ul>
+                  <li><span>UPSC & State PSC</span></li>
+                  <li><span>SSC</span></li>
+                  <li><span>Banking</span></li>
+                  <!-- <li><span>Insurance</span></li> -->
+                  <li><span>Defence & Police</span></li>
+                  <li><span>Railways</span></li>
+                  <!-- <li><span>TET</span></li> -->
+                  <li><span>Teaching</span></li>
+                  <li><span>State Govt Jobs</span></li>
+                  <li><span>Court Jobs</span></li>
+                  <li><span>PSU</span></li>
+                </ul>
+               </div>
+                <div class="goalsImage">
+                  <img src="assets/job.png" alt="">
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button routerLink="/assessment/dashboard/all-exams/{{category?.id}}" class="btn btn-sm goAhead">Go Ahead</button>
+                </div>
+              <!-- </div> -->
+            </div>
+          </div>
+        </ng-container>
+        </div>
+      </div>
+      <div class="col-md-8 col-lg-3 scrollSection">
+        <div class="row previousExamSection">
+          <div class="col-md-12">
+            <div class="profileDiv">
+              <div>
+                <img *ngIf="!isAuthenticated" class="profileImage" src="assets/images/avatar-2.png" alt="">
+                <a *ngIf="isAuthenticated" href="javascript:void(0)" routerLink = "/assessment/dashboard/profile">
+                <img *ngIf="!userProfile?.image" class="profileImage" src="assets/images/avatar-2.png" alt="">
+                <img *ngIf="userProfile?.image" class="profileImage" [src]="userProfile?.image"  alt="">
+                </a>
+              </div>
+              <div *ngIf="isAuthenticated"><h2><span>Welcome {{userProfile?.first_name?.split(' ')[0]}}!</span></h2></div>
+              <div *ngIf="!isAuthenticated"><h2><span>Welcome Guest User!</span></h2></div>
+            </div>
+          </div>
+          <h2 class="mobHeading mainHeading">AI-Enabled Exam <br> Preparation Platform</h2>
+          <div class="col-md-12" *ngIf="isAuthenticated">
+            <h3>My Previous Exam</h3>
+          </div>
+          <div class="col-md-12 d-flex justify-content-center" *ngIf="isAuthenticated && spinner">
+            <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          </div>
+          <div class="col-md-12" *ngIf="isAuthenticated && !spinner">
+            <div class="scrollDiv" *ngIf="myExams?.length > 0">
+              <div class="card" *ngFor="let exam of myExams;">
+                <div class="card-body">
+                  <h5 class="card-title text-center">{{exam?.exam?.title}}</h5>
+                  <h6 class="card-subtitle text-muted text-center">Last Attempted: {{exam?.updated_at | date}}, {{exam?.updated_at | date:'h:mm a'}}</h6>
+                  <div class="cardLinkFirstSecond">
+                    <div>
+                      <a class="card-link cardLinkFirst" routerLink="/assessment/dashboard/choose-p/{{exam?.exam?.id}}">Start Again</a>
+                    </div>
+                    <div>
+                      <a href="javascript:void(0)" class="card-link text-muted cardLinkSecond" (click)="setDeletionId(exam?.id)" data-toggle="modal" data-target="#confirmationModal">Remove</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <h6 class="text-danger font-weight-bold mt-4 pathNotCreated" *ngIf = "myExams?.length() < 1">
+                "Hi Learner, you have not added any path so add it to view your previous exam!"
+              </h6> -->
+            </div>
+            <div class="d-flex justify-content-center">
+              <a *ngIf="myExams?.length > 0" href="javascript:void(0)" (click)="clearSelection()" class="removeAllLink" data-toggle="modal" data-target="#confirmationModal">Remove All <span class="iconify ml-1" data-icon="carbon:row-delete" ></span></a>
+            </div>
+            <div *ngIf="myExams?.length < 1">
+              <h5 class="font-weight-bold mt-4 pathNotCreated">
+                "Hi Learner, you have not added any exam so add it to view your previous exam!"
+              </h5>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="!isAuthenticated">
+            <h5 class="font-weight-bold mt-4 pathNotCreated">
+              "Hi Learner, Please Login to discover all the features!"
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create <span>Exam</span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <select name="" id="" class="form-control">
+            <option value="" selected>Sellect Level</option>
+            <option value="">1</option>
+            <option value="">2</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select name="" id="" class="form-control">
+            <option value="" selected>Sellect Exam</option>
+            <option value="">1</option>
+            <option value="">2</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-success">Create Exam</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"  role="document">
+    <div class="modal-content" style="border-radius: 16px;border: none;">
+      <div class="modal-header" style="border: none;">
+        <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #04607D;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+        <button type="button" (click)="clearSelection()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="deletionExamId" class="text-center" style="color: #544F4F; font-size: 16px;">Are you sure you want to remove this previous exam?</p>
+        <p *ngIf="!deletionExamId" class="text-center" style="color: #544F4F; font-size: 16px;">Are you sure you want to remove all previous exam?</p>
+      </div>
+      <div class="modal-footer" style="background-color: #00A3F1; border-radius: 0 0 16px 16px;justify-content: space-between;">
+        <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal" (click)="clearSelection()">Cancel</button>
+        <button *ngIf="deletionExamId" type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" (click)="removeExam(deletionExamId)">Yes, delete it !</button>
+        <button *ngIf="!deletionExamId" type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" (click)="removeAllExams()">Yes, delete it !</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,209 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+.practiceReport {
+  padding: 5vh 0vh;
+  .overallAccuracy{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 20px;
+    color: #333;
+    line-height: 1.4;
+    font-family: 'jaldi', sans-serif;
+  }
+  .totalUser {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    .btn {
+      font-family: "jaldi", Sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #1B50A3;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #FFFFFF;
+    margin: 0 0 1em 0;
+    padding: 0; 
+}
+  
+  .reportFirstRow {
+    display: flex;
+    justify-content: space-between;
+    .backToChapter {
+      .btn {
+        padding: 12px 31px 12px 31px;
+        font-family: "jaldi", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #007bba;
+        background-color: rgba(0, 0, 0, 0);
+        border-style: solid;
+        border-width: 1px 1px 1px 1px;
+        border-color: #007bba;
+        border-radius: 50px 50px 50px 50px;
+        box-shadow: 19px 19px 40px 0px rgb(0 0 0 / 10%);
+        span {
+          margin-right: 8px;
+        }
+      }
+    }
+    .practiceAgain {
+      .btn {
+        padding: 12px 31px 12px 31px;
+        font-family: "jaldi", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #ffffff;
+        background-color: #007bba;
+        border-style: solid;
+        border-width: 1px 1px 1px 1px;
+        border-color: #057ebc;
+        border-radius: 49px 49px 49px 49px;
+        box-shadow: 19px 19px 40px 0px rgb(0 0 0 / 10%);
+        span {
+          margin-left: 6px;
+        }
+      }
+    }
+  }
+  .practiceReportHeading {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.4;
+    font-family: "jaldi", sans-serif;
+    text-align: center;
+    span {
+      color: #007bba;
+    }
+  }
+  .practiceReportSubHeading {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.5);
+    line-height: 1.4;
+    font-family: "jaldi", sans-serif;
+    text-align: center;
+    margin-bottom: 0;
+  }
+  
+  .topCard {
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 50%);
+    border-radius: 10px;
+    padding: 60px 10px;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    .highchartsStyleSecond{
+      height: 10vh;
+    }
+    .col-xl-6 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      h5 {
+        color: #333333;
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        font-family: "jaldi", sans-serif;
+      }
+      h6 {
+        margin-bottom: 0px;
+        color: #808080;
+        font-size: 15px;
+        font-weight: 400;
+        font-family: "jaldi", sans-serif;
+        margin-top: -10px;
+      }
+    }
+  }
+  .lastCard {
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 0px 0px 0px 5px;
+    border-color: #007bba;
+    box-shadow: 29px 29px 60px 0px rgb(0 0 0 / 20%);
+    padding: 36px 36px 36px 36px;
+    margin-top: 50px;
+    .row{
+      align-items: center;
+    }
+    h2 {
+      margin: 0px 0px 45px 0px;
+      font-family: "Lato", Sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: #333;
+      line-height: 1.4;
+      span {
+        color: #07cb22;
+      }
+    }
+    p {
+      font-family: 'Lato', Sans-serif;
+      font-size: 16px;
+      margin: 10px 0px;
+      font-weight: 400;
+      line-height: 24px;
+      span{
+          font-weight: bold;
+      }
+    }
+    .btn{
+        padding: 17px 50px 17px 50px;
+        font-family: "Lato", Sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #ffffff;
+        background-color: #007bba;
+        border-style: solid;
+        border-width: 1px 1px 1px 1px;
+        border-color: #ffcc03;
+        border-radius: 50px 50px 50px 50px;
+        box-shadow: 19px 19px 40px 0px rgb(0 0 0 / 10%);
+    }
+    .btn:hover{
+        background-color: #ff4935;
+    }
+    .col-xl-4{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+  }
+}
+
+
+@media screen and (max-width: 575px){
+  .practiceReport{
+    .practiceReportHeading{
+      font-size: 35px;
+    }
+  }
+  .smallDevicePadding{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media screen and (max-width:350px){
+  .practiceReport{
+    .lastCard{
+      .btn{
+        font-size: 11px;
+      }
+    }
+  }
+}

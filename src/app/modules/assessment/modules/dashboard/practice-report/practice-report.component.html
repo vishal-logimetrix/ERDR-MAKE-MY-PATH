@@ -1,0 +1,131 @@
+<div class="container practiceReport" id="printinvoice">
+  <div class="row reportFirstRow">
+    <div class="backToChapter">
+      <a class="btn" target="_blank" routerLink="/assessment/dashboard/practice-report/{{paperId}}" [queryParams]="{download: 'true'}"><span><i class="fas fa-arrow-down"></i></span> Download Report</a>&nbsp;
+    </div>
+    <div class="practiceAgain">
+      <button *ngIf="paperDetails" class="btn" (click)="submitFilterForm()">Practice again <span><i class="fas fa-redo"></i></span></button>
+    </div>
+  </div>
+  <h2 class="practiceReportHeading">Practice Report Card</h2>
+  <div class="totalUser">
+    <div><button class="btn" routerLink="/assessment/dashboard/practice/{{paperDetails?.learner_exam?.exam?.id}}"><span><i class="fas fa-angle-double-left mr-1"></i></span>CHAPTER</button></div>
+    <div><p class="practiceReportSubHeading">{{paperDetails?.chapters[0].subject?.title}} : {{paperDetails?.chapters[0].title}}</p></div>
+    <!-- <div><span style="color: #f5f5f5;">total users : 0000</span></div> -->
+</div>
+<div><hr></div>
+  <div class="row">
+      <div class="col-md-12">
+        <div class="d-flex justify-content-center" style="height: 270px;" *ngIf="showGraph">
+            <highcharts-chart
+                [Highcharts] = "highcharts" 
+                [options] = "chartOptions" 
+                class="highchartsStyle"
+                >
+            </highcharts-chart>
+            
+           </div>
+      </div>
+      <div class="col-md-12">
+        <div class="d-flex justify-content-center"><h2><b>{{reportObj?.report_data?.corrected}}/{{reportObj?.report_data?.totalquestion}}</b></h2></div><br>
+          <div class="d-flex justify-content-center">
+          <h2 class="overallAccuracy">Correct</h2>
+          </div>
+      </div>      
+  </div>
+  <div class="row">
+      <div class="col-xl-4 col-lg-6 col-md-6">
+          <div class="card topCard">
+              <div class="row">
+                  <div class="col-md-6">
+                      <div><h5>{{reportObj?.report_data?.attempted}}/{{reportObj?.report_data?.totalquestion}}</h5></div>
+                      <div><h6>Attempted</h6></div>
+                  </div>
+                  <div class="col-md-6" >
+                      <div  *ngIf="showGraph">
+                        <highcharts-chart
+                        [Highcharts] = "highcharts" 
+                        [options] = "chartOptionsa" 
+                        class="highchartsStyleSecond"
+                        >
+                        </highcharts-chart>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="card topCard">
+            <div class="row">
+                <div class="col-md-6">
+                    <div><h5>{{reportObj?.report_data?.skipped}}/{{reportObj?.report_data?.totalquestion}}</h5></div>
+                    <div><h6>Skipped</h6></div>
+                </div>
+                <div class="col-md-6">
+                    <div  *ngIf="showGraph">
+                        <highcharts-chart
+                        [Highcharts] = "highcharts" 
+                        [options] = "chartOptionsb" 
+                        class="highchartsStyleSecond"
+                        >
+                        </highcharts-chart>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="card topCard">
+            <div class="row">
+                <div class="col-md-6">
+                    <div><h5>{{reportObj?.report_data?.incorrected}}/{{reportObj?.report_data?.totalquestion}}</h5></div>
+                    <div><h6>Incorrect</h6></div>
+                </div>
+                <div class="col-md-6">
+                    <div  *ngIf="showGraph">
+                        <highcharts-chart
+                        [Highcharts] = "highcharts" 
+                        [options] = "chartOptionsc" 
+                        class="highchartsStyleSecond"
+                        >
+                        </highcharts-chart>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card lastCard">
+              <div class="row">
+                  <div class="col-xl-8 col-lg-12">
+                      <div>
+                          <h2 *ngIf="excellent"><span>Excellent!</span> Well done! Keep it Up!.</h2>
+                          <h2 *ngIf="average"><span style="color: orange;">Going Good!</span> Keep Practicing.</h2>
+                          <h2 *ngIf="poor"><span style="color: orangered;">Oops!</span> You didn't perform well this time. You need to Practice more.</h2>
+                          <h2 *ngIf="!excellent && !average && !poor"><span style="color: blue;">Hmm!</span> No Attempt Record Found. Keep Practicing!</h2>
+                        </div>
+                      <div>
+                        <p *ngIf="excellent">You are excellent in <b>{{ excellent }}</b> chapter. Well done, keep it up!
+                        </p>
+                        <p *ngIf="poor">You couldn't make in the chapter <b>{{ poor }}</b> and need more practice :(
+                        </p>
+                        <p *ngIf="average">You are doing good enough in {{average}} chapter. But you need more practice.
+                        </p>
+                        <p *ngIf="!excellent && !average && !poor && hasSubjective">It seems you attempted all the subjective questions, and our system doesn't evaluate subjective category, hence we suggest you to review the answers on your own :)
+                        </p>
+                        <p *ngIf="!excellent && !average && !poor && !hasSubjective">It seems you did not attempt any question.
+                        </p>
+                        </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-12">
+                      <div>
+                          <button class="btn" routerLink="/assessment/paper/solutions/{{paperDetails?.learner_exam?.exam?.id}}" [queryParams]="{paper: paperId}">review questions</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

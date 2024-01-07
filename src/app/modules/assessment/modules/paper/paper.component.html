@@ -1,0 +1,24 @@
+<div class="network-available text-white" appOnlineOffline></div>
+<div id="sidebar" [ngClass]="{'inactive': !showSidebar}">
+  <app-sidebar></app-sidebar>
+</div>
+<div id="test-content" class="position-relative">
+  <div id="content" [ngClass]="{'active': !showSidebar || isMobile}">
+    <app-navbar></app-navbar>
+  </div>
+  
+  <router-outlet></router-outlet>
+
+  <div id="loader" class="paper-loader" *ngIf="showLoader.visibility && showLoader.type==='full'">
+    <img src="{{env.static}}/images/gif/loader.gif" alt="">
+  </div>
+
+  <div id="short-loader" *ngIf="showLoader.visibility && showLoader.type==='short'">
+    <img src="{{env.static}}/images/gif/short-loader.gif" alt="">
+  </div>
+
+  <div id="short-loader" *ngIf="showLoader.visibility && showLoader.type==='disabled'">
+    Test will reload automatically, When Network is available
+  </div>
+
+</div>

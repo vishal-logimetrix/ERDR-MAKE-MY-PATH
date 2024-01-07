@@ -1,0 +1,152 @@
+<div *ngIf="abcd" class="makePaper container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mainHeading">{{goalDetails?.title}}</h2>
+            <h6 class="text-center endDate">End Date : {{goalDetails?.last_date | date}}</h6>
+            <div class="">
+                <div class="totalUser">
+                    <div><span>{{examDetails?.title}}</span></div>
+                    <div><span>Total Users : {{totalusers}}</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 d-flex justify-content-center topStepsSection">
+            <div class="OuterDiv">
+                <!-- <div class="innerDiv" *ngFor="let number of [0,1,2]">
+                  
+                        <div class="stepCircle"
+                    [ngClass]="{
+                        'checkedBG': number + 1 < currentStep,
+                        'currentBG': number + 1 ==  currentStep,
+                        'nextBG': number + 1 > currentStep
+                        }"
+                    >
+                        <h6 *ngIf="number + 1 >= currentStep">{{number + 1}}</h6>
+                        <h6 *ngIf="number + 1 < currentStep"><i class="fa fa-check" aria-hidden="true"></i></h6>
+                    </div>
+               
+                </div> -->
+                <!-- <div class="horizontalLine"></div> -->
+            </div>
+        </div>
+        <div class="col-md-12"><hr></div>
+        <!-- <div class="col-md-3 chooseChapterCard">
+            <div class="stepSection">
+                
+                <div class="stepDiv" *ngFor="let number of [0,1,2,3,4]">
+                    <div class="stepCircle"
+                    [ngClass]="{
+                        'checkedBG': number + 1 < currentStep,
+                        'currentBG': number + 1 ==  currentStep,
+                        'nextBG': number + 1 > currentStep
+                        }"
+                    >
+                        <i class="fas"
+                        [ngClass]="{
+                            'fa-check': number + 1 < currentStep,
+                            'fa-sort-numeric-down': number + 1 ==  currentStep,
+                            'fa-chevron-down': number + 1 > currentStep
+                            }"
+                        ></i>
+                    </div>
+                    <div class="stepText">
+                        <div class="stepNumber"><h5
+                            [ngClass]="{
+                                'checkedColor': number + 1 < currentStep,
+                                'currentColor': number + 1 ==  currentStep,
+                                'nextColor': number + 1 > currentStep
+                                }"
+                            >Step {{number + 1}}</h5></div>
+                        <div 
+                        [ngClass]="{
+                            'activeColor': number + 1 <= currentStep,
+                            'inActiveColor': number + 1 > currentStep
+                            }"
+                        >
+                            <h3 *ngIf = "number == 0">Set your goal name</h3>
+                            <h3 *ngIf = "number == 1">Syllabus to be complete</h3>
+                            <h3 *ngIf = "number == 2">Select date of completion</h3>
+                            <h3 *ngIf = "number == 3">Take a self evaluation</h3>
+                            <h3 *ngIf = "number == 4">Check Your knowledge</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12" *ngFor="let number of [0,1,2]; let i = index">
+                    <div class="progressSection">
+                        <div class="statusCircle" [ngClass]="{
+                            'checkedBG': number + 1 < currentStep,
+                            'currentBG': number + 1 ==  currentStep,
+                            'nextBG': number + 1 > currentStep
+                            }"><h6 *ngIf="number + 1 < currentStep"><i class="fa fa-check" aria-hidden="true"></i></h6></div>
+                        <div>
+                            <h4 *ngIf="number == 0">Path Creation</h4>
+                            <h4 *ngIf="number == 1">Syllabus Selection</h4>
+                            <h4 *ngIf="number == 2">Assessment</h4>
+                        </div>
+                        <ng-container *ngIf="number.index === 0">
+                        <div class="horizontalLine"></div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9" *ngIf="currentStep == 3">
+            <div class="row">
+                <!-- <div class="col-md-5">
+                    <div class="card" style="cursor: pointer;" (click)="generateAssessmentPaper()">
+                        <h2>Take Self  <br> <span>Evaluation</span></h2>
+                    </div>
+                </div> -->
+                <div class="col-md-5">
+                    <div class="card" style="cursor: pointer;" (click)="goalExamCreation()">
+                        <h2>Take <br> <span>Assessment</span></h2>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card" style="cursor: pointer;" (click)="generateAssessmentPaper()">
+                        <h2>Take Self  <br> <span>Evaluation</span></h2>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <div class="mockNextButton">
+                        <div class="mockAndNext">
+                            <div>
+                                <button class="btn nextButton nextButtonDesktop"  (click)="goToCreateMyPath()">Next<i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                                <button class="btn nextButton nextButtonMobile"  (click)="goToCreateMyPath()">Next <i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="col-md-12" *ngIf="currentStep == 5">
+            <div class="row" >
+                <div class="col-md-5">
+                    <div class="card" style="cursor: pointer;" (click)="goalExamCreation()">
+                        <h2>Take <br> <span>Assessment</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mockNextButton">
+                        <div class="mockAndNext">
+                            <div>
+                                <button class="btn nextButton nextButtonDesktop" >Create My Path<i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                                <button class="btn nextButton nextButtonMobile"  >Create My Path <i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

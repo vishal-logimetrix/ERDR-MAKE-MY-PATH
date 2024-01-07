@@ -1,0 +1,41 @@
+.mock-paper {
+
+  .card {
+    flex-wrap: wrap;
+    justify-content: center;
+    background: linear-gradient(135deg, #03a9f4 0%, #3adbf1 100%);
+    box-shadow: 0.2rem 0.2rem 1rem rgba(27, 162, 184, 0.4) !important;
+  }
+
+
+
+  .card-footer {
+    background-color: transparent;
+  }
+
+  .card-header {
+    background-color: transparent;
+  }
+}
+
+
+@media (max-width:768px) {
+
+  .card {
+    flex-wrap: wrap;
+  }
+
+  .card-body {
+    padding-top: .5rem;
+    padding-bottom: .5rem
+  }
+
+  .card-header {
+    padding-top: .5rem;
+    padding-bottom: .5rem
+  }
+
+  .card-footer {
+    padding-top: .5rem;
+  }
+}

@@ -1,0 +1,52 @@
+<div class="mc-section" *ngIf="myPackages">
+  <div class="dashboard-content content">
+    <div class="my-packages">
+      <h2 class="text-black">
+        My Assessment
+      </h2>
+
+      <div class="row mt-4" *ngIf="myPackages">
+        <div class="col-md-12 mb-4 column-margin" *ngFor="let pkg of myPackages">
+          <div class="card flex-row border-0 align-items-center">
+            <div class="card-header border-0">
+              <div class="detail-1">
+                <h4 class="package-title">{{ pkg.packagedetails.title }}</h4>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="ml-4">
+                <span class="mb-0">
+                  <span *ngIf="pkg.packagedetails.mockpaper" class="test-title">Practice Tests:</span>
+                  {{ pkg.packagedetails.mockpaper.length }}
+                </span>
+                <span class="mb-0 ml-4">
+                  <span  *ngIf="pkg.packagedetails.assessmentpaper" class="test-title">Assessment Tests:</span>
+                  {{ pkg.packagedetails.assessmentpaper.length }}
+                </span>
+              </div>
+            </div>
+
+            <div class="card-footer border-0 d-flex">
+              <button type="button" class="btn bg-white mr-4 shadow-sm start-now"
+                (click)="viewPackage(pkg.packagedetails.id)">
+                Schedule & Syllabus
+              </button>
+              <button type="button" class="btn btn-info start-now" (click)="showTests(pkg.packagedetails.id)">
+                Start Now
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- No Assessment Purchased -->
+      <div class="mt-4" *ngIf="!myPackagesAvailable">
+        <a routerLink="/all-packages" class="text-info">
+          <h4>Choose the best package to get the best of APTINATION</h4>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,196 @@
+.instructionDiv {
+    background-color: #f3f3f3;
+    min-height: 100vh;
+    .agree {
+        margin-left: 30px;
+        img {
+            height: 50px;
+        }
+        span {
+            position: absolute;
+            margin-left: -60px;
+            color: #ffffff;
+            font-family: GOTHICB;
+            font-size: 14px;
+            margin-top: 14px;
+        }
+    }
+    .start {
+        margin-left: 25px;
+        img {
+            height: 50px;
+            // margin-top: 5px;
+        }
+        span {
+            position: absolute;
+            margin-left: -75px;
+            color: black;
+            font-family: GOTHICB;
+            font-size: 20px;
+            margin-top: 9px;
+        }
+    }
+    .share {
+        margin-left: 25px;
+        img {
+            height: 50px;
+        }
+        span {
+            position: absolute;
+            margin-left: -55px;
+            color: #ffffff;
+            font-family: GOTHICB;
+            font-size: 14px;
+            margin-top: 14px;
+        }
+    }
+    .instructionImage {
+        height: 60vh;
+    }
+    .instructionData {
+        font-family: GOTHICB;
+    }
+    h2 {
+        font-family: GOTHICB;
+        font-weight: bold;
+        text-align: center;
+        font-size: 40px;
+        padding: {
+            top: 45px;
+        }
+        span {
+            color: #048adf;
+        }
+    }
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #ffffff;
+        margin: 1em 0;
+        padding: 0;
+    }
+    .dataDiv {
+        text-align: center;
+        padding-top: 40px;
+        display: flex;
+        justify-content: center;
+        h5 {
+            font-weight: bold;
+            color: #048adf;
+            margin-right: 20px;
+            border: 1px solid #048adf;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    }
+    .squareDiv {
+        display: flex;
+        margin: {
+            top: 15px;
+        }
+        .squareOne {
+            width: 50px;
+            height: 50px;
+            background-color: #28A745;
+            border-radius: 10px;
+        }
+        .squareTwo {
+            width: 50px;
+            height: 50px;
+            background-color: #ED3433;
+            border-radius: 10px;
+        }
+        .squareThree {
+            width: 50px;
+            height: 50px;
+            background-color: #ffff00;
+            border-radius: 10px;
+        }
+        .squareFour {
+            width: 50px;
+            height: 50px;
+            background-color: #fdec00;
+            border-radius: 10px;
+        }
+        .squareFive {
+            width: 50px;
+            height: 50px;
+            // background-color: #999999;
+            background-color: #989898;
+            border-radius: 10px;
+        }
+        h6 {
+            margin: {
+                top: 15px;
+                left: 10px;
+            }
+            font-family: CenturyGothicRegular;
+            font: {
+                weight: bold;
+                color: #8d8d8c;
+            }
+        }
+    }
+    .btnShare {
+        border-radius: 30px;
+        width: 150px;
+        // font-weight: bold;
+        text-transform: uppercase;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+    }
+    .btn-success {
+        border-radius: 30px;
+        width: 150px;
+        // font-weight: bold;
+        text-transform: uppercase;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+    }
+    .btn-success:hover {
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        transform: translateY(-7px);
+    }
+    .btnShare:hover {
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        transform: translateY(-7px);
+    }
+    .fa-check {
+        color: #ffffff;
+        background: #6bb71e;
+        border-radius: 50%;
+        padding: 2px;
+        float: right;
+        font-size: 10px;
+    }
+    .fa-bookmark{
+        color: #ffffff;
+        background: #6bb71e;
+        border-radius: 50%;
+        padding: 3px;
+        float: left;
+        font-size: 9px;
+    }
+}
+
+.btnShare {
+    background-color: #c9c7c7;
+}
+
+@media screen and (max-width:767px){
+    .instructionDiv{
+        h2{
+            font-size: 25px;
+        }
+        .squareDiv{
+            flex-direction: column;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            h6{
+                font-size: 15px;
+            }
+        }
+        
+    }
+}

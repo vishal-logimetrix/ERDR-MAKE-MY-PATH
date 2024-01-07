@@ -1,0 +1,249 @@
+<div class="containerMyMentors container">
+    <div class="row">
+        <div class="col-md-9">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item activeLinks"><a 
+                        href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span>Make My Path</span></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-12">
+            <h2 class="examTitle text-center">Make My<span> PATH</span></h2>
+            <div class="totalUser">
+                <div><button class="btn float-left btnLeaderboard" routerLink="/assessment/dashboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button></div>
+                <div><span><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></span></div>
+                <div><span>Total Users : {{totalusers}}</span></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <div class="col-xl-9 col-lg-8">
+            <div class="milestoneDiv">
+                <img src="assets/goalPath/gifImage.gif" alt="">
+                <!-- <div class="pathImageDiv">
+                    <img class="pathImage" src="assets/mapImage.png" alt="">
+                    <div *ngIf="showContentOverlay" class="Overlay">
+                        <img src="assets/cupImage.png" alt="">
+                    </div>
+                    <div *ngIf="showContent" class="OverlayFirst">
+                        <h2>Goal Setting</h2> <br>
+                        <img class="pathIconImage" src="assets/pathIcon.png" alt="">
+                    </div>
+                    <div *ngIf="showContentSecond" class="OverlaySecond">
+                        <h2>Self Evaluation</h2> <br>
+                        <img class="pathIconImage" src="assets/pathIcon.png" alt="">
+                    </div>
+                    <div *ngIf="showContentThird" class="OverlayThird">
+                        <h2>DIAGNOSTIC <br> ASSESSMENT</h2> <br>
+                        <img class="pathIconImage" src="assets/pathIcon.png" alt="">
+                    </div>
+                    <div *ngIf="showContentFourth" class="OverlayFourth">
+                        <h2>WEEKLY STUDY <br> GOALS</h2> <br>
+                        <img class="pathIconImage" src="assets/pathIcon.png" alt="">
+                    </div>
+                    <div *ngIf="showContentFifth" class="OverlayFifth">
+                        <h2>REGULAR ASSESSMENT</h2> <br>
+                        <img class="pathIconImage" src="assets/pathIcon.png" alt="">
+                    </div>
+                </div> -->
+                <button class="btn createPathButton" routerLink="/assessment/dashboard/add-goal/{{examId}}">Create New
+                    Path</button>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4">
+            <div class="goalsList">
+                <h2 class="myPathsHeading text-center">My <span>PATH</span></h2>
+                <div class="row">
+                    <div class="col-md-12 listOfAllGoals" *ngFor="let goal of goals; index as i">
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#confirmationModal" style="visibility: hidden;" #openModal></a>
+                        <div *ngIf="!goal?.evaluation_done" class="card" style="cursor: pointer;"
+                            routerLink="/assessment/paper/self-assessment-paper/{{examId}}"
+                            [queryParams]="{paper: goal?.evaluation_paper_id}">
+
+                            <a href="javascript:void(0)" (click)="setDeletionId($event, goal?.id)"><span class="iconify" data-icon="carbon:row-delete"></span></a>
+                            <div class="goalImageName">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="goalImage">
+                                            <img  src="assets/jeeMain.png" alt="">
+                                            </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h2 class="goalName">{{goal?.title}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-center pathNumber">Path - {{goals?.length - i}}</h3>
+                            <h2 class="text-center notCompleted"><img src="assets/incomplete.png" alt=""> <span class="ml-2">Not Completed</span></h2>
+                            <h4 class="subjectList">Subject(s) : &nbsp;<span *ngFor="let subject of goal?.subjects; let i = index"> {{subject?.title}}<span *ngIf = "goal?.subjects.length > 1 && goal?.subjects.length  > i + 1">, &nbsp;</span> </span></h4>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3 class="otherDetails">Created On : <span>{{goal?.created_at | date}}</span></h3>
+                                </div>
+                                <div>
+                                    <!-- <h3 class="otherDetails">Ending On : <span>{{goal?.last_date | date}}</span></h3> -->
+                                    <h3 class="otherDetails" *ngIf="calculateDiff(goal?.last_date | date) > 0">Ending On : <span>{{goal?.last_date | date}}</span></h3>
+                                    <h3 class="otherDetails" *ngIf="calculateDiff(goal?.last_date | date) <= 0">Expired On : <span>{{goal?.last_date | date}}</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="goal?.evaluation_done && (goal?.assessment_done || goal?.assessment_skipped)" class="card" style="cursor: pointer;" routerLink="/assessment/dashboard/goal-path/{{goal?.id}}" [queryParams]="{exam: examId}">
+                            <a href="javascript:void(0)" (click)="setDeletionId($event, goal?.id)" ><span class="iconify" data-icon="carbon:row-delete"></span></a>
+                            <div class="goalImageName">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="goalImage">
+                                            <img  src="assets/jeeMain.png" alt="">
+                                            </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h2 class="goalName">{{goal?.title}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-center pathNumber">Path - {{goals?.length - i}}</h3>
+                            <p class="text-center notCompleted" *ngIf="((goal?.learn_percentage + goal?.revise_percentage)>=200)" style="color: green; text-align: center;">Complete</p>
+                            <p class="text-center notCompleted" *ngIf="calculateDiff(goal?.last_date | date) > 0 && ((goal?.learn_percentage + goal?.revise_percentage)<200)" style="color: orange; text-align: center;">In Progress</p>
+                            <p class="text-center notCompleted" *ngIf="calculateDiff(goal?.last_date | date) <= 0 && ((goal?.learn_percentage + goal?.revise_percentage)<200)" style="color: orangered; text-align: center;">Expired</p>
+                            <div class="progressBarDiv">
+                                <!-- <div><h2>{{goal?.learn_percentage}}%</h2></div> -->
+                                    <!-- <div style="height: 17px;" class="progress">
+                                        <div class="progress-bar bg-success " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" >
+        
+                                        </div>
+                                    </div> -->
+                            </div>
+                            <h2 class="text-right daysLeft">{{calculateDiff(goal?.last_date | date)}} days left!</h2>
+                            <h4 class="subjectList">Subject(s) :&nbsp; <span *ngFor="let subject of goal?.subjects; let i = index"> {{subject?.title}}<span *ngIf = "goal?.subjects.length > 1 && goal?.subjects.length  > i + 1">, &nbsp;</span> </span></h4>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3 class="otherDetails">Created On : <span>{{goal?.created_at | date}}</span></h3>
+                                </div>
+                                <div>
+                                    <!-- <h3 class="otherDetails" *ngIf="((goal?.learn_percentage + goal?.revise_percentage)>=200)"></h3>
+                                    <h3 class="otherDetails" *ngIf="calculateDiff(goal?.last_date | date) > 0 && ((goal?.learn_percentage + goal?.revise_percentage)<200)">Ending On : <span>{{goal?.last_date | date}}</span></h3>
+                                    <h3 class="otherDetails" *ngIf="calculateDiff(goal?.last_date | date) <= 0 && ((goal?.learn_percentage + goal?.revise_percentage)<200)">Expired On : <span>{{goal?.last_date | date}}</span></h3> -->
+                                    <h3 class="otherDetails" *ngIf="calculateDiff(goal?.last_date | date) > 0">Ending On : <span>{{goal?.last_date | date}}</span></h3>
+                                    <h3 class="otherDetails" *ngIf="calculateDiff(goal?.last_date | date) <= 0">Expired On : <span>{{goal?.last_date | date}}</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="goal?.evaluation_done && !goal?.assessment_done && !goal?.assessment_skipped" class="card" style="cursor: pointer;" (click)="goalExamCreation(goal?.id)">
+                            <a href="javascript:void(0)" (click)="setDeletionId($event, goal?.id)" ><span class="iconify" data-icon="carbon:row-delete"></span></a>
+                            <div class="goalImageName">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="goalImage">
+                                            <img  src="assets/jeeMain.png" alt="">
+                                            </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h2 class="goalName">{{goal?.title}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-center pathNumber">Path - {{goals?.length - i}}</h3>
+                            <p class="text-center notCompleted" *ngIf="((goal?.learn_percentage + goal?.revise_percentage)>=200)" style="color: green; text-align: center;">Complete</p>
+                            <p class="text-center notCompleted" *ngIf="calculateDiff(goal?.last_date | date) > 0 && ((goal?.learn_percentage + goal?.revise_percentage)<200)" style="color: orange; text-align: center;">In Progress</p>
+                            <p class="text-center notCompleted" *ngIf="calculateDiff(goal?.last_date | date) <= 0 && ((goal?.learn_percentage + goal?.revise_percentage)<200)" style="color: orangered; text-align: center;">Expired</p>
+                            <div class="progressBarDiv">
+                                <!-- <div><h2>{{goal?.learn_percentage}}%</h2></div> -->
+                                    <!-- <div style="height: 17px;" class="progress">
+                                        <div *ngIf="goal?.learn_percentage<35" class="progress-bar bg-danger " [ngStyle]="{ 'width': goal?.learn_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                                        <div *ngIf="goal?.learn_percentage>=35 && goal?.learn_percentage<81" class="progress-bar bg-warning " [ngStyle]="{ 'width': goal?.learn_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                                        <div *ngIf="goal?.learn_percentage>80" class="progress-bar bg-success" [ngStyle]="{ 'width': goal?.learn_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                                    </div> -->
+                            </div>
+                            <h2 class="text-right daysLeft">{{calculateDiff(goal?.last_date | date)}} days left!</h2>
+                            <h4 class="subjectList">Subject(s) : &nbsp;<span *ngFor="let subject of goal?.subjects; let i = index"> {{subject?.title}}<span *ngIf = "goal?.subjects.length > 1 && goal?.subjects.length  > i + 1">,&nbsp; </span> </span></h4>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h3 class="otherDetails">Created On : <span>{{goal?.created_at | date}}</span></h3>
+                                </div>
+                                <div>
+                                    <!-- <h3 class="otherDetails" *ngIf="((goal?.learn_percentage + goal?.revise_percentage)>=200)"></h3> -->
+                                    <h3 class="otherDetails" *ngIf="calculateDiff(goal?.last_date | date) > 0">Ending On : <span>{{goal?.last_date | date}}</span></h3>
+                                    <h3 class="otherDetails" *ngIf="calculateDiff(goal?.last_date | date) <= 0">Expired On : <span>{{goal?.last_date | date}}</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-12">
+                        <div class="card">
+                            <div class="goalImage">
+                            <img  src="assets/jeeMain.png" alt="">
+                            </div>
+                            <h2 class="goalName">Jee Main</h2>
+                            <h3 class="otherDetails">50 Chapters</h3>
+                            <h3 class="otherDetails">01/02/2022</h3>
+                            <div class="progressBarDiv">
+                                <div><h2>35%</h2></div>
+                                    <div style="height: 17px;" class="progress">
+                                        <div class="progress-bar bg-success " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" >
+        
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row allMentorCard">
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="col-md-12">
+                <div class="card addNewMentor" style="cursor: pointer;" routerLink="/assessment/dashboard/add-goal/{{examId}}">
+                    <h5>Add New PATH</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-6">
+            <div class="row">
+                <div class="col-xl-4 col-lg-6" *ngFor="let goal of goals"> 
+                    <div *ngIf="goal?.evaluation_done && goal?.assessment_done" routerLink="/assessment/dashboard/goal-details/{{examId}}" [queryParams]="{goal: goal?.id}" class="card mentors" style="cursor: pointer;">
+                      
+                        <h4>{{goal?.exam?.title}}</h4>
+                        <h5>Goal : <span>{{goal?.title}}</span></h5>
+                    </div>
+                    <div *ngIf="!goal?.evaluation_done" (click)="generateAssessmentPaper(goal?.id)" class="card mentors" style="cursor: pointer;">
+                        <h4>{{goal?.exam?.title}}</h4>
+                        <h5>Goal : <span>{{goal?.title}}</span></h5>
+                    </div>
+                    <div *ngIf="goal?.evaluation_done && !goal?.assessment_done" (click)="goalExamCreation(goal?.id)" class="card mentors" style="cursor: pointer;">
+                        <h4>{{goal?.exam?.title}}</h4>
+                        <h5>Goal : <span>{{goal?.title}}</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div> -->
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+      <div class="modal-content" style="border-radius: 16px;border: none;">
+        <div class="modal-header" style="border: none;">
+          <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #04607D;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+          <button type="button" (click)="clearSelection()" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p  class="text-center" style="color: #544F4F; font-size: 16px;">Are you sure you want to remove this path?</p>
+        </div>
+        <div class="modal-footer" style="background-color: #00A3F1; border-radius: 0 0 16px 16px;justify-content: space-between;">
+          <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal" (click)="clearSelection()">Cancel</button>
+          <button type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" (click)="deactivateGoal(deletionId)">Yes, delete it !</button>
+        </div>
+      </div>
+    </div>
+  </div>

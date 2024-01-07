@@ -1,0 +1,242 @@
+
+.bookmarkQuestions {
+    min-height: 100vh;
+    padding: 16vh 5vw 2vh 5vw;
+    .totalUser {
+        display: flex;
+        justify-content: space-between;
+        color: #18181b;
+        font-family: "jaldi", Sans-serif;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.545em;
+        letter-spacing: 0px;
+        margin-top: -7px;
+        flex-wrap: wrap;
+        a, span {
+            color: #ff4935;
+            font-weight: 600;
+        }
+        .batchName {
+            font-size: 22px;
+        }
+    }
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #FFFFFF;
+        margin: 0 0 1em 0;
+        padding: 0;
+    }
+    .topHeading {
+        color: #080f44;
+        font-size: 3em;
+        font-weight: 700;
+        font-family: "Jaldi", sans-serif;
+        text-align: center;
+        span {
+            color: #ff4935;
+        }
+    }
+    .subHeading {
+        color: #1515159c;
+        font-family: "Jaldi", Sans-serif;
+        font-size: 1.5em;
+        font-weight: 500;
+        line-height: 1.278em;
+        letter-spacing: 0px;
+        margin-top: -5px;
+    }
+    .btnCloseSolution {
+        background-color: #ff4935;
+        color: #FFFFFF;
+    }
+    .questionCard {
+        border: 1px solid #c7c7c7;
+        background-color: #ffffff;
+        border-radius: 20px;
+        padding: 15px;
+        height: 75vh;
+        .scrollingSection {
+            height: 60vh;
+            overflow-y: scroll;
+        }
+        .verticalLine {
+            border-left: 1px solid #ddd;
+            height: 2rem;
+        }
+        h2 {
+            font-family: "jaldi", sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .buttonsDiv {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            .solutionReplaceDiv {
+                display: flex;
+                justify-content: space-between;
+                .btnReplace {
+                    font-family: "jaldi", Sans-serif;
+                    font-size: 1em;
+                    font-weight: 700;
+                    line-height: 1.5em;
+                    letter-spacing: 3.2px;
+                    fill: #ffffff;
+                    color: #ffffff;
+                    background-color: #ff4935;
+                    border-radius: 50px;
+                }
+            }
+            .btnSolution {
+                font-family: "jaldi", Sans-serif;
+                font-size: 1em;
+                font-weight: 700;
+                line-height: 1.5em;
+                letter-spacing: 3.2px;
+                fill: #ffffff;
+                color: #ffffff;
+                background-color: #089e05;
+                border-radius: 50px;
+            }
+            .prevDiv {
+                font-family: "jaldi", Sans-serif;
+                font-size: 1em;
+                font-weight: 700;
+                line-height: 1.5em;
+                letter-spacing: 3.2px;
+                background-color: #007bba;
+                border-style: solid;
+                border-width: 1px 1px 1px 1px;
+                border-radius: 50px 0px 0px 50px;
+                color: #ffffff;
+            }
+            .nextDivNew {
+                font-family: "jaldi", Sans-serif;
+                font-size: 1em;
+                font-weight: 700;
+                line-height: 1.5em;
+                letter-spacing: 3.2px;
+                background-color: #007bba;
+                border-style: solid;
+                border-width: 1px 1px 1px 1px;
+                border-radius: 0px 50px 50px 0px;
+                color: #ffffff;
+            }
+        }
+        .buttonsDiv {
+            margin-top: 10px;
+        }
+        .prevNextDiv {
+            display: flex;
+        }
+        .prevNextDiv > div {
+            margin-top: 10px;
+        }
+    }
+    .solutionSection {
+        border: 1px solid #c7c7c7;
+        padding: 15px;
+        border-radius: 20px;
+        margin: 10px 0px;
+    }
+}
+
+.replaceQuestionModal{
+    .olList{
+        list-style-position: inside;
+    }
+    .modalsAllButton{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        .btn{
+            width: 130px;
+            border-radius: 50px;
+            margin-bottom: 5px;
+        }
+    }
+    .modal-title{
+        font-family: 'jaldi', sans-serif;     
+        font-size: 25px;
+        margin-left: 10px;   
+    }
+    
+    .questionToBeReplaced{
+        padding: 15px 29px 15px 29px;
+    }
+    .option-container{
+        padding: 15px 29px 15px 40px;
+    }
+    .modal-body{
+        padding: 0px 0px 10px 0px !important;
+    }
+    .btnUnmark{
+        background-color: #F4AB50;
+        color: #FFFFFF;
+        // margin-left: 15px;
+        width: 100px;
+    }
+    .btnSolution{
+        background-color: #50B963;
+        color: #FFFFFF;
+        // margin-left: 15px;
+        width: 100px;
+    }
+    .blueDiv{
+        background-color: #18AEE0;
+        display: flex;
+        align-items: center;
+        .questionNumber , h3{
+            color: #FFFFFF;
+            font-family: 'jaldi', sans-serif;
+            font-size: 25px;
+            padding: 15px 15px 15px 29px;
+        }
+    }    
+    .greyDiv{
+        background-color: #7F8184;
+        display: flex;
+        align-items: center;
+        .heading{
+            color: #FFFFFF;
+            font-family: 'jaldi', sans-serif;
+            padding: 15px 15px 15px 29px;
+            font-size: 25px;
+      
+        }
+        h3{
+            font-size: 17px;
+            color: #FFFFFF;
+            font-family: 'jaldi', sans-serif;
+        }
+    }
+    .yellowDiv{
+        background-color: #FFC107;
+        margin-top: 25px;
+        .heading{
+            color: #FFFFFF;
+            font-family: 'jaldi', sans-serif;
+            padding: 15px 29px 15px 29px;
+            font-size: 25px;
+        }
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .bookmarkQuestions {
+        .topHeading {
+            font-size: 2em;
+        }
+        .btnSolution {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.correctmcq {
+    background: rgb(18, 182, 86);
+}

@@ -1,0 +1,95 @@
+<div class="footerWebsite">
+    <div class="row footer">
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <img class="footerLogo" src="assets/images/mmpLogoWhite.png" alt="MakeMyPath">
+            <!-- <img class="gplay" src="assets/google_play_new.png" alt=""> -->
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="lineDiv">
+                <div class="line"></div>
+                <div><h2>Quick Links</h2></div>
+            </div>
+            <ul>
+                <li><a href="javascript:void(0)" routerLink= "/about-us">About</a></li>
+                <li><a href="javascript:void(0)" [routerLink] = "['/']" [queryParams]="{ 'pageSec': 'exams' }">Goals</a></li>
+                <li><a href="javascript:void(0)" [routerLink] = "['/']" [queryParams]="{ 'pageSec': 'institute' }">Association</a></li>
+                <li><a href="javascript:void(0)" [routerLink] = "['/']" [queryParams]="{ 'pageSec': 'faqDiv' }">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="lineDiv">
+                <div class="line"></div>
+                <div><h2>Help</h2></div>
+            </div>
+            <ul>
+                <li><a href="javascript:void(0)" routerLink="/assessment/dashboard/contact">Contact Us</a></li>
+                <li><a href="javascript:void(0)" routerLink="/assessment/dashboard/contact-us">Post Query</a></li>
+                <!-- <li>Privacy Policy</li> -->
+                <!-- <li><a routerLink="/school-signup">School Registration</a></li> -->
+            </ul>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="lineDiv">
+                <div class="line"></div>
+                <div><h2>Contact Info</h2></div>
+            </div>
+            <div class="phnEmail">
+                <div class="iconDiv">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <h2 class="phn">Phone:</h2>
+                    <h2 class="phnNumber"><a href="tel:+919450896127">945-089-6127</a></h2>
+                </div>
+            </div>
+            <div class="phnEmail">
+                <div class="iconDiv">
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <h2 class="phn">Email:</h2>
+                    <h2 class="phnNumber"><a href="mailto:contact@makemypath.app">contact@makemypath.app</a></h2>
+                </div>
+            </div>
+            <div class="socialIcons">
+                <a href="https://twitter.com/makemypathapp" target="_blank">
+                <div class="twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </div>
+                 </a>
+                 <a href="https://www.facebook.com/makemypath" target="_blank">
+                <div class="facebook">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                </div>
+            </a>
+            <a href="https://www.instagram.com/makemypathapp/?igshid=YmMyMTA2M2Y=" target="_blank">
+                <div class="insta">
+                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                </div>
+            </a>
+            <a href="https://www.linkedin.com/company/makemypathapp" target="_blank">
+                <div class="linkedin">
+                    <i class="fa fa-linkedin" aria-hidden="true"></i>     
+                </div>
+            </a>
+            <a href="https://www.youtube.com/channel/UC0gosOowfCGgPg1mBhi6Elg" target="_blank">
+                <div class="youtube">
+                    <i class="fa fa-youtube-play" aria-hidden="true"></i>    
+                </div>
+            </a>
+            </div>
+        </div>
+        <div class="col-md-12 copyPrivacy">
+            <div>
+                <h2>Copyright 2022 - MMP</h2>
+            </div>
+            <div>
+                <a href="javascript:void(0)" routerLink= "/privacy-policy">Privacy Policy</a>
+            </div>
+        </div>
+        <a *ngIf="activateGoTop" href="javascript:void(0)" class="scrollToTopBtn" (click)="onClickScroll('landingNav')">
+            <!-- <span class="iconify" data-icon="akar-icons:arrow-up" style="color: #85b6ff; font-size: 70px;"></span> -->
+            <span class="iconify" data-icon="cil:arrow-circle-top" style="color: #85b6ff; font-size: 37px;"></span>
+        </a>
+    </div>
+</div>

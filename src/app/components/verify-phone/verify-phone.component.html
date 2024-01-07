@@ -1,0 +1,39 @@
+<div class="modal-content">
+  <div class="modal-header border-0">
+    <h5 class="modal-title" id="loginTitle">Verify Phone</h5>
+    <button type="button" class="close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <!-- If phone is valid and otp is sent and phone is not verified -->
+    <div *ngIf="phone.isValid && phone.otpSent && !phone.verified">
+      <p *ngIf="modalData">An OTP has been sent to <span class="font-weight-bold">{{phone.value}}</span>
+      </p>
+
+      <div class="form-group">
+        <input type="tel" class="form-control" placeholder="Enter Otp" (input)="onOtpInput($event)" maxlength="6">
+      </div>
+      <div *ngIf="errors">
+        <ul class="list-unstyled">
+          <li class="error-text">{{errors}}</li>
+        </ul>
+      </div>
+      <div class="text-right">
+        <a href="javascript:void(0)" class="text-muted" (click)="checkPhoneStatus()">
+          Don't have OTP?
+          <span class="text-success">Resend</span></a>
+      </div>
+    </div>
+
+    <div *ngIf="!phone.isValid && !phone.verified">
+      <label for="phoneNumber" class="d-flex">
+        <input id="phoneNumber" type="text" class="form-control w-75 rounded-0" placeholder="Enter phone number"
+               maxlength="10"
+               #phoneEl>
+        <button type="button" class="btn btn-info rounded-0 ml-2" (click)="checkPhoneStatus(phoneEl)">Get OTP</button>
+      </label>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,147 @@
+
+
+.instructionDiv {
+  min-height: 90vh;
+  .notLoggedIn {
+    color: #ff4935;
+    font-weight: 600;
+    font-family: 'jaldi', sans-serif;
+    font-size: 20px;
+    span {
+      color: #007bba;
+    }
+  }
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ffffff;
+    margin: 0 0 1em 0;
+    padding: 0;
+  }
+  .btnLeaderboard {
+    padding: 0;
+    font-family: "jaldi", Sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #007bba;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  .topHeading {
+    color: #000000;
+    font-size: 3em;
+    font-weight: 600;
+    // margin-bottom: 5px;
+    font-family: "Jaldi", sans-serif;
+    text-align: center;
+    padding-top: 20px;
+    span {
+      color: #007bba;
+      font-weight: 700;
+    }
+  }
+  .card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: none;
+    padding: 20px;
+    h2 {
+      font-family: "Jaldi";
+      font-style: normal;
+      font-weight: bold;
+      font-size: 23px;
+      color: #1b50a3;
+      text-transform: capitalize;
+      margin-bottom: 5px;
+    }
+    .timeSharedBy {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    h3 {
+      font-family: "Jaldi";
+      font-style: normal;
+      font-weight: bold;
+      font-size: 15px;
+      margin: 7px 0px;
+      span {
+        font-weight: normal;
+        color: #5a5a5a;
+      }
+    }
+    .disabledButton {
+      pointer-events: none;
+      cursor: default;
+    }
+    .btnShare {
+      background-color: #ff4935;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      line-height: 1.5em;
+      color: #ffffff;
+      border-radius: 50px;
+      box-shadow: 0px 2px 0px 0px #007cbb;
+      width: 150px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .btnattempt {
+      background-color: #007cbb;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      line-height: 1.5em;
+      color: #ffffff;
+      border-radius: 50px;
+      box-shadow: 0px 2px 0px 0px #ff4935;
+      width: 150px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .subHeading {
+    color: #141824;
+    font-family: "Jaldi", Sans-serif;
+    font-size: 1.875em;
+    font-weight: 400;
+    line-height: 1.2em;
+    letter-spacing: 0px;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  .allData {
+    margin-top: 15px;
+    h6 {
+      font-family: "jaldi", sans-serif;
+      font-size: 20px;
+      margin-top: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .instructionDiv {
+    .topHeading {
+      font-size: 2em;
+    }
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .instructionDiv {
+    .btnattempt, .btnShare {
+      margin-top: 10px;
+    }
+    .allButtons {
+      display: flex;
+      justify-content: center !important;
+    }
+  }
+}

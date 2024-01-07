@@ -1,0 +1,56 @@
+<div class="notification-section">
+  <div class="dashboard-content">
+    <h2 class="text-black font-weight-bolder">
+      Notifications
+    </h2>
+    <div class="content mt-5 pt-0 pb-0">
+      <div *ngIf="notificationList">
+
+        <div class="tabWrapper border-bottom">
+            <button class="d-inline-block rounded-top border border-bottom-0 pt-2 pb-2 pl-sm-5 pr-sm-5 pr-2 pl-2 h5 m-0" (click)="clickTabs('unread')" [ngClass]="{'bg-primary text-white active position-relative': !readActive, 'bg-white': readActive}">Unread</button>
+            <button class="d-inline-block rounded-top border border-bottom-0 pt-2 pb-2 pl-sm-5 pr-sm-5 pr-2 pl-2 h5 m-0" (click)="clickTabs('read')" [ngClass]="{'bg-primary text-white active position-relative': readActive, 'bg-white': !readActive}">Read</button>
+          </div>
+
+        <div *ngIf="notificationList['results'] else noNotifications">
+          <div *ngFor="let notification of notificationList['results']" class="border-bottom">
+            <span (click)="changeStatusNotification(notification.id,notification.related_object_id)" class="d-flex notification-title p-2">
+              <i class="fa fa-envelope mr-4" aria-hidden="true"></i>
+              <h6>{{ notification.notification }}</h6>
+              <h6 class="ml-auto">{{ notification.created_at | date: 'medium' }}</h6>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pb-0 pt-3 text-center">
+      <ul class="pagination flex-wrap justify-content-center">
+          <li [ngClass]="{disabled:currentPage === 0 }" class="page-item first-item">
+              <button (click)="goToPage(0)" class="page-link btn btn-link">First</button>
+          </li>
+
+          <li [ngClass]="{disabled:currentPage === 0 }" class="page-item previous-item">
+              <button (click)="goToPage(currentPage - 1)" class="page-link btn btn-link">Previous</button>
+          </li>
+
+          <li *ngFor="let page of pages; let i = index" class="page-item number-item">
+              <button (click)="goToPage(i)" class="page-link btn btn-link"
+                  [ngClass]="{active: currentPage==i}">{{i+1}}</button>
+          </li>
+
+          <li [ngClass]="{disabled:currentPage >= max_page -1 }" class="page-item next-item">
+              <button (click)="goToPage(currentPage+1)" class="page-link btn btn-link">Next</button>
+          </li>
+          <li [ngClass]="{disabled:currentPage === max_page }" class="page-item last-item">
+              <button (click)="goToPage(max_page -1)" class="page-link btn btn-link">Last</button>
+          </li>
+      </ul>
+    </div>
+
+    <ng-template #noNotifications>
+      <div class="text-center">
+        No Notifications
+      </div>
+    </ng-template>
+  </div>
+
+</div>

@@ -1,0 +1,152 @@
+<div class="groupContainer container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="heading text-center pt-4" *ngIf="batchDetails?.institute_room?.id">Batch :
+                <span>{{batchDetails?.institute_room?.grade_name}} - {{batchDetails?.institute_room?.name}}</span></h2>
+            <h2 class="heading text-center pt-4" *ngIf="!batchDetails?.institute_room?.id">Batch :
+                <span>{{batchDetails?.name}}</span></h2>
+            <!-- <h3 class="subHeading float-right pr-2">Batch Code : {{batchDetails?.batch_code}}</h3> -->
+            <div class="totalUser">
+                <div>
+                    <button routerLink="/organization" class="btn float-left btnLeaderboard"><i
+                            class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+                </div>
+                <div>
+                    <h4><span>Batch Code :</span> {{batchDetails?.batch_code}}</h4>
+                </div>
+                <div><span>Total Students: {{batchDetails?.students?.length}}</span></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+    </div>
+    <div class="containerGroup">
+        <div class="row categoryRoutesRow">
+            <div class="col-xl-9 col-lg-8 col-md-6 category">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-6">
+                        <div class="card">
+                            <div>
+                                <h2 class="">Student Details</h2>
+                            </div>
+                            <div class="d-flex justify-content-center"><img src="/assets/Mentor/studentDetails.svg"
+                                    alt=""></div>
+                            <div class="proceedDiv"><button class="btn btn-sm btnProceed"
+                                    routerLink="/organization/student-details-report/{{batchId}}">Proceed </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6">
+                        <div class="card">
+                            <div>
+                                <h2>Create <span>PAPER</span>/<span>PRACTICE</span></h2>
+                            </div>
+                            <div class="d-flex justify-content-center"><img src="/assets/Mentor/paperpractice.svg"
+                                    alt=""></div>
+                            <div class="proceedDiv"><button class="btn btn-sm btnProceed"
+                                    routerLink="/organization/select-domain/{{batchId}}">Proceed </button></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6">
+                        <div class="card">
+                            <div>
+                                <h2 class="">Result Analysis</h2>
+                            </div>
+                            <div class="d-flex justify-content-center"><img src="/assets/Mentor/resultAnalysis.svg"
+                                    alt=""></div>
+                            <div class="proceedDiv"><button class="btn btn-sm btnProceed"
+                                    routerLink="/organization/student-result-analysis/{{batchId}}">Proceed </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <h4 class="text-center routesHeading">My Routes</h4>
+                <div *ngIf="!myExams && spinner" class="d-flex justify-content-center">
+                    <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                  </div>
+                <div class="routes">
+                    <div class="col-md-12" *ngFor="let exam of myExams;">
+                        <div class="card">
+                            <div>
+                                <h2>{{exam?.exam?.title}}</h2>
+                            </div>
+                            <div>
+                                <h3>Assigned on: {{exam?.updated_at | date}}</h3>
+                            </div>
+                            <div class="cardButtons">
+                                <div><button class="btn btnStartAgain"
+                                        routerLink="/organization/choose-p/{{batchId}}/{{exam?.exam?.id}}">Start
+                                        Again</button></div>
+                                <div><button class="btn btnRemove" (click)="setDeletionId(exam?.id)" data-toggle="modal"
+                                        data-target="#confirmationModal">Remove</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="myExams?.length < 1 && !spinner">
+                    <h5 class="noExamsFound">“It seems that you haven't created any Paper/Practice yet. Routes of your
+                        created Paper/Practice will appear here. ” </h5>
+                </div>
+                <div class="row" *ngIf="myExams?.length > 3">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button class="removeAllBtn" (click)="clearSelection()" data-toggle="modal"
+                            data-target="#confirmationModal">Remove All <span class="iconify ml-2"
+                                data-icon="carbon:row-delete"></span></button>
+                    </div>
+                </div>
+                <!-- <div class="col-md-12">
+                    <div class="card">
+                        <div>
+                            <h2>JEE( Mains)</h2>
+                        </div>
+                        <div>
+                            <h3>Last Date Attempted: Jun 21, 12:06 PM</h3>
+                        </div>
+                        <div class="cardButtons">
+                            <div><button class="btn">Start Again</button></div>
+                            <div><button class="btn">Remove</button></div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg" id="confirmationModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border-radius: 16px;border: none;">
+            <div class="modal-header" style="border: none;">
+                <h5 class="modal-title" id="confirmationModalLabel"
+                    style="font-size: 25px;font-weight: bold;color: #ff1900;font-family: 'jaldi', sans-serif;">
+                    Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p *ngIf="deletionBatchId" class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to
+                    remove this exam?</p>
+                <p *ngIf="!deletionBatchId" class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to
+                    remove all exams?</p>
+            </div>
+            <div class="modal-footer"
+                style="background-color: #ff4935; border-radius: 0 0 16px 16px;justify-content: space-between;">
+                <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;"
+                    data-dismiss="modal" (click)="clearSelection()">Cancel</button>
+                <button *ngIf="deletionBatchId" type="button" class="btn btn-sm text-white"
+                    style="background-color: #00A3F1; border-radius: 6px;" (click)="removeExam(deletionBatchId)">Yes,
+                    delete it!</button>
+                <button *ngIf="!deletionBatchId" type="button" class="btn btn-sm text-white"
+                    style="background-color: #00A3F1; border-radius: 6px;" (click)="removeAllExams()">Yes, delete
+                    it!</button>
+            </div>
+        </div>
+    </div>
+</div>

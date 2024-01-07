@@ -1,0 +1,281 @@
+
+ :host ::ng-deep caption {
+  text-align: center;
+  caption-side: top;
+}
+:host ::ng-deep ul {
+  li {
+    list-style-type: disc;
+  }
+}
+.mypath{
+  min-height: 88vh;
+  padding-top: 15px;
+ 
+  .buttonsGroup{
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: space-between;
+    padding: 25px 0px;
+    .btn{
+      font-size: .60em;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.5em;
+    letter-spacing: 3.2px;
+    fill: #ffffff;
+    color: #ffffff;
+    background-color: #007BBA;
+    border-radius: 50px 50px 50px 50px;
+    box-shadow: 0px 2px 0px 0px #ff7005;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0px;
+    width: 230px;
+    margin-right: 35px;
+    position: relative;
+    small {
+      position: absolute;
+      top: 0;
+    }
+    }
+    .btn:hover{
+      background-color: #ff4935;
+    }
+  }
+  .btnLeaderboard {
+    padding: 0;
+    font-family: "jaldi", Sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #007bba;
+    background-color: rgba(0,0,0,0);
+  }
+  .totalUser {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: #18181b;
+    font-family: "jaldi", Sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+    line-height: 1.545em;
+    letter-spacing: 0px;
+    a{
+      color: #1B50A3;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0 7px;
+      font-family: "jaldi", Sans-serif;
+    }
+  }
+  .updatedOn{
+    color: #1515156E;
+    font-family: "Jaldi", Sans-serif;
+    font-size: 1.2em;
+    font-weight: 500;
+    line-height: 1.278em;
+    letter-spacing: 0px;
+    margin: 5px 0px 0px 0px;
+  }
+  h2{
+    color: #000000;
+    font-size: 3em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: 'Jaldi';
+    text-align: center;
+    margin-top: -15px;
+    span{
+      color: #007bba;
+      font-weight: 700;
+    }
+  }
+  h3{
+    font-family: GOTHICB;
+    float: right;
+    color: #666766;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  }
+  hr{ 
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #FFFFFF;
+    margin: 0 0 1em 0;
+    padding: 0; 
+  }
+  .postAquery{
+    position: fixed;
+    right: 5px;
+    top: 80vh;
+    // background-color: #5898CE;
+    // color: #FFFFFF;
+    // font-family: 'jaldi',sans-serif;
+    border: none;
+    // height: 35px;
+    // padding-right: 10px;
+    // font-weight: bold;
+    // font-size: 14px;
+    // span{
+    //   padding: 5px;
+    //   background-color: #498EC8;
+    // }
+    .iconify {
+      font-size: 35px;
+    }
+  }
+  .optionDiv{
+    height: 60vh;
+    overflow-y: scroll;
+  }
+  // .contentDiv{
+  //   color: #000000;
+  //   background-color: #FFFFFF;
+  //   // padding: 10px 15px 20px 25px;
+  //   padding: 10px 10px 10px 20px;
+  //   border-style: solid;
+  //   border-width: 1px 1px 1px 1px;
+  //   border-color: #007cbb;
+  //   border-radius: 5px 5px 5px 5px;
+  //   -moz-border-radius:5px;
+  //   -webkit-border-radius:5px;
+  //   font-family: 'jaldi' ;
+  //   // list-style-type: none;
+   
+  // }
+  .contentDiv {
+    color: #000000;
+    background-color: #ffffff;
+    padding: 10px 15px 20px 25px;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #000000;
+    border-radius: 5px 5px 5px 5px;
+    font-family: "jaldi", sans-serif;
+    list-style-type: none;
+    height: 49vh;
+    overflow-y: scroll;
+  }
+  // .contentDivInner {
+  //   height: 49vh;
+  //   overflow-y: scroll;
+  //   // padding: 5px;
+  // }
+  
+  .notification{
+    // background-color: #FDFDFD;
+    // border: 2px solid #EAEAEA;
+    // transition: width 1s ;
+    // width: 65px;
+    // height: 50px;
+    // display: flex;
+    // justify-content: center;
+    position: fixed;
+    right: 0;
+    top: 40vh;
+    img{
+      width: 50px;
+      height: 50px;
+      padding: 5px;
+    }
+  }
+  // .notification:hover{
+  //   width: 220px;
+  //   span{
+  //     display: block;
+  //     font-family: CenturyGothicRegular;
+  //     margin-top: 10px;
+  //     font-weight: bold;
+  //   }
+  // }
+  .nav-pills .nav-link{
+    border-radius: 5px;
+    font-family: "Jaldi", Sans-serif;
+    font-size: 1.275em;
+    font-weight: 500;
+    padding: 10px 15px;
+    color: #007cbb;
+    background-color: #ffffff;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #007cbb;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #2575FC;
+    color: #FFFFFF;
+  }
+  .rightArrow{
+    img{
+      width: 35px;
+      height: 35px;
+      float: right;
+    }
+  }
+}
+@media only screen and (min-width: 762px) and (max-width: 1200px){
+  .mypath{
+    min-height: 100vh;
+    .buttonsGroup{
+      .btn{
+        margin-bottom: 20px !important;
+        font-size: 0.5em;
+        width: 213px;
+        margin-right: 25px;
+      }
+    }
+  }
+}
+@media screen and (max-width:760px){
+  .mypath{
+    padding: 10px;
+    .optionDiv{
+      height: 50vh;
+    }
+    .totalUser{
+      flex-wrap: wrap;
+      font-size: 20px;
+    }
+  }
+  .nav{
+    width: 89%;
+  }
+  .buttonsGroup{
+    padding: 10px !important;
+    
+    .btn{
+      margin-bottom: 20px;
+      margin-right: 10px !important;
+    }
+  }
+  .contentDiv{
+    margin: 14px 0px 5px 0px;
+  }
+  .mypath{
+    h2{
+      font-size: 26px;
+      margin-top: 5px;
+    }
+    .notification{
+      width: 50px;
+      top: 40vh;
+    }
+    
+  }
+  
+  .mypath{
+    .updatedOn{
+      text-align: center;
+    }
+  }
+}
+
+

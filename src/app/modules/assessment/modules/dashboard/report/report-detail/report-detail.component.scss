@@ -1,0 +1,160 @@
+/* **** Section 1 **** */
+.report-header {
+  background: #22bcd4;
+  padding: 1rem;
+  margin: 2rem 2rem 0;
+  border-radius: 0.2rem 0.2rem 0 0;
+}
+
+.nav-tabs {
+  margin: 0 2rem;
+  padding-top: 2rem;
+  background: #00BCD4;
+  box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.15) !important;
+  border: 0;
+  border-radius: 0 0 0.2rem 0.2rem;
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -1px;
+  border: 0;
+  padding: 1rem;
+}
+
+.nav-tabs .nav-link {
+  color: white;
+}
+
+.header-btn {
+  background-color: white;
+  color: #464646;
+}
+
+.report-card {
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  color: white;
+
+  .card-body {
+    display: flex;
+    justify-content: center
+  }
+
+  .card-footer {
+    background-color: transparent;
+  }
+}
+
+
+/* **** General Report **** */
+.attempted {
+  background: linear-gradient(135deg, #9c27b0 0%, #da00ff 100%);
+}
+
+.corrected {
+  background: linear-gradient(135deg, #009688 0%, #00b5a4 100%);
+}
+
+.score {
+  background: linear-gradient(135deg, #03a9f4 0%, #3adbf1 100%);
+}
+
+.time-taken {
+  background: linear-gradient(135deg, #673ab7 0%, #955aff 100%);
+}
+
+
+/* **** Section - 2 Report **** */
+.tab-content {
+  margin-top: 2rem;
+  padding: 0rem 2rem;
+}
+
+.section-2 {
+  .content {
+    padding: 0rem 3rem;
+  }
+}
+
+.report-container {
+  margin-top: 2rem;
+}
+
+/* **** Section - 2 Report **** */
+.percentile {
+  .content {
+    padding: 0rem 3rem;
+  }
+}
+
+/* ************* Test Analysis Report ************* */
+.card {
+  border: 0;
+}
+
+.card-header {
+  border: 0;
+  background: white;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.subject-badge {
+  color: black;
+  background-color: #b6ffc7;
+}
+
+.difficulty-badge {
+  background-color: #ffeeba;
+}
+
+.active-chapter-btn {
+  background-color: #4caf50;
+}
+
+.chapter-filter {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: .5rem;
+}
+
+@media (max-width: 768px) {
+  .report-header {
+    flex-direction: column;
+    margin: 0;
+
+    .header-btn {
+      width: 100%;
+      margin-top: 1rem;
+    }
+  }
+
+  .nav {
+    flex-direction: column;
+  }
+
+  .nav-tabs {
+    margin: 0;
+    padding-bottom: 1rem;
+  }
+
+  .nav-tabs .nav-item {
+    padding: .4rem 1rem;
+  }
+
+  .general-report {
+    margin-top: 2rem !important;
+  }
+
+  .report-card {
+    margin-top: 1rem;
+  }
+
+  .tab-content {
+    padding: 0rem 1rem;
+  }
+
+  .chapter-filter {
+    flex-direction: column;
+  }
+}

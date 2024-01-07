@@ -1,0 +1,179 @@
+<div class="dashboardLeaderBoardWrapper container pt-3" style="min-height: 100vh;">
+	
+  <h2 class="text-center">Leader Board</h2>
+  <div>
+    <div class="totalUser">
+      <div><span><button class="btn btnLeaderboard" routerLink = "/assessment/dashboard"><i class="fas fa-angle-double-left mr-1"></i>dashboard</button></span></div>
+      <div><span><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></span></div>
+      <div><span>Total Users : {{totalusers}}</span></div>
+  </div>
+    <hr>
+  </div>
+  <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="spinner">
+    <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+	<div class=" rounded pt-3 pb-3" *ngIf="!spinner">
+      
+		<div class="" style="overflow-x:auto;" *ngIf="leaderBoardData">
+			<table class="scoreTable w-100 table-striped text-center">
+				<thead class="pb-3 border-bottom">
+					<tr>
+						<th class="w-10 pb-3">Rank</th>
+						<th class="w-15 pb-3">Profile</th>
+						<th class="w-15 pb-3">Name</th>
+						<th class="w-15 pb-3">Total Time Spent</th>
+            <th class="w-15 pb-3">Total Questions</th>
+						<th class="w-30 pb-3">Score</th>
+					</tr>
+				</thead>
+				<tbody class="pt-3">
+					<tr *ngFor="let item of leaderBoardData | slice:0:20; let i = index">
+						<td class="w-10 pt-3 pb-3">{{i+1}}</td>
+						<td class="w-15 pt-3 pb-3" data-toggle="modal" data-target="#reportProfileModal" (click)="modalData(item)">
+							<img [src]="item?.profile_img" class="img-fluid rounded-circle" alt="" *ngIf="item?.profile_img">
+							<img src="https://cdnaptence.s3.amazonaws.com/static/images/image_not_available.png" class="img-fluid rounded-circle" alt="" *ngIf="!item?.profile_img">
+						</td>
+						<td class="w-15 pt-3 pb-3" data-toggle="modal" data-target="#reportProfileModal" (click)="modalData(item)">{{item?.name}}</td>
+						<td class="w-15 pt-3 pb-3">{{item?.time_spent}} Mins</td>
+            <td class="w-15 pt-3 pb-3">{{item?.total_question}}</td>
+            <td class="w-30 pt-3 pb-3">{{item?.score}}</td>
+					</tr>
+          <tr *ngIf="myData" style="background-color: #18AEE0; color: white;">
+						<td class="rank pt-3 pb-3"><b>{{myData?.rank}}</b></td>
+						<td class="profile pt-3 pb-3" data-toggle="modal" data-target="#reportProfileModal" (click)="modalData(myData)">
+							<img [src]="myData.profile_img" class="img-fluid rounded-circle" alt="" *ngIf="myData?.profile_img">
+							<img src="https://cdnaptence.s3.amazonaws.com/static/images/image_not_available.png" class="img-fluid rounded-circle" alt="" *ngIf="!myData?.profile_img">
+						</td>
+						<td class="name pt-3 pb-3" data-toggle="modal" data-target="#reportProfileModal" (click)="modalData(myData)">{{myData?.name}}</td>
+						<td class="totalTimeSpent pt-3 pb-3">{{myData?.time_spent}} Mins</td>
+            <td class="pt-3 pb-3">{{myData?.total_question}}</td>
+            <td class="score pt-3 pb-3">{{myData?.score}}</td>
+					</tr>
+         
+				</tbody>
+			</table>
+      <!-- <table *ngIf="myData" class="myTable scoreTable w-100 text-center">
+        
+				<tbody class="pt-3">
+          <tr style="background-color: rgb(31, 163, 163); color: white;">
+						<td class="rank pt-3 pb-3"><b>{{myData?.rank}}</b></td>
+						<td class="profile pt-3 pb-3" data-toggle="modal" data-target="#reportProfileModal" (click)="modalData(myData)">
+							<img [src]="item?.profile_image" class="img-fluid rounded-circle" alt="" *ngIf="item?.profile_image">
+							<img src="https://cdnaptence.s3.amazonaws.com/static/images/image_not_available.png" class="img-fluid rounded-circle" alt="" *ngIf="!myData?.profile_image">
+						</td>
+						<td class="name pt-3 pb-3" data-toggle="modal" data-target="#reportProfileModal" (click)="modalData(myData)">{{myData?.name}}</td>
+						<td class="totalTimeSpent pt-3 pb-3">{{myData?.time_spent}} Mins</td>
+            <td class="pt-3 pb-3">{{myData?.total_question}}</td>
+            <td class="score pt-3 pb-3">{{myData?.score}}</td>
+					</tr>
+				</tbody>
+			</table> -->
+			<!-- <table class="w-100 bg-brand-color text-center mt-3 text-white scoreTable shadow"
+              *ngIf="leaderBoardData?.leaderboard.logged_user_rank_score?.length">
+				<tbody>
+					<tr>
+						<td class="w-25 pt-2 pb-2">{{leaderBoardData?.leaderboard?.logged_user_rank_score[0][0]}}</td>
+						<td class="w-25 pt-2 pb-2" data-toggle="modal" data-target="#reportProfileModal" (click)="modalData(currentUserData)">
+              <img [src]="leaderBoardData.leaderboard.logged_user_rank_score[0][3]" class="img-fluid rounded-circle" alt="" *ngIf="leaderBoardData.leaderboard.logged_user_rank_score[0][3]">
+              <img src="https://cdnaptence.s3.amazonaws.com/static/images/image_not_available.png" class="img-fluid rounded-circle" alt="" *ngIf="!leaderBoardData.leaderboard.logged_user_rank_score[0][3]">
+            </td>
+						<td class="w-25 pt-2 pb-2" data-toggle="modal" data-target="#reportProfileModal" (click)="modalData(currentUserData)">{{leaderBoardData.leaderboard.logged_user_rank_score[0][1]}}</td>
+            <td class="w-25 pt-2 pb-2">{{leaderBoardData.leaderboard.logged_user_rank_score[0][2]}}</td>
+					</tr>
+				</tbody>
+			</table> -->
+		</div>
+    <div *ngIf="!leaderBoardData">
+      <h4 class="text-center noDataFound">No Data Found</h4>
+    </div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="reportProfileModal" tabindex="-1" role="dialog" *ngIf="dataLoaded && clickedItem">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content border-0">
+    	<div class="modal-header">
+        <h4 class="modal-title" id="header">Profile</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row text-capitalize align-items-center">
+          <div class="col-md-12">
+            <div class="generalDetailBlock text-center">
+              <h4 class="text-capitalize student-name font-weight-bold">{{clickedItem.name}}</h4>
+              <div class="text-center">
+                <p class="m-0 d-inline-block bg-dark-blue-report pl-4 pr-4 pt-2 pb-2 color-white rounded text-white">
+                  {{clickedItem?.class | gradePipe}}
+                </p>
+              </div>
+              <p class="text-capitalize mt-2 mb-2">{{clickedItem?.school}}</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xs-12 text-center text-md-left">
+            <img class="img-fluid user-image" [src]="clickedItem.profile_img" *ngIf="clickedItem.profile_img">
+						<img src="https://cdnaptence.s3.amazonaws.com/static/images/image_not_available.png" class="img-fluid rounded-circle user-image" alt="" *ngIf="!clickedItem?.profile_img">
+
+          </div>
+          <div class="col-md-6">
+            <div class="score-detail mt-4">
+              <div class="detail-block">
+                <p class="bg-dark-blue-report pl-4 pr-4 pt-2 pb-2 color-white rounded text-white">Rank {{clickedItem.rank}}</p>
+              </div>
+              <div class="detail-block">
+                <p class="bg-dark-blue-report pl-4 pr-4 pt-2 pb-2 color-white rounded text-white">Score {{clickedItem.score}}</p>
+              </div>
+              <div class="detail-block">
+                <p class="bg-dark-blue-report pl-4 pr-4 pt-2 pb-2 color-white rounded text-white">Medals {{clickedItem.rewards}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-block pb-0 rounded-0 bg-dark-blue-report medalModalFooter">
+        <div class="row footer-row">
+          <div class="col-4 pl-2 pr-2 pl-sm-3 pr-sm-3 text-center">
+            <img class="gold-img" src="https://cdnaptencestaging.s3.amazonaws.com/static/aptence_media/images/medal_icons/gold.png">
+            <p class="text-white text-nowrap">
+              Gold {{clickedItem.gold}}
+            </p>
+          </div>
+          <div class="col-4 pl-2 pr-2 pl-sm-3 pr-sm-3 text-center">
+            <img class="silver-img" src="https://cdnaptencestaging.s3.amazonaws.com/static/aptence_media/images/medal_icons/silver.png">
+            <p class="text-white text-nowrap">
+              Silver {{clickedItem.silver}}
+            </p>
+          </div>
+          <div class="col-4 pl-2 pr-2 pl-sm-3 pr-sm-3 text-center">
+            <img class="bronze-img" src="https://cdnaptencestaging.s3.amazonaws.com/static/aptence_media/images/medal_icons/bronze.png">
+            <p class="text-white text-nowrap">
+              Bronze {{clickedItem.bronze}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="alertProfileModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+		<div class="modal-content border-0">
+    	<div class="modal-header">
+        <h4 class="modal-title" id="header">Profile</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+      	<p class="pt-4 pb-4 h4">Please Update Your Institute Name First</p>
+        <div class="text-right">
+          <a href="#" routerLink="/dashboard/profile" data-dismiss="modal" class="rounded d-inline-block pl-3 pr-3 pt-2 pb-2 bg-brand-color text-white">Continue</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

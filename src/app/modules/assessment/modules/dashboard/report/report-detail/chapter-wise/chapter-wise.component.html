@@ -1,0 +1,57 @@
+<h4 class="mb-4 text-center" *ngIf="chapterWiseReport">Chapter Wise Report</h4>
+
+<div class="d-flex justify-content-between chapter-filter shadow-sm" *ngIf="chapterWiseReport">
+
+  <div class="d-flex flex-wrap align-items-center">
+    <!-- Subjects -->
+    <div class="text-left mr-2">
+      <strong>Subjects: </strong>
+      <select class="form-control" (change)="onSubjectChange($event)" #subjectSelect>
+        <option value="">Select Subject</option>
+        <option value="{{ subject | json }}" *ngFor="let subject of newsubjects">
+          {{ subject.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Chapters -->
+    <div class="text-left mr-2">
+      <strong>Chapters: </strong>
+      <select class="form-control" (change)="onChapterChange($event)" #chapterSelect>
+        <option value="">Select Chapter</option>
+        <option value="{{ chapter | json }}" *ngFor="let chapter of chapterFilter.chapters">
+          {{ chapter.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Performance -->
+    <div class="text-left">
+      <strong>Performance: </strong>
+      <select class="form-control" (change)="onPerformanceChange($event)" #performanceSelect>
+        <option value="">Select Performance</option>
+        <option value="poor">Poor</option>
+        <option value="adequate">Adequate</option>
+        <option value="excellent">Excellent</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="chapterFilter.chapterName || chapterFilter.subjectName || chapterFilter.performance">
+    Filter Applied:
+    <span class="text-muted">
+      {{ chapterFilter.chapterName }} {{ chapterFilter.subjectName }} {{ chapterFilter.performance }}
+    </span>
+    <button type="button" class="text-danger btn btn-link" (click)="clearFilter()">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+</div>
+
+<div class="mt-4" [chart]="chapterChart"></div>
+
+<ng-container *ngIf="chapterwiseFeedback && !chapterWiseReport">
+  <h5 class="text-center text-muted">
+    {{ chapterwiseFeedback }}
+  </h5>
+</ng-container>

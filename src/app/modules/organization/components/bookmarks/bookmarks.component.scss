@@ -1,0 +1,256 @@
+
+#outer
+{
+    width:100%;
+    text-align: center;
+}
+
+
+.inner
+{
+    display: inline-block;
+    margin: 10px;
+}
+
+li {
+    margin-top: 10px;
+    cursor: pointer;
+  
+    i{
+        color: #048ADF;
+    }
+
+}
+
+li span{
+    padding: 3px;
+}
+
+ul {
+    list-style-type:none;
+}
+
+
+/************************************************/
+
+.btnLeaderboard {
+    padding: 0;
+    font-family: "jaldi", Sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ff4935;
+    background-color: rgba(0,0,0,0);
+  }
+  .notBookmarkedDiv {
+      text-align: center;
+      img {
+          margin-top: 25px;
+          max-width: 100%;
+          height: auto;
+      }
+  }
+  .notBookmarked {
+      color: #FF4935;
+      font-family: 'jaldi', sans-serif;
+      text-align: center;
+      font-size: 20px;
+  }
+ 
+  .totalUser {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: #18181b;
+    font-family: "jaldi", Sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+    line-height: 1.545em;
+    letter-spacing: 0px;
+    a{
+      color: #ff4935;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0 7px;
+      font-family: "jaldi", Sans-serif;
+    }
+  }
+.header{
+    min-height: 100vh;
+    padding: 17vh 0px 25px 0px;
+    .bookmarksList{
+        .fa-angle-double-right {
+            color: #ff4935;
+            font-size: 17px;
+        }
+        .arrow {
+            color: #808180;
+            background-color: #f6f3ed;
+            margin: 1em 0;
+            text-transform: uppercase;
+            font-size: 15px;
+        }
+        .arrow:hover {
+            color: #ff4935;
+        }
+        
+    }
+    h4{
+        font-family: 'jaldi', sans-serif;
+        font-size: 30px;
+    }
+   
+}
+.newBookmark{
+    
+    .subjects{
+        padding-top: 5px;
+     .nav-tabs .nav-link{
+         margin-right: 10px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         min-width: 112px;
+         font-size: 22px;
+         height: 50px;
+         // padding: 20px 2.5px 4px 1.5px;
+         border-top-left-radius: 8px;
+         border-top-right-radius: 8px;
+         background-color: #e9e5e5;
+         box-shadow: inset 0px -11px 8px -10px #adabab;
+         cursor: pointer;
+         color: #333;
+         font-weight: 500;
+         font-family: 'jaldi';
+         white-space: nowrap;
+     }
+ 
+     .nav-tabs .nav-link.active{
+         background-color: #F5F4F4;
+         color: #ff4935;
+         font-size: 23px;
+         box-shadow: 0px -4px 5px 0px rgb(0 0 0 / 15%);
+         font-weight: bold;
+         font-family: 'jaldi';
+         border-color: #dee2e6 #dee2e6 #f5f4f5;
+     }
+     .nav-tabs{
+         box-shadow: inset 0px -11px 8px -10px #adabab;
+        //  justify-content: center;
+        //  display: flex;
+        //  flex-wrap: nowrap;
+        //  overflow-x: scroll;
+        //  -ms-overflow-style: none;  
+        //  scrollbar-width: none;
+     }
+    //  .nav-tabs::-webkit-scrollbar{
+    //      display: none;
+    //  }
+    }
+    .blueBg{
+        text-align: center;
+        li{
+            background-color: #DFE2F1;
+            // width: 250px;
+            span{
+                font-weight: bold;
+            }
+        }
+    }
+}
+.rightArrow{
+    img{
+      width: 35px;
+      height: 35px;
+      float: right;
+    }
+  }
+h2{
+            color: #000000;
+            font-size: 3em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-family: 'Jaldi';
+            text-align: center;
+            // margin-top: -15px;
+            span{
+              color: #ff4935;
+              font-weight: 700;
+            }
+}
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #FFFFFF;
+    margin: 0 0 1em 0;
+    padding: 0; 
+}
+ 
+.dataDiv{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    display: flex;
+    a{
+        font-weight: bold;
+        font-family: 'jaldi', sans-serif;
+        margin-right: 20px;
+        font-size: 20px;
+        padding: 10px;
+        color: black;
+    }
+    
+}
+@media screen and (min-width:767px){
+    
+    .newBookmark{
+        .blueBg{
+            li{
+                width: 250px;
+            }
+        }
+        .nav-tabs{
+            justify-content: center;
+        }
+    }
+}
+@media screen and (max-width:760px){
+    .dataDiv{
+        padding-top: 0px;
+        padding-bottom: 0px;
+        a{
+            margin-right: 20px;
+            font-size: 16px;
+        }
+       
+    }
+    .newBookmark{
+        .subjects{
+            .nav-tabs{
+                box-shadow: inset 0px -11px 8px -10px #adabab;
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: scroll;
+                -ms-overflow-style: none;  
+                scrollbar-width: none;
+            }
+            .nav-tabs::-webkit-scrollbar{
+                display: none;
+            }
+        }
+    }
+    .header{
+        padding: 10px;
+        .totalUser{
+            flex-wrap: wrap;
+            font-size: 20px;
+          }
+          h2{
+              font-size: 30px !important;
+          }
+    }
+    
+}
+
+

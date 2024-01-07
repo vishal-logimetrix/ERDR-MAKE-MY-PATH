@@ -1,0 +1,30 @@
+<form [formGroup]="journeyForm" (submit)="submitForm()">
+<div class="body">
+    <div class="form-group">
+       <label>Title (*select exam for default title) </label>
+       <input type="text" class="form-control" placeholder="Add Journey Title" formControlName="title">
+       </div> 
+       <div class="form-group">
+        <label>Select Destined Exam </label>
+        <select class="form-control" name="selectedClass" formControlName="exam" (change)="populateTitle($event.target.value)">
+         <option value="" selected disabled>Select Exam</option>
+         <option [value]="exam?.id" *ngFor="let exam of exams">{{exam?.title}}</option>
+     </select>
+        </div>
+   <label>Description </label> 
+   <ckeditor
+   [(ngModel)]="ckeditorContent"
+   [config]="{uiColor: '#dddcdc'}"
+   [readonly]="false"
+   (change)="onChange($event)"
+   formControlName="description"
+   debounce="500">
+ </ckeditor>
+   <br>
+  
+  <br>
+
+   <button type="submit" class="btn btn-primary" id="design_details" >SAVE</button>
+
+</div>
+</form>

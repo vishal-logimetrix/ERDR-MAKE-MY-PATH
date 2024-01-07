@@ -1,0 +1,102 @@
+<ng-template #profileModal>
+  <div class="modal-content">
+    <div class="modal-header border-0">
+      <h5 class="modal-title" id="loginTitle">Update Profile</h5>
+      <button type="button" class="close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form (submit)="onSubmit($event)">
+        <div class="form-group">
+
+          <!-- First Name -->
+          <label for="first_name" *ngIf="checkFieldAvailability('first_name')"> First Name
+            <input id="first_name" type="text" class="form-control" placeholder="First Name" name="first_name" required>
+          </label>
+
+          <!-- Last Name -->
+          <label for="last_name" *ngIf="checkFieldAvailability('last_name')"> Last Name
+            <input id="last_name" type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+          </label>
+
+          <!-- Institute Name -->
+          <label for="institutename" *ngIf="checkFieldAvailability('institutename')">Institute Name
+            <input id="institutename" type="text" class="form-control" placeholder="Institute Name" name="institutename">
+          </label>
+
+          <!-- Student Class -->
+          <label for="studentClass" *ngIf="checkFieldAvailability('studentClass')">Student Class
+            <select id="studentClass" class="form-control" name="studentClass">
+              <option value="">Select Class</option>
+              <option value="{{studentClass.id}}" *ngFor="let studentClass of studentClassList">
+                {{studentClass.name}}
+              </option>
+            </select>
+          </label>
+
+          <!-- Roll No. -->
+          <label for="rollno" *ngIf="checkFieldAvailability('rollno')"> Roll No.
+            <input id="rollno" type="text" class="form-control" placeholder="Roll Number" name="rollno">
+          </label>
+
+          <!-- Student Board -->
+          <label for="studentBoard" *ngIf="checkFieldAvailability('studentBoard')"> Board
+            <select id="studentBoard" class="form-control" name="studentBoard">
+              <option value="">Select Board</option>
+              <option value="{{board.id}}" *ngFor="let board of boardList">{{board.name}}</option>
+            </select>
+          </label>
+
+          <!-- Institute State -->
+          <label for="instituteState" *ngIf="checkFieldAvailability('institute_state')"> Institute State
+            <select id="instituteState" class="form-control" name="institute_state" (change)="getCityList(userState)"
+                    [(ngModel)]="userState">
+              <option value="{{state.id}}" *ngFor="let state of stateList">{{state.name}}</option>
+            </select>
+          </label>
+
+          <!--Institute City -->
+          <label for="instituteCity" *ngIf="checkFieldAvailability('institute_city')"> Institute City
+            <select id="instituteCity" class="form-control" name="city" [(ngModel)]="userCity">
+              <option value="{{city.id}}" *ngFor="let city of cityList">{{city.name}}</option>
+            </select>
+          </label>
+
+          <!-- Address -->
+          <label for="address" *ngIf="checkFieldAvailability('address')"> Address
+            <input id="address" type="text" class="form-control" placeholder="House No. & Street" name="address">
+          </label>
+
+          <!-- State -->
+          <label for="state" *ngIf="checkFieldAvailability('state')"> State
+            <select id="state" class="form-control" name="state" (change)="getCityList(userState)"
+                    [(ngModel)]="userState">
+              <option value="{{state.id}}" *ngFor="let state of stateList">{{state.name}}</option>
+            </select>
+          </label>
+
+          <!-- City -->
+          <label for="city" *ngIf="checkFieldAvailability('city')"> City
+            <select id="city" class="form-control" name="city" [(ngModel)]="userCity">
+              <option value="{{city.id}}" *ngFor="let city of cityList">{{city.name}}</option>
+            </select>
+          </label>
+
+          <!-- Zip Code -->
+          <label for="pincode" *ngIf="checkFieldAvailability('pincode')"> Zip Code
+            <input id="pincode" type="text" class="form-control" placeholder="Zip" name="pincode" maxlength="6">
+          </label>
+        </div>
+
+        <div *ngIf="feedback.errors">
+          <p class="text-daner">{{feedback.errors}}</p>
+        </div>
+
+        <div class="d-flex align-items-center">
+          <button type="submit" class="btn btn-info">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

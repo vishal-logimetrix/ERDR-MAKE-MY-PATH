@@ -1,0 +1,563 @@
+<div class="mathjax bookmarkQuestions" #mathjax>
+    <div class="practicePaperNav">
+        <div class="container-fluid">
+            <div class="navData">
+                <div>
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#confirmationModal"><img src="assets/images/mentorArrowLogo.svg"
+                            alt=""></a>
+                </div>
+                <!-- <div class="verticalLine"></div>
+                    <div class="examTitle">
+                        <div>
+                            <h4 *ngIf="batchDetails?.institute_room?.id">{{batchDetails?.institute_room?.grade_name}} - {{batchDetails?.institute_room?.name}}</h4>
+                            <h4 *ngIf="!batchDetails?.institute_room?.id">{{batchDetails?.name}}</h4>
+                        </div>
+                        <div><h5>(Paper)</h5></div>
+                    </div> -->
+                <div class="d-flex align-items-center" data-toggle="modal" data-target="#confirmationModal" style="cursor: pointer;">
+                    <div><img class="profileImage" src="{{ batchDetails?.profile_pic }}" alt=""></div>
+                    <div>
+                        <h5 class="mentorName">Mentor Name : <br> <span>{{batchDetails?.teacher_full_name}}</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="secondaryNav">
+        <div class="container-fluid">
+            <div class="paperDetails">
+                <div>
+                    <h4>Paper- ({{paperDetails?.exam?.description}})</h4>
+                </div>
+                <div>
+                    <button class="btn btn-sm"  routerLink="/organization"><span class="iconify mr-1" data-icon="fa:angle-double-left"></span> Back To Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="firstSection">
+                <div class="row" style="background: #ff4935; color: #FFFFFF;">
+                    <div class="col-sm-6">
+                        <div class="questionNumber">
+                            <h2>Question: {{currentQuestion}} / {{ paperDetails?.questions?.length}}
+                                >
+                                
+                                    <span *ngIf="questionDetails?.type_of_question==='mcq'">Single Choice</span>
+                                        <span *ngIf="questionDetails?.type_of_question==='mcc'">Multiple Choice
+                                        </span>
+                                    <span *ngIf="questionDetails?.type_of_question==='fillup'">Fill In The
+                                        Blanks</span>
+                                        <span *ngIf="questionDetails?.type_of_question==='numerical'">Integral
+                                        value type</span>
+                                        <span *ngIf="questionDetails?.type_of_question==='subjective'">Subjective</span>
+                                            <span *ngIf="questionDetails?.type_of_question==='fillup_option'">
+                                        Fill up with option</span>
+                                        <span *ngIf="questionDetails?.type_of_question==='boolean'">
+                                        True/ False</span>
+                                        <span *ngIf="questionDetails?.type_of_question==='assertion'">
+                                        Assertion</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-1">
+                        <div class="verticalLine"></div>
+                    </div> -->
+                    <div class="col-sm-4">
+                        <div class="questionType">
+                           <h3>Ideal Time : {{questionDetails?.ideal_time}} Sec</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <a class="mr-4" href="javascript:void(0)" (click)="bookmark()"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
+                        <a class="mr-3" href="javascript:void(0)" (click)="resetIssue()" data-toggle="modal" data-target=".bd-example-modal-lg"><span class="iconify" data-icon="ant-design:warning-outlined"></span></a>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="scrollingSection">
+                            <div class="questionDetailDiv">
+                                <p *ngIf="question?.comprehension" class="font-sm-1 mb-1 comprehension-question"
+                                    [innerHtml]="question?.comprehension">
+                                </p>
+                                <!-- <h6 class="mb-0"><strong>Question: 10 Marks</strong></h6> -->
+
+                                <ng-container *ngFor="let content of questionDetails?.contents">
+                                    <p class="font-sm-1 mb-0 olList" *ngIf="content?.language?.text == 'English'"
+                                        [innerHtml]="content?.text | safeHtml"></p>
+                                </ng-container>
+
+                            </div>
+                            <div class="optionDiv">
+                                <ul>
+                                    <li class="cursor-pointer mb-2 text-black"
+                                        *ngFor="let option of mcqDetails; let optionIndex = index">
+                                        <div class="d-flex">
+                                            <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                                            <span class="ml-3 option-text font-sm-1"
+                                                [innerHtml]="option?.text | safeHtml"></span>
+                                        </div>
+                                        <div *ngIf="option['opt_image']"
+                                            class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                            <div #optionImage>
+                                                <button type="button"
+                                                    class="close-button d-none btn btn-link text-black"
+                                                    (click)="enlargeImage(optionImage)"><i
+                                                        class="fa fa-times"></i></button>
+                                                <img class="img-responsive" [src]="option['opt_image']"
+                                                    alt="Option Image">
+                                            </div>
+                                            <button class="p-2 btn btn-link text-black" type="button"
+                                                (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                                    aria-hidden="true"></i></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div *ngIf="div2" class="solutionDiv">
+                                <h2>Solution</h2>
+                                <div class="mt-2">
+                                    <p *ngIf="question?.comprehension" class="font-sm-1 mb-1 comprehension-question"
+                                        [innerHtml]="question?.comprehension">
+                                    </p>
+                                    <h6 class="mb-0 olList" [innerHtml]="solutionDetails?.text | safeHtml">
+                                        <strong></strong></h6>
+
+                                    <!-- <p class="font-sm-1 mb-0" > -->
+                                    <!-- [innerHtml]="question?.text" -->
+                                    <!-- As per RBI guuidelines cheque to be routed through the CTS clearing will not be entertained if they bear alteration in the ______ of the 
+                            </p> -->
+                                </div>
+                                <div class="mt-3">
+
+                                    <!-- Options -->
+                                    <div class="mb-2 option-container">
+                                        <ul>
+                                            <li class="cursor-pointer mb-2 text-black"
+                                                *ngFor="let option of mcqDetails; let optionIndex = index">
+                                                <div class="d-flex" *ngIf="questionDetails?.type_of_question=='mcq'">
+                                                    <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                                                    <span *ngIf="option?.correct"
+                                                        class="ml-3 option-text font-sm-1 correctmcq"
+                                                        [innerHtml]="option?.text | safeHtml"></span>
+                                                    <ng-container *ngIf="selectedQuestion?.user_answer">
+                                                        <span
+                                                            *ngIf="!option?.correct && selectedQuestion?.user_answer[0] != option?.id"
+                                                            class="ml-3 option-text font-sm-1"
+                                                            [innerHtml]="option?.text | safeHtml"></span>
+                                                        <span
+                                                            *ngIf="!option?.correct && selectedQuestion?.user_answer[0] == option?.id"
+                                                            class="ml-3 option-text font-sm-1 incorrect"
+                                                            [innerHtml]="option?.text | safeHtml"></span>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="!selectedQuestion?.user_answer">
+                                                        <span *ngIf="!option?.correct"
+                                                            class="ml-3 option-text font-sm-1"
+                                                            [innerHtml]="option?.text | safeHtml"></span>
+                                                    </ng-container>
+                                                </div>
+                                                <div class="d-flex"
+                                                    *ngIf="questionDetails?.type_of_question=='mcc' || questionDetails?.type_of_question=='assertion'">
+                                                    <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                                                    <span *ngIf="option?.correct"
+                                                        class="ml-3 option-text font-sm-1 correctmcq"
+                                                        [innerHtml]="option?.text | safeHtml"></span>
+                                                    <span *ngIf="!option?.correct" class="ml-3 option-text font-sm-1"
+                                                        [innerHtml]="option?.text | safeHtml"></span>
+                                                </div>
+                                                <div *ngIf="option['opt_image']"
+                                                    class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                                    <div #optionImage>
+                                                        <button type="button"
+                                                            class="close-button d-none btn btn-link text-black"
+                                                            (click)="enlargeImage(optionImage)"><i
+                                                                class="fa fa-times"></i></button>
+                                                        <img class="img-responsive" [src]="option['opt_image']"
+                                                            alt="Option Image">
+                                                    </div>
+                                                    <button class="p-2 btn btn-link text-black" type="button"
+                                                        (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                                            aria-hidden="true"></i></button>
+                                                </div>
+                                            </li>
+                                            <ng-container *ngIf="questionDetails?.type_of_question=='boolean'">
+                                                <li *ngIf="booleanDetails?.option"
+                                                    class="cursor-pointer mb-2 text-black"><span
+                                                        class="ml-3 option-text font-sm-1 correctmcq">True</span></li>
+                                                <li *ngIf="!booleanDetails?.option"
+                                                    class="cursor-pointer mb-2 text-black"><span
+                                                        class="ml-3 option-text font-sm-1">True</span></li>
+                                                <li *ngIf="!booleanDetails?.option"
+                                                    class="cursor-pointer mb-2 text-black"><span
+                                                        class="ml-3 option-text font-sm-1 correctmcq">False</span></li>
+                                                <li *ngIf="booleanDetails?.option"
+                                                    class="cursor-pointer mb-2 text-black"><span
+                                                        class="ml-3 option-text font-sm-1">False</span></li>
+
+                                            </ng-container>
+                                            <ng-container *ngIf="questionDetails?.type_of_question=='fillup'">
+                                                <li><b>Answer: </b><span
+                                                        [innerHtml]="fillUpDetails?.text | safeHtml"></span></li>
+                                            </ng-container>
+                                            <ng-container *ngIf="questionDetails?.type_of_question=='fillup_option'">
+                                                <li class="cursor-pointer mb-2 text-black"
+                                                    *ngFor="let option of fillUpOptionDetails; let optionIndex = index">
+                                                    <div class="d-flex">
+                                                        <span class="font-weight-bold font-sm-1">{{optionIndex +
+                                                            1}})</span>
+                                                        <span *ngIf="option?.correct"
+                                                            class="ml-3 option-text font-sm-1 correctmcq"
+                                                            [innerHtml]="option?.text | safeHtml"></span>
+                                                        <span *ngIf="!option?.correct"
+                                                            class="ml-3 option-text font-sm-1"
+                                                            [innerHtml]="option?.text | safeHtml"></span>
+                                                    </div>
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-2 next-prev d-flex justify-content-center">
+                                    <button type="button" class="btn btn-danger" (click)="closeSolution()">Close
+                                        Solution</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 firstRowOfButtons">
+                        <div>
+                            <button class="btn btnSolution" (click)="div2Function()">View Solution</button>
+                        </div>
+                        <div>
+                            <div class="previousAndNextDiv">
+                                <div *ngIf="currentQuestion > 1" class="prevDiv">
+                                    <button class="btn" (click)="fetchPrev()">
+                                        <span><i class="fa fa-angle-double-left"></i> Previous</span>
+                                    </button>
+                                </div>
+                                <div *ngIf="currentQuestion < questionIds?.length" class="nextDiv">
+                                    <button class="btn" (click)="fetchNext()">Next <i class="fa fa-angle-double-right"
+                                            aria-hidden="true"></i> </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btnUnmark" (click)="findReplacementQuestion()">Replace</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 firstRowOfButtons">
+                        <div>
+                            <button class="btn btnLeave" routerLink="/organization">Reset</button>
+                        </div>
+                        <!-- <div>
+                            <button class="btn btnLeave" (click)="bookmark()">Bookmark</button>
+                        </div> -->
+                        <div>
+                            <button class="btn btnCreatePaper" data-toggle="modal" data-target="#confirmationModal">
+                                <span *ngIf="sendQuestion"><i class="fa fa-spinner fa-spin mr-1"></i>Creating Paper</span>
+                                <span *ngIf="!sendQuestion">Send</span>
+                            </button>
+                            <button #openModal type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                data-target=".bd-example-modal-sm" hidden></button>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-12">
+                        <div class="nextDiv">
+                            <div *ngIf="currentQuestion > 1" class="prevDiv">
+                                <a href="javascript:void(0)" (click)="fetchPrev()">
+                                    <span><i class="fa fa-angle-double-left"></i> Previous</span>
+                                </a>
+                            </div>
+                            <div *ngIf="currentQuestion < questionIds?.length">
+                                <a href="javascript:void(0)" (click)="fetchNext()">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="solutionShare">
+                            <button class="btn btnSolution btn-sm" (click)="div2Function()">Solution</button>
+                            <button class="btn btnUnmark btn-sm" (click)="findReplacementQuestion()">Replace</button>
+                            <button class="btn btnCreatePaper btn-info btn-sm" (click)="makePaper()">Create Practice Paper</button>
+                            <button #openModal type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm" hidden></button>
+                           
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="secondSection">
+                <h2>All Questions</h2>
+
+              
+                <div class="row" style="margin-left: 15px;">
+                    <div class="col-lg-12">
+                        <div class="allQuestionNumbers">
+                            <!-- <div *ngFor="let question of questionIds; let i = index">
+                            <button class="btn" [ngClass]="(i+1)===currentQuestion ? 'btn-visited': 'btn-default'"
+                            (click)="jumpToQuestion(i)">{{i + 1}}</button>
+                            </div> -->
+                            <div *ngFor="let question of questions; let i = index" class="circleSection">
+                                <button
+                                    *ngIf="question?.type_of_question=='mcq' || question?.type_of_question=='mcc' || question?.type_of_question=='assertion'"
+                                    class="btn circle" (click)="jumpToQuestion(i)">{{i + 1}}</button>
+                                <button *ngIf="question?.type_of_question=='subjective'" class="btn circleOne"
+                                    (click)="jumpToQuestion(i)">{{i + 1}}</button>
+                                <button
+                                    *ngIf="question?.type_of_question=='fillup' || question?.type_of_question=='fillup_option'"
+                                    class="btn circleThree" (click)="jumpToQuestion(i)">{{i + 1}}</button>
+                                <button *ngIf="question?.type_of_question=='boolean'" class="btn circleTwo"
+                                    (click)="jumpToQuestion(i)">{{i + 1}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <div class="separtaor"></div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="circleSection">
+                            <div class="circle"></div>
+                            <h2>Single Choice</h2>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="circleSection">
+                            <div class="circleOne"></div>
+                            <h2>Subjective</h2>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="circleSection">
+                            <div class="circleTwo"></div>
+                            <h2>True/False</h2>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="circleSection">
+                            <div class="circleThree"></div>
+                            <h2>Fill in the Blanks</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade replaceQuestionModal bd-example-modal-sm" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Replace <span>Question</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="greyDiv">
+                    <h2 class="heading" *ngIf="batchDetails?.institute_room?.id">
+                       Batch :  {{batchDetails?.institute_room?.grade_name}} - {{batchDetails?.institute_room?.name}}</h2>
+                    <h2 class="heading" *ngIf="!batchDetails?.institute_room?.id">Batch : {{batchDetails?.name}}</h2>
+                </div>
+                <div class="blueDiv">
+                    <h2 class="questionNumber">Question Type : </h2>
+                    <h3 *ngIf="replacementQuestion?.type_of_question==='mcq'">Single Choice</h3>
+                    <h3 *ngIf="replacementQuestion?.type_of_question==='mcc'">Multiple Choice
+                    </h3>
+                    <h3 *ngIf="replacementQuestion?.type_of_question==='fillup'">Fill In The
+                        Blanks</h3>
+                    <h3 *ngIf="replacementQuestion?.type_of_question==='numerical'">Integral
+                        value type</h3>
+                    <h3 *ngIf="replacementQuestion?.type_of_question==='subjective'">Subjective</h3>
+                    <h3 *ngIf="replacementQuestion?.type_of_question==='fillup_option'">
+                        Fill up with option</h3>
+                    <h3 *ngIf="replacementQuestion?.type_of_question==='boolean'">
+                        True/ False</h3>
+                    <h3 *ngIf="replacementQuestion?.type_of_question==='assertion'">
+                        Assertion</h3>
+                </div>
+                <ng-container *ngFor="let content of replacementQuestion?.contents">
+                    <p class="questionToBeReplaced olList font-sm-1 mb-0" *ngIf="content?.language?.text == 'English'"
+                        [innerHtml]="content?.text | safeHtml"></p>
+                </ng-container>
+
+                <div *ngIf="div3" class="yellowDiv">
+                    <h2 class="heading">Solution :</h2>
+                </div>
+                <div *ngIf="div3" class="solutionDiv">
+                    <div class="mt-2">
+                        <p *ngIf="replacementQuestion?.comprehension" class="font-sm-1 mb-1 comprehension-question"
+                            [innerHtml]="replacementQuestion?.comprehension">
+                        </p>
+                        <h6 class="mb-0" [innerHtml]="replaceSol?.text | safeHtml"><strong></strong></h6>
+
+                    </div>
+
+
+                </div>
+                <div class="mt-3">
+
+                    <!-- Options -->
+                    <div class="mb-2 option-container">
+                        <ul>
+                            <li class="cursor-pointer mb-2 text-black"
+                                *ngFor="let option of replaceMcq; let optionIndex = index">
+                                <div class="d-flex" *ngIf="replacementQuestion?.type_of_question=='mcq'">
+                                    <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                                    <span *ngIf="option?.correct" class="ml-3 option-text font-sm-1 correctmcq"
+                                        [innerHtml]="option?.text | safeHtml"></span>
+
+                                    <span *ngIf="!option?.correct" class="ml-3 option-text font-sm-1"
+                                        [innerHtml]="option?.text | safeHtml"></span>
+
+                                </div>
+                                <div class="d-flex"
+                                    *ngIf="replacementQuestion?.type_of_question=='mcc' || replacementQuestion?.type_of_question=='assertion'">
+                                    <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                                    <span *ngIf="option?.correct" class="ml-3 option-text font-sm-1 correctmcq"
+                                        [innerHtml]="option?.text | safeHtml"></span>
+                                    <span *ngIf="!option?.correct" class="ml-3 option-text font-sm-1"
+                                        [innerHtml]="option?.text | safeHtml"></span>
+                                </div>
+                                <div *ngIf="option['opt_image']"
+                                    class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                    <div #optionImage>
+                                        <button type="button" class="close-button d-none btn btn-link text-black"
+                                            (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                                        <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                                    </div>
+                                    <button class="p-2 btn btn-link text-black" type="button"
+                                        (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                            aria-hidden="true"></i></button>
+                                </div>
+                            </li>
+                            <ng-container *ngIf="replacementQuestion?.type_of_question=='boolean'">
+                                <li *ngIf="replaceBoolean?.option" class="cursor-pointer mb-2 text-black"><span
+                                        class="ml-3 option-text font-sm-1 correctmcq">True</span></li>
+                                <li *ngIf="!replaceBoolean?.option" class="cursor-pointer mb-2 text-black"><span
+                                        class="ml-3 option-text font-sm-1 incorrect">True</span></li>
+                                <li *ngIf="!replaceBoolean?.option" class="cursor-pointer mb-2 text-black"><span
+                                        class="ml-3 option-text font-sm-1 correctmcq">False</span></li>
+                                <li *ngIf="replaceBoolean?.option" class="cursor-pointer mb-2 text-black"><span
+                                        class="ml-3 option-text font-sm-1 incorrect">False</span></li>
+
+                            </ng-container>
+                            <ng-container *ngIf="replacementQuestion?.type_of_question=='fillup'">
+                                <li><b>Answer: </b><span [innerHtml]="replaceFillup?.text | safeHtml"></span></li>
+
+                            </ng-container>
+                            <ng-container *ngIf="replacementQuestion?.type_of_question=='fillup_option'">
+                                <li class="cursor-pointer mb-2 text-black"
+                                    *ngFor="let option of replaceFillupOption; let optionIndex = index">
+                                    <div class="d-flex">
+                                        <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                                        <span *ngIf="option?.correct" class="ml-3 option-text font-sm-1 correctmcq"
+                                            [innerHtml]="option?.text | safeHtml"></span>
+                                        <span *ngIf="!option?.correct" class="ml-3 option-text font-sm-1"
+                                            [innerHtml]="option?.text | safeHtml"></span>
+                                    </div>
+                                </li>
+
+                            </ng-container>
+                        </ul>
+                        <div *ngIf="div3" class="mt-2 next-prev d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger" (click)="closeSolutionReplace()">Close
+                                Solution</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modalsAllButton">
+                    <button type="button" (click)="replaceQuestion()" class="btn btnReplace btn-sm">Replace</button>
+                    <button type="button" (click)="findReplacementQuestion()" class="btn btnFetchAnother btn-sm">Fetch
+                        Another</button>
+                    <button class="btn btnSolution btn-sm" (click)="div3Function()">Solution</button>
+                    <button type="button" (click)="closeModalPopup()" class="btn btnCancel btn-sm">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal reportModal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Report <span>Question</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal2>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              
+              <div class="form-group">
+                  <label for="exampleInputPassword1">Select Issue</label>
+                  <div class="btn-group">
+                    <button type="button" (click)="selectErrorType(1, 'Question Unclear')" class=" reportReason pl-3 pr-3 btn btn-outline-primary" id="regi1">Incomplete Question</button>
+                    <button type="button" (click)="selectErrorType(2, 'Wrong Option')" class="btn reportReason pl-3 pr-3 btn-outline-success" id="regi2">Wrong Option</button>
+                    <button type="button" (click)="selectErrorType(3, 'Wrong Question')" class="btn reportReason pl-3 pr-3 btn-outline-info" id="regi3">Wrong Question</button>
+                    <button type="button" (click)="selectErrorType(4, 'Unclear Image')" class="btn reportReason pl-3 pr-3 btn-outline-dark" id="regi4">Unclear Image</button>
+                    <button type="button" (click)="selectErrorType(5, 'Question irrelevant for selected chapter(s)')" class="btn reportReason pl-3 pr-3 btn-outline-info" id="regi5">Question irrelevant for selected chapter(s)</button>
+                   </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Error Description</label>
+                <textarea class="form-control" id="exampleInputPassword1" [(ngModel)]="errorDesc" placeholder="Enter description....."></textarea>
+                </div>
+              
+            <div>
+              <button type="button" data-toggle="modal" data-target="#confirmationModalReport"  class="btn btnReport btn-primary">REPORT</button>
+            </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+      <div class="modal-content" style="border-radius: 16px;border: none;">
+        <div class="modal-header" style="border: none;">
+          <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #ff1900;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeSendPaper>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to create PAPER?</p>
+        </div>
+        <div class="modal-footer" style="background-color: #ff4935; border-radius: 0 0 16px 16px;justify-content: space-between;">
+          <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-sm text-white" style="background-color: #00A3F1; border-radius: 6px;" (click)="makePaper()">Yes, create it!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModalReport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+      <div class="modal-content" style="border-radius: 16px;border: none;">
+        <div class="modal-header" style="border: none;">
+          <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #ff1900;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeReport>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-center" style="color: #544F4F; font-size: 16px;">Are you sure you want to report this question?</p>
+        </div>
+        <div class="modal-footer" style="background-color: #ff4935; border-radius: 0 0 16px 16px;justify-content: space-between;">
+          <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-sm text-white" style="background-color: #00A3F1; border-radius: 6px;" (click)="reportQuestion()">Yes !</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,192 @@
+
+.pppp{
+  min-height: 100vh;
+  // padding: 17vh 0px 25px 0px;
+  padding: 95px 0px 25px 0px;
+  .examTitle{
+    color: #FF1900;
+    font-family: 'Jaldi', Sans-serif;
+    font-size: 3em;
+    line-height: 1em;
+    letter-spacing: 0px;
+    font-weight: bold;
+  }
+  .totalUser{
+    display: flex;
+    justify-content: flex-end;
+    // margin: 0px 0px -12px 0px;
+    color: #18181B;
+    font-family: 'jaldi', Sans-serif;
+    font-size: 1.375em;
+    font-weight: 300;
+    line-height: 1.545em;
+    letter-spacing: 0px;
+  }
+  .breadcrumb {
+    background-color: #f5f4f4;
+    padding: 0px !important;
+    margin: 15px 0px 5px 0px !important;
+    a {
+      color: #ff4935;
+      font: {
+        size: 18px;
+        // weight: bold;
+      }
+      font-family: "jaldi";
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    span {
+      color: #808180;
+      font: {
+        size: 18px;
+        // weight: bold;
+      }
+      font-family: "jaldi";
+    }
+  }
+  .breadcrumb > li + li:before {
+    color: #5a5a5a;
+    content: ">>";
+    // font-weight: bold;
+    padding: 2px 5px 2px 2px;
+  }
+  .newCardRow{
+    // padding-top: 30px;
+    .nopadding{
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    h3{
+      font-weight: 500;
+      margin-bottom: 20px;
+      font-size: 28px;
+      font-family: Jaldi;
+      font-weight: 600;
+      color: #333;
+      line-height: 1.4;
+      span{
+        line-height: 1.278px;
+        color: #ff4935;
+      }
+    }
+    .btn{
+      background: #ffffff;
+      border: 1px solid #ff4935;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+      font-family: "jaldi", Sans-serif;
+      font-weight: 700;
+      font-size: 1em;
+      line-height: 20px;
+      text-transform: capitalize;
+      color: #ff4935;
+      margin: 46px 0px 0px 0px;
+      padding: 12px 34px;
+      width: 200px;
+    }
+    .btn:hover {
+      background: #ff4935;
+      color: #FFFFFF;
+    }
+    .historyBookmark{
+      display: flex;
+      justify-content: flex-end;
+      .btn {
+        font-family: "jaldi", Sans-serif;
+        font-size: 1em;
+        // font-weight: 600;
+        text-transform: uppercase;
+        line-height: 1.5em;
+        // letter-spacing: 3.2px;
+        background-color: transparent;
+        color: #727270;
+        padding: 0;
+        box-shadow: none;
+        margin-left: 25px;
+        // width: 185px;
+        // margin-right: 10px;
+        span {
+          margin-left: 6px;
+        }
+      }
+      .btn:hover {
+        text-decoration: underline;
+        background: transparent;
+      }
+    }
+    
+    .myHistory{
+      margin-right: 40px;
+    }
+  }
+  .card{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 10px 10px 10px 10px;
+    padding: 2em 2em 2em 2em;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .imageDiv{
+    width: 210px;
+    height: 157px;
+    overflow: hidden;
+    // display: block;
+    margin: auto;
+    display: contents;
+    padding: 20px 0px 0px 0px;
+    img{
+      max-width: 210px;
+      max-height: 157px;
+    }
+  }
+  
+  
+  hr{ 
+    display: block; 
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #FFFFFF;
+    margin: 0 0 1em 0;
+    padding: 0; }
+    
+}
+
+@media screen and (max-width: 767px){
+  .pppp{
+    
+    h2{
+      font-size: 26px;
+    }
+    .card{
+      margin-bottom: 25px;
+    }
+    .totalUser{
+      position: initial;
+      width: 170px;
+      // margin-right: auto;
+      margin-left: auto;
+      font-size: 20px;
+    }
+    .examTitle{
+      font-size: 3em;
+    }
+    .newCardRow{
+      .historyBookmark{
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px){
+  .pppp{
+    padding: 17vh 15px 25px 15px;
+  }
+}

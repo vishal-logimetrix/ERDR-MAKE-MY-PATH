@@ -1,0 +1,60 @@
+<div class="container-fluid instructionDiv">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>My <span>Paper</span> Instructions</h2>
+      </div>
+      <div class="col-md-12"><hr></div>
+          <div class="col-md-6 offset-lg-1 mt-2">
+            <div *ngFor="let instruction of instructions">
+              <h5 class="instructionData"  [innerHtml]="instruction.instruction"></h5>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12 squareDiv">
+                <div class="squareOne"></div>
+                <div><h6>You have answered the question.</h6></div>
+              </div>
+              <div class="col-md-12 squareDiv">
+                <div class="squareTwo"></div>
+                <div><h6>You have visited but not answered the question yet.</h6></div>
+              </div>
+              <div class="col-md-12 squareDiv">
+                <div class="squareThree"><i class="fa fa-check" aria-hidden="true"></i></div>
+                <div><h6>You have not answered the question but have marked for review.</h6></div>
+              </div>
+              <div class="col-md-12 squareDiv">
+                <div class="squareFour"><i class="fa fa-bookmark" aria-hidden="true"></i><i class="fa fa-check" aria-hidden="true"></i></div>
+                <div><h6>You have answered the question but have marked for review.</h6></div>
+              </div>
+              <div class="col-md-12 squareDiv">
+                <div class="squareFive"></div>
+                <div><h6>Not Visited.</h6></div>
+              </div>
+              <div class="col-md-12 mb-3 mt-4 d-flex justify-content-end">
+                <div>
+                  <!-- <a href="" class="agree"><img src="assets/agree.png" alt=""><span>I Agree</span></a> -->
+                </div>
+                <div>
+                  <a class=" start "
+                routerLink="/assessment/paper/my-paper/{{examId}}" [queryParams]="{paper: paperId}">
+               <img src="assets/start.png" alt=""><span>Start</span>
+             </a>
+                </div>
+                <div>
+                  <a href="https://api.whatsapp.com/send?text=https://makemypath.app/assessment/dashboard/respond-paper-request/{{examId}}?paper={{paperId}} | %0D%0A%0D%0A*Hi I'm inviting you to accept the exam paper created by me*" target="_blank" class="share"><img src="assets/share.png" alt=""><span>Share</span></a>
+                </div>
+                
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <img class="instructionImage" src="assets/instructions.png" alt="">
+          </div>
+  
+      <!-- <div class="col-md-12 dataDiv">
+        <div *ngFor="let instruction of instructions">
+          <h5  [innerHtml]="instruction.instruction"></h5>
+        </div>
+      </div> -->
+    </div>
+  </div>

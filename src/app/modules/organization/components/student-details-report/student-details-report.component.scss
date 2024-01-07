@@ -1,0 +1,725 @@
+.sdReport {
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  padding: 15vh 0vw 1vh 0vw;
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ffffff;
+    margin: 0 0 1em 0;
+    padding: 0;
+  }
+  .btnLeaderboard {
+    padding: 0;
+    font-family: "jaldi", Sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ff4935;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  .totalUser {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: #18181b;
+    font-family: "jaldi", Sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+    line-height: 1.545em;
+    letter-spacing: 0px;
+    a {
+      color: #ff1900;
+      font-size: 1.2em;
+      font-weight: 600;
+      margin: 0 7px;
+      font-family: "jaldi", Sans-serif;
+    }
+    h4 {
+      color: #ff1900;
+      font-size: 1.2em;
+      font-weight: 600;
+      margin: 0 7px;
+      font-family: "jaldi", Sans-serif;
+      span {
+        color: #000000;
+      }
+    }
+  }
+  .scrollingSection {
+    height: 65vh;
+    overflow-y: scroll;
+  }
+  #pills-tab {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  .nav-pills .nav-link.active {
+    font-family: "jaldi", Sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    line-height: 1em;
+    letter-spacing: 3px;
+    background-color: #007bba;
+    border-radius: 50px 50px 50px 50px;
+    // box-shadow: 0px 2px 0px 0px #ff4935;
+    padding: 9px 24px;
+    color: #fff;
+  }
+  .nav-pills .nav-link {
+    font-family: "jaldi", Sans-serif;
+    font-size: 1em;
+    margin: 0px 5px;
+    font-weight: 600;
+    line-height: 1em;
+    letter-spacing: 3px;
+    // background-color: rgb(243, 239, 239);
+    border-radius: 50px 50px 50px 50px;
+    // box-shadow: 0px 2px 0px 0px #ff4935;
+    padding: 9px 24px;
+    // color: #007bba;
+  }
+  .buttonsSection {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .btnBlockedStudents {
+    padding: 9px 0;
+    font-family: Lato, Sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ff4935;
+    background-color: transparent;
+    border: 1px solid #ff4935;
+    border-radius: 50px 50px 50px 50px;
+    box-shadow: 19px 19px 40px 0 rgb(0 0 0 / 10%);
+    width: 190px;
+  }
+  .btnBlockedStudents:hover {
+    background-color: #ff4935;
+    color: #ffffff;
+  }
+  .activeBooks {
+    // background-color: #ff4935;
+    background: #ffffff !important;
+    box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25), 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border: 2px solid #ff4935;
+    // h2, h3{
+    //     color: #fff !important;
+    // }
+    // a{
+    //     color: #000 !important;
+    //     font-weight: bold !important;
+    // }
+  }
+  .dataAnalyse {
+    cursor: pointer;
+  }
+
+  .heading {
+    color: #080f44;
+    font-size: 3em;
+    font-weight: 700;
+    // margin-bottom: 5px;
+    font-family: "Jaldi", sans-serif;
+    text-align: center;
+  }
+
+  .subHeading {
+    font-size: 18px;
+    font-family: GOTHICB;
+    color: #757573;
+    padding-right: 50px;
+  }
+  .studentCardNew {
+    margin: 5px 0px 8px 0px;
+    padding: 1em;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    background: #ffffff !important;
+    .studentCardDivs {
+      display: flex;
+      flex-direction: row;
+      // align-items: center;
+    }
+    h2 {
+      color: #141824;
+      font-family: "Jaldi", Sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    h3 {
+      color: #434141;
+      font-family: "Jaldi", Sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 3px;
+      // margin-bottom: 10px;
+    }
+    a {
+      border: 1px solid #ff4935;
+      box-sizing: border-box;
+      border-radius: 5px;
+      color: #ff4935;
+      font-family: "Jaldi", Sans-serif;
+      font-size: 0.8em;
+      font-weight: 600;
+      line-height: 1.8em;
+      letter-spacing: 2.8px;
+      text-align: center;
+      margin-top: 5px;
+      width: 80px;
+      // margin-right: auto;
+      // margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .iconify {
+        color: #ff4935;
+        margin-right: 5px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+    a:hover {
+      background-color: #ff4935;
+      color: #ffffff;
+      .iconify {
+        color: #ffffff;
+      }
+    }
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+  }
+  .shadowCard {
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 50%);
+    margin: 6px 0px 20px 0px;
+    padding: 1em;
+    border-radius: 10px;
+    h2 {
+      color: #141824;
+      font-family: "Jaldi", Sans-serif;
+      font-size: 1.5em;
+      font-weight: 600;
+      line-height: 1.278em;
+      letter-spacing: 0px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .btnPaperNumber {
+      // border: 1px solid #FF4935;
+      font-family: "jaldi", Sans-serif;
+      font-size: 1.2em;
+      font-weight: 600;
+      line-height: 1em;
+      // letter-spacing: 3px;
+      // background-color: #ff4935;
+      border-radius: 20px;
+      // box-shadow: 0px 2px 0px 0px #007bba;
+      padding: 9px 24px;
+      color: #ff4935;
+    }
+
+    .examName {
+      color: #000000;
+      font-family: "Jaldi", Sans-serif;
+      font-size: 1.2em;
+      font-weight: 400;
+      line-height: 1.278em;
+      letter-spacing: 0px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .startEndDate {
+      display: flex;
+      justify-content: space-between;
+    }
+    .examDate {
+      text-align: center;
+      color: #000000;
+      font-family: "Jaldi", Sans-serif;
+      font-size: 1em;
+      font-weight: 300;
+      line-height: 1.667em;
+      letter-spacing: 0px;
+      // margin-top: -7px;
+      span {
+        font-weight: 600;
+      }
+    }
+    .examSubjects {
+      margin-bottom: 5px;
+      // text-align: center;
+      color: #000000;
+      font-family: "Jaldi", Sans-serif;
+      font-size: 1em;
+      font-weight: 600;
+      line-height: 1.667em;
+      letter-spacing: 0px;
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+  .greyOutlineDiv {
+    margin-top: 2px;
+    margin-bottom: 20px;
+    padding: 10px 15px 10px 15px;
+    border-radius: 10px;
+    // background-color: #ffffff;
+    // box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 50%);
+    .shadowCard {
+      padding: 10px;
+      margin-top: 15px;
+    }
+    h2 {
+      color: #141824;
+      font-family: "Jaldi", Sans-serif;
+      font-size: 1.5em;
+      font-weight: 600;
+      line-height: 1.278em;
+      letter-spacing: 0px;
+      text-align: center;
+      span {
+        color: #ff4935;
+      }
+    }
+    .noOfProblemMarks {
+      display: flex;
+      justify-content: space-between;
+      // padding: 0px 17px;
+      h5 {
+        color: #000000;
+        font-family: "Jaldi", Sans-serif;
+        font-size: 1em;
+        font-weight: 600;
+        line-height: 1.667em;
+        letter-spacing: 0px;
+        margin-bottom: 5px;
+        span {
+          font-weight: 500;
+        }
+      }
+    }
+    .allButtonStudentDetails {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .btn {
+        line-height: 14px;
+        letter-spacing: 0px;
+        border-radius: 4px 4px 4px 4px;
+        padding: 8px 12px 8px 12px;
+        font-size: 13px;
+        color: #fff;
+      }
+      .btnReview {
+        background-color: #ff9135;
+      }
+      .btnReview:hover {
+        border: 1px solid #ff9135;
+        color: #ff9135;
+        background-color: #ffffff;
+      }
+      .btnRemark {
+        background-color: #189128;
+      }
+      .btnRemark:hover {
+        border: 1px solid #189128;
+        color: #189128;
+        background-color: #ffffff;
+      }
+      .btnReportCard {
+        background-color: #168bd3;
+      }
+      .btnReportCard:hover {
+        border: 1px solid #168bd3;
+        color: #168bd3;
+        background-color: #ffffff;
+      }
+    }
+  }
+  .studentCard {
+    .card {
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+      background-color: #fad0e4;
+      border: none;
+      img {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+      }
+      h5 {
+        font-size: 13px;
+        margin-top: 5px;
+      }
+      h6 {
+        font-size: 11px;
+        margin-top: 5px;
+      }
+      .sdCardButton {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+      }
+      .btnHistory {
+        border-radius: 5px;
+        background-color: #c54e7f;
+        color: #ffffff;
+      }
+      .btnRemove {
+        border-radius: 5px;
+        // background-color: green;
+      }
+      .btn {
+        font-size: 10px;
+        width: 110px;
+      }
+    }
+  }
+  .papers {
+    .paperFirstRow {
+      display: flex;
+      justify-content: space-between;
+      h2 {
+        color: #ffffff;
+        background-color: #3284c6;
+        border-radius: 30px;
+        font-size: 23px;
+        margin-top: -5px;
+        min-width: 120px;
+        text-align: center;
+        padding: 5px;
+        font-family: CenturyGothicRegular;
+      }
+      h3 {
+        font-size: 15px !important;
+        color: #666766;
+      }
+      h4 {
+        font-family: CenturyGothicRegular !important;
+        color: black;
+        font-size: 14px !important;
+        margin-bottom: 5px;
+      }
+    }
+    .paperSecondRow {
+      display: flex;
+      justify-content: space-between;
+      h6 {
+        font-size: 20px;
+        font-family: GOTHICB;
+        margin-top: 8px;
+        span {
+          font-family: CenturyGothicRegular;
+        }
+      }
+      .marks {
+        display: flex;
+        justify-content: center;
+        .blueDiv {
+          background-color: #64afe0;
+          text-align: center;
+          padding: 5px;
+          margin-right: 5px;
+        }
+        .greenDiv {
+          text-align: center;
+          background-color: #00a54f;
+          display: flex;
+          align-items: center;
+          color: #ffffff;
+          padding-right: 5px;
+          padding-left: 5px;
+        }
+        h5 {
+          font-size: 17px;
+          font-family: CenturyGothicRegular;
+          font-weight: bold;
+          span {
+            color: #666766;
+            font-size: 9px;
+          }
+        }
+      }
+    }
+    .paperThirdRow {
+      display: flex;
+      margin-top: 10px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      button {
+        width: 114px;
+        color: #ffffff;
+        font-size: 13px;
+        font-family: GOTHICB;
+        border-radius: 5px;
+      }
+      h6 {
+        font-family: CenturyGothicRegular;
+        font-size: 16px;
+        margin-top: 5px;
+        font-weight: bold;
+      }
+      .btnReAttempt {
+        background-color: #f58220;
+      }
+      .ShareButton {
+        background-color: #48ab47;
+      }
+      .btnReportCard {
+        background-color: #29c3f1;
+      }
+    }
+    .card {
+      margin-top: 30px;
+      border-radius: 15px;
+      margin-bottom: 7px;
+      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+      h3 {
+        font-size: 22px;
+        font-weight: bold;
+        span {
+          font-weight: normal;
+        }
+      }
+      h4 {
+        font-size: 17px;
+        font-weight: bold;
+        span {
+          font-weight: normal;
+        }
+      }
+      h5 {
+        font-size: 15px;
+      }
+      .card-link {
+        border-radius: 20px;
+      }
+      .btnShare {
+        background-color: #048adf;
+        width: 100px;
+        color: #ffffff;
+      }
+    }
+  }
+  .sdGraphDiv {
+    h2 {
+      font-family: CenturyGothicRegular;
+      font-size: 25px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .fa-caret-right {
+      margin-right: 5px;
+      color: #51bb0b;
+    }
+  }
+  .lds-default {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-default div {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: #ff4935;
+    border-radius: 50%;
+    animation: lds-default 1.2s linear infinite;
+  }
+  .lds-default div:nth-child(1) {
+    animation-delay: 0s;
+    top: 37px;
+    left: 66px;
+  }
+  .lds-default div:nth-child(2) {
+    animation-delay: -0.1s;
+    top: 22px;
+    left: 62px;
+  }
+  .lds-default div:nth-child(3) {
+    animation-delay: -0.2s;
+    top: 11px;
+    left: 52px;
+  }
+  .lds-default div:nth-child(4) {
+    animation-delay: -0.3s;
+    top: 7px;
+    left: 37px;
+  }
+  .lds-default div:nth-child(5) {
+    animation-delay: -0.4s;
+    top: 11px;
+    left: 22px;
+  }
+  .lds-default div:nth-child(6) {
+    animation-delay: -0.5s;
+    top: 22px;
+    left: 11px;
+  }
+  .lds-default div:nth-child(7) {
+    animation-delay: -0.6s;
+    top: 37px;
+    left: 7px;
+  }
+  .lds-default div:nth-child(8) {
+    animation-delay: -0.7s;
+    top: 52px;
+    left: 11px;
+  }
+  .lds-default div:nth-child(9) {
+    animation-delay: -0.8s;
+    top: 62px;
+    left: 22px;
+  }
+  .lds-default div:nth-child(10) {
+    animation-delay: -0.9s;
+    top: 66px;
+    left: 37px;
+  }
+  .lds-default div:nth-child(11) {
+    animation-delay: -1s;
+    top: 62px;
+    left: 52px;
+  }
+  .lds-default div:nth-child(12) {
+    animation-delay: -1.1s;
+    top: 52px;
+    left: 62px;
+  }
+  @keyframes lds-default {
+    0%, 20%, 80%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+  }
+}
+
+.page-item {
+  .active {
+    background-color: #007bff;
+    color: white;
+  }
+}
+
+.modal {
+  .modal-header {
+    background: #fed8d8;
+  }
+  .modal-title {
+    font-family: "jaldi", sans-serif;
+    font-weight: 600;
+    font-size: 23px;
+    color: #ff4935;
+  }
+  .btnSend {
+    background: #ff4935;
+    color: #ffffff;
+    border-radius: 30px;
+  }
+  .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .btn {
+    width: 100px;
+    // border-radius: 5px;
+    margin-top: 10px;
+  }
+  textarea {
+    padding: 5px;
+    border: 0.3px solid rgba(114, 114, 112, 0.5);
+    border-radius: 5px ;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .sdReport {
+    .heading {
+      font-size: 30px;
+      padding-top: 30px;
+      // text-align: right;
+    }
+    .nav-pills {
+      .nav-link {
+        margin-bottom: 10px;
+      }
+    }
+    .studentCard {
+      .card {
+        margin-bottom: 15px;
+        .sdCardButton {
+          flex-direction: row;
+        }
+      }
+    }
+    .studentsRow {
+      .col-md-2 {
+        display: flex;
+        justify-content: center;
+      }
+      .col-md-6 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+    }
+    .papers {
+      .paperThirdRow {
+        margin-top: 0px;
+        .btn {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  .totalUser {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 600px) {
+  .sdReport {
+    .heading {
+      padding-top: 20px;
+    }
+    .btnBlockedStudents {
+      margin-bottom: 10px;
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .buttonsSection {
+    justify-content: center !important;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .sdReport {
+    .greyOutlineDiv {
+      .allButtonStudentDetails {
+        justify-content: space-between;
+        .btn {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+
+
+<div class="containerMyMentors container">
+    <h2 class="text-center heading">My Mentors</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <button routerLink="/assessment/dashboard/" class="btn float-left btnLeaderboard"><i
+                    class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+    </div>
+    <div class="row allMentorCard" *ngIf="isAuthenticated">
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="card addNewMentor">
+                        <img *ngIf="!batchDetail" class="mentorSearchImage" src="assets/images/mentorImage.png" alt="">
+                        <img *ngIf="batchDetail" class="mentorSearchImage" [src]="batchDetail?.profile_pic" alt="">
+                        <h5>Add New Mentor</h5>
+                        <input type="text" name="code" [(ngModel)]="batchCode" placeholder="ENTER BATCH CODE">
+                        <h4 *ngIf="batchDetail" class="mt-2">Batch : <span>{{batchDetail?.name}}</span></h4>
+                        <h4 *ngIf="batchDetail">Mentor Name : <span>{{batchDetail?.teacher_full_name}}</span></h4>
+                        <!-- <p *ngIf="batchDetail"><b> Email: </b>{{batchDetail?.teacher_email}}</p> -->
+                        <button *ngIf="!batchDetail" class="btn" (click)="searchBatch()"><b>SEARCH BATCH </b> <span> <i class="fa fa-search" aria-hidden="true"></i></span></button>
+                        <button *ngIf="batchDetail" class="btn" (click)="submit()"><b>Join Batch</b></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-6">
+            <div class="row">
+                <div class="col-xl-4 col-lg-6 mb-3" *ngFor="let batch of batches"> 
+                    <div class="card mentors h-100" style="cursor: pointer;" routerLink="/assessment/dashboard/batch-details/{{batch?.batch?.id}}">
+                        <img *ngIf="!batch?.batch?.profile_pic" class="img-responsive" src="assets/images/avatar-2.png">
+                        <img *ngIf="batch?.batch?.profile_pic" class="img-responsive" [src]="batch?.batch?.profile_pic">
+                        <h4>Batch Code : <span>{{batch?.batch?.batch_code}}</span></h4>
+                        <h4 *ngIf="batch?.batch?.institute_room?.id">Batch Name : <span>{{batch?.batch?.institute_room?.grade_name}} - {{batch?.batch?.institute_room?.name}}</span></h4>
+                        <h4 *ngIf="!batch?.batch?.institute_room?.id">Batch Name : <span>{{batch?.batch?.name}}</span></h4>
+                        <h4>Mentor Name : <span>{{batch?.batch?.teacher_full_name}}</span></h4>
+                        <h4>Total Students : <span>{{batch?.batch?.students?.length}}</span></h4>
+                        <h6>Enrolled on: {{batch?.created_at | date}}</h6>
+                        <div class="greyBg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    <div class="row" *ngIf="!isAuthenticated">
+        <div class="col-md-12">
+            <h4 class="text-center mt-4 notLoggedIn">“You need to login first in order to attempt the
+                PAPER/PRACTICE shared by your mentor(s)”</h4>
+          </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-md-6">
+            <a href="" data-toggle="modal" data-target=".bd-example-modal-sm" #openModal>
+            <div class="card addMentorCard">
+                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                    <div class="plusDiv">
+                        <h1>+</h1>
+                    </div>
+                </div>
+                <div class="col-md-8 d-flex justify-content-center align-items-center">
+                    <h2>Add New Batch</h2>
+                </div>
+            </div>
+        </a>
+        </div>
+    </div> -->
+    <!-- <div class="row">
+        <div class="col-md-6" *ngFor="let batch of batches">
+            <div class="card MentorCard" style="cursor: pointer;" routerLink="/assessment/dashboard/batch-details/{{batch?.batch?.id}}">
+                <div class="col-md-4  d-flex justify-content-center align-items-center">
+                    <div class="plusDiv">
+                        <img *ngIf="!batch?.batch?.profile_pic" class="img-responsive" src="assets/images/avatar-2.png">
+                        <img width="50" *ngIf="batch?.batch?.profile_pic" class="img-responsive" [src]="batch?.batch?.profile_pic">
+                    </div>
+                </div>
+                <div class="col-md-8 ">
+                    <h2><span>{{batch?.batch?.teacher_full_name}} ({{batch?.batch?.teacher_username}})</span></h2>
+                    <h3>Batch : <span>{{batch?.batch?.name}}</span></h3>
+                    <h6><b>Total Students : </b><span>{{batch?.batch?.students?.length}}</span></h6>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Add New <span>Batch</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="code" [(ngModel)]="batchCode" placeholder="Search Batch" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2"><i (click)="searchBatch()" style="cursor: pointer;" class="fa fa-search" aria-hidden="true"></i></span>
+                </div>
+              </div>
+              <p *ngIf="batchDetail"><b>Name: </b>{{batchDetail?.name}}</p>
+              <p *ngIf="batchDetail"><b>Mentor: </b>{{batchDetail?.teacher_full_name}} ({{batchDetail?.teacher_email}})</p>
+              <button type="button" (click)="submit()" class="btn btn-success">Add Batch</button>
+          </div>
+      </div>
+    </div>
+  </div>

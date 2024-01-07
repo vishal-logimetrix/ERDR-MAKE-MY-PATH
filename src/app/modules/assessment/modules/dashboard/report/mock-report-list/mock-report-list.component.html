@@ -1,0 +1,58 @@
+<div class="mock-section">
+  <div class="dashboard-content">
+    <div class="text-center">
+      <h1>Practice Test Report</h1>
+      <p class="text-muted" *ngIf="allPackages.length!==0">
+        (Select Attempt Date or Number to continue)
+      </p>
+    </div>
+    <ng-container *ngFor="let pkg of allPackages">
+      <div class="row mt-4" *ngIf="pkg['packagedetails']['attempt_status']">
+
+        <div class="col-md-12">
+          <div class="detail-1">
+            <h4 class="package-title">{{pkg['packagedetails'].title}}</h4>
+            <p class="text-black">{{pkg['packagedetails'].course_details.description}}</p>
+          </div>
+        </div>
+
+        <ng-container *ngFor="let paper of pkg['packagedetails'].mockpaper">
+          <div class="col-md-12 mb-4" *ngIf="paper['attempt_order'] > 0">
+            <a class="text-white mock-paper" href="javascript:void(0)">
+              <div class="card border-0 flex-row mb-4 align-items-center">
+                <div class="card-header border-0">
+                  <h5>{{paper.title}}</h5>
+                </div>
+
+                <div class="card-body text-center">
+                  <h5>
+                    <strong>Attempts: </strong>
+                    {{ paper.attempt_order }} / {{ paper.frequency }}
+                  </h5>
+                </div>
+
+                <div class="card-footer border-0">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <select class="form-control m-0 w-75" (change)="setAttemptOrder($event)">
+                      <option [value]="0">Select Attempt</option>
+                      <option [value]="attempt" *ngFor="let attempt of getAttempts(paper.attempt_order)">
+                        {{attempt}}
+                      </option>
+                    </select>
+                    <button type="button" class="btn btn-light" (click)="viewReport(paper.id)">Go</button>
+                  </div>
+                </div>
+
+              </div>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <div class="mt-2" *ngIf="allPackages.length===0">
+      <h5 class="text-muted text-center">You have not taken any test</h5>
+    </div>
+
+  </div>
+</div>

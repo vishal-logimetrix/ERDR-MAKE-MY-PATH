@@ -1,0 +1,78 @@
+<div class="container suggested-books">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="heading text-center mt-2">
+                Best Books Suggested
+            </h2>
+            <div class="totalUser">
+                <div><span><button class="btn btn-sm btnLeaderboard" routerLink="/organization/mypath/{{batchId}}/{{examId}}"><i class="fas fa-angle-double-left mr-1"></i>Exam Overview</button></span></div>
+                <div><span><a href="" routerLink="/organization/choose-p/{{batchId}}/{{examId}}">{{examDetails?.title}}</a></span></div>
+                <div><span>Total Users : {{totalusers}}</span></div> 
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="spinner">
+            <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          </div>
+            <div class="col-xl-5 col-lg-6  optionDiv" *ngIf="!spinner">
+                <div class="row">
+                    <div class="col-md-12" *ngFor="let book of books; let i = index">
+                        <!-- <div class="card" style="cursor: pointer;" [ngClass]="{'activeBooks': activeCard === book?.id}" (click)="fetchBookDetail(book?.id)">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img class="bookImage" [src]="book?.image" alt="">
+                                </div>
+                                <div class="col-md-6 textSection">
+                                    <p class="subject"> {{book?.title}}</p>
+                                    <p class="author">Author : {{book?.author}}</p>
+                                    <p class="publication">Publication : {{book?.publication}}</p>
+                                    <p *ngIf="book?.file" class="download"><a href="{{book?.file}}" target="_blank">Download <span><i class="fa fa-download" aria-hidden="true"></i></span></a></p>
+                                </div>
+                                <div class="col-md-3 buyLinkDiv">
+                                    <a href="{{book?.amazon_link}}" target="_blank"><img class="buyLink" src="assets/Books/amazon.png" alt=""></a>
+                                    <a href="{{book?.flipkart_link}}" target="_blank"><img class="buyLink" src="assets/Books/flipkart.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="card" style="cursor: pointer;" [ngClass]="{'activeBooks': activeCard === book?.id}" (click)="fetchBookDetail(book?.id)">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img class="bookImage" [src]="book?.image" alt="">
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="booksContent">
+                                    <div class="">
+                                    <p class="subject"> {{book?.title}}</p>
+                                    <p class="author">Author : <span>{{book?.author}}</span></p>
+                                    <p class="publication">Publication : <span>{{book?.publication}}</span></p>
+                                    <p *ngIf="book?.file" class="download font-weight-bold"><a href="{{book?.file}}" target="_blank">Download <span><i class="fa fa-download" aria-hidden="true"></i></span></a></p>
+                                    </div>
+                                    <div class="buyLinkDiv">
+                                        <div>
+                                            <a href="{{book?.amazon_link}}" target="_blank"><img class="buyLink" src="assets/Books/Rectangle113.png" alt=""></a>
+                                        </div>
+                                        <div>
+                                            <a href="{{book?.flipkart_link}}" target="_blank"><img class="buyLink" src="assets/Books/Rectangle114.png" alt=""></a>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-6 col-md-6 contentDiv" *ngIf="!spinner">
+                <p [ngClass]="{'show-less': showShortDesciption}" class="bookDetail" [innerHtml]="bookDetails?.about"></p>
+                <button type="button" class="btn showAllLess" (click)="alterDescriptionText()">
+                    <span *ngIf="showShortDesciption"><i class="fa fa-angle-down"></i></span>
+                    <span *ngIf="!showShortDesciption"><i class="fa fa-angle-up"></i></span>
+                    {{ showShortDesciption ? 'Read More': 'Read Less' }}
+                </button>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<!-- Score Report-->
+<ng-container *ngIf="!feedback">
+  <div class="report-container">
+    <h4 class="text-black">Score Report</h4>
+    <div class="card shadow-sm mt-3">
+      <div class="card-body">
+        <div [chart]="scoreChart"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Attempted Corrected Report -->
+  <div class="report-container">
+    <h4 class="text-black">Attmepted vs Correct Ratio</h4>
+    <div class="card shadow-sm mt-3">
+      <div class="card-body">
+        <div [chart]="attemptedCorrectedChart"></div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Complete Report Not Available for Mock -->
+<ng-container *ngIf="feedback">
+  <div class="p-5 text-center">
+    <h4 class="text-muted">
+      {{ feedback }}
+    </h4>
+  </div>
+</ng-container>

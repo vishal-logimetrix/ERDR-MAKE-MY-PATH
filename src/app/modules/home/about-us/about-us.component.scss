@@ -1,0 +1,461 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@200;300;400;600;700&display=swap");
+
+.aboutUS {
+  h2 {
+    color: #000000;
+    font-family: "Source Serif Pro", serif;
+    font-size: 35px;
+    text-transform: uppercase;
+  }
+  .ourValuesBgSecond {
+    position: absolute;
+    height: 15vh;
+    left: 5px;
+  }
+  .aboutUsSection {
+    padding: 50px 70px 50px 70px;
+    min-height: calc(100vh - 85px);
+    margin-top: 85px;
+    .ourValuesBgSecond {
+      top: 43vh;
+    }
+    .aboutBg {
+      height: 75vh;
+      position: absolute;
+      right: 0;
+      bottom: 50px;
+    }
+    .chairmansBgSecond {
+      position: absolute;
+      height: 60vh;
+      left: 10px;
+      bottom: 50px;
+    }
+    .aboutUsSlider {
+      width: 600px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+    .leftBgImage {
+      width: 235px;
+      position: absolute;
+      left: 12px;
+      bottom: 0;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+  .whoWeAre {
+    h3 {
+      color: rgba(44, 46, 53, 0.81);
+      font-family: "jaldi", sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.4;
+      width: 512px;
+      font-style: italic;
+      margin-top: 20px;
+      margin-bottom: 55px;
+      span {
+        float: right;
+        font-size: 17px;
+        padding-right: 20px;
+      }
+    }
+    p {
+      letter-spacing: 0.04em;
+      color: #2c2e35;
+      font-family: "jaldi", sans-serif;
+      font-size: 21px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 0;
+      margin-top: 25px;
+      span {
+        color: #0781B1;
+        font-weight: bold;
+      }
+    }
+  }
+  .chairmansDesk {
+    padding: 50px 70px 50px 70px;
+    // align-items: center;
+    min-height: calc(100vh - 85px);
+    .ourValuesBgSecond {
+      top: 40vh;
+    }
+    .chairmansNameDesktop {
+      display: block;
+    }
+    .chairmansNameMobile {
+      display: none;
+    }
+    .chairmansBg {
+      position: absolute;
+      height: 100%;
+      height: -moz-available;
+      height: -webkit-fill-available;
+      height: fill-available;
+      top: 0;
+      right: 0;
+      // max-height: 95vh;
+      // right: 10px;
+      // top: 3vh;
+    }
+    .chairmansBgSecond {
+      position: absolute;
+      height: 60vh;
+      left: 10px;
+      bottom: 50px;
+    }
+    .card {
+      background: #f8f9fa;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      width: 325px;
+      .imageDivP {
+        background: #e6e7e6;
+        border-radius: 7px;
+        padding: 30px 15px 60px 15px;
+        width: 295;
+        .doubleSquare {
+          position: absolute;
+          width: 45px;
+          height: 20px;
+          right: -5px;
+          top: -5px;
+        }
+        .linkedPuneetSir {
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          right: 15px;
+          bottom: 35px;
+          // font-size: 22px;
+          // display: flex;
+          // justify-content: center;
+          // align-items: center;
+          // color: #ffffff;
+          // background: linear-gradient(0deg, #3a6db3 0%, #4a88c6 100%);
+          // border: 6px solid #3c70b5;
+          // border-radius: 15px;
+        }
+        .linkedPuneetSir:hover {
+          transform: scale(1.1);
+          width: 51px;
+          height: 51px;
+        }
+      }
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+    .welcomeMmp {
+      letter-spacing: 0.04em;
+      color: #0781b1;
+      font-family: "jaldi", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    .ourPurpose {
+      letter-spacing: 0.04em;
+      color: #000000;
+      font-family: "jaldi", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 0;
+    }
+    h3 {
+      color: #0781b1;
+      font-family: "jaldi", sans-serif;
+      font-weight: 400;
+      font-size: 25px;
+      width: 186px;
+      margin-top: 12px;
+      font-weight: bold;
+      line-height: 1;
+      span {
+        font-size: 20px;
+        color: #000000;
+      }
+    }
+  }
+  .ourTeam {
+    padding: 50px 70px 50px 70px;
+    min-height: 90vh;
+    .ourValuesBgSecond {
+      top: 45vh;
+    }
+    .ourValuesBg {
+      position: absolute;
+      height: 55vh;
+      right: 0;
+      bottom: 0;
+    }
+
+    p {
+      letter-spacing: 0.04em;
+      color: #434141;
+      font-family: "jaldi", sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 0;
+      margin-top: -2px;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    .teamColumn {
+      display: flex;
+      justify-content: center;
+    }
+    .card {
+      border: 2px solid #e1e6e8;
+      border-radius: 0px;
+      width: 250px;
+      padding: 6px;
+      margin-top: 20px;
+      .teamImage {
+        position: relative;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      .linkedinIcon {
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        right: 18px;
+        bottom: -22px;
+        // font-size: 20px;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        // color: #ffffff;
+        // background: linear-gradient(0deg, #3a6db3 0%, #4a88c6 100%);
+        // border: 6px solid #3c70b5;
+        // border-radius: 15px;
+      }
+      .linkedinIcon:hover {
+        transform: scale(1.1);
+        // border: 7px solid #3c70b5;
+        width: 46px;
+        height: 46px;
+      }
+      .namePosition {
+        width: 165px;
+        text-align: center;
+      }
+      p {
+        color: #373435;
+        font-family: "jaldi", sans-serif;
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 1;
+        margin-top: 7px;
+        margin-bottom: 0;
+        span {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .ourValues {
+    padding: 50px 70px 50px 70px;
+    position: relative;
+    // align-items: center;
+    // min-height: calc(85vh - 85px);
+    .ourValuesBgSecond {
+      top: 10vh;
+    }
+    .ourValuesBg {
+      position: absolute;
+      height: 40vh;
+      right: 15px;
+      bottom: 10px;
+    }
+
+    p {
+      letter-spacing: 0.04em;
+      color: #434141;
+      font-family: "jaldi", sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 0;
+      margin-top: -2px;
+      margin-bottom: 30px;
+      line-height: 1;
+    }
+    .teamColumn {
+      display: flex;
+      justify-content: center;
+    }
+    .card {
+      border: none;
+      margin-bottom: 10px;
+      background: transparent;
+      img {
+        width: 100px;
+        height: 73px;
+        margin: auto;
+      }
+      p {
+        text-align: center;
+        color: #373435;
+        font-family: "jaldi", sans-serif;
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 1;
+        margin-top: 15px;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .aboutUS {
+    .chairmansDesk {
+      padding: 15px;
+      p {
+        margin-top: 20px;
+      }
+      h3 {
+        margin-top: 11px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .aboutUS {
+    .chairmansDesk {
+      .chairmansBg {
+        display: none;
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .aboutUS {
+    .ourValuesBgSecond {
+      left: 0px;
+    }
+    .aboutUsSection {
+      min-height: calc(90vh - 85px);
+      padding: 15px;
+      .aboutBg {
+        height: 65vh;
+      }
+    }
+    .ourValues {
+      .ourValuesBg {
+        height: 60vh;
+      }
+    }
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .aboutUS {
+    .ourTeam {
+      .card {
+        .namePosition {
+          width: 130px;
+        }
+        p {
+          font-size: 18px;
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .aboutUS {
+    
+    h2 {
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+    .aboutUsSection {
+      min-height: calc(70vh - 85px);
+      .aboutBg {
+        display: none;
+      }
+    }
+    .ourValues {
+      padding: 15px;
+      .card {
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 17px;
+      }
+      .ourValuesBg {
+        display: none;
+      }
+    }
+    .ourTeam {
+      padding: 15px;
+      p {
+        font-size: 17px;
+      }
+    }
+    .chairmansDesk {
+      .chairmansNameMobile {
+        display: block;
+        text-align: center;
+        span {
+          float: none;
+        }
+      }
+      .chairmansNameDesktop {
+        display: none;
+      }
+    }
+    .chairmansDesk {
+      p {
+        font-size: 22px;
+      }
+      
+    }
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .aboutUS {
+    .whoWeAre {
+      h3 {
+        width: 100%;
+        span {
+          float: none;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 410px) {
+  .aboutUS {
+    .chairmansDesk {
+      h2 {
+        font-size: 35px;
+      }
+    }
+  }
+}

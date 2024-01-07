@@ -1,0 +1,78 @@
+<div class="cu-section container">
+    <div class="">
+      <div class="text-center">
+  
+        <h2  *ngIf="!examDetails" >Post Your Query</h2>
+        <h2  *ngIf="examDetails" >Post Your query for {{examDetails?.title}}</h2>
+      </div>
+      <div class="totalUser mt-1">
+        <div>
+          <a  class="btnBlockedStudents" routerLink="/organization"><i class="fas fa-angle-double-left"></i> Dashboard</a>
+          <!-- <a *ngIf="examDetails" class="btnBlockedStudents" routerLink="/organization/mypath/{{examDetails?.id}}"><i class="fas fa-angle-double-left"></i> Exam Overview</a> -->
+      </div>
+      </div>
+      <div>
+        <hr>
+      </div>
+      <div class="row mt-2 justify-content-center">
+        <div class="col-md-6">
+          <div class="faqMentorImage">
+            <img  src="assets/faqMentor.png" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <form action="" [formGroup]="contactUsForm" (submit)="onSubmit()">
+            <div class="form-group">
+  
+              <label for="username"> Name
+                <input type="text"  class="form-control" id="username" formControlName="username" placeholder="Update Your Name"
+                readonly (input)="clearValidations()" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+  
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required">Name is required</div>
+                </div>
+  
+              </label>
+  
+              <label for="email"> Email
+                <input type="text"  class="form-control" id="email" formControlName="email" placeholder="Update Your Email"
+                readonly (input)="clearValidations()" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <!-- <div *ngIf="f.email.errors.required">Email is required</div> -->
+                  <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                </div>
+              </label>
+  
+              <label for="phonenumber"> Phone Number
+                <input type="text"  class="form-control" id="phonenumber" placeholder="Update Your Mobile Number"
+                readonly formControlName="phonenumber" maxlength="10" (input)="clearValidations()"
+                  [ngClass]="{ 'is-invalid': submitted && f.phonenumber.errors }">
+                <div *ngIf="submitted && f.phonenumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.phonenumber.errors.required">Phone number is required</div>
+                  <div *ngIf="f.phonenumber.errors.pattern">Enter valid phone number</div>
+                </div>
+              </label>
+  
+              <label for="message"> Message
+                <textarea type="text" placeholder="Write Your Message Here" class="form-control" id="message" formControlName="message"
+                  (input)="clearValidations()" [ngClass]="{ 'is-invalid': submitted && f.message.errors }">
+                </textarea>
+                <div *ngIf="submitted && f.message.errors" class="invalid-feedback">
+                  <div *ngIf="f.message.errors.required">Message is required</div>
+                </div>
+              </label>
+  
+              <div>
+                <p class="error-text" [ngClass]="{'text-success': feedback.message, 'text-danger':feedback.errors}"
+                  *ngIf="feedback.message || feedback.errors">
+                  {{feedback.message ? feedback.message : feedback.errors}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn" type="submit">Send <span class="iconify" data-icon="fluent:send-24-filled"></span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

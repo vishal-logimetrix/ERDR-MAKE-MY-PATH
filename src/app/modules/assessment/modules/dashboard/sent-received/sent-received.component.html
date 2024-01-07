@@ -1,0 +1,170 @@
+<div class="container-sharing container">
+    <h2 *ngIf="sentMsg" class="pt-3 text-center topHeading"> Sent <span></span>
+    </h2>
+    <h2 *ngIf="receivedMsg" class="pt-3 text-center topHeading"> Received <span></span>
+    </h2>
+    <div class="row">
+        <div class="col-md-12">
+        <button routerLink="/assessment/dashboard/my-sharing" class="btn float-left btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>My sharing</button>
+        </div>
+        <div class="col-md-12">
+          <hr>
+        </div>
+      </div>
+    <div class="row messageRow">
+        <div class="col-md-12 ">
+            <div *ngIf="sentMsg" class="row firstDiv">
+                <!-- <div class="col-md-4 " *ngFor="let paper of sharedByMe">
+                    <div class="card">
+                        <div class="firstRow">
+                            <div class="d-flex">
+                                <h2 style="text-transform: capitalize;">{{paper?.shared_paper?.paper_type}}
+                                    {{paper?.shared_paper?.paper_count}}</h2>
+                                <span class="paperName">{{paper?.shared_paper?.learner_exam?.exam?.title}}</span>
+                            </div>
+                            <div>
+                                <h3>{{paper?.created_at | date}}</h3>
+                            </div>
+                        </div>
+                        <div class="secondRow">
+                            <h3>Subject(s): <span
+                                    *ngFor="let subject of paper?.shared_paper?.subjects">{{subject?.title}}, </span>
+                            </h3>
+                        </div>
+                        <div class="thirdRow">
+                            <div>
+                                <h3>No of Problem: {{paper?.shared_paper?.questions?.length}}</h3>
+                            </div>
+                            <div style="padding-top: 8px; padding-bottom: 5px;">
+                                <a *ngIf="!paper?.shared_paper?.submitted" class="btnReAttempt" routerLink="/assessment/paper/test-instructions/{{paper?.shared_paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.shared_paper?.id}" target="_blank">Attempt Now</a>
+                                <a *ngIf="paper?.shared_paper?.submitted" class="btnReportCard" routerLink="/assessment/dashboard/report/{{paper?.shared_paper?.paper_type}}/{{paper?.shared_paper?.id}}/1" target="_blank">Report Card</a>
+                                <a href="javascript:void(0)" (click)="deeplinkShareSharedPaper(paper?.shared_paper?.learner_exam?.exam?.id, paper?.shared_paper?.id)">Share</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> -->
+                <div class="col-md-12 col-lg-6 mb-3" *ngFor="let paper of sharedByMe">
+					<div class="card bg-white shadow">
+						<div>
+                            <div class="mobileFirstRow">
+                                <div class="user-info">
+                                    <div class="user-info__basic">
+                                        <h5 class="paperCount text-center" [ngStyle]="{'color':paper?.shared_paper?.paper_type === 'paper' ? '#1B50A3' : '#FBB623' }">{{paper?.shared_paper?.paper_type}} {{paper?.shared_by_me_paper_count}}</h5>
+                                        <h5 class="paperPracticeName text-center"> {{paper?.shared_paper?.learner_exam?.exam?.title}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.shared_paper?.subjects; let i = index">{{subject?.title}}<span *ngIf="paper?.shared_paper?.subjects.length > 1 && paper?.shared_paper?.subjects.length > i + 1">, </span></span></h6>
+                            <h6 *ngIf="paper?.shared_paper?.paper_type === 'practice'" class="allSubjects">Chapter : <span *ngFor="let subject of paper?.shared_paper?.chapters; let i = index">{{subject?.title}} </span> </h6>
+                            <h6 class="allSubjects">Date : <span>{{paper?.created_at | date}}</span></h6>
+                            <h6 class="allSubjects">No of Questions : {{paper?.shared_paper?.questions?.length}} </h6>
+                            <div class="d-flex justify-content-between flex-wrap mt-2 allLinks">
+                                <a class="attemptNow" *ngIf="!paper?.shared_paper?.submitted" routerLink="/assessment/paper/test-instructions/{{paper?.shared_paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.shared_paper?.id}" target="_blank">Attempt Now</a>
+                                <a class="reportCard" *ngIf="paper?.shared_paper?.submitted && paper?.shared_paper?.paper_type=='paper'" routerLink="/assessment/dashboard/report/{{paper?.shared_paper?.paper_type}}/{{paper?.shared_paper?.id}}/1" target="_blank">Report Card</a>
+                                <a class="reportCard" *ngIf="paper?.shared_paper?.submitted && paper?.shared_paper?.paper_type=='practice'" routerLink="/assessment/dashboard/practice-report/{{paper?.shared_paper?.id}}" target="_blank">Report Card</a>
+                                <a class="shareButton" href="javascript:void(0)" (click)="deeplinkShareSharedPaper(paper?.shared_paper?.learner_exam?.exam?.id, paper?.shared_paper?.id, paper?.shared_paper?.paper_type)">Share</a>
+                            </div>
+                        </div>
+					</div>
+				</div>
+            </div>
+            <div *ngIf="receivedMsg" class="row secondDiv">
+                <!-- <div class="col-md-4 " *ngFor="let paper of sharedToMe">
+                    <div class="card">
+                        <div class="firstRow">
+                          <div class="d-flex">
+                            <h2 style="text-transform: capitalize;">{{paper?.shared_paper?.paper_type}} {{paper?.shared_paper?.paper_count}}</h2>
+                            <span class="paperName">{{paper?.shared_paper?.learner_exam?.exam?.title}}</span>
+                          </div>
+                          <div>
+                            <h3>{{paper?.created_at | date}}</h3>
+                          </div>
+                        </div>
+                        <div class="secondRow">
+                          <h3>Subject(s): <span *ngFor="let subject of paper?.shared_paper?.subjects">{{subject?.title}}</span></h3>
+                        </div>
+                        <div class="thirdRow">
+                          <div>
+                            <h3>No of Problem: {{paper?.shared_paper?.questions?.length}}</h3>
+                          </div>
+                          <div style="padding-top: 10px; padding-bottom: 5px;">
+                            <a *ngIf="!paper?.newly_created_submitted" class="btnReAttempt" routerLink="/assessment/paper/test-instructions/{{paper?.shared_paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.shared_paper?.id}" target="_blank">Attempt Now</a>
+                            <a *ngIf="paper?.newly_created_submitted" class="btnReportCard" routerLink="/assessment/dashboard/report/{{paper?.shared_paper?.paper_type}}/{{paper?.newly_created_paper}}/1" target="_blank">Report Card</a>
+                            <a href="javascript:void(0)" (click)="deeplinkShareSharedPaper(paper?.shared_paper?.learner_exam?.exam?.id, paper?.newly_created_paper)">Share</a>
+                          </div>
+                        </div>
+                      </div>
+                </div> -->
+                <div class="col-md-12 col-lg-6 mb-3" *ngFor="let paper of sharedToMe">
+					<div class="card bg-white shadow">
+						<div>
+                            <div class="mobileFirstRow">
+                                <div class="user-info">
+                                    <div class="user-info__basic">
+                                        <h5 class="paperCount text-center" [ngStyle]="{'color':paper?.shared_paper?.paper_type === 'paper' ? '#1B50A3' : '#FBB623' }">{{paper?.shared_paper?.paper_type}} {{paper?.shared_to_me_paper_count}} - Paper Id : {{paper?.newly_created_paper_count}}</h5>
+                                        <h5 class="paperPracticeName text-center">{{paper?.shared_paper?.learner_exam?.exam?.title}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.shared_paper?.subjects; let i = index">{{subject?.title}}<span *ngIf="paper?.shared_paper?.subjects.length > 1 && paper?.shared_paper?.subjects.length > i + 1">, </span></span></h6>
+                            <h6 *ngIf="paper?.shared_paper?.paper_type === 'practice'" class="allSubjects">Chapter : <span *ngFor="let subject of paper?.shared_paper?.chapters; let i = index">{{subject?.title}} </span> </h6>
+                            <h6 class="allSubjects">Date : {{paper?.created_at | date}}</h6>
+                            <h6 class="allSubjects">No of Questions : {{paper?.shared_paper?.questions?.length}} </h6>
+                            <div class="d-flex justify-content-between  flex-wrap mt-2 allLinks">
+                                <a class="attemptNow" *ngIf="!paper?.newly_created_submitted" routerLink="/assessment/paper/test-instructions/{{paper?.shared_paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.newly_created_paper}" target="_blank">Attempt Now</a>
+                                <span *ngIf="paper?.newly_created_submitted" class="text-primary font-weight-bold">        
+                                    <a class="reportCard" *ngIf="paper?.shared_paper?.paper_type=='paper'" routerLink="/assessment/dashboard/report/{{paper?.shared_paper?.paper_type}}/{{paper?.newly_created_paper}}/1" target="_blank">Report Card</a>
+                                    <a class="reportCard" *ngIf="paper?.shared_paper?.paper_type=='practice'" routerLink="/assessment/dashboard/practice-report/{{paper?.newly_created_paper}}" target="_blank">Report Card</a>
+                                </span>
+                                <a class="shareButton" href="javascript:void(0)" (click)="deeplinkShareSharedPaper(paper?.shared_paper?.learner_exam?.exam?.id, paper?.newly_created_paper, paper?.shared_paper?.paper_type)">Share</a>
+                            </div>
+                        </div>
+					</div>
+				</div>
+            </div>
+            <section *ngIf="sharedByMeCount > 6" class="blogPageFold3 pb-5 mt-4 pt-2">
+                <div class="container text-center">
+                    <nav aria-label="navigation">
+                        <ul *ngIf="sharedByMe" class="pagination justify-content-center">
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                <button (click)="goToPage(currentPage - 1)" class="page-link btn btn-link"><<</button>
+                            </li>
+        
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+            <section *ngIf="sharedToMeCount > 6" class="blogPageFold3 pb-5 mt-4 pt-2">
+                <div class="container text-center">
+                    <nav aria-label="navigation">
+                        <ul *ngIf="sharedToMe" class="pagination justify-content-center">
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                <button (click)="goToPage(currentPage - 1)" class="page-link btn btn-link"><<</button>
+                            </li>
+        
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

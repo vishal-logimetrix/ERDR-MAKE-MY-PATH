@@ -1,0 +1,124 @@
+<div class="teacherDashboard container">
+  <div class="row">
+    <div class="col-md-8 fixedSection">
+      <img class="mentorDashImage" src="assets/mentorDash.png" alt="">
+      <h1 class="welcomeMsg">Welcome {{userProfile?.first_name?.split(' ')[0]}} !</h1>
+      <h2 class="mainHeading">AI Enabled Exam <br>Preparation Platform</h2>
+      <ul>
+        <li><span class="iconify" data-icon="healthicons:i-training-class-negative" style="color: #ff4935;"></span> Create Your Batch</li>
+        <li><span class="iconify" data-icon="clarity:file-share-2-solid" style="color: #ff4935; font-size: 24px;"></span> Create & Share Desired PRACTICE/PAPER</li>
+        <li><span class="iconify" data-icon="gg:track" style="color: #ff4935; font-size: 24px;"></span> Track Your Students` performance</li>
+      </ul>
+      <button class="btn addNewBatchButton" data-toggle="modal" data-target="#exampleModalCenter">create batch <span class="iconify" data-icon="healthicons:i-training-class-negative"></span></button>
+    
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <!-- <div class="col-md-12">
+          <div class="imageNameDiv">
+            <div>
+              <img *ngIf="!userProfile?.image" src="assets/images/avatar-2.png" alt="">
+              <img *ngIf="userProfile?.image" [src]="userProfile['image']"  alt="">
+            </div>
+            <div><h1>Welcome {{userProfile?.first_name?.split(' ')[0]}} !</h1></div>
+          </div>
+        </div> -->
+        <div class="col-md-12">
+          <h2 class="myGroups">My Batches</h2>
+        </div>
+      </div>
+      <div *ngIf="!batches && spinner" class="d-flex justify-content-center">
+        <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+      <div class="row scrollSection">
+        <div class="col-md-12" *ngFor="let batch of batches; let i = index">
+      
+          <div class="card batchCard" >
+            <h4 style="text-align: center;" *ngIf="batch?.institute_room?.id">Batch : {{batch?.institute_room?.grade_name}} - {{batch?.institute_room?.name}}</h4>
+            <h4 style="text-align: center;" *ngIf="!batch?.institute_room?.id">Batch : {{batch?.name}}</h4>
+            <h5 style="text-align: center;">Created On : {{batch?.created_at | date}}</h5>
+            <div class="bCode">
+              <div class="text-center">
+                <h3>Batch Code <br> <span>{{batch?.batch_code}}</span></h3>
+              </div>
+              <div class="text-center">
+                <h3>Total Students <br> <span>{{batch?.students?.length}}</span></h3>
+              </div>
+            </div>
+            <div class="cardButtons">
+              <div>
+                <a class="btn shareBatch" ng-click="$event.stopPropagation()" href="https://api.whatsapp.com/send?text=https://makemypath.app/assessment/dashboard/mymentors?batch={{batch?.batch_code}} | %0D%0A%0D%0A*Hi, I am inviting you to join my batch.%0a Batch Code: {{batch?.batch_code}}*" target="_blank">share <span class="iconify ml-3" data-icon="simple-icons:slideshare" ></span></a>
+              </div>
+              <div>
+                <button class="btn goAheadBtn" routerLink="/organization/group/{{ batch?.id }}">Go Ahead <span class="iconify" data-icon="gg:enter" ></span></button>
+                <button class="btn removeBatch" (click)="setDeletionId(batch?.id)" data-toggle="modal" data-target="#confirmationModal"><span class="iconify" data-icon="carbon:row-delete"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="batches?.length < 1 && !spinner" class="col-md-12">
+          <h5 class="text-center mt-4 noBatchAdded">No batch added!</h5>
+        </div>
+      </div>
+      <div class="row" *ngIf="batches?.length > 3">
+        <div class="col-md-12 d-flex justify-content-center">
+          <button class="btn btnRemoveaLL" (click)="clearSelection()" data-toggle="modal" data-target="#confirmationModal">Remove All <span class="iconify" data-icon="carbon:row-delete"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade mentorModal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add New Batch</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="batchForm" (submit)="submit()">
+          <div class="form-group">
+            <label for="inputPassword" class="col-form-label">Batch Name </label>
+            <div class="">
+              <input type="text" class="form-control" formControlName="name" id="inputPassword"
+                placeholder="Enter batch name">
+            </div>
+          </div>
+       
+          <div class="form-group row ">
+            <button class="btn addNewBatchButton" type="submit">Create batch</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <button class="btn" data-toggle="modal" data-target="#confirmationModal"> modals</button> -->
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"  role="document">
+    <div class="modal-content" style="border-radius: 16px;border: none;">
+      <div class="modal-header" style="border: none;">
+        <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #ff1900;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="deletionBatchId" class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to remove this batch?</p>
+        <p *ngIf="!deletionBatchId" class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to remove all batches?</p>
+      </div>
+      <div class="modal-footer" style="background-color: #ff4935; border-radius: 0 0 16px 16px;justify-content: space-between;">
+        <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal" (click)="clearSelection()">Cancel</button>
+        <button *ngIf="deletionBatchId" type="button" class="btn btn-sm text-white" style="background-color: #00A3F1; border-radius: 6px;" (click)="removeBatch(deletionBatchId)">Yes, delete it!</button>
+        <button *ngIf="!deletionBatchId" type="button" class="btn btn-sm text-white" style="background-color: #00A3F1; border-radius: 6px;" (click)="removeAllBatches()">Yes, delete it!</button>
+      </div>
+    </div>
+  </div>
+</div>

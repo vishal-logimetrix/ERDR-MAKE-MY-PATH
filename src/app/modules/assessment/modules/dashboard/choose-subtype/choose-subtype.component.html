@@ -1,0 +1,117 @@
+
+  <div class="container container-eexamLevel">
+    <nav aria-label="breadcrumb" *ngIf="currentNode?.journey_nodes?.length >= 0">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)" routerLink="/assessment/dashboard">Home</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)" routerLink="/assessment/dashboard/all-exams/{{categoryDetails?.id}}">{{categoryDetails?.title}}</a></li>
+        <ng-container *ngFor="let node of currentNode?.journey_nodes">
+          <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="getDomainNodeDetails(node?.node)">{{node?.title}}</a></li>
+        </ng-container>
+        <li class="breadcrumb-item active" aria-current="page"><span>{{currentNode?.text}}</span></li>
+      </ol>
+    </nav>
+    <hr>
+    <!-- <div class="row">
+      <div class="col-md-12">
+     
+          <div class="row">
+          <div class="col-md-12 d-flex " *ngIf="currentNode?.successive_nodes?.length == 0 && currentNode?.linked_exam">
+            <div (click)="selectExam(currentNode?.linked_exam?.id)" routerLink="/assessment/dashboard/choose-p/{{currentNode?.linked_exam?.id}}"
+               class="card dashboardCard shadow bg-white domainTabs">
+              <div style="margin-top: 20px content" class="text-center">
+                <img src="{{currentNode?.linked_exam?.image}}" class="jAd" alt="{{currentNode?.linked_exam?.title}}">
+                <p class="text-center mt-4">{{currentNode?.linked_exam?.title}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="currentNode?.successive_nodes?.length == 0 && !currentNode?.linked_exam">
+            <p class="text-danger">Oops! No exam found.. please try another journey</p>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row d-flex">
+      <div class="col-lg-8 col-md-6">
+        <div class="row juorneyRow">
+          <div class="col-md-12 d-flex " *ngIf="currentNode?.successive_nodes?.length == 0 && currentNode?.linked_exam">
+            <div (click)="selectExam(currentNode?.linked_exam?.id)" routerLink="/assessment/dashboard/choose-p/{{currentNode?.linked_exam?.id}}"
+               class="card dashboardCard  bg-white domainTabs">
+              <div style="margin-top: 20px content" class="text-center">
+                <img src="{{currentNode?.linked_exam?.image}}" class="jAd" alt="{{currentNode?.linked_exam?.title}}">
+                <p class="text-center mt-4">{{currentNode?.linked_exam?.title}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="currentNode?.successive_nodes?.length == 0 && !currentNode?.linked_exam">
+            <p class="text-danger">Oops! No exam found.. please try another journey</p>
+          </div>
+        <div class="col-md-12">
+          <h2 *ngIf="currentNode?.successive_nodes?.length > 0">{{currentNode?.question_text}}</h2>
+        </div>
+        <div class="col-md-12">
+          <ul *ngIf="domainDetail?.consider_node_order">
+            <li *ngFor="let node of currentNode?.successive_nodes | sortBy: 'asc':'order'; let i = index">
+              <h3 style="cursor: pointer;" (click)="getDomainNodeDetails(node?.id)"><span class="mr-2"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></span> {{node?.text}} </h3>
+            </li>
+          </ul>
+          <ul *ngIf="!domainDetail?.consider_node_order">
+            <li *ngFor="let node of currentNode?.successive_nodes; let i = index">
+              <h3 style="cursor: pointer;" (click)="getDomainNodeDetails(node?.id)"><span class="mr-2"> <i class="fa fa-angle-double-right" aria-hidden="true"></i></span> {{node?.text}} </h3>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </div>
+      <div class="col-lg-4 col-md-6 latestJobs">
+        <div class="card latestJobCard">
+          <h2 class="text-center">Latest Updates 
+            <!-- : <span>{{domainDetail?.title}}</span> -->
+          </h2>
+          <div class="scrollSection" #theElementYouWantToCheck>
+          <p *ngIf="announcements?.length == 0" class="noExamsFound text-center">Updates
+            not found</p>
+          <ul>
+            <ng-container *ngFor="let announcement of announcements; let i = index">
+              <li>
+                <div>
+                  <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+              </div> 
+                <div>
+                  <a (click)="selectExam(announcement?.linked_exam?.id)" routerLink="/assessment/dashboard/choose-p/{{announcement?.linked_exam?.id}}">{{announcement?.text}} 
+                    <br>
+                    <span *ngIf="announcement?.last_date">(Last Date: {{announcement?.last_date | date: 'dd/MM/yyyy'}})</span> </a>
+                </div>
+              </li>
+          </ng-container>
+          </ul>
+          <div *ngIf="checkOverflow(theElementYouWantToCheck)">
+          <section *ngIf="announcements?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+            <div class="container text-center">
+                <nav aria-label="navigation">
+                    <ul *ngIf="announcements" class="pagination justify-content-center">
+                        <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                            <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                        </li>
+                        <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                            <button (click)="goToPage(currentPage - 1)" class="page-link btn"><<</button>
+                        </li>
+  
+                        <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                            <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                        </li>
+                        <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                            <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+          </div>
+         </div>
+        </div>
+      </div>
+      
+   
+      
+    </div>
+  </div>

@@ -1,0 +1,611 @@
+<div *ngIf="Noripple">
+    <block-ui [template]="blockTemplate">
+    <div class="test-header" *ngIf="!maximizeScreen">
+        <nav class="navbar navbar-expand navbar-light bg-white shadow-sm test-nav">
+            <a href="javascript:void(0)" class="navbar-brand" data-toggle="modal" data-target="#confirmationModal">
+                <img src="{{env.static}}/images/mmpNewLogo.png" alt="" style="height: 2.5rem;">
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span><i class="fa fa-bars"></i></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link p-2 border-left user-detail" href="javascript:void(0)" data-toggle="modal" data-target="#confirmationModal">
+                            <!-- <div *ngIf="userProfileObj">
+                                <img [src]="userProfileObj['image']" alt="">
+                            </div> -->
+                            <div class="ml-4 d-flex justify-content-between align-items-center" >
+                                <table class="table mb-0">
+                                    <tbody>
+                                        <tr class="username">
+                                            <td class="border-0 p-0 float-right" *ngIf="examDetails">
+                                                <img *ngIf="!userProfileObj?.image" style="border-radius: 50%;" src="https://aptination.s3.amazonaws.com/static/dev/assets/images/svg/user-img.svg" alt="">
+                                                <img *ngIf="userProfileObj?.image" style="border-radius: 50%;" [src]="userProfileObj['image']" alt="">
+                                            </td>
+                                            <td class="border-0 p-0">Candidate Name : <br> <span class="text-oranged" *ngIf="userProfileObj">{{ userProfileObj['first_name'] }} {{ userProfileObj['last_name'] }}</span></td>
+                                            <!-- <td class="border-0 p-0 pl-2 text-oranged" *ngIf="userProfileObj"> :
+                                                {{ userProfileObj['first_name'] }} {{ userProfileObj['last_name'] }}
+                                            </td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- assessmentpaperdetails -->
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    
+    
+        <!-- Test Details -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark-2">
+            <div class="navbar-collapse d-flex" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link">
+                            <h1 class="test-title font-lg-m text-white">
+                                <span *ngIf="testObj?.paper_type === 'paper'">Paper <span *ngIf="examDetails">- ( {{examDetails?.title}} )</span></span>
+                                <span *ngIf="testObj?.paper_type === 'practice'">Practice Test <span *ngIf="examDetails">- ( {{examDetails?.title}} )</span></span>
+                            </h1>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mx-auto align-items-center text-white subjects">
+                    <li class="nav-item">
+                        <h2 *ngIf="paperDetails?.paper_type == 'paper'" class="font-md-m">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            <!-- {{paperDetails?.total_time}} min -->
+                            {{ testDuration?.hours > 0 ? testDuration?.hours + ': ' : '' }}{{ testDuration?.minutes }}:
+                            {{ testDuration?.seconds }}
+                        </h2>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mx-auto align-items-center text-white subjects">
+                    <li class="nav-item ">
+                        <span>Maximum Marks : {{ paperDetails?.marks }}</span>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mx-auto align-items-center subjects" *ngIf="!examOver">
+                    <li *ngIf="paperDetails?.paper_type == 'paper'" class="nav-item">
+                        <a style="color: white;" *ngIf="!paused" class="fa fa-pause" href="javascript:void(0)"
+                            (click)="startBlocking()">
+                        </a>
+                        <a style="color: white;" *ngIf="paused" class="fa fa-play" href="javascript:void(0)"
+                            (click)="stopBlocking()">
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mx-auto align-items-center subjects">
+                    <!-- <li class="nav-item" *ngFor="let subject of subjects">
+                        <a class="nav-link badge badge-light mr-2" href="javascript:void(0)"
+                            (click)="nextSubject(subject['id'])">
+                            {{subject['title']}}
+                        </a>
+                    </li> -->
+    
+                    <li class="nav-item">
+                        <select name="selectSubject" id="selectSubject" [(ngModel)]="currentSubject" (change)="nextSubject($event.target.value)">
+                            <option *ngFor="let subject of subjects" [value]="subject?.id">{{subject['title']}}</option>
+                        </select>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto back-to-dashboard">
+                    <li class="nav-item">
+                        <a data-toggle="modal" data-target="#confirmationModal" class="nav-link">
+                            <button type="button" class="btn btn-light btn-sm" style="padding: .0rem .4rem">
+                                <i class="fa fa-angle-double-left"></i>
+                                Back To Dashboard
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="mathjax test-content"
+        [ngClass]="{'test-content-active ': !questionSidebarActive, 'maximize':maximizeScreen}" #mathjax>
+        <div id="question" class="test-section" *ngIf="!examOver else testCompleted">
+    
+            <div class="question-container">
+                <div class="card border-0">
+    
+                    <!-- QUESTION HEADER -->
+                    <div class="card-header bg-info border-0 text-white question-header">
+                        <div class="d-flex justify-content-between align-items-center header-content">
+                            <div class="headerMobile">
+                                <h3 class="question-no font-sm-2">
+                                    <span class="text">
+                                        Question:
+                                    </span> <span>{{currentQuestion + 1}} / {{questions?.length}}</span>
+                                    <span *ngIf="question?.type_of_question==='mcq'"> > Single Choice</span>
+                                    <span *ngIf="question?.type_of_question==='mcc'"> > Multiple Choice</span>
+                                    <span *ngIf="question?.type_of_question==='boolean'"> > True False</span>
+                                    <span *ngIf="question?.type_of_question==='fillup_option'"> > Fill Up With Option</span>
+                                    <span *ngIf="question?.type_of_question==='fillup'"> > Fill In The Blanks</span>
+                                    <span *ngIf="question?.type_of_question==='subjective'"> > Subjective</span>
+                                </h3>
+                            </div>
+                            <div class="headerMobile">
+                                <ng-container *ngFor="let type of linkedTypes">
+                                    <span class="marksIdeal" *ngIf="type?.type_of_question == question?.type_of_question">Marks: +{{type?.marks}}/ -{{type?.negative_marks}} &nbsp; <span *ngIf="testObj?.show_time">Ideal Time: {{question?.ideal_time}} Sec</span></span>
+                                </ng-container>
+                            </div>
+                            <!-- <h2 *ngIf="paperDetails?.paper_type == 'paper'" class="font-md-m">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                {{ testDuration['hours'] > 0 ? testDuration['hours'] + ': ' : '' }}{{ testDuration['minutes'] }}:
+                                {{ testDuration['seconds'] }}
+                            </h2> -->
+    
+                            <!-- <h3 class="question-type font-sm-2" *ngIf="question?.type_of_question==='mcq'">Single Choice</h3> -->
+                            <!-- <h3 class="question-type font-sm-2" *ngIf="question?.type_of_question==='mcc'">Multiple Choice</h3> -->
+                            <!-- <h3 class="question-type font-sm-2" *ngIf="question?.type_of_question==='boolean'">True False</h3>
+                            <h3 class="question-type font-sm-2" *ngIf="question?.type_of_question==='fillup_option'">Fill Up With Option
+                            </h3>
+                            <h3 class="question-type font-sm-2 float-left" *ngIf="question?.type_of_question==='fillup'">Fill In The
+                                Blanks</h3>
+                            <h3 class="question-type font-sm-2" *ngIf="question?.type_of_question==='subjective'">Subjective</h3> -->
+    
+                            <div class=" maximize-screen font-sm-2">
+                                <a class="text-white" href="javascript:void(0)" style="font-size: 1.2rem;" role="button"
+                                (click)="!isFullScreen ? toggleFullScreen() : closefullscreen()">
+                                    <span *ngIf="!isFullScreen">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i> Maximize
+                                    </span>
+                                    <span *ngIf="isFullScreen">
+                                        <i class="fa fa-window-minimize mr-2" aria-hidden="true"></i> Minimize
+                                    </span>
+                                    <!-- <span *ngIf="!maximizeScreen else minimize">
+                                        <i class="fa fa-window-maximize" aria-hidden="true"></i> Maximize
+                                    </span>
+                                    <ng-template #minimize>
+                                        <span class="d-flex">
+                                            <i class="fa fa-window-minimize mr-2" aria-hidden="true"></i> Minimize
+                                        </span>
+                                    </ng-template> -->
+                                </a>
+                            </div>
+                            <h2 class="d-none font-sm-m" [ngClass]="{'toggler-active': !questionSidebarActive}"
+                                (click)="toggleSidebar()">
+                                <i class="fa fa-bars"></i>
+                            </h2>
+                        </div>
+                    </div>
+    
+                    <!-- QUESTION BODY -->
+                    <div class="card-body question-content">
+                        <!-- Question Text & Image -->
+                        <div class="text-black">
+                            <div class="mt-2">
+                                <h6 class="mb-0" >
+                                    <!-- <ng-container *ngFor="let type of linkedTypes">
+                                        <strong *ngIf="type?.type_of_question == question?.type_of_question">Marks: +{{type?.marks}}/ -{{type?.negative_marks}} &nbsp; <span *ngIf="testObj?.show_time">Ideal Time: {{question?.ideal_time}} Sec</span></strong>
+                                    </ng-container> -->
+                                    <span style="float: right; cursor: pointer;">
+                                        <i *ngIf="!currentQuesBookmarked" class="fa fa-bookmark-o" (click)="bookmark()" aria-hidden="true"></i>
+                                        <i *ngIf="currentQuesBookmarked" class="fa fa-bookmark" (click)="unmark()" aria-hidden="true"></i>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span class="iconify" (click)="resetIssue()" data-toggle="modal" data-target=".bd-example-modal-lg" data-icon="eva:alert-triangle-outline" style="color: #ff1900;"></span>
+                                        <!-- <i style="color: red;" (click)="resetIssue()" data-toggle="modal" data-target=".bd-example-modal-sm" class="fa fa-exclamation-circle" aria-hidden="true"></i> -->
+                                    </span>
+                                </h6> <br>
+                                <p *ngIf="question?.comprehension" class="font-sm-1 mb-1 comprehension-question"
+                                    [innerHtml]="question?.comprehension">
+                                </p>
+                                
+    
+                                <ng-container *ngFor="let content of question?.contents">
+                                    <p class="font-sm-1 mb-0" *ngIf="content?.language?.text == 'English'" [innerHtml]="content?.text | safeHtml"></p>
+                                </ng-container>
+                                <!-- <p class="font-sm-1 mb-0" [innerHtml]="question?.text">
+                                </p> -->
+                            </div>
+                            <div class="mt-4 test-img-container d-flex align-items-start justify-content-between"
+                                *ngIf="question?.q_image">
+                                <div #questionImage>
+                                    <button type="button" class="close-button d-none btn btn-link text-black"
+                                        (click)="enlargeImage(questionImage)"><i class="fa fa-times"></i></button>
+                                    <img class="img-responsive" alt="Question Image" [src]="question?.q_image">
+                                </div>
+                                <button class="p-2 btn btn-link text-black" type="button"
+                                    (click)="enlargeImage(questionImage)"><i class="fa fa-expand"
+                                        aria-hidden="true"></i></button>
+                            </div>
+    
+                        </div>
+    
+                        <!-- Question Options for fillup Type -->
+                        <div class="mt-3" *ngIf="question?.type_of_question==='fillup'">
+                            <input type="text" class="form-control numerical-input" placeholder="Enter Answer"
+                                name="numerical" value="{{ question?.user_string_answer }}" #fillUpInput>
+                        </div>
+    
+                        <div class="mt-3" *ngIf="question?.type_of_question=='fillup_option'">
+                            <!-- <input type="text" class="form-control numerical-input" placeholder="Enter Text for Hints"
+                            id="typeahead-basic" [formControl]="myControl" [(ngModel)]="tag" 
+                            [ngbTypeahead]="search" (click)="detectTag($event)" #fillUpInput> -->
+                            <select [(ngModel)]="tag" class="form-control" name="tag" (change)="chooseFillUpOption($event.target.value)">
+                                <option value="" selected>Please Select Option</option>
+                                <option [value]="option?.id" *ngFor="let option of fillUpOptionDetails"><span [innerHtml]="option?.text"></span></option>
+                            </select>
+                        </div>
+                       
+    
+                        <!-- Question Options for subjective Type -->
+                        <div class="mt-3"
+                            *ngIf="question?.type_of_question==='subjective'">
+                            <textarea type="text" rows="10" class="form-control subjective-input"
+                                placeholder="Enter Subjective Answer" name="subjective"
+                                value="{{ question?.user_subjective_answer}}" #subjectiveInput></textarea>
+                                <div *ngFor="let url of question?.user_subjective_answer_images" style="position: relative;">
+                                    <img  
+                                [src]="env.media + url?.user_subjective_answer_image" class="subjective-image-display">
+                                <span class="deleteImage" (click)="deleteSubjectiveImage(url?.id)"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                                </div>
+                                <div *ngFor="let url of urls" style="position: relative;">
+                                    <img [src]="env.media + url['user_subjective_answer_image']"
+                                        class="subjective-image-display">
+                                    <span class="deleteImage" (click)="deleteSubjectiveImage(url?.id)"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                                </div>
+                            <br />
+                            <div id="upload_subjective_image">
+                                <input type="file" accept=".jpg,.png,.jpeg" class="form-control subjective-image-input"
+                                    id="image-input" (change)="onSelectFile($event)" multiple #subjectiveInputImage>
+                            </div>
+                            <div id="short-loader" class="custom-loader" *ngIf="showLoader.visibility">
+                                <img src="{{env.static}}/images/gif/short-loader.gif" alt="">
+                            </div>
+                        </div>
+    
+                        <!-- Question Options for MCQ or MCC Type -->
+                        <div class="mt-3" *ngIf="question?.type_of_question=='mcq' || question?.type_of_question=='assertion'">
+
+                            <!-- Options -->
+                            <div class="mb-2 option-container">
+                                <ul>
+                                    <li class="cursor-pointer mb-2 text-black"
+                                        *ngFor="let option of mcqDetails; let optionIndex = index">
+                                        <div class="d-flex">
+                                            <label class="labl">
+                                                <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="option"
+                                                id="{{option['id']}}" [checked]="option['attempted']" (change)="selectMCQ($event, option?.id)" />
+                                                <div for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                            </label>
+                                        </div>
+                                        <div *ngIf="option['opt_image']"
+                                            class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                            <div #optionImage>
+                                                <button type="button" class="close-button d-none btn btn-link text-black"
+                                                    (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                                                <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                                            </div>
+                                            <button class="p-2 btn btn-link text-black" type="button"
+                                                (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                                    aria-hidden="true"></i></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+    
+                        <div class="mt-3" *ngIf="question?.type_of_question=='mcc'">
+    
+                            <!-- Options -->
+                            <div class="mb-2 option-container">
+                                <ul>
+                                    <li class="cursor-pointer mb-2 text-black"
+                                        *ngFor="let option of mcqDetails; let optionIndex = index">
+                                        <div class="d-flex">
+                                            <label class="labl">
+                                                <input [ngClass]="{'ml-5': radioIndex!==0}" type="checkbox" name="option"
+                                                id="{{option['id']}}" [checked]="option['attempted']" (change)="selectMCC($event, option?.id)" />
+                                                <div for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering" >{{optionIndex + 1}} </span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                            </label>
+                                        </div>
+                                        <div *ngIf="option['opt_image']"
+                                            class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                            <div #optionImage>
+                                                <button type="button" class="close-button d-none btn btn-link text-black"
+                                                    (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                                                <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                                            </div>
+                                            <button class="p-2 btn btn-link text-black" type="button"
+                                                (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                                    aria-hidden="true"></i></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Question Type: Boolean -->
+                    <div class="form-group mb-0 quesiton-select" *ngIf="question?.type_of_question=='boolean'">
+                        <label class="labl mb-0 mt-4" style="margin-left: 2.2rem">
+                            <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="optionboolean"
+                            id="boolTrue" value="true" (click)="setBooleanTrue()" />
+                            <div class=""><span class="font-weight-bold font-sm-1 optionNumbering">1</span> <span class="ml-3">True</span></div>
+                        </label>
+                        <br>
+                        <label class="labl mb-0" style="margin-left: 2.2rem">
+                            <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="optionboolean"
+                            id="boolFalse" value="false" (click)="setBooleanFalse()" />
+                            <div class=""><span class="font-weight-bold font-sm-1 optionNumbering">2</span> <span class="ml-3">False</span></div>
+                        </label>
+                    </div>
+    
+                    <div class="test-footer" [ngClass]="{'test-footer-active ': !questionSidebarActive}">
+                        <!-- ANSWER FORM FOR MCQ/MCC QUESTINS -->
+                        <div *ngIf="question?.type_of_question=='mcq' || question?.type_of_question=='mcc' || question?.type_of_question=='assertion' || question?.type_of_question=='boolean'">
+                            <form (submit)="submitAnswer(question, $event)">
+                                <!-- Question Type: MCQ -->
+                                <div style="display: none;" class="form-group mb-0 quesiton-select" *ngIf="question?.type_of_question==='mcq' || question?.type_of_question=='assertion'">
+                                    <label class="mb-0" for="option"
+                                        *ngFor="let option of mcqDetails; let radioIndex = index">
+                                        <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="option"
+                                            id="{{option['id']}}" [checked]="option['attempted']">
+                                        <span class="ml-2 select-option-text">{{radioIndex + 1}}</span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Question Type: MCC -->
+                                <div style="display: none;" class="form-group mb-0 quesiton-select" *ngIf="question?.type_of_question==='mcc'">
+                                    <label class="mb-0" for="option"
+                                        *ngFor="let option of mcqDetails; let radioIndex = index">
+                                        <input [ngClass]="{'ml-5': radioIndex!==0}" type="checkbox" name="option"
+                                            id="{{option['id']}}" [checked]="option['attempted']">
+                                        <span class="ml-2 select-option-text">{{radioIndex + 1}}</span>
+                                    </label>
+                                </div>
+                                <!-- Next & Previous Question -->
+                                <div class="mt-1 test-buttons d-flex ">
+                                    <button id="optionSubmit" type="submit"
+                                        class="btn save-next mr-3 mt-3">{{ currentQuestion === totalQuestions - 1 ? 'Save' : 'Save & Next' }}</button>
+                                    <button type="submit" class="btn save-mark-for-review mr-3 mt-3"
+                                        (click)="saveAndMarkForReview($event)">Save & Mark For Review</button>
+                                    <button type="submit" class="btn mark-for-review-next mr-3 mt-3"
+                                        (click)="markForReviewAndNext()">{{ currentQuestion === totalQuestions - 1 ? 'Mark For Review' : 'Mark For Review & Next' }}</button>
+                                    <button id="optionClear" type="submit" class="btn clear-response mt-3"
+                                        (click)="clearResponse()">Clear Response</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- ANSWER FORM FORM FILL UP QUETIONS -->
+                        <div *ngIf="question?.type_of_question==='fillup'">
+                            <form (submit)="submitAnswer(question, $event)">
+                                <!-- Question Submit Buttons -->
+                                <div class="test-buttons d-flex flex-wrap">
+                                    <button id="fillUpSubmit" type="submit"
+                                        class="btn save-next mr-3 mt-3">{{ currentQuestion === totalQuestions - 1 ? 'Save' : 'Save & Next' }}</button>
+                                    <button type="submit" class="btn save-mark-for-review mr-3 mt-3"
+                                        (click)="saveAndMarkForReview($event)">Save & Mark For Review</button>
+                                    <button type="submit" class="btn mark-for-review-next mr-3 mt-3"
+                                        (click)="markForReviewAndNext()">{{ currentQuestion === totalQuestions - 1 ? 'Mark For Review' : 'Mark For Review & Next' }}</button>
+                                    <button id="optionClear" type="submit" class="btn clear-response mt-3"
+                                        (click)="clearResponse()">Clear Response</button>
+                                </div>
+                            </form>
+                        </div>
+    
+                        <!-- ANSWER FORM FORM FILL UP WITH OPTION QUETIONS -->
+                        <div *ngIf="question?.type_of_question==='fillup_option'">
+                            <form (submit)="submitAnswer(question, $event)">
+                                <!-- Question Submit Buttons -->
+                                <div class="test-buttons d-flex flex-wrap">
+                                    <button id="fillUpSubmit" type="submit"
+                                        class="btn save-next mr-3 mt-3">{{ currentQuestion === totalQuestions - 1 ? 'Save' : 'Save & Next' }}</button>
+                                    <button type="submit" class="btn save-mark-for-review mr-3 mt-3"
+                                        (click)="saveAndMarkForReview($event)">Save & Mark For Review</button>
+                                    <button type="submit" class="btn mark-for-review-next mr-3 mt-3"
+                                        (click)="markForReviewAndNext()">{{ currentQuestion === totalQuestions - 1 ? 'Mark For Review' : 'Mark For Review & Next' }}</button>
+                                    <button id="optionClear" type="submit" class="btn clear-response mt-3"
+                                        (click)="clearResponse()">Clear Response</button>
+                                </div>
+                            </form>
+                        </div>
+    
+                        <!-- ANSWER FORM FORM subjective QUETIONS -->
+                        <div
+                            *ngIf="question?.type_of_question==='subjective'">
+                            <form (submit)="submitAnswer(question, $event)">
+                                <!-- Question Submit Buttons -->
+                                <div class="test-buttons d-flex flex-wrap">
+                                    <button id="subjectiveSubmit" type="submit"
+                                        class="btn btndisable save-next mr-3 mt-3">{{ currentQuestion === totalQuestions - 1 ? 'Save' : 'Save & Next' }}</button>
+                                    <button type="submit" class="btn btndisable save-mark-for-review mr-3 mt-3"
+                                        (click)="saveAndMarkForReview($event)">Save & Mark For Review</button>
+                                    <button type="submit" class="btn btndisable mark-for-review-next mr-3 mt-3"
+                                        (click)="markForReviewAndNext()">{{ currentQuestion === totalQuestions - 1 ? 'Mark For Review' : 'Mark For Review & Next' }}</button>
+                                    <button id="optionClear" type="submit" class="btn btndisable clear-response mt-3"
+                                        (click)="clearResponse()">Clear Response</button>
+                                </div>
+                            </form>
+                        </div>
+    
+                        <!-- PREVIOUS & NEXT BUTTONS -->
+                        <div class="mt-2 next-prev">
+                            <div>
+                                <a href="javascript:void(0)" (click)="previousQuestion()">
+                                    <span [ngClass]="{'no-question': currentQuestion===0}"><i
+                                            class="fa fa-angle-double-left"></i> Previous</span>
+                                </a>
+                                <a href="javascript:void(0)" class="ml-4" (click)="nextQuestion()"
+                                    [ngClass]="{'no-question': currentQuestion === totalQuestions-1 }">Next<i
+                                        class="fa fa-angle-double-right"></i></a>
+                            </div>
+                            <h6 class="text-success mb-4 mt-2" *ngIf="submittingQuestion">Saving your response, please
+                                wait...</h6>
+                            <button type="button" class="btn btn-success btnSubmit" data-toggle="modal" data-target="#confirmationModal">Submit</button>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="test-sidebar" [ngClass]="{'sidebar-inactive': !questionSidebarActive, 'maximize':maximizeScreen}">
+    
+        <!-- QUESTION STATUS SIDEBAR WITH CIRCLES -->
+        <div #sidebar>
+            <div id="circle" class="d-flex flex-column s-h-1" *ngIf="testObj" [ngClass]="{'s-h-2':maximizeScreen}">
+                <a class="text-dark font-sm-m times" *ngIf="questionSidebarActive" (click)="toggleSidebar()">
+                    <h2><i class="fa fa-times"></i></h2>
+                </a>
+                <div class="text-center text-black pt-4 question-status-title">
+                    <h2>Question Status</h2>
+                </div>
+                <!-- Toggle Legends -->
+                <div class="text-center mt-2">
+                    <small class="text-white bg-info pl-2 pr-2 pb-1 pt-1 rounded" (click)="viewLengends = !viewLengends">
+                        <span *ngIf="viewLengends">Hide Legends <i class="fa fa-angle-up"></i></span>
+                        <span *ngIf="!viewLengends">Show Legends <i class="fa fa-angle-down"></i></span>
+                    </small>
+                </div>
+    
+                <div class="mt-4 text-black" *ngIf="viewLengends">
+    
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="p-1">
+                                    <span class="not-visited-circle">
+                                        {{ totalQuestions - (completedCount.length + reviewCount.length + savedReviewCount.length + notAnswerdCount.length) }}
+                                    </span>
+                                    <span class="ml-2 font-sm">Not Visited</span>
+                                </td>
+                                <td class="p-1">
+                                    <span class="submitted-circle">{{ completedCount.length }}</span>
+                                    <span class="ml-2 font-sm">Answered</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">
+                                    <span class="not-answered">
+                                        {{ notAnswerdCount.length }}
+                                    </span>
+                                    <span class="ml-2 font-sm">Visited & Unanswered</span>
+                                </td>
+                                <td class="p-1">
+                                    <span class="marked-for-review-circle"> {{ reviewCount.length }} 
+                                        <span><i class="fa fa-check" aria-hidden="true"></i></span>
+                                    </span>
+                                    <span class="ml-2 font-sm">Marked For Review</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">
+                                    <span class="mark-for-review-and-save">
+                                        {{ savedReviewCount.length }}
+                                        <span><i class="fa fa-check" aria-hidden="true"></i>
+                                            <i class="fa fa-bookmark bookmarkgreen" aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+                                    <span class="ml-2 font-sm">Saved & Marked For Review <br>
+                                        <small>( Will be considered for evaluation )</small>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    
+                <div class="mb-auto circle-container cursor-pointer pt-4 pb-2">
+                    <div class="question-circle text-center">
+                        <button *ngFor="let question of testObj?.data?.questions; let i=index" type="button"
+                            class="btn btn-circle d-inline-flex justify-content-center align-items-center"
+                            [ngClass]="i===currentQuestion ? 'circle-border' + ' ' + getCircleClass(i) : getCircleClass(i)"
+                            (click)="jumpToQuestion(i)">
+                            {{i + 1}}
+                            <!-- <span [ngClass]="{'btn-s-review': question['sReview']}"></span> -->
+                            <span *ngIf ="question['sReview']"><i class="fa fa-check" aria-hidden="true"></i>
+                                <i class="fa fa-bookmark bookmarkgreen" aria-hidden="true"></i>
+                            </span>
+                            <span *ngIf ="question['review']">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </block-ui>
+    <ng-template #testCompleted>
+        <div class="text-center mt-5 mb-5">
+    
+            <!-- If Test Type is Mock-->
+            <h2 class="text-muted" *ngIf="testObj['type']==='paper'">Oops! some error occured
+                <a routerLink="/assessment/dashboard/contact-us">Contact Us</a>
+            </h2>
+    
+            <!-- If Test Type Is Assessment-->
+            <h2 class="text-muted" *ngIf="examStatus">{{examStatus}}</h2>
+        </div>
+    </ng-template>
+    <div class="modal reportModal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Report <span>Question</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  
+                  <div class="form-group">
+                      <label for="exampleInputPassword1">Select Issue</label>
+                      <div class="btn-group">
+                        <button type="button" (click)="selectErrorType(1, 'Question Unclear')" class=" reportReason pl-3 pr-3 btn btn-outline-primary" id="regi1">Incomplete Question</button>
+                        <button type="button" (click)="selectErrorType(2, 'Wrong Option')" class="btn reportReason pl-3 pr-3 btn-outline-success" id="regi2">Wrong Option</button>
+                        <button type="button" (click)="selectErrorType(3, 'Wrong Question')" class="btn reportReason pl-3 pr-3 btn-outline-info" id="regi3">Wrong Question</button>
+                        <button type="button" (click)="selectErrorType(4, 'Unclear Image')" class="btn reportReason pl-3 pr-3 btn-outline-dark" id="regi4">Unclear Image</button>
+                        <button type="button" (click)="selectErrorType(5, 'Question irrelevant for selected chapter(s)')" class="btn reportReason pl-3 pr-3 btn-outline-info" id="regi5">Question irrelevant for selected chapter(s)</button>
+                       </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Error Description</label>
+                    <textarea class="form-control" id="exampleInputPassword1" [(ngModel)]="errorDesc" placeholder="Enter description....."></textarea>
+                    </div>
+                  
+                <div>
+                  <button type="button" (click)="reportQuestion()" class="btn btnReport btn-primary">REPORT</button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+</div>
+<div *ngIf="ripple" class="spinnerContainer">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <br>
+    <h2>Preparing Exam Screen.....</h2>
+</div>
+
+
+    <!-- Modal -->
+    <div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"  role="document">
+          <div class="modal-content" style="border-radius: 16px;border: none;">
+            <div class="modal-header" style="border: none;">
+              <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #04607D;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to finish this paper?</p>
+            </div>
+            <div class="modal-footer" style="background-color: #00A3F1; border-radius: 0 0 16px 16px;justify-content: space-between;">
+              <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" (click)="completeTest()">Yes!</button>
+            </div>
+          </div>
+        </div>
+      </div>

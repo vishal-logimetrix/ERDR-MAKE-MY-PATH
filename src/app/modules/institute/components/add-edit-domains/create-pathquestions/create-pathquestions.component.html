@@ -1,0 +1,57 @@
+<div id="table">
+    <form [formGroup]="pathQuestionForm" (submit)="submitForm()">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+                <td colspan="3">
+                    Selected Domain :
+                </td>
+                <td colspan="9">
+                    <div class="form-group">
+                        <input type="text" class="form-control" value="{{domainDetails?.title}}" readonly>
+                       
+                    </div>            
+                </td>
+              </tr>
+             <tr>
+              <td colspan="3">
+                  Question :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="title" placeholder="eg. Please select your board">
+                      <div *ngIf="f.title?.touched && f.title?.invalid" class="text-danger">
+                        <div *ngIf="f.title.errors.required">Question is required</div>
+                      </div>
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    Exam Category:
+                </td>
+                <td colspan="9">
+                    <div class="form-group"> 
+            
+                        <label for="exampleFormControlSelect1"></label>
+                        <input matInput
+                                style="border:none;border-radius: 30px 30px 0px 0px;" type="text" class="form-control shadow p-3  bg-white"
+                                placeholder="Option Text" disabled>
+                                <div formArrayName="options" *ngFor="let option of moreOptions.controls; let i = index">
+                                <input matInput formControlName="options"
+                                id="newInput" type="text" class="form-control shadow p-3  bg-white"
+                                placeholder="eg. ICSE" [formControlName]="i"><button (click)="removeInputField(i)" class="btn" style="float: right;margin-top: -35px;"><i class="far fa-trash-alt"></i></button>
+                                </div>
+                                <button id="addMore" type="button" (click)="addmoreOptions()" class="form-control shadow p-3  bg-white">+ Add More Options</button>
+                        </div>    
+                </td>
+              </tr>
+            
+  
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary" id="design_details" >SAVE</button>
+      </form>
+        
+  
+      </div>      

@@ -1,0 +1,193 @@
+<div class="container page_content">
+    <p style="font-size:larger;margin-bottom: 30px;">Search Questions By FTag</p>
+    <div class="form-group">   
+        <div class="row">
+            <div  class="col-4">
+                <input id="typeahead-basic" type="text" [formControl]="myControl" [(ngModel)]="tag" 
+                class="input-field form-control shadow p-3  bg-white" style="border:none;outline: none;" placeholder="Search FTag"
+                [ngbTypeahead]="search" (input)="detectTag($event)" />
+                <i *ngIf="searchIcon" style="color: #255166;font-size: larger;margin-top: -37px;" class="search-icon fa fa-search icon"></i> 
+                <!-- <button class="btn btn-primary btn-sm" type="button" (click)="TagFilter()">Select</button> -->
+            </div>
+            <div  class="col-4">
+                <label>Selected F Tag:</label>
+            </div>
+            <div class="col-3">
+                <nav aria-label="breadcrumb" *ngIf="selectedtag">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">{{selectedtag?.title}}</li><hr>
+                        <li class="breadcrumb-item">{{selectedtag?.description}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- <div  class="col-4">
+                <select class="form-control" id="sel1">
+                    <option>Select Topic</option>
+                    <option *ngFor="let sub of subjects">{{sub}}</option>
+                </select>
+            </div> -->
+            
+            <div  class="col-3">
+                <button type="button" class="btn btn-primary" id="std" (click)="TagFilter()">
+                    <i class="fa fa-search" style="padding: 0px 5px 0 5px"></i>
+                </button>
+            </div>
+        </div> 
+        <button type="button" class="btn btn-danger" id="design_details" data-toggle="modal" data-target=".bd-example-modal-smtag">DELETE TAGS</button>
+        <div>
+        <!-- <div class="row">
+            <div  class="col-4">
+               <span class="badge badge-pill badge-success" id="badge" >helo 2</span>
+            </div> 
+            <div  class="col-4">
+                <span class="badge badge-pill badge-success" id="badge" >helo 2</span>
+             </div>
+             <div  class="col-4">                                                                                                                                                                                                                                                                                                                                                
+                <span class="badge badge-pill badge-success" id="badge" >helo 2</span>
+             </div>
+             <div  class="col-4">                                                                                                                                                                                                                                                                                                                                                
+                <span class="badge badge-pill badge-success" id="badge" >helo 2</span>
+             </div>
+            <div  class="col-4">
+                <span class="badge badge-pill badge-danger" id="badge1">
+                    <i class="fa fa-close" style="padding: 0px 5px 0 5px"></i>
+                </span>
+            </div>
+        </div> 
+        </div> -->
+        <div  class="col-6">
+            <label>Total Questions: {{totalQuestions}}</label><br>
+            <label><b>Single Correct Questions</b>: {{mcqQuestions}}</label><br>
+            <label><b>Multiple Correct Questions</b>: {{mccQuestions}}</label><br>
+            <label><b>Fillup Questions</b>: {{fillupQuestions}}</label><br>
+            <label><b>Subjective Questions</b>: {{subjectiveQues}}</label><br>
+            <label><b>Numerical Questions</b>: {{numericalQues}}</label><br>
+            <label><b>Assertion Questions</b>: {{assertionQues}}</label><br>
+            <label><b>Boolean Questions</b>: {{booleanQues}}</label><br>
+            <label><b>Fillup Option Questions</b>: {{fillup_optionQues}}</label>
+        </div>
+    </div>
+        <hr>
+
+        <!----------------------------------------->
+    <div> Apply Some Filters 
+        <select class="form-control" (change)="selectFilter($event)" #subjectSelect>
+            <option value="">Select Subject</option>
+            <option value="">
+              ''
+            </option>
+            <option value="is_active">
+                Inactive
+            </option>
+            <option value="-is_active">
+                Active
+            </option>
+          </select>
+    </div>    
+     <div>   
+        <div id="table" class="">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Text</th>
+                    <th>Type of Question</th>
+                    <th>Difficulty Level</th>
+                    <th>Options</th>
+                    <th>Active/Inactive</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ques of questions">
+                    <td *ngIf="ques.contents?.length > 0" [innerHtml]="ques.contents[0].text">
+                    </td>
+                    <td *ngIf="ques.contents?.length == 0">
+                    </td>
+                    <td>
+                        {{ques.type_of_question}}
+                    </td>
+                    <td>
+                        {{ques.difficulty}}
+                    </td>
+                    <td>
+                        <button type="button" class="btn" id="std_details" routerLink="/institute/edit-question" [queryParams]="{id: ques?.id}">EDIT QUESTION</button>
+                        <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/view-question" [queryParams]="{id: ques?.id}">VIEW QUESTION</button>
+                    </td>
+                    <td>
+                        <button type="button" *ngIf="ques?.is_active" (click)="activateDeactivateQuestions(ques?.id, false)" class="btn" id="click">ACTIVE</button>
+                        <button type="button" *ngIf="!ques?.is_active" (click)="activateDeactivateQuestions(ques?.id, true)" class="btn" id="unclick">INACTIVE</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <section *ngIf="questions?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+                <div class="container text-center">
+                    <nav aria-label="navigation">
+                        <ul *ngIf="questions" class="pagination justify-content-center">
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                <button (click)="goToPage(currentPage - 1)" class="page-link btn btn-link">Prev</button>
+                            </li>
+    
+                            <li *ngFor="let page of pages | slice:startPage:endPage; let i = index" class="page-item number-item">
+                                <button (click)="goToPage(startPage + i)" class="page-link btn btn-link" [ngClass]="{active: currentPage == i + startPage}">{{i+ startPage }}</button>
+                            </li>
+    
+                            <li *ngIf="currentPage > 0 && max_page > 0" class="page-item number-item">
+                                <button (click)="goToPage(endPage)" class="page-link btn btn-link" [ngClass]="{active: currentPage == endPage}">{{ endPage }}</button>
+                            </li>
+    
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                <button (click)="goToPage(currentPage - (-1))" class="page-link btn btn-link">Next</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+            <!-- <button (click)="goToPage(currentPage)">Go to Page</button> -->
+            <label>Go to Page</label>
+            <input type="text" [(ngModel)]="currentPage" (input)="goToPage(currentPage)">
+        </div>
+</div>  
+</div>
+
+<div class="modal fade bd-example-modal-smtag" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Delete <span>Tags</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalTag>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <div class="form-group">
+              <label for="exampleInputPassword1">Tags</label>
+              <input id="typeahead-basic" type="text" [formControl]="myControl" [(ngModel)]="deletetag" 
+                class="input-field form-control shadow p-3 bg-white" style="border:none;outline: none;" placeholder="Search FTag"
+                [ngbTypeahead]="search" />
+                <i *ngIf="searchIcon" style="color: #255166;font-size: larger;margin-top: -37px;" class="search-icon fa fa-search icon"></i> 
+                <button class="btn btn-primary btn-sm" (click)="fetchAndSelectMultipleTags()">Select</button>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Selected F Tags</label>
+              <nav aria-label="breadcrumb" *ngIf="selectedtags?.length > 0">
+                <ol class="breadcrumb">
+                  <ng-container *ngFor="let tag of selectedtags">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="removeTagsDelete(tag?.id)">{{tag?.title}}</a></li>
+                  </ng-container>
+                </ol>
+              </nav>
+            </div>
+            <div>
+              <button type="button" (click)="deleteTag()" class="btn btn-warning">Delete</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>

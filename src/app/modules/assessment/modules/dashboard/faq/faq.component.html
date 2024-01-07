@@ -1,0 +1,65 @@
+<div class="faqContainer container">
+  <h2 class="pt-3 text-center topHeading"> Frequently Asked Questions (FAQs)
+  </h2>
+  <div class="row">
+    <div class="col-md-12">
+    <button routerLink="/assessment/dashboard/" class="btn float-left btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+    </div>
+    <div class="col-md-12">
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <img class="faqImage" src="assets/icons/faq.svg" alt="">
+    </div>
+    <div class="col-md-7">
+      <div id="main">
+        <div class="">
+          <div class="accordion" id="faq">
+            <ng-container *ngFor="let faq of faqs; let i = index">
+              <div class="card" *ngIf="i==0">
+                <div class="card-header" id="heading{{i}}">
+                  <a href="#collapse{{i}}" (click)="fetchFaqId(faq?.id)"  class="btn btn-header-link" data-toggle="collapse" data-target="collapse{{i}}"
+                    aria-expanded="true" aria-controls="faq1">
+                
+                    <i class="fa" [ngClass]="activeCard === faq?.id ? 'fa-angle-double-down' : 'fa-angle-double-right'"></i>    
+                    {{faq?.title}}
+                  </a>
+                </div>
+    
+                <div id="collapse{{i}}" class="collapse show" aria-labelledby="heading{{i}}" data-parent="#faq">
+                  <div class="card-body">
+                    <p>
+                      {{faq?.content}}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+              </div>
+              <div class="card" *ngIf="i>0">
+                <div class="card-header" id="heading{{i}}">
+                  <a href="#collapse{{i}}" (click)="fetchFaqId(faq?.id)"  class="btn btn-header-link" data-toggle="collapse" data-target="collapse{{i}}"
+                    aria-expanded="true" aria-controls="faq1">
+  
+                    <i class="fa" [ngClass]="activeCard === faq?.id ? 'fa-angle-double-down' : 'fa-angle-double-right'"></i>   
+                    {{faq?.title}}
+                  </a>
+                </div>
+    
+                <div id="collapse{{i}}" class="collapse" aria-labelledby="heading{{i}}" data-parent="#faq">
+                  <div class="card-body">
+                    <p>
+                      {{faq?.content}}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

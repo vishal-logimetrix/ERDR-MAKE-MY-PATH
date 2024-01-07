@@ -1,0 +1,14 @@
+.notification-section {
+    .content {
+        background-color: #fff9e7;
+        padding: 1rem 0;
+    }
+}
+
+.notification-title {
+    padding: 0 1rem 1rem;
+    color: #464646;
+    & :hover{
+        cursor: pointer;
+    }
+}

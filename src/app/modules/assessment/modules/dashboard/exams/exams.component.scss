@@ -1,0 +1,196 @@
+
+hr {
+  margin-top: 0px !important;
+}
+.breadcrumb {
+  background-color: #f5f4f4;
+  padding: 0px !important;
+  margin: 17px 0px 5px 0px !important;
+  a {
+    color: #007BBA;
+    font: {
+      size: 18px;
+      // weight: bold;
+    }
+    font-family: "jaldi";
+  }
+  a:hover {
+    text-decoration: underline;
+    color: #1B50A3;
+  }
+  span {
+    color: #808180 !important;
+    font: {
+      size: 18px;
+      // weight: bold;
+    }
+    font-family: "jaldi";
+  }
+}
+.breadcrumb > li + li:before {
+  color: #5A5A5A;
+  content: ">>";
+  // font-weight: bold;
+  padding: 2px 5px 2px 2px;
+}
+.allExams {
+  min-height: 100vh;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  .noExamsFound{
+    font-family: 'jaldi';
+    padding-left: 15px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ED3433;
+}
+  hr {
+    margin-top: 0px !important;
+  }
+  .breadcrumb {
+    background-color: #f5f4f4;
+    padding: 0px !important;
+    margin: 5px 0px !important;
+    a {
+      color: #007BBA;
+      font: {
+        size: 18px;
+        // weight: bold;
+      }
+      font-family: "jaldi";
+    }
+    span {
+      color: #808180;
+      font: {
+        size: 18px;
+        // weight: bold;
+      }
+      font-family: "jaldi";
+    }
+  }
+  .breadcrumb > li + li:before {
+    color: #5A5A5A;
+    content: ">>";
+    // font-weight: bold;
+    padding: 2px 5px 2px 2px;
+  }
+  .topRow {
+    // padding-top: 50px;
+    h2 {
+      font-family: "jaldi";
+      color: #727270;
+      font-size: 32px;
+      font-weight: bold;
+    }
+    .card {
+      box-shadow: 0 -2px 2px -2px #333, -5px 0 5px -5px #333,
+        5px 0 5px -5px #333;
+      border: none;
+      border-radius: 10px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    //   height: 200px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: all 1s;
+      .imageDiv {
+        width: 70px;
+        height: 70px;
+        overflow: hidden;
+        display: flex;
+        margin-right: auto;
+        margin-left: auto;
+        justify-content: center;
+        img {
+          max-width: 70px;
+          max-height: 70px;
+        }
+      }
+      h5 {
+        color: #483d8c;
+        font-family: "jaldi";
+        font-size: 15px;
+        padding-top: 15px;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 54px;
+        font-weight: bold;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+    .card:hover {
+      box-shadow: 0 0 5px #333;
+    }
+    .latestJobs {
+      .latestJobCard {
+        height: 90vh;
+      }
+      h2 {
+        color: #141515;
+        margin-left: 13px;
+        font-family: 'jaldi';
+        font-size: 32px;
+      }
+      .scrollSection {
+        height: 80vh;
+        overflow-y: scroll;
+        ul {
+          margin-top: 15px;
+          margin-left: 17px;
+          margin-right: 5px;
+          list-style: none;
+          li {
+            line-height: 1.1;
+            margin-top: 15px;
+            display: flex;
+            // align-items: center;
+            a {
+              font-family: "jaldi";
+              font-size: 16px;
+              font-weight: 500;
+              color: #141824;
+            }
+            a:hover {
+              color: #1B50A3;
+              text-decoration: underline;
+            }
+            .fa {
+              color: #007BBA;
+              font-size: 22px;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .allExams {
+    .topRow {
+      .card {
+        margin-top: 20px;
+      }
+      .latestJobs {
+        h2 {
+          margin-top: 25px;
+        }
+      }
+    }
+  }
+}
+@media only screen and (device-width: 1024px){
+  .allExams{
+    .topRow{
+      .latestJobs{
+        .latestJobCard{
+          height: 65vh;
+        }
+      }
+    }
+  }
+}

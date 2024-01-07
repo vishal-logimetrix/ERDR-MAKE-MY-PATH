@@ -1,0 +1,49 @@
+<div class="container page_content">
+       
+        <button type="button" class="btn btn-primary" id="std" (click)="create_course()">CREATE EXAM</button>
+    <div id="table">
+      <div class="form-group">
+                      
+        <div class="form-group">
+            <select class="form-control" name="selectedClass" [(ngModel)]="selectedLevelId" (change)="fetchExams($event.target.value)">
+                <!-- <option value="" selected disabled>Please Select Level</option> -->
+                <option [value]="level?.id" *ngFor="let level of levels">{{level?.label}}</option>
+            </select>
+        </div>
+    </div>      
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>Title</th>
+                <th>Number of Subjects</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let des of courses">
+                <td>
+                   <strong>{{des.title}}</strong> 
+                </td>
+                <td>
+                    {{des.subjects?.length}}
+                </td>
+                <td>
+                    <button type="button" class="btn" id="std_details" (click)="editCourse(des?.id)">EDIT EXAM DETAILS</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/design-path-question" [queryParams]="{id: des?.id}">DESIGN EXAM PATH QUES</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/design-course" [queryParams]="{id: des?.id}">DESIGN EXAM</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/question-type" [queryParams]="{id: des?.id}">QUES TYPE</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/average-time" [queryParams]="{id: des?.id}">AVG QUES TIME/ TOTAL STUDENTS</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/exam-grading" [queryParams]="{id: des?.id}">DESIGN EXAM GRADING</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/exam-books" [queryParams]="{id: des?.id}">SUGGESTED BOOKS</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/exam-previous-papers" [queryParams]="{id: des?.id}">PREVIOUS YEARS PAPERS</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/make-paper/{{des?.id}}" [queryParams]="{type: 'paper'}">CREATE MOCK PAPER PARAMETERS</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/view-mockpaper-parameters/{{des?.id}}">VIEW MOCK PAPER PARAMETERS</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/make-self-assess-ques" [queryParams]="{id: des?.id}">CREATE SELF ASSESS QUES</button>
+                    <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/view-self-assess-questions" [queryParams]="{id: des?.id}">VIEW SELF ASSESS QUES</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    
+    </div>

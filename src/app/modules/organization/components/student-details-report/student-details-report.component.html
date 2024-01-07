@@ -1,0 +1,996 @@
+<div class="sdReport container">
+    <div class="row buttonsSection">
+        <!-- <div>
+            <button class="btn btn-sm btn-danger shadow btnBlockedStudents" routerLink="/organization/group/{{batchId}}">Batch Dashboard</button>
+        </div> -->
+        <div>
+            <button class="btn btn-sm btnLeaderboard" routerLink="/organization/blocked-students/{{batchId}}">View Blocked Students <i class="fas fa-angle-double-right mr-2"></i></button>
+        </div>
+    </div>
+    <div>
+        <h2  class="heading">Student-Details</h2>
+    </div>
+    <div class="totalUser">
+        <div>
+            <button class="btn btn-sm btnLeaderboard" routerLink="/organization/group/{{batchId}}"><i class="fas fa-angle-double-left mr-1"></i>Batch Dashboard</button>
+        </div>
+        <div>
+            <h4 *ngIf="!batchDetails?.institute_room?.id"><span>Batch : </span> {{batchDetails?.name}}</h4>
+            <h4 *ngIf="batchDetails?.institute_room?.id"><span>Batch : </span> {{batchDetails?.institute_room?.grade_name}} - {{batchDetails?.institute_room?.name}}</h4>
+        </div>
+        <div><span>Total Students: {{batchDetails?.students?.length}}</span></div>
+    </div>
+    <div class="mt-2">
+        <hr>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="spinner">
+        <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+      <div *ngIf="!spinner">
+    <div class="row" *ngIf = "batchStudents?.length > 0">
+        <div class="col-xl-3 col-lg-3 col-md-5">
+            <div class="row scrollingSection">
+                <div class="col-md-12">
+                    <ng-container *ngFor="let student of batchStudents">
+                        <div  class="card studentCardNew" style="cursor: pointer;" [ngClass]="{'activeBooks': activeCard === student?.full_name}" (click)="selectStudent(student?.username, student?.full_name)">
+                            <div class="studentCardDivs">
+                                <div> 
+                                    <img *ngIf="!student?.profile_pic" src="assets/images/avatar-2.png" alt="">
+                                    <img *ngIf="student?.profile_pic" [src]="student?.profile_pic" alt="">
+                                </div>
+                                <div>
+                                    <h2>{{student?.full_name}}</h2>
+                                    <h3>{{student?.contact}}</h3>
+                            <a href="javascript:void(0)" (click)="blockStudent(student?.username)"><span class="iconify" data-icon="akar-icons:block"></span> Block</a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-7">
+            <div class="row scrollingSection">
+                <div class="col-md-12">
+                    <div id="exams" class="card shadowCard" id="studentDetailCharts">
+                        <h2>{{selectedUserName}}'s Relative Growth In Paper</h2>
+                        <div *ngIf="convertedData?.length > 0">
+                            <div style="height: 47vh;" [chart]="columnChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card shadowCard">
+                        <h2>All Student's Scattered Graph Report In Paper</h2>
+                        <div>
+                            <div *ngIf="showScatter" style="height: 47vh;" [chart]="scatteredChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="greyOutlineDiv">
+                        <h2>{{selectedUserName}}'s Previous <span>PAPER</span>/<span>PRACTICE</span></h2>
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                              <a class="nav-link active btn btn-outline-primary" id="pills-home-tab" data-toggle="pill" href="#pills-home" (click)="showAll()" role="tab" aria-controls="pills-home" aria-selected="true">All: {{paperCountData?.all}}</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link btn btn-outline-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" (click)="showCompleted()" role="tab" aria-controls="pills-profile" aria-selected="false">Complete: {{paperCountData?.attempted}}</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link btn btn-outline-danger" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" (click)="showPending()" role="tab" aria-controls="pills-contact" aria-selected="false">Pending: {{paperCountData?.pending}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-dark" id="pills-over-tab" data-toggle="pill" href="#pills-over" (click)="showOver()" role="tab" aria-controls="pills-over" aria-selected="false">Over: {{paperCountData?.over}}</a>
+                              </li>
+                          </ul>
+                          <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div class="row">
+                                    <ng-container *ngFor="let paper of papers">
+                                    <div class="col-xl-6 col-lg-12" *ngIf="paper?.paper_type == 'paper'">
+                                        <div class="card shadowCard">
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btnPaperNumber">Paper {{paper?.paper_count}}</button>
+                                            </div>
+                                            <div>
+                                              <h6 class="examName">{{paper?.exam?.title}}</h6>
+                                              <div class="startEndDate">
+                                                  <div>
+                                                      <h6 class="examDate"><span>Start: </span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</h6>
+                                                  </div>
+                                                  <div>
+                                                      <h6 class="examDate"><span>End: </span> {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6>
+                                                  </div>
+                                              </div>
+                                              <!-- <h6 class="examDate">,  </h6> -->
+                                              <!-- <h6 class="examDate"></h6> -->
+                                              <h6 class="examSubjects">Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                            </div>
+                                          <div class="noOfProblemMarks">
+                                            <div>
+                                                <h5>No of Questions: <span>{{paper?.questions?.length}}</span></h5>
+                                            </div>
+                                              <div>
+                                                <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                                    <h5 *ngIf="paper?.reattempt_papers[0].submitted">Marks: <span>{{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.reattempt_papers[0].submitted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                                    <h5 *ngIf="paper?.attempt_status?.attempted">Marks: <span>{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.attempt_status?.attempted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                                    <h5 *ngIf="paper?.actual_paper?.submitted">Marks: <span>{{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.actual_paper?.submitted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                                    <h5 *ngIf="paper?.attempt_status?.attempted">Marks: <span>{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.attempt_status?.attempted">Marks: <span>NA</span></h5>
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <div class="allButtonStudentDetails">
+                                              <!-- <div>
+                                                  <button class="btn btnReview">Review</button>
+                                              </div>
+                                              <div>
+                                                  <button class="btn btnRemark">Remark</button>
+                                              </div>
+                                              <div>
+                                                  <button class="btn btnReportCard">Report Card</button>
+                                              </div> -->
+                                              <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReview btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReview btn-sm">Not Attempted</button>
+                                            </div>
+                                            <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btnRemark" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                            </div>
+                                            
+                                            <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-12" *ngIf="paper?.paper_type == 'practice'">
+                                        <div class="card shadowCard">
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btnPaperNumber" style="color: #FBB623;">Practice {{paper?.paper_count}}</button>
+                                            </div>
+                                            <div>
+                                              <h6 class="examName">{{paper?.exam?.title}}</h6>
+                                              <div class="startEndDate">
+                                                <div>
+                                                    <h6 class="examDate"><span>Start: </span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                                <div>
+                                                    <h6 class="examDate"><span>End: </span> {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                            </div>
+                                              <!-- <h6 class="examDate">Start - {{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}, End - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6> -->
+                                              <!-- <h6 class="examDate">End Date - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6> -->
+                                              <h6 class="examSubjects">Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                            </div>
+                                            <div class="noOfProblemMarks">
+                                                <div>
+                                                    <h5>No of Questions: <span>{{paper?.questions?.length}}</span></h5>
+                                                </div>
+                                                <div>
+                                                    <!-- <h5>Marks : 4.00/44.00</h5> -->
+                                                    <!-- <div class="marks">
+                                                        
+                                                        
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                            <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm">Not Attempted</button>
+                                                        </div>
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                                        </div>
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard btn-sm" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="allButtonStudentDetails">
+                                                <!-- <div>
+                                                    <button class="btn btnReview">Review</button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btnRemark">Remark</button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btnReportCard">Report Card</button>
+                                                </div> -->
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReview btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReview btn-sm">Not Attempted</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btnRemark" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <div class="row">
+                                    <ng-container *ngFor="let paper of papers">
+                                    <div class="col-md-6" *ngIf="paper?.paper_type == 'paper'">
+                                        <div class="card shadowCard">
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btnPaperNumber">Paper {{paper?.paper_count}}</button>
+                                            </div>
+                                            <div>
+                                              <h6 class="examName">{{paper?.exam?.title}}</h6>
+                                              <div class="startEndDate">
+                                                <div>
+                                                    <h6 class="examDate"><span>Start: </span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                                <div>
+                                                    <h6 class="examDate"><span>End: </span> {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                            </div>
+                                              <!-- <h6 class="examDate">Start - {{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}, End - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6> -->
+                                              <h6 class="examSubjects">Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                            </div>
+                                          <div class="noOfProblemMarks">
+                                            <div>
+                                                <h5>No of Questions: <span>{{paper?.questions?.length}}</span></h5>
+                                            </div>
+                                              <div>
+                                                <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                                    <h5 *ngIf="paper?.reattempt_papers[0].submitted">Marks: <span>{{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.reattempt_papers[0].submitted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                                    <h5 *ngIf="paper?.attempt_status?.attempted">Marks: <span>{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.attempt_status?.attempted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                                    <h5 *ngIf="paper?.actual_paper?.submitted">Marks: <span>{{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.actual_paper?.submitted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                                    <h5 *ngIf="paper?.attempt_status?.attempted">Marks: <span>{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.attempt_status?.attempted">Marks: <span>NA</span></h5>
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <div class="allButtonStudentDetails">
+                                              <!-- <div>
+                                                  <button class="btn btnReview">Review</button>
+                                              </div>
+                                              <div>
+                                                  <button class="btn btnRemark">Remark</button>
+                                              </div>
+                                              <div>
+                                                  <button class="btn btnReportCard">Report Card</button>
+                                              </div> -->
+                                              <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReview btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReview btn-sm">Not Attempted</button>
+                                            </div>
+                                            <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btnRemark" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                            </div>
+                                            
+                                            <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" *ngIf="paper?.paper_type == 'practice'">
+                                        <div class="card shadowCard">
+                                            <div class="d-flex justify-content-center">
+                                                <button  class="btn btnPaperNumber" style="color: #FBB623;">Practice {{paper?.paper_count}}</button>
+                                            </div>
+                                            <div>
+                                              <h6 class="examName">{{paper?.exam?.title}}</h6>
+                                              <div class="startEndDate">
+                                                <div>
+                                                    <h6 class="examDate"><span>Start: </span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                                <div>
+                                                    <h6 class="examDate"><span>End: </span> {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                            </div>
+                                              <!-- <h6 class="examDate">Start - {{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}} End - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6> -->
+                                              <h6 class="examSubjects">Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                            </div>
+                                            <div class="noOfProblemMarks">
+                                                <div>
+                                                    <h5>No of Questions: <span>{{paper?.questions?.length}}</span></h5>
+                                                </div>
+                                                <div>
+                                                    <!-- <h5>Marks : 4.00/44.00</h5> -->
+                                                    <!-- <div class="marks">
+                                                        
+                                                        
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                            <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm">Not Attempted</button>
+                                                        </div>
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                                        </div>
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard btn-sm" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="allButtonStudentDetails">
+                                                <!-- <div>
+                                                    <button class="btn btnReview">Review</button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btnRemark">Remark</button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btnReportCard">Report Card</button>
+                                                </div> -->
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReview btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReview btn-sm">Not Attempted</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btnRemark" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                <div class="row">
+                                    <ng-container *ngFor="let paper of papers">
+                                    <div class="col-md-6" *ngIf="paper?.paper_type == 'paper'">
+                                        <div class="card shadowCard">
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btnPaperNumber">Paper {{paper?.paper_count}}</button>
+                                            </div>
+                                            <div>
+                                              <h6 class="examName">{{paper?.exam?.title}}</h6>
+                                              <div class="startEndDate">
+                                                <div>
+                                                    <h6 class="examDate"><span>Start: </span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                                <div>
+                                                    <h6 class="examDate"><span>End: </span> {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                            </div>
+                                              <!-- <h6 class="examDate">Start - {{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}, End - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6> -->
+                                              <h6 class="examSubjects">Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                            </div>
+                                          <div class="noOfProblemMarks">
+                                            <div>
+                                                <h5>No of Questions: <span>{{paper?.questions?.length}}</span></h5>
+                                            </div>
+                                              <div>
+                                                <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                                    <h5 *ngIf="paper?.reattempt_papers[0].submitted">Marks: <span>{{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.reattempt_papers[0].submitted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                                    <h5 *ngIf="paper?.attempt_status?.attempted">Marks: <span>{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.attempt_status?.attempted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                                    <h5 *ngIf="paper?.actual_paper?.submitted">Marks: <span>{{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.actual_paper?.submitted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                                    <h5 *ngIf="paper?.attempt_status?.attempted">Marks: <span>{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.attempt_status?.attempted">Marks: <span>NA</span></h5>
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <div class="allButtonStudentDetails">
+                                              <!-- <div>
+                                                  <button class="btn btnReview">Review</button>
+                                              </div>
+                                              <div>
+                                                  <button class="btn btnRemark">Remark</button>
+                                              </div>
+                                              <div>
+                                                  <button class="btn btnReportCard">Report Card</button>
+                                              </div> -->
+                                              <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReview btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReview btn-sm">Not Attempted</button>
+                                            </div>
+                                            <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btnRemark" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                            </div>
+                                            
+                                            <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" *ngIf="paper?.paper_type == 'practice'">
+                                        <div class="card shadowCard">
+                                            <div class="d-flex justify-content-center">
+                                                <button  class="btn btnPaperNumber" style="color: #FBB623;">Practice {{paper?.paper_count}}</button>
+                                            </div>
+                                            <div>
+                                              <h6 class="examName">{{paper?.exam?.title}}</h6>
+                                              <div class="startEndDate">
+                                                <div>
+                                                    <h6 class="examDate"><span>Start: </span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                                <div>
+                                                    <h6 class="examDate"><span>End: </span> {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                            </div>
+                                              <!-- <h6 class="examDate">Start - {{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}, End - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6> -->
+                                              <h6 class="examSubjects">Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                            </div>
+                                            <div class="noOfProblemMarks">
+                                                <div>
+                                                    <h5>No of Questions: <span>{{paper?.questions?.length}}</span></h5>
+                                                </div>
+                                                <div>
+                                                    <!-- <h5>Marks : 4.00/44.00</h5> -->
+                                                    <!-- <div class="marks">
+                                                        
+                                                        
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                            <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm">Not Attempted</button>
+                                                        </div>
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                                        </div>
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard btn-sm" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="allButtonStudentDetails">
+                                                <!-- <div>
+                                                    <button class="btn btnReview">Review</button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btnRemark">Remark</button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btnReportCard">Report Card</button>
+                                                </div> -->
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReview btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReview btn-sm">Not Attempted</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btnRemark" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-over" role="tabpanel" aria-labelledby="pills-over-tab">
+                                <div class="row">
+                                    <ng-container *ngFor="let paper of papers">
+                                    <div class="col-md-6" *ngIf="paper?.paper_type == 'paper'">
+                                        <div class="card shadowCard">
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btnPaperNumber">Paper {{paper?.paper_count}}</button>
+                                            </div>
+                                            <div>
+                                              <h6 class="examName">{{paper?.exam?.title}}</h6>
+                                              <div class="startEndDate">
+                                                <div>
+                                                    <h6 class="examDate"><span>Start: </span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                                <div>
+                                                    <h6 class="examDate"><span>End: </span> {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                            </div>
+                                              <!-- <h6 class="examDate">Start - {{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}, End - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6> -->
+                                              <h6 class="examSubjects">Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                            </div>
+                                          <div class="noOfProblemMarks">
+                                            <div>
+                                                <h5>No of Questions: <span>{{paper?.questions?.length}}</span></h5>
+                                            </div>
+                                              <div>
+                                                <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                                    <h5 *ngIf="paper?.reattempt_papers[0].submitted">Marks: <span>{{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.reattempt_papers[0].submitted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                                    <h5 *ngIf="paper?.attempt_status?.attempted">Marks: <span>{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.attempt_status?.attempted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                                    <h5 *ngIf="paper?.actual_paper?.submitted">Marks: <span>{{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.actual_paper?.submitted">Marks: <span>NA</span></h5>
+                                                </div>
+                                                <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                                    <h5 *ngIf="paper?.attempt_status?.attempted">Marks: <span>{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></span></h5>
+                                                    <h5 *ngIf="!paper?.attempt_status?.attempted">Marks: <span>NA</span></h5>
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <div class="allButtonStudentDetails">
+                                              <!-- <div>
+                                                  <button class="btn btnReview">Review</button>
+                                              </div>
+                                              <div>
+                                                  <button class="btn btnRemark">Remark</button>
+                                              </div>
+                                              <div>
+                                                  <button class="btn btnReportCard">Report Card</button>
+                                              </div> -->
+                                              <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReview btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReview btn-sm">Not Attempted</button>
+                                            </div>
+                                            <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btnRemark" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                            </div>
+                                            
+                                            <div>
+                                                <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" *ngIf="paper?.paper_type == 'practice'">
+                                        <div class="card shadowCard">
+                                            <div class="d-flex justify-content-center">
+                                                <button  class="btn btnPaperNumber" style="color: #FBB623;">Practice {{paper?.paper_count}}</button>
+                                            </div>
+                                            <div>
+                                              <h6 class="examName">{{paper?.exam?.title}}</h6>
+                                              <div class="startEndDate">
+                                                <div>
+                                                    <h6 class="examDate"><span>Start: </span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                                <div>
+                                                    <h6 class="examDate"><span>End: </span> {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6>
+                                                </div>
+                                            </div>
+                                              <!-- <h6 class="examDate">Start - {{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}, End - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h6> -->
+                                              <h6 class="examSubjects">Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                            </div>
+                                            <div class="noOfProblemMarks">
+                                                <div>
+                                                    <h5>No of Questions: <span>{{paper?.questions?.length}}</span></h5>
+                                                </div>
+                                                <div>
+                                                    <!-- <h5>Marks : 4.00/44.00</h5> -->
+                                                    <!-- <div class="marks">
+                                                        
+                                                        
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                            <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm">Not Attempted</button>
+                                                        </div>
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                                        </div>
+                                                        <div>
+                                                            <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard btn-sm" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="allButtonStudentDetails">
+                                                <!-- <div>
+                                                    <button class="btn btnReview">Review</button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btnRemark">Remark</button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btnReportCard">Report Card</button>
+                                                </div> -->
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReview btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReview btn-sm">Not Attempted</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btnRemark" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                </div>
+                            </div>
+                          </div>
+
+                        <section *ngIf="papers?.length > 0" class="blogPageFold3  mt-4 ">
+                            <div class="container text-center">
+                                <nav aria-label="navigation">
+                                    <ul *ngIf="papers" class="pagination justify-content-center">
+                                        <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                            <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                                        </li>
+                                        <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                            <button (click)="goToPage(currentPage - 1)" class="page-link btn"><<</button>
+                                        </li>
+                
+                                        <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                            <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                                        </li>
+                                        <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                            <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="text-center text-danger" *ngIf = "batchStudents?.length === 0">No Data Found in this Batch</h4>
+</div>
+    <!-- <div class="row mt-2" *ngIf="showStudentsList">
+        <div class="col-md-4 studentCard" *ngFor="let student of batchStudents">
+            <div class="card" style="cursor: pointer;" (click)="selectStudent(student?.username, student?.full_name)">
+                <div class="row studentsRow">
+                    <div class="col-md-2">
+                        <img *ngIf="!student?.profile_pic" src="assets/images/avatar-2.png" alt="">
+                        <img *ngIf="student?.profile_pic" [src]="student?.profile_pic" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Name : {{student?.full_name}}</h5>
+                        <h5>Contact : {{student?.contact}}</h5>
+                        <h6>{{student?.email}}</h6>
+                    </div>
+                    <div class="col-md-4 sdCardButton">
+                        <button class="btn btnHistory btn-sm">History</button>
+                        <button class="btn btnRemove btn-sm" (click)="blockStudent(student?.username)">Remove & Block</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div> -->
+    <!-- <div class="row" *ngIf="!showStudentsList">
+        <div class="col-md-7">
+            <button class="btn btn-success btn-sm shadow mb-2" (click)="showStudentsListPage()">Go Back</button>
+            <div class="row sdGraphDiv">
+                <div class="col-md-12">
+                    <h2><i class="fa fa-caret-right" aria-hidden="true"></i> All Students' Scattered Graph :</h2>
+                </div>
+                <div class="col-md-12">
+                    <div *ngIf="showScatter" style="height: 50vh;" [chart]="scatteredChart"></div>
+                </div>
+                <div class="col-md-12">
+                    <h2><i class="fa fa-caret-right" aria-hidden="true"></i> Student's Relative Growth in paper :</h2>
+                </div>
+                <div class="col-md-12">
+                    <div style="height: 50vh;" [chart]="columnChart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <button class="btn btn-warning btn-sm dataAnalyse" (click)="showAll()" style="margin-right: 5px; margin-top: 5px;"><b>All: </b>{{paperCountData?.all}}</button>
+            <button class="btn btn-success btn-sm dataAnalyse" (click)="showCompleted()" style="margin-right: 5px; margin-top: 5px;"><b>Complete: </b>{{paperCountData?.attempted}}</button>
+            <button class="btn btn-danger btn-sm dataAnalyse" (click)="showPending()" style="margin-right: 5px; margin-top: 5px;"><b>Pending: </b>{{paperCountData?.pending}}</button>
+            <button class="btn btn-danger btn-sm dataAnalyse" (click)="showOver()" style="margin-top: 5px;"><b>Over: </b>{{paperCountData?.over}}</button>
+            <div class="row papers">
+                <ng-container *ngFor="let paper of papers">
+                    <div class="col-md-12" *ngIf="paper?.paper_type == 'paper'">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="paperFirstRow">
+                                    <div>
+                                        <h2 class="card-title"><a style="color: white;" href="javascript:void(0)">Paper {{paper?.paper_count}}</a></h2>
+                                    </div>
+                                    <div>
+                                        <h3>{{paper?.exam?.title}}</h3>
+                                    </div>
+                                   
+                                </div>
+                                <div class="paperFirstRow">
+                                    <div><h4>Start Date - {{paper?.exam_start_date_time | date}} - {{paper?.exam_start_date_time | date:'h:mm a'}}</h4></div>
+                                    <div><h4>End Date - {{paper?.exam_end_date_time | date}} - {{paper?.exam_end_date_time | date:'h:mm a'}}</h4></div>
+                                </div>
+                                <div class="paperSecondRow">
+                                    <div>
+                                        <h6>Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                    </div>
+                                    <div class="marks">
+                                        <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                            <h5 *ngIf="paper?.reattempt_papers[0].submitted">{{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></h5>
+                                            <h5 *ngIf="!paper?.reattempt_papers[0].submitted">NA</h5>
+                                        </div>
+                                        <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                            <h5 *ngIf="paper?.attempt_status?.attempted">{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></h5>
+                                            <h5 *ngIf="!paper?.attempt_status?.attempted">NA</h5>
+                                        </div>
+                                        <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                            <h5 *ngIf="paper?.actual_paper?.submitted">{{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></h5>
+                                            <h5 *ngIf="!paper?.actual_paper?.submitted">NA</h5>
+                                        </div>
+                                        <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                            <h5 *ngIf="paper?.attempt_status?.attempted">{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></h5>
+                                            <h5 *ngIf="!paper?.attempt_status?.attempted">NA</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="paperThirdRow">
+                                    <div>
+                                        <h6>No of Problem:{{paper?.questions?.length}}</h6>
+                                    </div>
+                                    
+                                </div>
+                                <div class="paperThirdRow">
+                                    <div>
+                                        <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                        <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm">Not Attempted</button>
+                                    </div>
+                                    <div>
+                                        <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                    </div>
+                                    
+                                    <div>
+                                        <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard btn-sm" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" *ngIf="paper?.paper_type == 'practice'">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="paperFirstRow">
+                                    <div>
+                                        <h2 style="background-color: #FBB623;" class="card-title"><a style="color: white;" href="javascript:void(0)">Practice {{paper?.paper_count}}</a></h2>
+                                    </div>
+                                    <div>
+                                        <h3>{{paper?.exam?.title}}</h3>
+                                    </div>
+                                </div>
+                                <div class="paperFirstRow">
+                                    <div>
+                                        <h4>Start Date : {{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</h4>
+                                    </div>
+                                    <div>
+                                        End Date : {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}} 
+                                    </div>
+                                </div>
+                                <div class="paperSecondRow">
+                                    <div>
+                                        <h6>Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                    </div>
+                                </div>
+                                <div class="paperThirdRow">
+                                    <div>
+                                        <h6>No of Problem:{{paper?.questions?.length}}</h6>
+                                    </div>
+                                    
+                                </div>
+                                <div class="paperThirdRow">
+                                    <div>
+                                        <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                        <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm">Not Attempted</button>
+                                    </div>
+                                    <div>
+                                        <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal">Remark</button>
+                                    </div>
+                                    <div>
+                                        <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReportCard btn-sm" routerLink="/organization/student-report/{{paper?.paper_type}}/{{paper?.id}}/{{selectedStudentUsername}}/{{batchId}}">Report Card</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <section *ngIf="papers?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+                <div class="container text-center">
+                    <nav aria-label="navigation">
+                        <ul *ngIf="papers" class="pagination justify-content-center">
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                <button (click)="goToPage(currentPage - 1)" class="page-link btn"><<</button>
+                            </li>
+    
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </div>
+    </div> -->
+</div>
+<!-- <div class="container-fluid">
+    <div class="row sdReport">
+    
+                <div class="col-md-12 studentCard">
+                    <div class="col-md-4" *ngFor="let student of batchStudents">
+                        <div class="card" style="cursor: pointer;" (click)="selectStudent(student?.username, student?.full_name)">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="assets/images/avatar-2.png" alt="">
+                                </div>
+                                <div class="col-md-7">
+                                    <h5>Name : {{student?.full_name}}</h5>
+                                    <h5>Contact : {{student?.contact}}</h5>
+                                    <h6>{{student?.email}}</h6>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btnHistory btn-sm">History</button>
+                                    <button class="btn btn-sm" (click)="blockStudent(student?.username)">Remove & Block</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    <div class="col-md-6">
+        <h3>My Tasks</h3>
+        <div class="row papers">
+            <ng-container *ngFor="let paper of papers">
+                <div class="col-md-12" *ngIf="paper?.paper_type == 'paper'">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="paperFirstRow">
+                                <div>
+                                    <h2 class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Paper {{paper?.paper_count}}</a></h2>
+                                </div>
+                                <div>
+                                    <h3>{{paper?.exam?.title}}</h3>
+                                </div>
+                               
+                                <div>
+                                    <h4>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}} - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h4>
+                                </div>
+                            </div>
+                            <div class="paperSecondRow">
+                                <div>
+                                    <h6>Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                </div>
+                                <div class="marks">
+                                    <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                        <h5 *ngIf="paper?.reattempt_papers[0].submitted">{{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></h5>
+                                        <h5 *ngIf="!paper?.reattempt_papers[0].submitted">NA</h5>
+                                    </div>
+                                    <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                        <h5 *ngIf="paper?.attempt_status?.attempted">{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></h5>
+                                        <h5 *ngIf="!paper?.attempt_status?.attempted">NA</h5>
+                                    </div>
+                                    <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                        <h5 *ngIf="paper?.actual_paper?.submitted">{{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></h5>
+                                        <h5 *ngIf="!paper?.actual_paper?.submitted">NA</h5>
+                                    </div>
+                                    <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                        <h5 *ngIf="paper?.attempt_status?.attempted">{{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></h5>
+                                        <h5 *ngIf="!paper?.attempt_status?.attempted">NA</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="paperThirdRow">
+                                <div>
+                                    <h6>No of Problem:{{paper?.questions?.length}}</h6>
+                                </div>
+                                <div>
+                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                    <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                </div>
+                                
+                                <div>
+                                    <button class="btn btnReportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="paper?.paper_type == 'practice'">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="paperFirstRow">
+                                <div>
+                                    <h2 style="background-color: #FBB623;" class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Practice {{paper?.paper_count}}</a></h2>
+                                </div>
+                                <div>
+                                    <h3>{{paper?.exam?.title}}</h3>
+                                </div>
+                                <div>
+                                    <h4>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}} - {{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</h4>
+                                </div>
+                            </div>
+                            <div class="paperSecondRow">
+                                <div>
+                                    <h6>Subject(s): <span *ngFor="let subject of paper?.subjects">{{subject?.title}}, </span></h6>
+                                </div>
+                            </div>
+                            <div class="paperThirdRow">
+                                <div>
+                                    <h6>No of Problem:{{paper?.questions?.length}}</h6>
+                                </div>
+                                <div>
+                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/organization/user-solutions/{{paper?.attempt_status?.username}}/{{batchId}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                    <button *ngIf="!paper?.attempt_status?.attempted" class="btn btnReAttempt btn-sm" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                </div>
+                                <div>
+                                    <button class="btn btnReportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <section *ngIf="papers?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+            <div class="container text-center">
+                <nav aria-label="navigation">
+                    <ul *ngIf="papers" class="pagination justify-content-center">
+                        <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                            <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                        </li>
+                        <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                            <button (click)="goToPage(currentPage - 1)" class="page-link btn"><<</button>
+                        </li>
+
+                        <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                            <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                        </li>
+                        <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                            <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </div>
+</div>
+</div> -->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Remark</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           <textarea name="" id="" [(ngModel)]="selectedRemark" cols="48" rows="3" placeholder="Send Remark for Student"></textarea>
+          <button type="button" (click)="updateRemarks()" class="btn btnSend btn-sm">Send</button>
+
+        </div>
+        <!-- <div class="modal-footer">
+        </div> -->
+      </div>
+    </div>
+  </div>

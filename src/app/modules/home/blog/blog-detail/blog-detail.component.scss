@@ -1,0 +1,95 @@
+@mixin image-size() {
+  position: static;
+  max-width: unset;
+  width: auto;
+  object-fit: contain;
+}
+
+
+#blog-content {
+  padding: 6.5rem 2rem 2rem;
+}
+
+
+/* **** SECTION 1 **** */
+.banner {
+  a, a:hover {
+    color: white;
+  }
+}
+
+.top-banner {
+  position: relative;
+  height: 34rem;
+  overflow: hidden;
+}
+
+.card-img {
+  max-width: 100%;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.card-img-overlay {
+  top: unset;
+  z-index: 10;
+}
+
+.post-content:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(33, 37, 41, 0.5);
+  z-index: 0;
+}
+
+
+/* **** SECTION 2 **** */
+.section-2 {
+  a, a:hover {
+    color: #495057;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .card-img {
+    @include image-size()
+  }
+}
+
+@media (max-width: 767px) {
+  #blog-content {
+    padding: 0;
+  }
+
+  .top-banner {
+    height: 24rem;
+  }
+
+  .card-img-overlay {
+    top: 6rem;
+  }
+
+  .card-img {
+    max-width: 36rem !important;
+  }
+
+  .card-title {
+    font-size: 2rem !important;
+  }
+  .short-description {
+    p {
+      font-size: 1.2rem;
+    }
+  }
+
+  .card-img {
+    @include image-size()
+  }
+}

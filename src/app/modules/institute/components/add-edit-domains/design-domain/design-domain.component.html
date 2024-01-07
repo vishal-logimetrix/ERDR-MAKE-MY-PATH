@@ -1,0 +1,162 @@
+<div class="container page_content">
+    <p style="color:cornflowerblue;font-size: small;"> &nbsp;&nbsp;>>&nbsp;Junctions</p>
+    <hr>
+    <p class="text-danger" style="font-size: small;"><i><b>Note: </b>Linking exam will be the last point of this domain journey, so be careful while designing domain journey..</i></p>
+    <button *ngIf="journeys?.length == 0" type="button" class="btn btn-primary" id="std" data-toggle="modal" data-target=".bd-example-modal-sm" >CREATE FIRST JUNCTION</button>
+    <button *ngIf="journeys?.length > 0 && !currentNode?.linked_exam" type="button" class="btn btn-primary" id="std" data-toggle="modal" data-target=".bd-example-modal-sm">CREATE SUCCESSIVE JUNCTION</button>
+    <div class="row">
+      <div class="col-md-12">
+    
+<div id="table">
+    <table class="table table-bordered table-responsive">
+        <thead class="thead-dark">
+          <tr>
+            <th>Current Junction</th>
+            <th>Junction Question</th>
+            <th>Journey</th>
+            <th>Successive Junctions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+                {{currentNode?.text}} <hr>
+                <button type="button" class="btn" id="std_details" *ngIf="currentNode?.journey_nodes?.length > 0" (click)="deleteCurrentNode()">Delete Junction</button>
+                <button class="btn btn-warning btn-sm ml-2" (click)="populateEditForm()" data-toggle="modal" data-target=".bd-example-modal-smedit">Edit</button>
+            </td>
+            <td>
+             {{currentNode?.question_text}}
+            </td>
+            <td>
+              <p *ngIf="currentNode?.journey_nodes?.length == 0" class="text-danger">No Journey Yet</p>
+              <nav aria-label="breadcrumb" *ngIf="currentNode?.journey_nodes?.length > 0">
+                <ol class="breadcrumb">
+                  <ng-container *ngFor="let node of currentNode?.journey_nodes">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="getDomainNodeDetails(node?.node)">{{node?.title}}</a></li>
+                  </ng-container>
+                  <li class="breadcrumb-item active" aria-current="page">{{currentNode?.text}}</li>
+                </ol>
+              </nav>
+            </td>
+            <td>
+                <button type="button" class="btn ml-2" id="std_details" (click)="getDomainNodeDetails(node?.id)" *ngFor="let node of currentNode?.successive_nodes">{{node?.text}}</button>
+                <!-- <button type="button" class="btn btn-primary" id="design_details" >JOURNEY PATH</button> -->
+                <hr>
+                <ng-container *ngIf="currentNode?.successive_nodes?.length > 0">
+                  <button class="btn btn-warning btn-sm" disabled>Link Exam</button>
+                </ng-container>
+                <ng-container *ngIf="currentNode?.successive_nodes?.length == 0">
+                  <button *ngIf="!currentNode?.linked_exam" class="btn btn-warning btn-sm " data-toggle="modal" data-target=".linkExam">Link Exam</button>
+                  <button *ngIf="currentNode?.linked_exam" class="btn btn-warning btn-sm ">Linked Exam: <b>{{currentNode?.linked_exam?.title}}</b></button>
+                  <button *ngIf="currentNode?.linked_exam" class="btn btn-danger btn-sm" type="button" (click)="removeLinkedExamEdit()">Delink Exam</button>
+                </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Create <span>Junction</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Junction Title</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="nodeTitle" placeholder="Enter Junction Titile">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Junction Question</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="nodeQuestion" placeholder="Enter Node Question">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Junction Order</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="order" placeholder="Enter Node Order">
+          </div>
+          <div>
+            <button type="button" (click)="submit()" class="btn btn-success">Create Junction</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-smedit" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Edit <span>Junction</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalEdit>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputPassword1">New Junction Title</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editnodeTitle" placeholder="Enter Junction Titile">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">New Junction Question</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editnodeQuestion" placeholder="Enter Node Question">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">New Order</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editOrder" placeholder="Enter Node Order">
+          </div>
+          <div>
+            <button type="button" (click)="edit()" class="btn btn-success">Save</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade linkExam" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel1" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Link <span>Exam</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalExam>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form >
+            <div class="form-group">
+              <label>Select Exam Level </label>
+              <select class="form-control" name="selectedClass" (change)="getExams($event?.target.value)">
+                  <option value="" selected disabled>Select Level</option>
+                  <option [value]="level?.id" *ngFor="let level of levels">{{level?.label}}</option>
+              </select>
+              </div>
+          <div class="form-group">
+            <label>Select Destined Exam </label>
+            <select class="form-control" name="selectedClass" [(ngModel)]="selectedExam">
+                <option value="" selected disabled>Select Exam</option>
+                <option [value]="exam?.id" *ngFor="let exam of exams">{{exam?.title}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Search Destined Exam </label>
+            <input id="typeahead-basic" type="text" [formControl]="myControl" [(ngModel)]="tag" 
+                class="input-field form-control shadow p-3 bg-white" style="border:none;outline: none;" placeholder="Search Exam"
+                [ngbTypeahead]="search" (input)="detectTag($event)" />
+                <button class="btn btn-primary btn-sm" (click)="TagFilter()">Click Here After Search Selection</button>
+          </div>
+          <div>
+            <button type="button" (click)="submitExamForm()" class="btn btn-success">Link Exam</button>
+          </div>
+        </form>
+        </div>
+    </div>
+  </div>
+</div>

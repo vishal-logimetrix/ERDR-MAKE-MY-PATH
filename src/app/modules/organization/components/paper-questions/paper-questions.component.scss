@@ -1,0 +1,1219 @@
+/* ---------- Layout ---------- */
+.bookmarkQuestions {
+    padding: 23vh 1vw 1vh 1vw;
+    .practicePaperNav {
+        background-color: #ffffff;
+        //   position: fixed;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+        padding: 0px;
+        top: 0px;
+        left: 0px;
+        //   height: 65px;
+        display: flex;
+        align-items: center;
+        .navData {
+            padding: 10px 0px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .mentorName {
+                color: #5a5a5a;
+                font-family: "jaldi", sans-serif;
+                font-size: 16px;
+                text-align: center;
+                span {
+                    color: #ff4935;
+                }
+            }
+            .profileImage {
+                width: 50px;
+                height: 50px;
+                padding: 0;
+                margin-right: 15px;
+            }
+            img {
+                width: 110px;
+                padding-right: 15px;
+                // margin-left: 100px;
+            }
+            .verticalLine {
+                border-left: 3px solid #006da4;
+                height: 4.4rem;
+            }
+            .examTitle {
+                padding-left: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                h4 {
+                    color: #141824;
+                    font-family: "Jaldi", Sans-serif;
+                    font-size: 2.25em;
+                    font-weight: 400;
+                    line-height: 1.278em;
+                    letter-spacing: 0px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+                h5 {
+                    color: #141824;
+                    font-family: "Jaldi", Sans-serif;
+                    font-size: 1em;
+                    font-weight: 400;
+                    line-height: 1.278em;
+                    letter-spacing: 0px;
+                }
+            }
+        }
+    }
+    .secondaryNav {
+        background: #6c757d;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+        padding: 0px;
+        top: 80px;
+        left: 0px;
+        display: flex;
+        align-items: center;
+        .paperDetails {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0px;
+            h4 {
+                font-size: 20px;
+                font-family: 'jaldi', sans-serif;
+                color: #FFFFFF;
+            }
+            .iconify {
+                margin-top: -3px;
+            }
+            .btn {
+                font-size: 13px;
+                font-family: 'jaldi', sans-serif;
+                color: #000000;
+                background: #FFFFFF;
+            }
+            
+
+        }
+    }
+    .firstSection {
+        border-radius: 10px;
+        // border: 1px solid #c7c7c7;
+        // padding: 0vh 3vh 2vh 3vh;
+        height: 75vh;
+        margin: 0px 5px;
+        .iconify {
+            color: #ff4935;
+        }
+        .firstRowOfButtons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .btn {
+                width: 150px;
+                margin-bottom: 10px;
+            }
+            .btnSolution {
+                font-family: "jaldi", Sans-serif;
+                border: 1px solid #28A745;
+                font-size: 0.9em;
+                font-weight: 700;
+                line-height: 1.5em;
+                color: #28A745;
+                background-color: #FFFFFF;
+                // border-radius: 50px 50px 50px 50px;
+            }
+            .btnUnmark {
+                font-family: "jaldi", Sans-serif;
+                font-size: 0.9em;
+                font-weight: 700;
+                line-height: 1.5em;
+                letter-spacing: 3.2px;
+                color: #ff4935;
+                background-color: #ffffff;
+                border: 1px solid #ff4935;
+                // border-radius: 50px 50px 50px 50px;
+            }
+            .btnLeave {
+                font-family: "jaldi", Sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: #ff4935;
+                background-color: #ffffff;
+                border-style: solid;
+                border-width: 1px 1px 1px 1px;
+                border-color: #ff4935;
+                border: 1px solid #ff4935;
+                // border-radius: 50px 50px 50px 50px;
+                box-shadow: 19px 19px 40px 0px rgb(0 0 0 / 10%);
+            }
+            .btnCreatePaper {
+                font-family: "jaldi", Sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: #28A745;
+                background-color: #ffffff;
+                border-style: solid;
+                border-width: 1px 1px 1px 1px;
+                border-color: #28A745;
+                // border-radius: 50px 50px 50px 50px;
+                box-shadow: 19px 19px 40px 0px rgb(0 0 0 / 10%);
+            }
+            .previousAndNextDiv {
+                display: flex;
+            }
+            .prevDiv {
+                .btn {
+                    font-family: "jaldi", Sans-serif;
+                    font-size: 0.9em;
+                    font-weight: 700;
+                    line-height: 1.5em;
+                    letter-spacing: 3.2px;
+                    background-color: #FF4935;
+                    border-style: solid;
+                    border-width: 1px 1px 1px 1px;
+                    border-radius: 50px 0px 0px 50px;
+                    color: #ffffff;
+                    width: 120px !important;
+                    margin-right: 2px;
+                }
+            }
+            .nextDiv {
+                .btn {
+                    font-family: "jaldi", Sans-serif;
+                    font-size: 0.9em;
+                    font-weight: 700;
+                    line-height: 1.5em;
+                    letter-spacing: 3.2px;
+                    background-color: #FF4935;
+                    border-style: solid;
+                    border-width: 1px 1px 1px 1px;
+                    border-radius: 0px 50px 50px 0px;
+                    color: #ffffff;
+                    width: 120px !important;
+                }
+            }
+        }
+        .questionNumber {
+            padding: 5px 0;
+            h2 {
+                font-weight: 600;
+                font-size: 16px;
+                font-family: "jaldi", sans-serif;
+            }
+        }
+        .verticalLine {
+            border-left: 1px solid #006da4;
+            height: 1.4rem;
+        }
+        .questionType {
+            padding: 5px 0;
+            h3 {
+                font-weight: 600;
+                font-size: 16px;
+                font-family: "jaldi", sans-serif;
+            }
+        }
+        .scrollingSection {
+            height: 51vh;
+            overflow-y: scroll;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #c7c7c7;
+            .questionDetailDiv,
+            .optionDiv {
+                padding: 15px 0px;
+            }
+            .solutionDiv {
+                padding: 10px 5px;
+                margin-bottom: 10px;
+                border: 1px solid #c7c7c7;
+                border-radius: 10px;
+                h2 {
+                    font-weight: 600;
+                    font-size: 16px;
+                    font-family: "jaldi", sans-serif;
+                }
+            }
+        }
+
+        .solutionShare {
+            .btnSolution {
+                background-color: #50b963;
+                color: #ffffff;
+                width: 100px;
+            }
+            .btnUnmark {
+                background-color: #f4ab50;
+                color: #ffffff;
+                margin-left: 15px;
+                width: 100px;
+            }
+            .btnCreatePaper {
+                margin-left: 15px;
+            }
+            .btnShare {
+                background-color: #6b8ac5;
+                color: #ffffff;
+                margin-left: 15px;
+                width: 100px;
+            }
+        }
+    }
+    .secondSection {
+        // border-radius: 10px;
+        // border: 1px solid #c7c7c7;
+        border-left: 1px solid #c7c7c7;
+        padding: 0vh 3vh 2vh 3vh;
+        height: 75vh;
+        margin: 0px 5px;
+        .questionNumberHEight {
+            height: 46vh;
+            overflow-y: scroll;
+            display: block;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+        .separtaor {
+            border-top: 1px solid black;
+            width: 100%;
+            margin: 2vh 0px;
+        }
+        .circleSection {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            h2 {
+                margin-left: 10px;
+                color: #7a7a7a;
+                font-size: 14px;
+                font-weight: 500;
+                font-family: "jaldi", sans-serif;
+            }
+            .btn {
+                margin-right: auto;
+                margin-left: auto;
+            }
+            .circle {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background-color: #006da4 !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ffffff;
+                flex: none;
+            }
+            .circleOne {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background-color: #aaaaaa !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ffffff;
+                flex: none;
+            }
+            .circleTwo {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background-color: #2cb20f !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ffffff;
+                flex: none;
+            }
+            .circleThree {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background-color: #ff0404 !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ffffff;
+                flex: none;
+            }
+        }
+        h2 {
+            font-weight: 600;
+            font-size: 16px;
+            font-family: "jaldi", sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        .allQuestionNumbers {
+            height: 51vh;
+            overflow-y: scroll;
+            .btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                background-color: lightgray;
+                font-size: 15px;
+                margin-top: 10px;
+            }
+        }
+        .allQuestionNumbers > div {
+            width: 20%;
+            display: inline-block;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+    }
+}
+@media screen and (max-width: 992px) {
+    .bookmarkQuestions {
+        .secondSection {
+            margin-top: 20px;
+        }
+    }
+}
+@media screen and (max-width: 760px) {
+    .bookmarkQuestions {
+        .practicePaperNav {
+            .navData {
+                img {
+                    margin-left: 0px;
+                }
+                .examTitle {
+                    h4 {
+                        font-size: 1.5em;
+                    }
+                }
+            }
+        }
+        .firstSection {
+            padding: 2vh 1vh;
+            margin-bottom: 20px;
+            height: 85vh;
+        }
+        .solutionShare {
+            display: flex;
+            flex-wrap: wrap;
+            .btn {
+                margin-bottom: 10px;
+            }
+        }
+        .secondSection {
+            height: 85vh;
+        }
+    }
+}
+
+@media screen and (max-width: 577px) {
+    .bookmarkQuestions {
+        .practicePaperNav {
+            .navData {
+                .examTitle {
+                    h4 {
+                        font-size: 1em;
+                    }
+                    h5 {
+                        font-size: 0.9em;
+                    }
+                }
+            }
+        }
+        .firstSection {
+            .verticalLine {
+                display: none;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .bookmarkQuestions {
+        .firstSection {
+            height: 95vh;
+        }
+    }
+}
+
+.replaceQuestionModal {
+    .olList {
+        list-style-position: inside;
+    }
+    .modalsAllButton {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        .btnReplace {
+            background: #FF8B04;
+        }
+        .btnReplace:hover {
+            border: 1px solid #FF8B04;
+            color: #FF8B04;
+        }
+        .btnFetchAnother {
+            background: #ff4935;
+        }
+        .btnFetchAnother:hover {
+            border: 1px solid #ff4935;
+            color: #ff4935;
+        }
+        .btnCancel {
+            background: #0781B1;
+        }
+        .btnCancel:hover {
+            border: 1px solid #0781B1;
+            color: #0781B1;
+        }
+        .btn {
+            width: 130px;
+            border-radius: 50px;
+            margin-bottom: 5px;
+            color: #FFFFFF;
+        }
+    }
+    .modal-title {
+        font-family: "jaldi", sans-serif;
+        font-size: 25px;
+        margin-left: 10px;
+        font-weight: 600;
+    }
+
+    .questionToBeReplaced {
+        padding: 15px 29px 15px 29px;
+    }
+    .option-container {
+        padding: 15px 29px 15px 40px;
+    }
+    .modal-body {
+        padding: 0px 0px 10px 0px !important;
+    }
+    .btnUnmark {
+        background-color: #f4ab50;
+        color: #ffffff;
+        // margin-left: 15px;
+        width: 100px;
+    }
+    .btnSolution {
+        background-color: #50b963;
+        color: #ffffff;
+        // margin-left: 15px;
+        width: 100px;
+    }
+    .blueDiv {
+        background-color: #ff4935;
+        display: flex;
+        align-items: center;
+        .questionNumber,
+        h3 {
+            color: #ffffff;
+            font-family: "jaldi", sans-serif;
+            font-size: 25px;
+            font-weight: 600;
+            padding: 15px 15px 15px 29px;
+        }
+    }
+    .greyDiv {
+        background-color: #595959;
+        display: flex;
+        align-items: center;
+        .heading {
+            color: #ffffff;
+            font-family: "jaldi", sans-serif;
+            padding: 15px 15px 15px 29px;
+            font-size: 25px;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 17px;
+            color: #ffffff;
+            font-family: "jaldi", sans-serif;
+        }
+    }
+    .yellowDiv {
+        background-color: #ffc107;
+        margin-top: 25px;
+        .heading {
+            color: #ffffff;
+            font-family: "jaldi", sans-serif;
+            padding: 15px 29px 15px 29px;
+            font-size: 25px;
+        }
+    }
+}
+.bookmarkQuestions {
+    min-height: 100vh;
+    // padding: 20vh 5vw 2vh 5vw;
+    .olList {
+        list-style-position: inside;
+    }
+    .greyDiv {
+        background-color: #7f8184;
+        display: flex;
+        align-items: center;
+        .heading {
+            color: #ffffff;
+            font-family: "jaldi", sans-serif;
+            padding: 15px;
+            font-size: 25px;
+        }
+        h3 {
+            font-size: 17px;
+            color: #ffffff;
+            font-family: "jaldi", sans-serif;
+        }
+    }
+    .blueDiv {
+        background-color: #18aee0;
+        display: flex;
+        align-items: center;
+        .questionNumber,
+        h3 {
+            color: #ffffff;
+            font-family: "jaldi", sans-serif;
+            font-size: 25px;
+            padding: 15px;
+        }
+    }
+
+    .yellowDiv {
+        background-color: #ffc107;
+        margin-top: 25px;
+        .heading {
+            color: #ffffff;
+            font-family: "jaldi", sans-serif;
+            padding: 15px;
+            font-size: 25px;
+        }
+    }
+}
+.container {
+    font-family: "jaldi", sans-serif;
+}
+.test-header {
+    position: fixed;
+    width: 100%;
+    height: 6rem;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.test-content {
+    padding-top: 1rem;
+    min-height: 100%;
+    // width: calc(100% - 500px);
+    padding-bottom: 10rem;
+}
+
+.test-content-active {
+    width: 100% !important;
+}
+
+.test-sidebar {
+    padding-top: 6rem;
+    width: 500px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    overflow: scroll;
+    height: 100vh;
+    border-left: 1px solid #ccc;
+}
+
+.sidebar-inactive {
+    width: 0;
+    display: none !important;
+}
+
+.test-footer {
+    padding: 1rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: calc(100% - 500px);
+    background-color: white;
+}
+
+.test-footer-active {
+    width: 100%;
+}
+
+#circle {
+    padding: 1rem;
+}
+
+.toggler-active {
+    display: block !important;
+}
+
+.maximize {
+    padding-top: 0;
+}
+
+/* Extended Classes */
+
+.circle {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    display: inline-flex;
+    font-size: 0.8rem;
+    justify-content: center;
+    align-items: center;
+    color: White;
+    .circle-text {
+        font-size: 0.8rem;
+    }
+}
+
+/* Extended Classes Ends*/
+
+ul {
+    list-style: none;
+}
+
+/* **** Page Layout **** */
+
+/** Page Header **/
+
+.navbar {
+    padding: 0 1rem;
+}
+
+.user-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem !important;
+    img {
+        width: 1.5rem;
+    }
+}
+
+.username,
+.test-name {
+    td {
+        font-size: 0.8rem;
+    }
+}
+
+.test-title {
+    font-size: 1.5rem;
+}
+
+#question {
+    background-color: white;
+}
+
+.comprehension-question {
+    color: #0645ad;
+    background-color: #a5a4a4;
+}
+
+/* **** Navbar **** */
+
+.test-nav {
+    z-index: 20;
+}
+
+/* **** Back to dashboard **** */
+
+.back-to-dashboard > button {
+    border: 0;
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.215rem;
+}
+
+/* **** Questions **** */
+
+.question-content {
+    padding: 1rem 2rem 0rem !important;
+}
+
+.test-img-container {
+    border: 0.1rem solid #6c757d;
+    border-radius: 0.2rem;
+    img {
+        width: 10rem;
+        margin: 2.5rem;
+    }
+}
+
+/* **** Options **** */
+
+.option-container {
+    margin-bottom: 3rem;
+}
+
+.select-option-text {
+    font-size: 1.2rem;
+}
+
+/* **** Sidebar **** */
+
+.not-visited-circle {
+    @extend .circle;
+    background-color: #ebedf0;
+    color: #464646;
+}
+
+.submitted-circle {
+    @extend .circle;
+    background-color: #28a745;
+}
+
+.marked-for-review-circle {
+    @extend .circle;
+    position: relative;
+    background-color: #6c53ad;
+}
+
+.current-question-circle {
+    @extend .circle;
+    border: 0.2rem solid #495057;
+}
+
+.mark-for-review-and-save {
+    @extend .circle;
+    position: relative;
+    background-color: #6c53ad;
+}
+
+.circle-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-circle {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #6c757d;
+    margin: 0.1rem;
+    font-size: 0.7rem;
+    border-radius: 0.2rem;
+}
+
+.circle-border {
+    box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.2) !important;
+    border: 0.2rem solid #212529;
+}
+
+.btn-review {
+    position: relative;
+    color: white;
+    background-color: #6c53ad;
+}
+
+.btn-s-review {
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    right: 0.2rem;
+    opacity: 0.9;
+    background: #6be420;
+}
+
+.btn-not-visited {
+    background-color: #ebedf0;
+    color: #464646;
+}
+
+/* **** Section Layout **** */
+
+.test-section {
+    box-shadow: 4px 4px 8px;
+    padding: 10px;
+    .content {
+        padding: 2rem 2rem;
+        font-family: "jaldi", sans-serif;
+    }
+}
+
+.next-prev {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    color: #464646;
+    font-size: 1.2rem;
+    padding: 0.2rem 1rem;
+    background-color: #f5f5f5;
+    a {
+        color: #464646;
+    }
+}
+
+.no-question {
+    color: #a5a4a4 !important;
+}
+
+/* **** Fill in the blanks **** */
+
+.flup-input {
+    border: 0;
+    border-radius: 0;
+    border-bottom: 0.1rem solid #adb5bd;
+}
+
+/* **** numerical in the blanks **** */
+
+.numerical-input {
+    border: 0;
+    border-radius: 0;
+    border-bottom: 0.1rem solid #adb5bd;
+}
+
+/* **** subjective in the blanks **** */
+
+.subjective-image-display {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    max-width: 80%;
+}
+
+.subjective-input {
+    border-radius: 0;
+    border: 0.1rem solid #adb5bd;
+}
+
+.subjective-image-input {
+    margin-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* **** Buttons **** */
+
+.test-buttons > button {
+    color: white;
+    padding: 0.2rem 0.8rem;
+    font-size: 1rem;
+}
+
+.save-next {
+    background-color: #5bb85c;
+}
+
+.save-mark-for-review {
+    border: 0;
+    background-color: #f0ad4e;
+}
+
+.mark-for-review-next {
+    background-color: #3379b7;
+}
+
+.clear-response {
+    background-color: white;
+    color: #464646 !important;
+    border: 0.1rem solid #464646;
+}
+
+/* **** Answer Status Classes **** */
+
+.attempted-question {
+    background-color: blue;
+    color: white;
+}
+
+label {
+    display: inline-flex;
+    align-items: center;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.enlarge-image {
+    transform: scale(2);
+    position: relative;
+    background: white;
+    display: block;
+    margin: auto !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25) !important;
+    border-radius: 0.2rem;
+    z-index: 99;
+    button {
+        display: block !important;
+        position: absolute;
+        left: 40%;
+    }
+}
+
+.correctmcq {
+    background: rgb(18, 182, 86);
+    padding: 1px 10px;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+.incorrect {
+    background: rgb(182, 43, 18);
+    color: white;
+    padding: 1px 10px;
+    border-radius: 5px;
+}
+
+/************************************* MEDIA QUERIES *************************************/
+
+@media screen and (max-width: 1366px) {
+    .test-buttons {
+        button {
+            font-size: 0.8rem;
+        }
+    }
+    .next-prev {
+        font-size: 0.8rem;
+        button {
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+    }
+    /** Sidebar **/
+    .question-status-title {
+        padding-top: 0.2rem !important;
+        h2 {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    /* ----------- Layout ------------- */
+
+    .replaceQuestionModal {
+        .modalsAllButton {
+            // justify-content: flex-start;
+            .btn {
+                margin-bottom: 15px;
+                width: 125px;
+                // margin-right: 15px;
+            }
+        }
+    }
+    .test-sidebar {
+        background-color: white;
+        width: 100%;
+    }
+    .test-content {
+        padding-bottom: 14rem;
+    }
+    /* **** Navbar **** */
+    .subjects {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .back-to-dashboard {
+        display: none;
+    }
+    /* **** Section Layout **** */
+    .test-section {
+        .content {
+            padding: 1rem 0.5rem;
+            font-family: "jaldi", sans-serif;
+        }
+        .title-container {
+            flex-direction: column-reverse !important;
+        }
+        .title {
+            margin-top: 1.5rem;
+        }
+        .card-footer {
+            width: auto;
+        }
+    }
+    .test-row {
+        padding: 0 !important;
+    }
+    /* **** Question Header Layout **** */
+    .question-header {
+        position: relative;
+        height: 6rem;
+        padding: 0.5rem 2rem;
+        border-radius: 0;
+    }
+    .maximize-screen {
+        position: absolute;
+        bottom: 0.5rem;
+    }
+    .question-no {
+        .text {
+            display: none;
+        }
+    }
+    .question-type {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 1.5rem;
+        font-weight: normal;
+    }
+    /* **** Question Layout **** */
+    .question-content {
+        padding-top: 2rem !important;
+    }
+    .question-img-container {
+        img {
+            max-width: 12rem;
+        }
+    }
+    /****** Options ****/
+    .option-container {
+        li {
+            margin-bottom: 1rem !important;
+        }
+    }
+    /* **** Select Option Layout **** */
+    .quesiton-select {
+        margin-top: 1rem !important;
+        display: flex;
+        justify-content: space-between;
+        input {
+            margin-left: 0 !important;
+        }
+    }
+    /* **** Buttons **** */
+    .test-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 0 !important;
+        button {
+            margin: 0.5rem !important;
+            font-size: 0.8rem;
+        }
+    }
+    .next-prev {
+        font-size: 0.8rem;
+        padding: 0rem 1rem;
+        button {
+            padding: 0.2rem 0.8rem;
+            font-size: 0.8rem;
+        }
+        .buttonsNextPrev {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    }
+    .question-status-title {
+        padding-top: 0rem !important;
+    }
+    .bookmarkQuestions {
+        .greyDiv {
+            .heading {
+                font-size: 20px;
+            }
+        }
+        .blueDiv {
+            .questionNumber,
+            h3 {
+                font-size: 16px !important;
+            }
+        }
+        .yellowDiv {
+            .heading {
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+.wrapper {
+    text-align: center;
+}
+
+@media screen and (max-width: 760px) {
+    .replaceQuestionModal {
+        .greyDiv {
+            .heading {
+                font-size: 16px;
+            }
+        }
+        .blueDiv {
+            .questionNumber,
+            h3 {
+                font-size: 14px;
+            }
+            .questionNumber {
+                padding: 15px 5px 15px 29px;
+            }
+            h3 {
+                padding: 15px 10px 15px 5px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .replaceQuestionModal {
+        .modal-title {
+            font-size: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .btnCreatePaper {
+        margin-left: 0px !important;
+    }
+}
+.btn-visited {
+    background-color: #006da4 !important;
+    color: white;
+}
+
+.reportModal{
+    .modal-header{
+        background-color: rgb(250, 244, 244);
+    }
+    .modal-title{
+        font-family: 'jaldi', sans-serif;
+        font-size: 20px;
+    }
+    .btn-group{
+        flex-wrap: wrap;
+        display: block;
+        .btn{
+            border-radius: 20px;
+            padding: 5px 5px;
+            margin-left: 10px;
+            font-size: 15px;
+            margin-top: 10px;
+            // width: 160px;
+            border: 1px solid gray;
+        }
+    }
+    textarea{
+        height: 150px;
+    }
+    .btnReport{
+        width: 150px;
+        border-radius: 8px;
+    }
+}
+
+.selected {
+    // background-color: rgb(231, 71, 84) !important;
+    // color: white !important;
+    background-color: #007bba;
+    color: white;
+}

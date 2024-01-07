@@ -1,0 +1,553 @@
+<div class="container">
+    <div *ngIf="!showForm" class="goalPathContainer">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="row d-flex justify-content-between align-items-center flex wrap">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{goalDetails?.exam?.id}}">{{examDetails?.title}}</a></li>
+                          <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard/my-goals/{{goalDetails?.exam?.id}}" >Create Path</a></li>
+                          <li class="breadcrumb-item active" aria-current="page"><span>{{goalDetails?.title}}</span></li>
+                        </ol>
+                    </nav>
+                </div>
+                <div>
+                    <a *ngIf="!goalDetails?.assessment_done && !goalDetails?.assessment_skipped" class="assessment" href="javascript:void(0)" (click)="goalExamCreation()">Subject assesment</a>
+                    <a class="assessment" href="javascript:void(0)" (click)="showParametersForm()"><img src="assets/images/overallAssessmentIcon.png" alt=""> Overall assesment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <h2 class="examTitle text-center">{{examDetails?.title}}</h2>
+          <div class="headerPath">
+              <div><h2>Created On :<span> {{goalDetails?.created_at | date}}</span></h2></div>
+              <div><h3>{{calculateDiff(goalDetails?.last_date | date)}} days left!</h3></div>
+              <div><h2>Ending On : <span>{{goalDetails?.last_date | date}}</span></h2></div>
+          </div>
+      </div>
+      <div class="col-md-12">
+          <hr>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="leftSection">
+              <div class="col-md-12">
+                <div id="targetTop"></div>
+                <div class="topAndBottomScroll">
+                  <div>
+                    <h2 class="startDate"> <span>Start Date</span> <br> {{goalDetails?.created_at | date}}</h2>
+                  </div>
+                  <div>
+                    <a href="javascript:void(0)" (click)="scrollBottom()"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+                <!-- <hr> -->
+              </div>
+            <div class="pathListDiv" #scroll>
+                <div class="col-md-12"  *ngFor="let path of paths">
+                    <div *ngIf="selectedPath == path?.id" class="card pathCard selectedCard" style="cursor: pointer;" (click)="selectPath(path?.id, path?.counter)">
+                        <h2 class="goalName">Path {{path?.counter}} <span class="float-right">{{path?.created_at | date}}</span></h2>
+                        <h3 class="otherDetails" *ngIf="path?.done_with_assessment">Done with assessment</h3>
+                        <h3 class="otherDetails" *ngIf="!path?.done_with_assessment">Marked Done</h3>
+                    </div>
+                    <div *ngIf="selectedPath != path?.id" class="card pathCard" style="cursor: pointer;" (click)="selectPath(path?.id, path?.counter)">
+                      <h2 class="goalName">Path {{path?.counter}} <span class="float-right">{{path?.created_at | date}}</span></h2>
+                      <h3 class="otherDetails" *ngIf="path?.done_with_assessment">Done with assessment</h3>
+                      <h3 class="otherDetails" *ngIf="!path?.done_with_assessment">Marked Done</h3>
+                  </div>
+                </div>
+             <div id="target"></div>
+              </div>
+              <div class="col-md-12">
+                <!-- <hr> -->
+                <div class="topAndBottomScrollSecond">
+                  <div>
+                    <h2 class="startDate"> <span>End Date</span> <br> {{goalDetails?.last_date | date}}</h2>
+                  </div>
+                  <div>
+                    <a href="javascript:void(0)" (click)="scrollToTop()"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+              </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="goalsList">
+       <ul class="nav nav-pills nav-justified" id="pills-tab" role="tablist">
+           <li class="nav-item mr-1">
+             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
+              <div class="tabsHeading">
+              <img src="assets/goalPath/learn.svg" alt=""> <span>Learn</span>
+              </div> 
+           <br>
+           <div class="progressBarDiv">
+               <div><h2>{{pathDetails?.learn_percentage}}%</h2></div>
+                  <div style="height: 17px;" class="progress">
+                    <div *ngIf="pathDetails?.learn_percentage<35" class="progress-bar bg-danger " [ngStyle]="{ 'width': pathDetails?.learn_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                    <div *ngIf="pathDetails?.learn_percentage>=35 && pathDetails?.learn_percentage<81" class="progress-bar bg-warning " [ngStyle]="{ 'width': pathDetails?.learn_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                    <div *ngIf="pathDetails?.learn_percentage>80" class="progress-bar bg-success" [ngStyle]="{ 'width': pathDetails?.learn_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                  </div>
+           </div>
+           </a>
+           </li>
+           <li class="nav-item mr-1">
+             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+              <div class="tabsHeading">
+              <img src="assets/goalPath/revise.svg" alt=""> <span>Revise</span> 
+              </div> 
+           <br>
+           <div class="progressBarDiv">
+               <div><h2>{{pathDetails?.revise_percentage}}%</h2></div>
+                  <div style="height: 17px;" class="progress">
+                    <div *ngIf="pathDetails?.revise_percentage<35" class="progress-bar bg-danger " [ngStyle]="{ 'width': pathDetails?.revise_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                    <div *ngIf="pathDetails?.revise_percentage>=35 && pathDetails?.revise_percentage<81" class="progress-bar bg-warning " [ngStyle]="{ 'width': pathDetails?.revise_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                    <div *ngIf="pathDetails?.revise_percentage>80" class="progress-bar bg-success" [ngStyle]="{ 'width': pathDetails?.revise_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                  </div>
+           </div>
+           </a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">
+               <div class="tabsHeading">
+                <img src="assets/goalPath/practice.svg" alt=""> <span>Practice</span>
+               </div> 
+           <br>
+           <div class="progressBarDiv">
+               <div><h2>{{goalDetails?.practice_percentage}}%</h2></div>
+                  <div style="height: 17px;" class="progress">
+                    <div *ngIf="goalDetails?.practice_percentage<35" class="progress-bar bg-danger " [ngStyle]="{ 'width': goalDetails?.practice_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                    <div *ngIf="goalDetails?.practice_percentage>=35 && goalDetails?.practice_percentage<81" class="progress-bar bg-warning " [ngStyle]="{ 'width': goalDetails?.practice_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                    <div *ngIf="goalDetails?.practice_percentage>80" class="progress-bar bg-success" [ngStyle]="{ 'width': goalDetails?.practice_percentage + '%' }" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
+                  </div>
+           </div>
+           </a>
+           </li>
+         </ul>
+         <div class="tab-content" id="pills-tabContent">
+           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+               <div id="accordion">
+                 <ng-container *ngFor="let chapter of learnChapters; let i = index">
+                   <div class="card" *ngIf="i==0">
+                     <div class="card-header" id="heading{{i}}">
+                      <a href="#collapse{{i}}" (click)="fetchLearnTopics(chapter?.id)" class="btn btn-link" data-toggle="collapse" data-target="#collapse{{i}}" aria-expanded="true" aria-controls="collapse{{i}}">
+                        <span class="chapterName">{{chapter?.chapter?.subject?.title}} <br> <span>{{chapter?.chapter?.title}}</span> </span>
+
+                        <span  class="float-right doneTag">
+                          <span *ngIf="chapter?.is_done"><i class="fa fa-check-circle mr-1" aria-hidden="true"></i> Done</span>
+                          <i class="fa" [ngClass]="activeCard === chapter?.id ? 'fa-angle-up' : 'fa-angle-down'"></i> 
+                        </span>
+                      </a>
+                       
+                       <!-- <h5 class="mb-0">
+                         <a href="#collapse{{i}}" (click)="fetchLearnTopics(chapter?.id)" class="btn btn-link" data-toggle="collapse" data-target="#collapse{{i}}" aria-expanded="true" aria-controls="collapse{{i}}">
+                           <h2 class="chapterName"><span>{{chapter?.chapter?.subject?.title}}</span> <br> {{chapter?.chapter?.title}} </h2>
+                         </a>
+                         <span  class="float-right doneTag">
+                           <span *ngIf="chapter?.is_done"><i class="fa fa-check-circle mr-1" aria-hidden="true"></i> Done</span>
+                           <i class="fa" [ngClass]="activeCard === chapter?.id ? 'fa-angle-up' : 'fa-angle-down'"></i> 
+                         </span>
+                         
+                       </h5> -->
+                     </div>
+                 
+                     <div id="collapse{{i}}" class="collapse show" aria-labelledby="heading{{i}}" data-parent="#accordion">
+                       <div class="card-body">
+                         <div class="listOfTopics">
+                           <h3 class="topicHeading">Topics</h3>
+                           <ul>
+                             <ng-container *ngFor="let topic of learnChapterHints | sortBy: 'asc':'order' ; i as index">
+                               <li style="cursor: pointer;" *ngIf="topic?.checked" class="doneTag" (click)="updateLearnHint(topic?.id, false, topic?.learn_chapter)"><i class="fa checkedTick fa-check-circle mr-2" aria-hidden="true"></i> {{topic?.chapter_hint?.title}}</li>
+                               <li style="cursor: pointer;" *ngIf="!topic?.checked" (click)="updateLearnHint(topic?.id, true, topic?.learn_chapter)"><i class="fa uncheckedTick fa-check-circle mr-2" aria-hidden="true"></i> {{topic?.chapter_hint?.title}}</li>
+                               <div class="hrLineList"></div>
+                             </ng-container>
+                           </ul>
+                         </div>
+                       </div>
+                     </div>
+
+                   </div>
+                   <div class="card" *ngIf="i>0">
+                     <div class="card-header" id="heading{{i}}">
+                      <a href="#collapse{{i}}" (click)="fetchLearnTopics(chapter?.id)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
+                        <span class="chapterName">{{chapter?.chapter?.subject?.title}} <br> <span>{{chapter?.chapter?.title}}</span> </span>
+                        <span  class="float-right doneTag">
+                          <span *ngIf="chapter?.is_done"><i class="fa fa-check-circle mr-1" aria-hidden="true"></i> Done</span>
+                          <i class="fa" [ngClass]="activeCard === chapter?.id ? 'fa-angle-up' : 'fa-angle-down'"></i> 
+                        </span>
+                      </a>
+
+                       <!-- <h5 class="mb-0">
+                         <a href="#collapse{{i}}" (click)="fetchLearnTopics(chapter?.id)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
+                           <h2 class="chapterName"></h2>
+                         </a>
+                         <span  class="float-right doneTag">
+                          <span *ngIf="chapter?.is_done"><i class="fa fa-check-circle mr-1" aria-hidden="true"></i> Done</span>
+                          <i class="fa" [ngClass]="activeCard === chapter?.id ? 'fa-angle-up' : 'fa-angle-down'"></i> 
+                        </span>
+                       </h5> -->
+                     </div>
+
+                     <div id="collapse{{i}}" class="collapse" aria-labelledby="heading{{i}}" data-parent="#accordion">
+                       <div class="card-body">
+                         <div class="listOfTopics">
+                           <h3 class="topicHeading">Topics</h3>
+                           <ul>
+                               <ng-container *ngFor="let topic of learnChapterHints | sortBy: 'asc':'order'">
+                                 <li style="cursor: pointer;" *ngIf="topic?.checked" class="doneTag" (click)="updateLearnHint(topic?.id, false, topic?.learn_chapter)"><i class="fa checkedTick fa-check-circle mr-2" aria-hidden="true"></i> {{topic?.chapter_hint?.title}}</li>
+                                 <li style="cursor: pointer;" *ngIf="!topic?.checked" (click)="updateLearnHint(topic?.id, true, topic?.learn_chapter)"><i class="fa uncheckedTick fa-check-circle mr-2" aria-hidden="true"></i> {{topic?.chapter_hint?.title}}</li>
+                                 <div class="hrLineList"></div>
+                               </ng-container>
+                           </ul>
+                         </div>
+                       </div>
+                     </div>
+
+                   </div>
+                 </ng-container>
+                  
+                 </div>
+           </div>
+           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div id="accordionr" *ngIf="pathCounter == 1"> <h6 class="firstPathMsg">Since this is your first path hence we don't have any chapter to suggest you for revision</h6></div>
+             <div id="accordionr" *ngIf="pathCounter != 1">
+               <ng-container *ngFor="let chapter of reviseChapters; let i = index">
+                 <div class="card" *ngIf="i==0">
+                   <div class="card-header" id="headingr{{i}}">
+                    <a href="#collapser{{i}}" (click)="fetchReviseTopics(chapter?.id)" class="btn btn-link" data-toggle="collapse" data-target="#collapser{{i}}" aria-expanded="true" aria-controls="collapser{{i}}">
+                      <span class="chapterName">{{chapter?.chapter?.subject?.title}} <br> <span>{{chapter?.chapter?.title}}</span></span> 
+                      <span  class="float-right doneTag">
+                        <span *ngIf="chapter?.is_done"><i class="fa fa-check-circle mr-1" aria-hidden="true"></i> Done</span>
+                        <i class="fa" [ngClass]="activeCardRevise === chapter?.id ? 'fa-angle-up' : 'fa-angle-down'"></i> 
+                      </span>
+                    </a>
+                     <!-- <h5 class="mb-0">
+                       <a href="#collapser{{i}}" (click)="fetchReviseTopics(chapter?.id)" class="btn btn-link" data-toggle="collapse" data-target="#collapser{{i}}" aria-expanded="true" aria-controls="collapser{{i}}">
+                         <h2 class="chapterName"><span>{{chapter?.chapter?.subject?.title}}</span> <br> {{chapter?.chapter?.title}} </h2>
+                       </a>
+                       <span  class="float-right doneTag">
+                        <span *ngIf="chapter?.is_done"><i class="fa fa-check-circle mr-1" aria-hidden="true"></i> Done</span>
+                        <i class="fa" [ngClass]="activeCardRevise === chapter?.id ? 'fa-angle-up' : 'fa-angle-down'"></i> 
+                      </span>
+                     </h5> -->
+                   </div>
+
+                   <div id="collapser{{i}}" class="collapse show" aria-labelledby="headingr{{i}}" data-parent="#accordionr">
+                     <div class="card-body">
+                       <div class="listOfTopics">
+                         <h3 class="topicHeading">Topics</h3>
+                         <ul>
+                           <ng-container *ngFor="let topic of reviseChapterHints | sortBy: 'asc':'order'">
+                             <li style="cursor: pointer;" *ngIf="topic?.checked" (click)="updateReviseHint(topic?.id, false, topic?.revise_chapter)"><i class="fa checkedTick fa-check-circle mr-2" aria-hidden="true"></i> {{topic?.chapter_hint?.title}}</li>
+                             <li style="cursor: pointer;" *ngIf="!topic?.checked" (click)="updateReviseHint(topic?.id, true, topic?.revise_chapter)"><i class="fa uncheckedTick fa-check-circle mr-2" aria-hidden="true"></i> {{topic?.chapter_hint?.title}}</li>
+                             <div class="hrLineList"></div>
+                           </ng-container>
+                         </ul>
+                       </div>
+                     </div>
+                   </div>
+
+                 </div>
+                 <div class="card" *ngIf="i>0">
+                   <div class="card-header" id="headingr{{i}}">
+                    <a href="#collapser{{i}}" (click)="fetchReviseTopics(chapter?.id)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapser{{i}}" aria-expanded="false" aria-controls="collapser{{i}}">
+                      <span class="chapterName">{{chapter?.chapter?.subject?.title}} <br> <span>{{chapter?.chapter?.title}}</span></span>
+                      <span  class="float-right doneTag">
+                        <span *ngIf="chapter?.is_done"><i class="fa fa-check-circle mr-1" aria-hidden="true"></i> Done</span>
+                        <i class="fa" [ngClass]="activeCardRevise === chapter?.id ? 'fa-angle-up' : 'fa-angle-down'"></i> 
+                      </span>
+                    </a>
+                     <!-- <h5 class="mb-0">
+                       <a href="#collapser{{i}}" (click)="fetchReviseTopics(chapter?.id)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapser{{i}}" aria-expanded="false" aria-controls="collapser{{i}}">
+                         <h2 class="chapterName"><span>{{chapter?.chapter?.subject?.title}}</span> <br> {{chapter?.chapter?.title}} </h2>
+                       </a>
+                       <span  class="float-right doneTag">
+                        <span *ngIf="chapter?.is_done"><i class="fa fa-check-circle mr-1" aria-hidden="true"></i> Done</span>
+                        <i class="fa" [ngClass]="activeCardRevise === chapter?.id ? 'fa-angle-up' : 'fa-angle-down'"></i> 
+                      </span>
+                     </h5> -->
+                   </div>
+               
+                   <div id="collapser{{i}}" class="collapse" aria-labelledby="headingr{{i}}" data-parent="#accordionr">
+                     <div class="card-body">
+                       <div class="listOfTopics">
+                         <h3 class="topicHeading">Topics</h3>
+                         <ul>
+                           <ng-container *ngFor="let topic of reviseChapterHints | sortBy: 'asc':'order'">
+                             <li style="cursor: pointer;" *ngIf="topic?.checked" (click)="updateReviseHint(topic?.id, false, topic?.revise_chapter)"><i class="fa checkedTick fa-check-circle mr-2" aria-hidden="true"></i> {{topic?.chapter_hint?.title}}</li>
+                             <li style="cursor: pointer;" *ngIf="!topic?.checked" (click)="updateReviseHint(topic?.id, true, topic?.revise_chapter)"><i class="fa uncheckedTick fa-check-circle mr-2" aria-hidden="true"></i> {{topic?.chapter_hint?.title}}</li>
+                             <div class="hrLineList"></div>
+                           </ng-container>
+                         </ul>
+                       </div>
+                     </div>
+                   </div>
+
+                 </div>
+               </ng-container>
+                 
+               </div>
+           </div>
+           <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+             <div id="accordion">
+             <ng-container *ngFor="let chapter of learnChapters; let i = index">
+               <div class="card">
+                 <div class="card-header" id="headingr{{i}}">
+                  <h5 class="practiceTab pt-2 pb-2">
+                    <span class="chapterName">{{chapter?.chapter?.subject?.title}} <br> <span>{{chapter?.chapter?.title}}</span></span>
+                    <a href="javascript:void(0)"><span style="cursor: pointer;" data-toggle="modal" data-target=".bd-example-modal" (click)="saveChapterId(chapter?.chapter?.id)"  class="float-right doneTag" style="cursor: pointer;"><img src="assets/images/edit.png" alt=""> Start Test</span></a>
+                  </h5>
+                   <!-- <h5 class="mb-0">
+                     <a class="btn btn-link" style="pointer-events: none;">
+                       <h2 class="chapterName"><span>{{chapter?.chapter?.subject?.title}}</span> <br> {{chapter?.chapter?.title}} </h2>
+                     </a>
+                     <span data-toggle="modal" data-target=".bd-example-modal" (click)="saveChapterId(chapter?.chapter?.id)"  class="float-right doneTag" style="cursor: pointer;"><img src="assets/images/edit.png" alt=""> Start Test</span>
+                   </h5> -->
+                 </div>
+           
+               </div>
+             </ng-container>
+             </div>
+           </div>
+         </div>
+      </div>
+   </div>
+  </div>
+    <div class="row">
+       <div class="col-md-12">
+        <div class="assessmentBtn">
+            <div class="container" *ngIf="paths?.length > 0">
+                    <button class="btn mr-3" (click)="updatePath(1)" data-toggle="modal" data-target="#confirmationModal">
+                      <span *ngIf="pathCreation"><i class="fa fa-spinner fa-spin mr-3"></i>Creating new path</span>
+                      <span *ngIf="!pathCreation">Update path without assessment</span>
+                    </button>
+                    <button class="btn compAssess" (click)="updatePath(2)" data-toggle="modal" data-target="#confirmationModal">
+                      <span *ngIf="pathCreation2"><i class="fa fa-spinner fa-spin mr-3"></i>Creating new path</span>
+                      <span *ngIf="!pathCreation2">Update Path With Assessment</span>
+                    </button>
+                  </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div *ngIf="showForm" class="SecondSection">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-12">
+          <div class="paperCard">
+            <div class="row">
+              <div class="col-md-12">
+                  <div>
+                      <h2 class="text-center">
+                          Paper Statistics
+                      </h2>
+                      <div class="totalUser">
+                          <div><span><button class="btn btnLeaderboard" (click)="hideForm()"><i class="fas fa-angle-double-left mr-1"></i>MakeMyPath</button></span></div>
+                          <div><span><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></span></div>
+                          <div><span>Total Users : {{totalusers}}</span></div> 
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <hr>
+              </div>
+          </div>   
+          <div class="topDiv">
+            <div class="firstDiv">
+                <label for="">Selected Subject(s)</label>
+            </div>
+            <div class="secondDiv">
+                <label for=""> : </label>
+            </div>
+            <div class="thirdDiv">
+                <label for=""><span class="subjects" *ngFor="let subject of goalDetails?.subjects; let i = index">{{subject?.title}}<span *ngIf = "goalDetails?.subjects?.length > 1 && goalDetails?.subjects?.length  > i + 1">, </span> </span></label>
+            </div>
+        </div>
+              <div class="topDiv">
+                  <div class="firstDiv">
+                      <label for="">Number of Questions</label>
+                  </div>
+                  <div class="secondDiv">
+                      <label for=""> : </label>
+                  </div>
+                  <div class="thirdDiv">
+                      <span><a href="javascript:void(0)" class="ArrowDown" (click)="decQues()"><span class="iconify" data-icon="bi:arrow-down-circle" style="color: #0781b1;"></span></a>
+                        <span class="noOfProblems"><input type="number" style="width: 40px;text-align: center;" id="inputQuestions" (input)="calculateTime(totalQuestions)" [(ngModel)]="totalQuestions"></span>
+                        <a href="javascript:void(0)" class="ArrowUp" (click)="incQues()"><span class="iconify" data-icon="bi:arrow-up-circle" style="color: #0781b1;"></span></a></span>
+                      <div style="width: 100%; text-align: center;" class="offset-md-2 form-group row alert alert-danger" id="errors" *ngIf="errorMsg">
+                          {{ errorMsg }}
+                      </div> 
+                  </div>
+              </div>
+              <div class="topDiv" *ngIf="paperType == 'paper'">
+                  <div class="firstDiv">
+                      <label for="">Total Time Allotted</label>
+                  </div>
+                  <div class="secondDiv">
+                      <label for=""> : </label>
+                  </div>
+                  <div class="thirdDiv">
+                      <span><i (click)="decTime()" class="fa fa-caret-down" aria-hidden="true"></i><span class="noOfProblems">(<input type="number" style="width: 55px;" id="inputQuestions" (input)="manageNegTime()"  [(ngModel)]="totalTime"> Min)</span><i (click)="incTime()" class="fa fa-caret-up" aria-hidden="true"></i></span>
+                  </div>
+              </div>
+              <div class="topDiv">
+                  <div class="firstDiv">
+                      <label for="">Type(s) of Questions</label>
+                  </div>
+                  <div class="secondDiv">
+                      <label for=""> : </label>
+                  </div>
+                  <div class="thirdDiv">
+                      <ul class="laparent">
+                          <ng-container *ngFor="let type of linkedTypes; let i = index">
+                              <li *ngIf="type?.is_active" class="checko">
+                                  <input type="checkbox" (change)="questionTypeChange(type?.type_of_question, $event)" id="customCheck{{i}}" />
+                                      <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'mcq'">Single correct option [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                      <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'mcc'">Multiple correct option [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                      <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'fillup'">Fill in the blanks [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                      <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'assertion'">Assertion [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                      <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'subjective'">Subjective [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                      <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'numerical'">Numerical [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                      <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'fillup_option'">Fill Up with Option [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                      <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'boolean'">True False [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                 
+                              </li>
+                          </ng-container>
+                      </ul>
+                  </div>
+              </div>
+              <div class="topDiv">
+                  <div class="firstDiv">
+                      <label for="">Difficulty Level</label>
+                  </div>
+                  <div class="secondDiv">
+                      <label for=""> : </label>
+                  </div>
+                  <div class="thirdDiv">
+                      <div class="slidecontainer">
+                          <input type="range" [(ngModel)]="difficulty" min="1" max="10" value="5" class="slider" id="myRange" (change)="getSliderValue($event)" (oninput)="getSliderValue($event)" >
+                          <p class="levels">Easy <span class="float-right">Hard</span></p>
+                          <!-- <p><b>Level: <span id="demo">{{difficulty}}</span></b></p> -->
+                      </div>
+                  </div>
+              </div>
+              <div class="topDiv">
+                  <div class="firstDiv">
+                      <label for="">Show ideal time suggestions with questions</label>
+                  </div>
+                  <div class="secondDiv">
+                      <label for=""> : </label>
+                  </div>
+                  <div class="thirdDiv">
+                      <input type="checkbox" id="showTime" [(ngModel)]="showTime"><span class="yesSpan">Yes</span>
+                  </div>
+              </div>
+              <div class="startPaperButton mb-3">
+                  <div>
+                      <h4>Start paper now!</h4>
+                  </div>
+                  <div class="resetAndProceed">
+                        <div>
+                          <button *ngIf="isAuthenticated" class="btn btnProceeds" [disabled]="submitStatus" (click)="submitPaperForm()">PROCEED <span><i class="fa fa-paper-plane-o" aria-hidden="true"></i></span></button>
+                          <button *ngIf="!isAuthenticated" class="btn btnProceeds" routerLink="/">LOGIN TO CREATE <span><i class="fa fa-paper-plane-o" aria-hidden="true"></i></span></button>
+        
+                        </div>
+                        <div>
+                          <button class="btn btnResets" (click)="hideForm()">GO BACK <span><i class="fas fa-remove-format"></i></span></button>
+        
+                        </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal reportModal fade bd-example-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog   modal-dialog-centered">
+    <div class="modal-content ">
+      <div class="modal-header">
+          <h5 class="modal-title">Difficulty <span>Level</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModald>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            
+            <div class="form-group">
+                <div class="selectDiiffTitle">
+                  <label class="diffTitle" for="exampleInputPassword1">Select Difficulty</label> 
+                </div>
+                <div class="btn-group">
+                  <div>
+                    <button type="button" (click)="selectDifficultyLevel(1, 1)" class="active reportReasonEasy btn btn-default" id="regi1">Easy</button>
+                  </div>
+                  <div>
+                    <button type="button" (click)="selectDifficultyLevel(2, 5)" class="btn reportReasonMedium btn-default" id="regi2">Medium</button>
+                  </div>
+                  <div>
+                    <button type="button" (click)="selectDifficultyLevel(3, 9)" class="btn reportReasonHard btn-default" id="regi3">Hard</button>
+                  </div>
+                  <div>
+                    <button type="button" (click)="selectAnyRange()" class="btn reportReasonAny btn-default" id="allrange">Any</button>
+                  </div>
+                 </div>
+            </div>
+            <!-- <ng-container *ngIf="showSubjective">
+              <button *ngIf="excludeSubjectiveflag" type="button" (click)="includeSubjective()" class="btn btn-primary">Include Subjective</button>
+              <button *ngIf="includeSubjectiveflag" type="button" (click)="excludeSubjective()" class="btn btn-primary">Exclude Subjective</button>
+            </ng-container> -->
+            
+            <div class="modalCheckbox mt-3" *ngIf="showSubjective">
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" (change)="includeObjective($event)" class="custom-control-input" id="customCheck" name="example1">
+                <label class="custom-control-label" for="customCheck">Objective</label>
+              </div>
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" (change)="includeSubjective($event)" class="custom-control-input" id="customCheckSecond" name="example1">
+                <label class="custom-control-label" for="customCheckSecond">Subjective</label>
+              </div>
+            </div>
+
+          <div class="btnChooseDiff">
+            <button *ngIf="isAuthenticated" type="button" (click)="submitFilterForm()" class="btn btnReport mt-1">START <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            <button *ngIf="!isAuthenticated" type="button" routerLink="/" class="btn btnReport mt-1">LOGIN TO START <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="efgh" class="spinnerContainer">
+  <h2>{{examDetails?.title}}</h2>
+  <h3 >Fetching your question paper....</h3>
+  <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"  role="document">
+    <div class="modal-content" style="border-radius: 16px;border: none;">
+      <div class="modal-header" style="border: none;">
+        <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #04607D;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p  class="text-center" style="color: #544F4F; font-size: 16px;">Are you sure you want to update this path?</p>
+      </div>
+      <div class="modal-footer" style="background-color: #00A3F1; border-radius: 0 0 16px 16px;justify-content: space-between;">
+        <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal">Cancel</button>
+        <button *ngIf="updatePathButton == 1" (click)="createNewPath()" type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" >Yes, update it !</button>
+        <button *ngIf="updatePathButton == 2" (click)="createPathAssessment()" type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" >Yes, update it !</button>
+      </div>
+    </div>
+  </div>
+</div>

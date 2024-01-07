@@ -1,0 +1,253 @@
+<div class="container userReport">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Report Card<span></span></h2>
+        </div>
+        <div class="col-md-12">
+            <div class="totalUser">
+                <div><span><button class="btn btn-sm btnLeaderboard"
+                            routerLink="/organization/student-details-report/{{batchId}}"><i
+                                class="fas fa-angle-double-left mr-1"></i>Student Detail</button></span></div>
+                <div><span><a href=""
+                            routerLink="/organization/choose-p/{{batchId}}/{{examId}}">{{paperDetails?.exam?.title}}</a></span>
+                </div>
+                <div><span>Total Users : {{totalusers}}</span></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <div class="col-md-12">
+            <h4 class="text-center reportSubHeading">Overall Report</h4>
+        </div>
+        <div class="col-md-12 mt-4">
+            <div class="dataCircle">
+                <div class="data">
+                    <div class="orange">
+                        <h4>
+                            <span class="iconify mb-1" data-icon="bi:file-earmark-text" style="color: #e81c61; font-size: 23px;"></span> <br>
+                            {{reportObj?.report_data?.totalquestion}}</h4>
+                    </div>
+                    <div>
+                        <h6 class="orangeSubText">Total Questions</h6>
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="blue">
+                        <h4>
+                            <span class="iconify mb-1" data-icon="bi:file-earmark-text" style="color: #fe9600; font-size: 23px;"></span> <br>
+                            {{reportObj?.report_data?.attempted}}</h4>
+                    </div>
+                    <div>
+                        <h6 class="blueSubtext">Attempted</h6>
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="red">
+                        <h4 *ngIf="reportObj?.report_data?.percentage > 0">{{bottomLabel}}</h4>
+                        <h4 *ngIf="reportObj?.report_data?.percentage <= 0">0</h4>
+                    </div>
+                    <div>
+                        <h6 class="redSubText">Accuracy</h6>
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="green" *ngIf="reportObj?.report_data?.totalscore > 0">
+                        <div>
+                            <h4>{{reportObj?.report_data?.score}}</h4>
+                        </div>
+                        <div style="border: 1px solid #000000; width: 65px;"></div>
+                        <div>
+                            <h4>{{reportObj?.report_data?.totalscore}}</h4>
+                        </div>
+                    </div>
+                    <div class="green" *ngIf="reportObj?.report_data?.totalscore == 0">
+                        <div>
+                            <h4>NA</h4>
+                        </div>
+                    </div>
+                    <!-- <div class="green"><h4>{{reportObj?.report_data?.score}}/{{reportObj?.report_data?.totalscore}}</h4></div> -->
+                    <div>
+                        <h6 class="greenSubText">Marks</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-12">
+            <div class="blueDiv">
+                <div class="topDiv">
+                    <div>
+                        <h4 class="totalMarks">{{reportObj?.report_data?.score}}/{{reportObj?.report_data?.totalscore}} <br><span>Total Marks</span></h4>
+                    </div>
+                    <div>
+                        <h4>{{reportObj?.report_data?.totalquestion}} <br><span>Problems Generated</span></h4>
+                    </div>
+                    <div>
+                        <h4>{{reportObj?.report_data?.corrected}} <br><span>Correct</span></h4>
+                    </div>
+                    <div>
+                        <h4>{{reportObj?.report_data?.incorrected}} <br><span>Incorrect</span></h4>
+                    </div>
+                    <div>
+                        <h4>{{reportObj?.report_data?.skipped}} <br><span>Left</span></h4>
+                    </div>
+                </div>
+                <div class="bottomDiv">
+                    <div>
+                        <button class="btn btn-success btn-sm" (click)="reattempt()">RE-ATTEMPT</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="col-md-12">
+            <div class="accuracyMeter">
+                <div>
+                    <h5><i class="fa fa-caret-right" aria-hidden="true"></i>Accuracy meter</h5>
+                </div>
+                <div>
+                    <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue"
+                        [centralLabel]="centralLabel" [options]="options" [name]="name" [bottomLabel]="bottomLabel">
+                    </rg-gauge-chart>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="col-md-12" *ngIf="showGraph">
+            <div class="card shadowCard">
+                <div class="accuracyMeter">
+                    <div>
+                        <h5 class="reportSubHeading">Subject Wise Report</h5>
+                    </div>
+                    <div class="barChart" style="width: 100%;">
+                        <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions"
+                            style="width: 100%; display: block; height: 60vh;">
+                        </highcharts-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" *ngIf="showGraph">
+            <div class="card shadowCard">
+                <div>
+                    <h5 class="text-center reportSubHeading">Chapter Wise Report</h5>
+                </div>
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <ng-container *ngFor="let subject of reportObj?.report_data?.subjects; let i = index">
+
+                        <li class="nav-item">
+                            <a *ngIf="i==0" (click)="fetchSubjectChaptersData(subject?.id)" class="nav-link active"
+                                id="pills-{{i}}-tab" data-toggle="pill" href="#pills-{{i}}" role="tab"
+                                aria-controls="pills-{{i}}" aria-selected="true">{{subject?.title}}</a>
+                            <a *ngIf="i!=0" (click)="fetchSubjectChaptersData(subject?.id)" class="nav-link"
+                                id="pills-{{i}}-tab" data-toggle="pill" href="#pills-{{i}}" role="tab"
+                                aria-controls="pills-{{i}}" aria-selected="false">{{subject?.title}}</a>
+                        </li>
+                    </ng-container>
+
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <!-- <ng-container *ngFor="let subject of reportObj?.report_data?.subjects; let i = index"> -->
+                    <div *ngIf="showChapterGraph" class="tab-pane fade show active" id="pills-" role="tabpanel"
+                        aria-labelledby="pills-tab">
+                        <div class="barChart">
+                            <highcharts-chart [Highcharts]="highchartsb" [options]="chartOptionsb"
+                                style="width: 100%; height: 400px; display: block;">
+                            </highcharts-chart>
+                        </div>
+                    </div>
+                    <!-- </ng-container> -->
+
+                    <!-- <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        ...
+                    </div>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div> -->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-12 d-flex justify-content-center">
+            <h5><i class="fa fa-caret-right" aria-hidden="true"></i>Total Bookmarked Problems : <span>{{paperDetails?.bookmarks.length}}</span></h5>
+        </div> -->
+        <div class="col-md-12">
+            <div class="card shadowCard gradCard">
+            <div class="pinkDiv">
+               
+                    <h6 class="text-center reportSubHeading">Remarks</h6>
+                <div>
+                    <p *ngIf="excellentChapters && averageChapters && poorChapter">{{reportObj?.report_data?.full_name}}
+                        is
+                        excellent in <b>{{ excellentChapters }}</b> and is doing good in <b>{{ averageChapters }}
+                        </b>chapter(s) but need more practice
+                        in <b>{{ poorChapter }}</b>.
+                    </p>
+                    <p *ngIf="excellentChapters && averageChapters && !poorChapter">
+                        {{reportObj?.report_data?.full_name}} is
+                        excellent in <b>{{ excellentChapters }}</b> and is doing good in <b>{{ averageChapters }}
+                        </b>chapter(s).
+                    </p>
+                    <p *ngIf="averageChapters && poorChapter && !excellentChapters">
+                        {{reportObj?.report_data?.full_name}} is
+                        doing good in <b>{{ averageChapters }} </b>chapter(s) but need more practice
+                        in <b>{{ poorChapter }}</b>.
+                    </p>
+                    <p *ngIf="excellentChapters && poorChapter && !averageChapters">
+                        {{reportObj?.report_data?.full_name}} is
+                        excellent in <b>{{ excellentChapters }} </b>chapter(s) but need more practice
+                        in <b>{{ poorChapter }}</b>.
+                    </p>
+                    <p *ngIf="excellentChapters && !averageChapters && !poorChapter">
+                        {{reportObj?.report_data?.full_name}}
+                        is excellent in all <b>{{ excellentChapters }}</b> chapters. Well done, keep it up!
+                    </p>
+                    <p *ngIf="poorChapter && !excellentChapters && !averageChapters">
+                        {{reportObj?.report_data?.full_name}}
+                        couldn't make in any of the {{reportObj?.report_data?.chapters?.length}} chapters :(
+                        {{reportObj?.report_data?.full_name}} needs more practice
+                        in all <b>{{ poorChapter }}</b> chapters.
+                    </p>
+                    <p *ngIf="averageChapters && !excellentChapters && !poorChapter">
+                        {{reportObj?.report_data?.full_name}}
+                        is doing good enough in all {{averageChapters}} chapters. But
+                        {{reportObj?.report_data?.full_name}}
+                        needs more practice.
+                    </p>
+                    <p
+                        *ngIf="!poorChapter && !excellentChapters && !averageChapters && reportObj?.report_data?.totalscore == 0">
+                        It seems {{reportObj?.report_data?.full_name}} has attempted all the subjective questions, and
+                        our
+                        system doesn't evaluate subjective category, hence we suggest
+                        {{reportObj?.report_data?.full_name}}
+                        to review the answers on their own :)
+                    </p>
+                    <p
+                        *ngIf="!poorChapter && !excellentChapters && !averageChapters && reportObj?.report_data?.totalscore > 0 && hasSubjective">
+                        It seems {{reportObj?.report_data?.full_name}} has attempted all the subjective questions, and
+                        our
+                        system doesn't evaluate subjective category, hence we suggest
+                        {{reportObj?.report_data?.full_name}}
+                        to review the answers on their own :)
+                    </p>
+                    <p
+                        *ngIf="!poorChapter && !excellentChapters && !averageChapters && reportObj?.report_data?.totalscore > 0 && !hasSubjective">
+                        It seems {{reportObj?.report_data?.full_name}} did not attempt any question.
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-12">
+            <div class="whiteDiv">
+                
+                <h6 class="text-center reportSubHeading">Solution</h6>
+                
+                <div class="otherButtons">
+                    <button class="btn compSolution"
+                        routerLink="/organization/user-solutions/{{reportObj?.user}}/{{batchId}}"
+                        [queryParams]="{paper: paperDetails?.id}">Review Solution</button>
+                    <!-- <a class="shareButton btn" href="https://api.whatsapp.com/send?text=https://makemypath.app/assessment/dashboard/report/{{reportObj?.type}}/{{reportObj?.id}}/1" target="_blank"><img src="assets/share.png" alt=""><span>Share</span></a>
+                    <button class="btn IncSolution" routerLink="/assessment/paper/exam-incorrect-questions/{{paperDetails?.exam?.id}}" [queryParams]="{paper: reportObj?.id}">Solution of <br> Incorrect Problems</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

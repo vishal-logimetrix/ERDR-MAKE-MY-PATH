@@ -1,0 +1,271 @@
+<div class="mentorProfile container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-center topHeading">My Profile</h2>
+    </div>
+    <div class="col-md-12">
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link" href="javascript:void(0)" routerLink="/organization"><span class="iconify"
+            data-icon="dashicons:admin-home"></span> Dashboard</a>
+        <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+          aria-controls="v-pills-profile" aria-selected="false"><span class="iconify"
+            data-icon="carbon:user-avatar-filled-alt"></span> Account Details</a>
+        <!-- <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+          aria-controls="v-pills-messages" aria-selected="false"><span class="iconify"
+            data-icon="healthicons:i-training-class"></span>My Batches</a> -->
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+          aria-controls="v-pills-settings" aria-selected="false"><span class="iconify"
+            data-icon="ri:lock-password-fill"></span> Change Password</a>
+        <a class="nav-link" href="javascript:void(0)" data-toggle="modal" data-target="#confirmationModal"  ><span class="iconify" data-icon="mdi:logout"></span>
+          Logout</a>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="tab-content" id="v-pills-tabContent">
+        <!-- <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div> -->
+        <div class="tab-pane fade  show active" id="v-pills-profile" role="tabpanel"
+          aria-labelledby="v-pills-profile-tab">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="profile-img-container position-relative">
+                <img *ngIf="!userProfileObj?.image" class="profileImage" src="assets/images/avatar-2.png" alt="">
+                <img *ngIf="userProfileObj?.image" class="profileImage" [src]="userProfileObj?.image" alt="">
+
+              </div>
+            </div>
+            <div class="col-md-8 d-flex align-items-center">
+              <div class="row changeProfileImageRow">
+                <div class="col-md-12">
+                  <div class="customFileInput" (click)="changeUserProfile(imageInput)">
+                    <button class="btn btnChangeProfile">Change Profile</button>
+                  </div>
+                  <div class="d-flex flex-column  justify-content-center align-items-center">
+                    <input type="file" id="profilepic" style="visibility: hidden;" (change)="upadateProfileImage()"
+                      class="inputfile" name="userImage" #imageInput>
+
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <h6 class="formatInst">Accepting the file format jpg, png <br> and max size is 50 kb.</h6>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                  <div class="profile-img-container position-relative">
+                    <img *ngIf="!userProfileObj?.image" class="profileImage" src="assets/images/avatar-2.png" alt="">
+                    <img *ngIf="userProfileObj?.image" class="profileImage" [src]="userProfileObj?.image" alt="">
+                     <div class="customFileInput shadow" (click)="changeUserProfile(imageInput)">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </div> 
+                      </div>
+                </div>
+                <p class="text-center">{{userProfileObj?.first_name}} {{userProfileObj?.last_name}}</p>
+                <div class="d-flex flex-column  justify-content-center align-items-center">
+                    <input type="file" id="profilepic" style="visibility: hidden;" (change)="upadateProfileImage()" class="inputfile" name="userImage" #imageInput>
+    
+                </div>
+            </div> -->
+            
+          </div>
+          <div class="col-md-10">
+            <form [formGroup]= "profileForm" (ngSubmit)="onSubmit()">
+              <div class="form-group row">
+                <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Name</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" formControlName="fullname" id="exampleInputName"
+                  aria-describedby="emailHelp" placeholder="Enter Name">
+                  <small class="text-danger" *ngIf="!profileForm.get('fullname').valid" >Please Enter Name</small>
+                </div>
+
+              </div>
+              <div class="form-group row">
+                <label for="inputPhonenumber" class="col-sm-4 col-form-label">Mobile</label>
+                <div class="col-sm-8">
+                  <label for="inputPhonenumber" style=" font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.48); border-radius: 5px;
+                  color: #5a5a5a; background: #F9F9F9;width: 100%;height: 35px;padding: 0.375rem 0.75rem;" class="col-form-label" >{{contactNumber}}</label>
+              </div>
+              </div>
+              <div class="form-group row">
+                <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1"
+                  aria-describedby="emailHelp" placeholder="Enter Email">
+                  <small class="text-danger" *ngIf= "profileForm.get('email').invalid && profileForm.get('email').touched" >Please Enter Valid Email</small>
+                </div>
+
+              </div>
+              <div class="form-group row">
+                <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Gender</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="sel2" formControlName="gender">
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+               
+              </div>
+              <div class="form-group row">
+                <label for="exampleInputEmail1" class="col-sm-4 col-form-label">State/UT</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="sel2" formControlName="state" (change)="fetchStateCities($event.target.value)">
+                    <option value="">Select State</option>
+                    <option [value]="state?.id" *ngFor="let state of states; let i = index">{{state?.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="exampleInputEmail1" class="col-sm-4 col-form-label">City</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="sel2" formControlName="city">
+                    <option value="">Select City</option>
+                    <option [value]="city?.id" *ngFor="let city of cities; let i = index">{{city?.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Qualification</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="sel2" formControlName="qualification">
+                    <option value="">Select Qualification</option>
+                    <option value="10th">10th</option>
+                    <option value="12th">12th</option>
+                    <option value="graduation">Graduate</option>
+                    <option value="postgraduation">Post Graduate</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button class="btn btnUpdate mb-4" type="submit">Save</button>
+              </div>
+            </form>
+            <!-- <hr> -->
+            <!-- <div *ngIf="sendOtp" class="form-group row">
+              <label for="inputPassword" class="col-sm-4 col-form-label">Mobile</label>
+              <div class="col-sm-8">
+                <input type="contactNo" [(ngModel)]="contactNumber" disabled class="form-control" id="inputPassword"
+                  placeholder="Enter your mobile number">
+              </div>
+            </div>
+            <div *ngIf="!sendOtp" class="form-group row">
+              <label for="inputPassword" class="col-sm-4 col-form-label">OTP </label>
+              <div class="col-sm-8">
+                <input type="otp" [(ngModel)]="otp" class="form-control" id="inputPassword" placeholder="Enter otp">
+              </div>
+            </div> -->
+            <!-- <div class="form-group row d-flex justify-content-center">
+              <button *ngIf="sendOtp" class="btn btnUpdate btn-sm" type="button" (click)="sendOtpToNumber()">Send
+                Otp</button>
+              <button *ngIf="!sendOtp" class="btn btnUpdate btn-sm" type="button" (click)="saveNewContact()">Save
+                Contact No.</button>
+            </div> -->
+          </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+          <div class="col-md-8">
+            <!-- <form action=""> -->
+              <div class="form-group">
+                <label for="exampleInputEmail1">New Password</label>
+                <input type="password" class="form-control chngePass" [(ngModel)]="password" name="password" id="exampleInputEmail1" aria-describedby="emailHelp" >
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Confirm New Password</label>
+                <input type="password" class="form-control chngePass" [(ngModel)]="confirmPassword" name="confirmPassword" id="exampleInputEmail1" aria-describedby="emailHelp" >
+              </div>
+              <div class="form-group row d-flex justify-content-center">
+                <button class="btn btnUpdate" (click)="savePassword()">Save</button>
+              </div>
+            <!-- </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row d-flex justify-content-center">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-center">
+              <div class="profile-img-container position-relative">
+                <img *ngIf="!userProfileObj?.image" class="profileImage" src="assets/images/avatar-2.png" alt="">
+                <img *ngIf="userProfileObj?.image" class="profileImage" [src]="userProfileObj?.image" alt="">
+                 <div class="customFileInput shadow" (click)="changeUserProfile(imageInput)">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </div> 
+                  </div>
+            </div>
+            <p class="text-center">{{userProfileObj?.first_name}} {{userProfileObj?.last_name}}</p>
+            <div class="d-flex flex-column  justify-content-center align-items-center">
+                <input type="file" id="profilepic" style="visibility: hidden;" (change)="upadateProfileImage()" class="inputfile" name="userImage" #imageInput>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <form [formGroup]="profileForm" (submit)="onSubmit()">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Full Name</label>
+                <input type="text" class="form-control" formControlName="fullname" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email">
+              </div>
+              <div class="d-flex justify-content-center">
+                  <button class="btn btnUpdate" type="submit">Update</button>
+              </div>
+            </form>
+            <hr>
+        <div *ngIf="sendOtp" class="form-group">
+          <label for="inputPassword" class="col-form-label">Contact Number </label>
+          <div class="">
+            <input type="contactNo" [(ngModel)]="contactNumber" class="form-control" id="inputPassword"
+              placeholder="Enter your mobile number">
+          </div>
+        </div>
+        <div *ngIf="!sendOtp" class="form-group">
+          <label for="inputPassword" class="col-form-label">OTP </label>
+          <div class="">
+            <input type="otp" [(ngModel)]="otp" class="form-control" id="inputPassword"
+              placeholder="Enter otp">
+          </div>
+        </div>
+        <div class="form-group row d-flex justify-content-center">
+          <button *ngIf="sendOtp" class="btn btnUpdate btn-sm" type="button" (click)="sendOtpToNumber()">Send Otp</button>
+          <button *ngIf="!sendOtp" class="btn btnUpdate btn-sm" type="button" (click)="saveNewContact()">Save Contact No.</button>
+        </div>
+        </div>
+    </div> -->
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"  role="document">
+    <div class="modal-content" style="border-radius: 16px;border: none;">
+      <div class="modal-header" style="border: none;">
+        <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #ff1900;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center" style="color: #544F4F; font-size: 16px;">Are you sure you want to Logout?</p>
+      </div>
+      <div class="modal-footer" style="background-color: #ff4935; border-radius: 0 0 16px 16px;justify-content: space-between;">
+        <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-sm text-white" style="background-color: #00A3F1; border-radius: 6px;" (click)="logout()">Yes, Logout!</button>
+      </div>
+    </div>
+  </div>
+</div>

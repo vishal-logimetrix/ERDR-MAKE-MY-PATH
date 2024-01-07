@@ -1,0 +1,44 @@
+<div class="container studentResultAnalysis">
+    <div>
+        <h2 class="heading pt-4" *ngIf="batchDetails?.institute_room?.id">{{batchDetails?.institute_room?.grade_name}} - {{batchDetails?.institute_room?.name}}</h2>
+        <h2 class="heading pt-4" *ngIf="!batchDetails?.institute_room?.id">{{batchDetails?.name}}</h2>
+        <!-- <h3 class="subHeading float-right pr-2">Batch Code : {{batchDetails?.batch_code}}</h3> -->
+    </div>
+    <div class="totalUser">
+      <div><button class="btn btn-sm btnLeaderboard" routerLink="/organization/group/{{batchId}}"><i class="fas fa-angle-double-left mr-1"></i>Batch dashboard</button></div>
+      <div><span>Leaderboard</span></div>
+      <div><button class="btn btn-sm btnLeaderboard" routerLink="/organization/student-details-report/{{batchId}}">Student Deatails <i class="fas fa-angle-double-right ml-1"></i></button></div> 
+  </div>
+    <div class="">
+        <hr>
+    </div>
+    <div class="">
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-center">
+            <!-- <table></table> -->
+            <div style="overflow-x:auto;">
+              <table class="table table-striped" style="width:1000px">
+                <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Rank</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Total Time Spent</th>
+                      <th scope="col">Total Questions</th>
+                      <th scope="col">Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let student of leaderBoardData; let rank = index">
+                      <td>{{rank+1}}</td>
+                      <td><a class="font-weight-bolder textMentor">{{student?.name}}</a></td>
+                      <td class="w-15 pt-3 pb-3">{{student?.time_spent}} Mins</td>
+                      <td class="w-15 pt-3 pb-3">{{student?.total_question}}</td>
+                      <td>{{student?.score}}</td>
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

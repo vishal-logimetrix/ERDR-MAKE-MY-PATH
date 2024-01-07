@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>MakeMyPath</title>
+  <meta name="title" content="MakeMyPath">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <!-- <link rel="manifest" href="manifest.webmanifest"> -->
+  <meta name="theme-color" content="#1976d2">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+<!--  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">-->
+<!-- Include Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="https://cdn.ckeditor.com/4.14.1/full/ckeditor.js"></script>
+  <script> CKEDITOR.config.forcePasteAsPlainText = true; </script>
+  <script src="assets/dom-to-image.js"></script>
+   
+  
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js">
+</script>
+   
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js">
+</script>
+   
+  
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-svg.js">
+</script>
+
+  <script>
+       window.MathJax = {
+  tex: {
+    inlineMath: [['\$','\$'], ['\\(', '\\)']]
+  }
+};
+  </script>
+  <meta name="keywords" content="MakeMyPath, Make My Path, Make My Practice, Make My Paper, Exam Overview, K-12, Entrance, Jobs, Learn, Revise, Practice, Paper, Path, Preparation, AI, AI-Enabled Platform, ML, Exam, Test, Best Books, Previous Years Paper, IIT, JEE, NEET, CAT, NIFT, NID, NATA, Govt Jobs, Govt Exams, UPSC, SSC, Banking, Railway, Board Exams, CBSE, ICSE, ISC, Questions, Practice Set, Mock Test">
+  <meta name="description" content="MakeMyPath is an AI-Enabled Exam Preparation Platform for K-12, Entrance & Jobs which provides Exam Overview, Practice, Paper & Path of 5000+ exams.">
+<meta property="og:url" content="https://makemypath.app/">
+<meta property="og:title" content="Make My Path: India's First AI-Enabled Exam preparation Platform  | K-12 | Olympiads | NTSE | Entrance exams | Government recruitment exams"><meta property="og:type" content="article"><meta property="og:site_name" content="makemypath">
+<meta name="robots" content="index,follow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="language" content="English">
+
+<link rel="canonical" href="https://makemypath.app/">
+<meta property="og:type" content="website">
+<meta property="og:description" content="MMP offers India's only detailed information and the right AI enabled tools for exam preparation ranging from K-12, Olympiads, NTSE, entrance exams and government recruitment exams. The idea behind this platform is to offer students a single platform for all sorts/categories of examinations. MakeMyPath">
+
+<meta name="twitter:site" content="@MakeMyPath"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MMP offers India's only detailed information and the right AI enabled tools for exam preparation ranging from K-12, Olympiads, NTSE, entrance exams and government recruitment exams. The idea behind this platform is to offer students a single platform for all sorts/categories of examinations: MakeMyPath">
+<meta name="twitter:description" content="MMP offers India's only detailed information and the right AI enabled tools for exam preparation ranging from K-12, Olympiads, NTSE, entrance exams and government recruitment exams. The idea behind this platform is to offer students a single platform for all sorts/categories of examinations.">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFBGTD9GN6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-GFBGTD9GN6');
+  </script>
+</head>
+<style>
+  body {
+    font-family: 'Montserrat', sans-serif !important;
+  }
+</style>
+
+<body class="mat-typography">
+<app-root></app-root>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML'></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+     showProcessingMessages: false,
+     tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+    });
+  </script>
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+    <script>
+      /*
+  We can use [body] or the element class/id that wraps the elements with tooltip/popover.
+  Include the data-[] attribute in each element that needs it.
+*/
+$(document).ready(function () {
+  //can also be wrapped with:
+  //1. $(function () {...});
+  //2. $(window).load(function () {...});
+  //3. Or your own custom named function block.
+  //It's better to wrap it.
+
+  //Tooltip, activated by hover event
+  $("body").tooltip({   
+    selector: "[data-toggle='tooltip']",
+    container: "body"
+  })
+    //Popover, activated by clicking
+    .popover({
+    selector: "[data-toggle='popover']",
+    container: "body",
+    html: true
+  });
+  //They can be chained like the example above (when using the same selector).
+  
+});
+    </script>
+    <script>
+      $('body').popover({
+                selector: '[rel=popover]',
+                trigger: "click"
+            }).on("show.bs.popover", function(e){
+                // hide all other popovers
+                $("[rel=popover]").not(e.target).popover("destroy");
+                $(".popover").remove();                    
+            });
+    </script>
+    <script>
+      $('.popover-dismiss').popover({
+  trigger: 'focus'
+})
+    </script>
+    <script>
+      $(".btn-group > .btn").click(function(){
+    $(".btn-group > .btn").removeClass("active");
+    $(this).addClass("active");
+});
+    </script>
+    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+    <!-- <script src="node_modules/popper.js/dist/umd/popper.js"></script> -->
+    <!-- <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script> -->
+    <!-- <script src="node_modules/@popperjs/core/dist/umd/popper.js"></script>
+    <script src="node_modules/@popperjs/core/dist/esm/modifiers/bootstrap/popperjs"></script> -->
+    <!-- <script src="node_modules/@popperjs/core/dist/umd/popper.js"></script> -->
+    <!-- <script src="node_modules/popper.js"></script> -->
+    <!-- <script src="node_modules/bootstrap/js/dist/popover.js"></script> -->
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+
+  <!-- <script type="text/javascript">
+    window._mfq = window._mfq || [];
+    (function () {
+      var mf = document.createElement("script");
+      mf.type = "text/javascript"; mf.defer = true;
+      mf.src = "//cdn.mouseflow.com/projects/1f96f20d-36ea-45ad-a3bc-acf663fbdde3.js";
+      document.getElementsByTagName("head")[0].appendChild(mf);
+    })();
+  </script> -->
+<noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+
+</html>

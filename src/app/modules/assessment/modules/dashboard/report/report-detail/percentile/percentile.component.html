@@ -1,0 +1,18 @@
+<!-- Percentile -->
+<ng-container *ngIf="percentileObj['rank_data']">
+  <div class="percentile mb-5">
+    <div class="content">
+      <h2 class="text-black font-weight-bold mt-4">Percentile</h2>
+      <div [chart]="percentileChart"></div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Complete Report Not Available for Assessment Test -->
+<ng-container *ngIf="percentileObj['report_status']">
+  <div class="p-5 text-center">
+    <h4 class="text-muted">
+      {{ percentileObj['report_status'] }}
+    </h4>
+  </div>
+</ng-container>

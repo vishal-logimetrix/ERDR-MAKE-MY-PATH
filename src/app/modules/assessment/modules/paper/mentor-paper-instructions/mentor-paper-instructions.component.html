@@ -1,0 +1,115 @@
+<div class="container instructionDiv" *ngIf="show">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Mentor <span>Paper</span> Instructions</h2>
+        <h3>{{examDetails?.title}}</h3>
+      </div>
+      <div class="col-md-12"><hr></div>
+      <div class="row imageInstructionDiv">
+        <div class="col-md-12 instructionDetails">
+          <div *ngFor="let instruction of instructions">
+            <h5 class="instructionData"  [innerHtml]="instruction.instruction"></h5>
+          </div>
+        </div>
+        <div class="col-xl-6 ">
+          <div class="row ">
+            <div class="col-md-12 squareDiv">
+              <div class="squareOne"></div>
+              <div><h6>You have answered the question. <span style="color: transparent;">you have answered</span></h6></div>
+            </div>
+            <div class="col-md-12 squareDiv">
+              <div class="squareTwo"></div>
+              <div><h6>You have visited but not answered the question yet.</h6></div>
+            </div>
+            <div class="col-md-12 squareDiv">
+              <div class="squareThree"><i class="fa fa-check" aria-hidden="true"></i></div>
+              <div><h6>You have not answered the question but have marked for review.</h6></div>
+            </div>
+            <div class="col-md-12 squareDiv">
+              <div class="squareFour"><i class="fa fa-bookmark" aria-hidden="true"></i><i class="fa fa-check" aria-hidden="true"></i></div>
+              <div><h6>You have answered the question but have marked for review.</h6></div>
+            </div>
+            <div class="col-md-12 squareDiv">
+              <div class="squareFive"></div>
+              <div><h6>You have not visited the question yet.</h6></div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="col-xl-6 imageDiv">
+          <img class="instructionImage" src="assets/instructions.png" alt="">
+        </div>
+        <div class="col-xl-12 d-flex buttonsDiv">
+          
+          <div>
+            <a class=" start btn"
+            routerLink="/assessment/paper/mentor-paper/{{examId}}" [queryParams]="{paper: paperId}">
+         Start <span><i class="fa fa-paper-plane-o" aria-hidden="true"></i></span>
+       </a>
+          </div>
+           <!-- <div>
+            <span class="share" (click)="clickEvent()">Share <span><i class="fa fa-share-alt" aria-hidden="true"></i></span></span>
+            <div class="media-icons" [ngClass]="status ? 'show' : 'hide'">
+              <a (click)="clickEvent()" href="https://www.facebook.com/sharer/sharer.php?u=https://makemypath.app/assessment/dashboard/respond-paper-request/{{examId}}?paper={{paperId}}&quote=Hi I'm inviting you to accept the exam paper created by me&hashtag=%23MMP" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+              <a (click)="clickEvent()" href="https://api.whatsapp.com/send?text=https://makemypath.app/assessment/dashboard/respond-paper-request/{{examId}}?paper={{paperId}} | %0D%0A%0D%0A*Hi I'm inviting you to accept the exam paper created by me*" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+              <a href="https://instagram.com/accounts/login/?" (click)="shareinstaUrl(examId, paperId)"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+              <a href="mailto:?subject=&body=:%20" (click)="sharemailUrl(examId, paperId)"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+            </div>
+          </div>   -->
+        </div>
+      </div>
+          <!-- <div class="col-md-6 offset-lg-1 mt-2">
+            <div *ngFor="let instruction of instructions">
+              <h5 class="instructionData"  [innerHtml]="instruction.instruction"></h5>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12 squareDiv">
+                <div class="squareOne"></div>
+                <div><h6>You have answered the question.</h6></div>
+              </div>
+              <div class="col-md-12 squareDiv">
+                <div class="squareTwo"></div>
+                <div><h6>You have visited but not answered the question yet.</h6></div>
+              </div>
+              <div class="col-md-12 squareDiv">
+                <div class="squareThree"><i class="fa fa-check" aria-hidden="true"></i></div>
+                <div><h6>You have not answered the question but have marked for review.</h6></div>
+              </div>
+              <div class="col-md-12 squareDiv">
+                <div class="squareFour"><i class="fa fa-bookmark" aria-hidden="true"></i><i class="fa fa-check" aria-hidden="true"></i></div>
+                <div><h6>You have answered the question but have marked for review.</h6></div>
+              </div>
+              <div class="col-md-12 squareDiv">
+                <div class="squareFive"></div>
+                <div><h6>Not Visited.</h6></div>
+              </div>
+              <div class="col-md-12 mb-3 mt-4 d-flex justify-content-end">
+                <div>
+                 
+                </div>
+                <div>
+                  <a class=" start "
+                routerLink="/assessment/paper/mentor-paper/{{examId}}" [queryParams]="{paper: paperId}">
+               <img src="assets/start.png" alt=""><span>Start</span>
+             </a>
+                </div>
+                <div>
+              
+                </div>
+                
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <img class="instructionImage" src="assets/instructions.png" alt="">
+          </div> -->
+    </div>
+  </div>
+
+ 
+<div *ngIf="efgh" class="spinnerContainer">
+  <h2>{{examDetails?.title}}</h2>
+  <h3 >Fetching your question paper....</h3>
+  <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>

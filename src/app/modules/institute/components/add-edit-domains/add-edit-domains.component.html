@@ -1,0 +1,37 @@
+<div class="container page_content">
+       
+    <button type="button" class="btn btn-primary" id="std" (click)="create_domain()">CREATE DOMAIN</button>
+<div id="table">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Domain</th>
+            <th>Order</th>
+            <th>Number of Exams</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let des of domains">
+            <td>
+              <img *ngIf="des?.image" class="profileImg zoom" [src]="des?.image"> 
+              <img *ngIf="!des?.image" class="profileImg zoom" src="assets/grey.png">
+               <strong>{{des.title}}</strong> 
+            </td>
+            <td>
+              {{des?.order}}
+            </td>
+            <td>
+                {{des.exams?.length}}
+            </td>
+            <td>
+                <button type="button" class="btn" id="std_details" (click)="editDomain(des?.id)">EDIT DOMAIN DETAILS</button>
+                <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/design-domain" [queryParams]="{id: des?.id}">DESIGN DOMAIN</button>
+                <button type="button" class="btn btn-primary ml-2" style="font-size:x-small;" routerLink="/institute/announcements" [queryParams]="{id: des?.id}">DOMAIN ANNOUNCEMENTS</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+</div>

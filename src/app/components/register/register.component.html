@@ -1,0 +1,53 @@
+<div class="modal-content">
+
+  <div class="modal-header border-0">
+    <h5 class="modal-title" id="loginTitle">Register</h5>
+    <button type="button" class="close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="registerForm" (submit)="register()">
+      <div class="form-group">
+
+        <input type="email" class="form-control" placeholder="Email" formControlName="email"
+               [ngClass]="{ 'is-invalid': submitted && f.email.errors }" (input)="onRegisterInput()">
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Phone Number" formControlName="phone"
+               maxlength="10"
+               [ngClass]="{'is-invalid': submitted && f.phone.errors }"
+               (input)="onRegisterInput()">
+        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+          <div *ngIf="f.phone.errors.required">Phone number is required</div>
+          <div *ngIf="f.phone.errors.pattern">Enter valid phone number</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" formControlName='password'
+               [ngClass]="{ 'is-invalid': submitted && f.password.errors }" (input)="onRegisterInput()">
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+          <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+        </div>
+      </div>
+      <div *ngIf="errors">
+        <ul>
+          <li class="error-text">{{errors}}</li>
+        </ul>
+      </div>
+      <div class="text-right mt-5">
+        <a href="javascript:void(0)" class="text-muted mr-3" (click)="openLogin()">
+          Already have an account?
+          <span class="text-success pl-1">Login</span>
+        </a>
+        <button type="submit" class="btn btn-info">Register</button>
+      </div>
+    </form>
+  </div>
+</div>

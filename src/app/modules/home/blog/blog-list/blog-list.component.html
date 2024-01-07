@@ -1,0 +1,137 @@
+<div id="blog-list">
+
+  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngFor="let category of categoryObj | slice:0:env.MAX_ASSESSMENT_AT_HOME">
+          <a class="nav-link text-uppercase" href="javascript:void(0)"
+            (click)="getBlogs(category.id)">{{ category.title }}
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            MORE
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="javascript:void(0)"
+              *ngFor="let category of categoryObj |slice: env.MAX_ASSESSMENT_AT_HOME : categoryObj.length"
+              (click)="filterAssessment(category.id)">
+              {{ category.title }}
+            </a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0 bg-white border rounded">
+        <input class="form-control form-control-lg border-0" type="search" name="query" placeholder="Search Posts"
+          aria-label="Search">
+        <button class="btn my-2 my-sm-0 search-btn" type="submit">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </form>
+    </div>
+  </nav> -->
+
+  <div class="blog-section shadow">
+    <div class="row">
+
+      <div class="col-md-12 text-center">
+        <h1 class="font-weight-bold mb-5 page-title">APTINATION BLOGS</h1>
+      </div>
+
+      <div class="col-md-12 col-lg-8 p-0">
+
+        <!-- Latest Blog Slider -->
+        <div id="carouselExampleInterval" class="carousel slide blog-carousel" data-ride="carousel">
+          <div class="carousel-inner">
+
+            <div class="carousel-item" data-interval="10000"
+                 *ngFor="let post of latestBlogs | slice: 0 : env.BLOG_SLIDER_COUNT; let i = index"
+                 [ngClass]="{'active': i==0}">
+              <a class="post-content" routerLink="/blogs/post-detail/{{post.id}}">
+                <img src="{{ post.image }}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-md-block">
+
+                  <!-- Blog Slider Title -->
+                  <h1 class="font-weight-bold display-4 post-title">{{ post.title }}
+                  </h1>
+
+                  <!-- Blog Silder Description -->
+                  <div class="post-meta-description">
+                    {{post.metadescription}}
+                  </div>
+                </div>
+              </a>
+            </div>
+
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-12 col-lg-4 p-0 text-white post-section-2">
+        <div class="card" *ngIf="latestBlogs[env.BLOG_SLIDER_COUNT]">
+          <a class="post-content" routerLink="/blogs/post-detail/{{ latestBlogs[env.BLOG_SLIDER_COUNT].id }}">
+            <img class="card-img-top" src="{{ latestBlogs[env.BLOG_SLIDER_COUNT].image }}" alt="Card image cap">
+            <div class="card-img-overlay">
+
+              <!-- Blog Title -->
+              <h4 class="card-title font-weight-bold">{{ latestBlogs[env.BLOG_SLIDER_COUNT].title }}</h4>
+
+              <!-- Blog Description -->
+              <div>
+                {{latestBlogs[env.BLOG_SLIDER_COUNT].metadescription}}
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="card" *ngIf="latestBlogs[env.BLOG_SLIDER_COUNT+1]">
+          <a class="post-content" routerLink="/blogs/post-detail/{{ latestBlogs[env.BLOG_SLIDER_COUNT+1].id }}">
+            <img class="card-img-top" src="{{ latestBlogs[env.BLOG_SLIDER_COUNT+1].image }}" alt="Card image cap">
+            <div class="card-img-overlay">
+              <!-- Blog Title -->
+              <h4 class="card-title font-weight-bold">{{ latestBlogs[env.BLOG_SLIDER_COUNT + 1].title }}</h4>
+
+              <!-- Blog Description -->
+              <div class="post-meta-description">{{latestBlogs[env.BLOG_SLIDER_COUNT + 1].metadescription}}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-2">
+    <div class="content">
+      <div class="row mt-5">
+        <div class="col-md-6 col-lg-{{env.NO_OF_COLUMNS}} mb-4" *ngFor="let post of blogObj">
+          <div class="card shadow border-0 h-100">
+            <!-- <img class="card-img-top" src="{{ post.image }}" alt="Card image cap"> -->
+            <a routerLink="/blogs/post-detail/{{post.id}}">
+              <div class="img-container">
+                <img class="card-img-top" src="{{ post.image }}" alt="Card image cap">
+              </div>
+              <div class="card-body">
+                <p class="text-muted mb-1">Published at: {{ post.date }}</p>
+                <h2 class="card-title font-weight-bold">{{ post.title }}</h2>
+                <div class="card-text text-black">{{post.metadescription}}</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

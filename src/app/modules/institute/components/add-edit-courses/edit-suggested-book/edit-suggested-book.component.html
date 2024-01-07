@@ -1,0 +1,61 @@
+<div class="body">
+  
+    <label>Is Active :</label>
+    <input type="checkbox" [(ngModel)]="isActive" class="form-check-input" value="" style="margin-left: 10%;">
+    <br>
+       <div class="form-group">
+          <label>Title </label>
+          <input type="text" class="form-control" placeholder="Add Title" [(ngModel)]="title">
+          </div> 
+    <br>
+       <div class="form-group">
+          <label>Subject </label>
+          <select multiple class="form-control" name="subject" [(ngModel)]="selectedSubject">
+            <option value="" selected disabled>Please Select Subject</option>
+            <option [value]="subject?.id" *ngFor="let subject of subjects">{{subject?.title}}</option>
+            </select>
+        </div> 
+    <br>
+       <div class="form-group">
+          <label>Author </label>
+          <input type="text" class="form-control" placeholder="Add Author Name" [(ngModel)]="author">
+          </div> 
+    <br>
+    <div class="form-group">
+        <label>Publication </label>
+        <input type="text" class="form-control" placeholder="Add Publisher Name" [(ngModel)]="publication">
+    </div> 
+    <br>
+    <div class="form-group">
+        <label>Flipkart Url </label>
+        <input type="text" class="form-control" placeholder="Add Flipkart Url" [(ngModel)]="filpkartLink">
+    </div> 
+    <br>
+    <div class="form-group">
+        <label>Amazon Url </label>
+        <input type="text" class="form-control" placeholder="Add Amazon Url" [(ngModel)]="amazonLink">
+    </div> 
+      <label>Content </label> 
+      <ckeditor
+      [(ngModel)]="ckeditorContent"
+      [config]="{uiColor: '#dddcdc'}"
+      [readonly]="false"
+      (change)="onChange($event)"
+      
+      debounce="500">
+    </ckeditor>
+      <br>
+      <div class="form-group">
+        <label>Image </label>
+        <input type="file" #fileInput id="imageFile" (change)="readURL($event)" ng2FileSelect />
+      </div> 
+      <br>
+      <div class="form-group">
+        <label>PDF </label>
+        <input type="file" #pdfInput id="pdfFile" ng2FileSelect />
+      </div> 
+  
+      <button type="button" class="btn btn-primary" id="design_details" (click)="submit()">SAVE</button>
+  
+  </div>
+  

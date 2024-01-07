@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="card-body">
+        <p style="font-size: xx-large;font-weight: 400;">Instructions</p>
+        <hr>
+        <p style="font-size: larger;">Download The File For Question Uploading Instructions.</p>
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-primary" id="design_details" >DOWNLOAD INSTRUCTIONS
+                <i class="fa fa-download"></i>
+                </button>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn" id="click"  >DOWNLOAD CSV FORMAT
+                <i class="fa fa-download"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+        <div class="card-body">
+            <p style="font-size: xx-large;font-weight: 400;text-align: center;">FORM</p>
+            <hr>
+            <div class="row">
+                    <div  class="col-3">
+                        <select class="form-control" id="sel1">
+                            <option>Select Subject </option>
+                            <option *ngFor="let sub of subjects">{{sub}}</option>
+                        </select>
+                    </div>
+                    <div  class="col-3">
+                        <select class="form-control" id="sel1">
+                            <option>Select Standard </option>
+                            <option *ngFor="let sub of subjects">{{sub}}</option>
+                        </select>
+                    </div>
+                    <div  class="col-3">
+                        <select class="form-control" id="sel1">
+                            <option>Select Chapter</option>
+                            <option *ngFor="let sub of subjects">{{sub}}</option>
+                        </select>
+                    </div>
+                    <div  class="col-3">
+                        <select class="form-control" id="sel1">
+                            <option>Select Topic</option>
+                            <option *ngFor="let sub of subjects">{{sub}}</option>
+                        </select>
+                    </div>
+                </div> 
+                <div class="row" id="file">
+                    <p>Upload CSV <span style="color: red;">* </span>: &nbsp;&nbsp;</p>
+                    <input type="file" ng2FileSelect />
+                </div>
+                <div class="row" id="file">
+                    <p>Upload Image(optional) : &nbsp;&nbsp;</p>
+                    <input type="file" ng2FileSelect />
+
+                </div>
+                <button type="button" class="btn btn-primary" id="design_details1" >SUBMIT
+                </button>
+        </div>
+    </div>

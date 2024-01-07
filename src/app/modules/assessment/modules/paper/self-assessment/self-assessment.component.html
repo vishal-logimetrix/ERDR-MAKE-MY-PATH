@@ -1,0 +1,315 @@
+<!-- <div *ngIf="Noripple" class="practicePaperNav"> -->
+    <!-- <div class="container">
+        <div class="navData">
+            <div>
+                <a href="javascript:void(0)" (click)="completeTest()"><img src="assets/images/mmpNewLogo.png" alt=""></a>
+            </div>
+        </div>
+    </div> -->
+<!-- </div> -->
+<div *ngIf="!testObj?.ripple"  class="practicePaperSecondSection" #mathjax>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></li>
+                        <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard/my-goals/{{examDetails?.id}}" >Make My Path</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span>Create Path</span></li>
+                      </ol>
+                </nav>
+            </div>
+            <div class="col-md-12">
+                <h2 class="examTitle text-center">Create Path</h2>
+                <div class="totalUser">
+                    <div><button class="btn float-left btnLeaderboard" routerLink="/assessment/dashboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button></div>
+                    <div><span><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></span></div>
+                    <div><span>Total User(s) : {{totalusers}}</span></div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <div class="row formBg">
+                    <div class="col-xl-4 col-lg-4">
+                        <div class="progressSectionDiv">
+                            <div class="row mobileProgressSection">
+                                <div class="col" *ngFor="let number of [0,1,2]; let i = index">
+                                    <div class="progressSection">
+                                        <div class="statusCircle" [ngClass]="{
+                                            'checkedBG': number + 1 < currentStep,
+                                            'currentBG': number + 1 ==  currentStep,
+                                            'nextBG': number + 1 > currentStep
+                                            }"><h6 *ngIf="number + 1 < currentStep"><i class="fa fa-check" aria-hidden="true"></i></h6></div>
+                                        <div [ngClass]="{
+                                            'currentColor': number + 1 < currentStep,
+                                            'currentColor': number + 1 ==  currentStep,
+                                            'nextColor': number + 1 > currentStep
+                                            }">
+                                            <h4 *ngIf="number == 0" >Goal <br> Setting</h4>
+                                            <h4 *ngIf="number == 1" >Self <br> Evaluation</h4>
+                                            <h4 *ngIf="number == 2">Diagnostic <br> Assessment</h4>
+                                        </div>
+                                        <ng-container *ngIf="number < 2">
+                                        <div [ngClass]="{
+                                            'currentBorderColor': number + 1 < currentStep,
+                                            'currentBorderColor': number + 1 <=  currentStep,
+                                            'nextBorderColor': number + 1 > currentStep
+                                            }" class="horizontalLine"></div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="goalSettingSection">
+                                    <div class="row">
+                                        <div class="col-md-8" *ngFor="let numberSecond of [0,1]; let i = index">
+                                            <div class="goalSettingDiv">
+                                                <div class="circle" [ngClass]="{
+                                                    'checkedBG': numberSecond + 1 < currentStepNew,
+                                                    'currentBG': numberSecond + 1 ==  currentStepNew,
+                                                    'nextBG': numberSecond + 1 > currentStepNew
+                                                    }"></div>
+                                                <h3 *ngIf="numberSecond == 0" style="cursor: pointer;" routerLink="/assessment/dashboard/edit-path-title/{{examId}}" [queryParams]="{goal: goalId}">Basic Details</h3>
+                                                <h3 *ngIf="numberSecond == 1" style="cursor: pointer;" routerLink="/assessment/dashboard/edit-path-syllabus/{{examId}}" [queryParams]="{goal: goalId}">Select Syllabus</h3>
+                                                <div *ngIf="numberSecond < 1" class="gsHrLine"></div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <!-- <div class="horizontalLineOuter"></div> -->
+                            </div>
+                            </div>
+                            <div class="row desktopProgressSection">
+                                <div class="col-md-12" *ngFor="let number of [0,1,2]; let i = index">
+                                    <div class="progressSection">
+                                        <div class="statusCircle" [ngClass]="{
+                                            'checkedBG': number + 1 < currentStep,
+                                            'currentBG': number + 1 ==  currentStep,
+                                            'nextBG': number + 1 > currentStep
+                                            }"><h6 *ngIf="number + 1 < currentStep"><i class="fa fa-check" aria-hidden="true"></i></h6></div>
+                                        <div [ngClass]="{
+                                            'currentColor': number + 1 < currentStep,
+                                            'currentColor': number + 1 ==  currentStep,
+                                            'nextColor': number + 1 > currentStep
+                                            }">
+                                            <h4 *ngIf="number == 0" >Goal Setting</h4>
+                                            <h4 *ngIf="number == 1" >Self Evaluation</h4>
+                                            <h4 *ngIf="number == 2">Diagnostic Assessment</h4>
+                                        </div>
+                                        <ng-container *ngIf="number < 2">
+                                        <div [ngClass]="{
+                                            'currentBorderColor': number + 1 < currentStep,
+                                            'currentBorderColor': number + 1 <=  currentStep,
+                                            'nextBorderColor': number + 1 > currentStep
+                                            }" class="horizontalLine"></div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="goalSettingSection">
+                                    <div class="row">
+                                        <div class="col-md-8" *ngFor="let numberSecond of [0,1]; let i = index">
+                                            <div class="goalSettingDiv">
+                                                <div class="circle" [ngClass]="{
+                                                    'checkedBG': numberSecond + 1 < currentStepNew,
+                                                    'currentBG': numberSecond + 1 ==  currentStepNew,
+                                                    'nextBG': numberSecond + 1 > currentStepNew
+                                                    }"></div>
+                                                <h3 *ngIf="numberSecond == 0" style="cursor: pointer;" routerLink="/assessment/dashboard/edit-path-title/{{examId}}" [queryParams]="{goal: goalId}">Basic Details</h3>
+                                                <h3 *ngIf="numberSecond == 1" style="cursor: pointer;" routerLink="/assessment/dashboard/edit-path-syllabus/{{examId}}" [queryParams]="{goal: goalId}">Select Syllabus</h3>
+                                                <div *ngIf="numberSecond < 1" class="gsHrLine"></div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <!-- <div class="horizontalLineOuter"></div> -->
+                            </div>
+                                <div class="horizontalLineOuter"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-8">
+                        <div class="progressSectionDiv">
+                        <div class="card first">
+                            <h3 class="selfEvaluationHeading text-center">Self Evaluation</h3>
+                            <h6 class="text-center subHeading">We need your inputs to know more about you !</h6>
+                           
+                              <!-- QUESTION BODY -->
+                              <div class="scrollingSection">
+                        <div class="card-body question-content QuestionAndSolutionSection" *ngFor="let question of questions; let i = index">
+                            <div class="questionTypeDiv">
+                                <!-- <div class="questionNumber">
+                                    <h2>Question : {{i + 1}} / {{questions?.length}}</h2>
+                                </div> -->
+                                <!-- <div class="verticalLine"></div> -->
+                                <!-- <div class="questionType">
+                                    <h2>
+                                        <span *ngIf="question?.type_of_question==='mcq'"> Single Choice</span>
+                                        <span *ngIf="question?.type_of_question==='mcc'"> Multiple Choice</span>
+                                    </h2>
+                                </div> -->
+                            </div>
+                            <!-- Question Text & Image -->
+                            <div class="text-black">
+                                <div class="mt-2 d-flex">
+                                   <span class="mr-1 questionNumberNew font-weight-bold">Q.{{i + 1}}</span> <p class="font-sm-1 mb-0 olList" [innerHtml]="question?.text | safeHtml"></p>
+                                   <span *ngIf="question?.is_compulsory" style="color: red;"> &nbsp;*</span>
+                                </div>
+                            </div>
+        
+                            <!-- Question Options for fillup Type -->
+                            <div class="mt-3" *ngIf="question?.type_of_question==='fillup'">
+                                <input type="text" class="form-control numerical-input" placeholder="Enter Your Answer" id="fillup{{i}}"
+                                    name="numerical" (input)="checkNumber(i, $event)" value="{{ question?.user_string_answer }}">
+                            </div>
+        
+                            <div class="mt-2" *ngIf="question?.type_of_question=='mcq'">
+        
+                                <!-- Options -->
+                                <div class="option-container">
+                                    <ul>
+                                        <li class="cursor-pointer text-black"
+                                            *ngFor="let option of question?.options; let optionIndex = index">
+                                            <div class="allRadioButtons">
+                                                <input  type="checkbox" name="option{{question?.id}}"
+                                                    id="{{option['id']}}" [checked]="option['attempted']" (change)="selectMCQ($event, option?.id, i)" />
+                                                    <label for="{{option['id']}}" [innerHtml]="option['text'] | safeHtml"></label>
+                                                <!-- <label class="labl"> -->
+                                                    
+                                                    
+                                                    <!-- <div *ngIf="!question?.completed && !question?.attempt" for="{{option['id']}}">
+                                                        <span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span>
+                                                        <span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span>
+                                                    </div> -->
+                                                    <!-- <div ><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div> -->
+                                                    <!-- <div *ngIf="(question?.completed || question?.attempt) && option['correct']"  style="background-color: greenyellow !important;" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div> -->
+                                                <!-- </label> -->
+                                            </div>
+                                            <div *ngIf="option['opt_image']"
+                                                class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                                <div #optionImage>
+                                                    <button type="button" class="close-button d-none btn btn-link text-black"
+                                                        (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                                                    <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                                                </div>
+                                                <button class="p-2 btn btn-link text-black" type="button"
+                                                    (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                                        aria-hidden="true"></i></button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                     
+                            <div class="mt-3" *ngIf="question?.type_of_question=='mcc'">
+        
+                                <!-- Options -->
+                                <div class="mb-2 option-container">
+                                    <ul>
+                                        <li class="cursor-pointer mb-2 text-black"
+                                            *ngFor="let option of mcqDetails; let optionIndex = index">
+                                            <div class="d-flex">
+                                                <label class="labl">
+                                                    <input [ngClass]="{'ml-5': radioIndex!==0}" type="checkbox" name="checkbox{{question?.id}}"
+                                                    id="{{option['id']}}" [checked]="option['attempted']" (change)="selectMCC($event, option?.id, i)" />
+                                                    <div for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering" >{{optionIndex + 1}} </span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                                    <!-- <div *ngIf="!question?.completed && !question?.attempt" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                                    <div *ngIf="(question?.completed || question?.attempt) && !option['correct']" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                                    <div *ngIf="(question?.completed || question?.attempt) && option['correct']"  style="background-color: greenyellow !important;" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div> -->
+                                                </label>
+                                            </div>
+                                            <div *ngIf="option['opt_image']"
+                                                class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                                <div #optionImage>
+                                                    <button type="button" class="close-button d-none btn btn-link text-black"
+                                                        (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                                                    <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                                                </div>
+                                                <button class="p-2 btn btn-link text-black" type="button"
+                                                    (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                                        aria-hidden="true"></i></button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div *ngIf="hiddenDiv">
+                           
+                        </div>
+                        </div>
+                        <div class="test-footer" [ngClass]="{'test-footer-active ': !questionSidebarActive}">
+                            <!-- ANSWER FORM FOR MCQ/MCC QUESTINS -->
+                            
+                                <form (submit)="submitAnswer(question, $event)">
+                                    <!-- Question Type: MCQ -->
+                                    <!-- <div style="display: none;" class="form-group mb-0 quesiton-select" *ngIf="question?.type_of_question==='mcq' || question?.type_of_question=='assertion'">
+                                        <label class="mb-0" for="option"
+                                            *ngFor="let option of mcqDetails; let radioIndex = index">
+                                            <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="option"
+                                                id="{{option['id']}}" [checked]="option['attempted']">
+                                            <span class="ml-2 select-option-text">{{radioIndex + 1}}</span>
+                                        </label>
+                                    </div> -->
+                                    
+                                    <!-- Question Type: MCC -->
+                                    <div style="display: none;" class="form-group mb-0 quesiton-select">
+                                        <label class="mb-0" for="option"
+                                            *ngFor="let option of question?.options; let radioIndex = index">
+                                            <input [ngClass]="{'ml-5': radioIndex!==0}" type="checkbox" name="option"
+                                                id="{{option['id']}}" [checked]="option['attempted']">
+                                            <span class="ml-2 select-option-text">{{radioIndex + 1}}</span>
+                                        </label>
+                                    </div>
+                                    <!-- Next & Previous Question -->
+                                    <div class="mt-1 test-buttons d-flex allButtonsDiv">
+                                        <button id="optionSubmit" class="btn btnSubmitQuestion" type="submit" #submitButton
+                                            style="visibility: hidden;">Submit</button>
+                                           
+                                    </div>
+                                </form>
+                       
+        
+        
+                          
+                        </div>
+                        <div class="allButtonsDiv mt-4">
+                         
+                            <div><button type="button" class="btn btn-sm btnFinish"  data-toggle="modal" data-target="#confirmationModal">Finish</button></div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <div *ngIf="testObj?.ripple" class="spinnerContainer">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <br>
+    <!-- <h2 class="text-center">Saving....</h2> -->
+    <h2>Mapping to diagnostic assessment test to know your current proficiency....</h2>
+</div> 
+
+
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+      <div class="modal-content" style="border-radius: 16px;border: none;">
+        <div class="modal-header" style="border: none;">
+          <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #04607D;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+          <button type="button"  class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p  class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to Submit Self Evaluation Question</p>
+        </div>
+        <div class="modal-footer" style="background-color: #00A3F1; border-radius: 0 0 16px 16px;justify-content: space-between;">
+          <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" (click)="completeTest()">Submit !</button>
+        </div>
+      </div>
+    </div>
+  </div>

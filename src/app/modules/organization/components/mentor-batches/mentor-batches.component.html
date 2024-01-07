@@ -1,0 +1,79 @@
+<div class="container studentResultAnalysis">
+    <div>
+        <h2 class="heading pt-4">Batch Accuracy Analysis</h2>
+    </div>
+    <div class="totalUser">
+      <div>
+          <button class="btn btn-sm btnLeaderboard" routerLink="/organization"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+      </div>
+      <div><span>Total Batches: {{leaderBoardData?.length}}</span></div>
+  </div>
+  <div class="">
+      <hr>
+  </div>
+    <div class="card graphCard">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="">
+                <div>
+                    <h5 class="text-center reportSubHeading">Batch Wise Accuracy Report</h5>
+                </div>
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                   
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">   
+                        <div *ngIf="convertedDataBatch?.length > 0" class="tab-pane fade show active d-flex justify-content-center" id="pills-" role="tabpanel" aria-labelledby="pills-tab">
+                            <div class="barChart" [chart]="batchChart" style = "width: 95%; display: block;"></div>
+                        </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="mt-2 leaderboard-container">
+        <div class="mt-5 text-center">
+          <h6 class="section-subheading">Leaderboard</h6>
+        </div>
+        <div class="mt-3">
+          <div class="pb-4 pl-4 pr-4" *ngIf="leaderBoardData else topFiveLoading">
+            <div class="row">
+              <div *ngFor="let studentObj of leaderBoardData" class="col-xl-4 col-lg-6 mt-4">
+                <div class="card h-100 flex-column text-center z-depth-0 border">
+                  <button class="m-0 btn btn-info z-depth-0 rounded-0 leaderboard-class" *ngIf="studentObj?.batch?.institute_room?.id">Batch : {{studentObj?.batch?.institute_room?.grade_name}} - {{studentObj?.batch?.institute_room?.name}}</button>
+                  <button class="m-0 btn btn-info z-depth-0 rounded-0 leaderboard-class" *ngIf="!studentObj?.batch?.institute_room?.id">Batch : {{studentObj?.batch?.name}}</button>
+                  <div class="mt-4 d-flex justify-content-center">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">Rank</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Total Time Spent</th>
+                          <th scope="col">Score</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let student of studentObj?.students; let rank = index">
+                          <td>{{rank+1}}</td>
+                          <td><a class="font-weight-bolder text-info">{{student?.name}}</a></td>
+                          <td class="w-15 pt-3 pb-3">{{student?.time_spent}} Mins</td>
+                          <td>{{student?.score}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <a *ngIf="studentObj?.students?.length > 4" href="javascript:void(0)" class="btn p-2 z-depth-0 w-50 mx-auto viewAllButton" id="{{studentObj?.batch}}" routerLink="/organization/batch-leaderboard/{{studentObj?.batch?.id}}">
+                    View All <span><i class="fa fa-angle-right"></i></span>
+                  </a>
+                  <a *ngIf="studentObj?.students?.length <= 0" href="javascript:void(0)" class="btn p-2 z-depth-0 w-50 mx-auto" id="{{studentObj?.batch}}" routerLink="/organization/batch-leaderboard/{{studentObj?.batch?.id}}">
+                    No Data
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-template #topFiveLoading>
+            <h4 class="text-center m-4">Loading...</h4>
+          </ng-template>
+        </div>
+      </div>
+</div>

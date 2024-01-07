@@ -1,0 +1,43 @@
+<div class="login">
+    <div class="container-fluid" style="min-height: 100vh;">
+      <div class="row justify-content-center align-items-center login-container" style="padding-top: 85px;">
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-header border-0">
+              <h2 class=" text-center mb-0 text-danger"><b>Restricted Access</b></h2>
+            </div>
+            <div class="card-body">
+              <img width="180px" class="d-block mx-auto"
+                   src="assets/images/mmpLogo.png"
+                   alt="Institute Logo">
+              <div class="mt-4">
+                <form>
+                  <div class="form-group">
+                    <div>
+                      <label class="font-weight-bold" for="username">Username</label>
+                      <input class="form-control rounded-0" type="text" placeholder="Enter your username"
+                             name="username" [(ngModel)]="username" required>
+                    </div>
+                    <div class="mt-4">
+                      <label class="font-weight-bold" for="password">Password</label>
+                      <input class="form-control rounded-0"
+                             type="password" name="password" placeholder="Enter your password"
+                             [(ngModel)]="password" required>
+                    </div>
+                    <div id="loginError" class="mt-2" hidden></div>
+                    <!-- <div>
+                      <p class="text-left text-danger"></p>
+                    </div> -->
+                    <button class="btn mt-4 ml-0 mr-0 w-100 z-depth-0
+                                    login-submit" type="submit" (click)="login()">Sign In
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

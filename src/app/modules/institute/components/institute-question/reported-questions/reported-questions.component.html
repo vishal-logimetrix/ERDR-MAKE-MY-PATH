@@ -1,0 +1,123 @@
+<div class="container page_content">
+    <p style="color:cornflowerblue;font-size: small;"> &nbsp;&nbsp;>>&nbsp;Reported Questions</p>
+    <hr>
+    
+    <div class="row">
+      <div class="col-md-12">
+    
+<div id="table">
+    <table class="table table-bordered table-responsive">
+        <thead class="thead-dark">
+          <tr>
+            <th>User</th>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Exam</th>
+            <th>Issue Type</th>
+            <th>Issue</th>
+            <th>Question</th>
+            <th>Reply</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tag of queries">
+            <td>
+                {{tag?.username}}
+            </td>
+            <td>
+                {{tag?.created_at | date}}
+            </td>
+            <td>
+              {{tag?.full_name}}
+            </td>
+            <td>
+                {{tag?.email}}
+            </td>
+            <td>
+              {{tag?.contact}}
+            </td>
+            <td *ngIf="tag?.exam?.id">
+                {{tag?.exam?.title}}
+            </td>
+            <td *ngIf="!tag?.exam?.id">
+                <b>NA</b> (general query)
+            </td>
+            <td>
+                {{tag?.issue_type}}
+            </td>
+            <td>
+                {{tag?.query}}
+            </td>
+            <td><a target="_blank" routerLink="/institute/edit-question" [queryParams]="{id: tag?.question?.id}">
+                <b>Type: </b>{{tag?.question?.type_of_question}} <b>Id: </b> {{tag?.question?.id}}</a>
+            </td>
+            <td>
+                {{tag?.reply}}
+              </td>
+              <td *ngIf="!tag?.is_replied">
+                  <button type="button" (click)="selectQuery(tag?.id)" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModal">Reply</button>
+              </td>
+              <td *ngIf="tag?.is_replied">
+                Replied
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <section *ngIf="queries?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+        <div class="container text-center">
+            <nav aria-label="navigation">
+                <ul *ngIf="queries" class="pagination justify-content-center">
+                    <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                        <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                    </li>
+                    <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                        <button (click)="goToPage(currentPage - 1)" class="page-link btn"><<</button>
+                    </li>
+
+                    <li *ngFor="let page of pages | slice:startPage:endPage; let i = index" class="page-item number-item">
+                        <button (click)="goToPage(startPage + i)" class="page-link btn btn-link" [ngClass]="{active: currentPage == i + startPage}">{{i+ startPage }}</button>
+                    </li>
+
+                    <li *ngIf="currentPage > 0 && max_page > 0" class="page-item number-item">
+                        <button (click)="goToPage(endPage)" class="page-link btn btn-link" [ngClass]="{active: currentPage == endPage}">{{ endPage }}</button>
+                    </li>
+
+                    <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                        <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                    </li>
+                    <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                        <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Reply</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           <textarea name="" id="" [(ngModel)]="reply" cols="48" rows="3" placeholder=""></textarea>
+          <button type="button" (click)="updateRemarks()" class="btn btn-primary btn-sm">Submit</button>
+  
+        </div>
+        <!-- <div class="modal-footer">
+        </div> -->
+      </div>
+    </div>
+  </div>
+

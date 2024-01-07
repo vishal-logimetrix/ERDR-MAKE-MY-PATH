@@ -1,0 +1,133 @@
+<div class="container page_content">
+    <p style="color:cornflowerblue;font-size: small;"> &nbsp;&nbsp;>>&nbsp;Create Announcements</p>
+    <hr>
+    <button type="button" class="btn btn-primary" id="std" data-toggle="modal" data-target=".bd-example-modal-sm">CREATE ANNOUNCEMENT</button>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+    
+<div id="table">
+    <table class="table table-bordered table-responsive">
+        <thead class="thead-dark">
+          <tr>
+            <th>Announcement</th>
+            <th>Is Active?</th>
+            <th>Order</th>
+            <th>Exam</th>
+            <th>Last Date</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let type of announcements">
+            <td>
+                {{type?.text}}
+            </td>
+            <td>
+                {{type?.is_active}}
+            </td>
+            <td>
+              {{type?.order}}
+            </td>
+            <td>
+                {{type?.linked_exam?.title}}
+            </td>
+            <td>
+              {{type?.last_date | date}}
+          </td>
+            <td>
+                <button type="button" (click)="fetchDetails(type?.id)" class="btn btn-warning btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm2">EDIT</button>
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Create <span>Announcement</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Is Active</label>
+              <input type="checkbox" class="form-check-input" value="" style="margin-left: 10px;" [(ngModel)]="isActive">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Text</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="annText" placeholder="Enter text">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Order</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="order" placeholder="Enter order">
+            </div>
+            <div class="form-group">
+              <label for="lastDate">Last Date</label>
+              <input type="date" class="form-control" id="lastDate" [(ngModel)]="lastDate">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Exam</label>
+                <select class="form-control" name="selectedClass" [(ngModel)]="selectedExam">
+                    <!-- <option value="" selected disabled>Please Select Category</option> -->
+                    <option *ngFor="let exam of examList" [value]="exam.id">{{exam.title}}</option>
+                </select>
+            </div>
+            
+          <div>
+            <button type="button" (click)="submit()" class="btn btn-success">SAVE</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Edit <span>Question Type</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalEdit>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Is Active</label>
+              <input type="checkbox" class="form-check-input" value="" style="margin-left: 10px;" [(ngModel)]="editIsActive">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Text</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editAnnText" placeholder="Enter text">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Order</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editOrder" placeholder="Enter order">
+            </div>
+            <div class="form-group">
+              <label for="editLastDate">Last Date</label>
+              <input type="date" class="form-control" id="editLastDate" [(ngModel)]="editLastDate">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Exam</label>
+              <select class="form-control" name="selectedClass" [(ngModel)]="editSelectedExam">
+                  <!-- <option value="" selected disabled>Please Select Category</option> -->
+                  <option *ngFor="let exam of examList" [value]="exam.id">{{exam.title}}</option>
+              </select>
+          </div>
+            <div>
+              <button type="button" (click)="edit()" class="btn btn-success">SAVE</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  

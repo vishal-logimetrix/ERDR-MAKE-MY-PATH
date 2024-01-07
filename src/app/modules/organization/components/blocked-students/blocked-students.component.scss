@@ -1,0 +1,159 @@
+
+
+.studentResultAnalysis{
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    padding: 15vh 5vw 2vh 5vw;
+    .totalUser {
+        display: flex;
+        justify-content: space-between;
+        color: #18181b;
+        font-family: "jaldi", Sans-serif;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.545em;
+        letter-spacing: 0px;
+        margin-top: -7px;
+        flex-wrap: wrap;
+        a, span {
+            color: #ff4935;
+        }
+        .batchName {
+            font-size: 22px;
+        }
+    }
+    .btnUnblock{
+        font-family: "jaldi", Sans-serif;
+        font-weight: 700;
+        text-transform: capitalize;
+        line-height: 1.5em;
+        letter-spacing: 3.2px;
+        fill: #ffffff;
+        color: #ffffff;
+        background-color: #ff4935;
+        border-radius: 50px 50px 50px 50px;
+        padding: 5px 16px;
+    }
+    .buttonsSection{
+        display: flex;
+        justify-content: space-between;
+      }
+      .btnBlockedStudents{
+        // padding: 9px 0;
+        font-family: Lato,Sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #ff4935;
+        border: none;
+        // border: 1px solid #ff4935;
+        // border-radius: 50px 50px 50px 50px;
+        // box-shadow: 19px 19px 40px 0 rgb(0 0 0 / 10%);
+        // width: 190px;
+    }
+    // .btnBlockedStudents:hover{
+    //   background-color: #ff4935;
+    //   color: #FFFFFF;
+    // }
+    .heading {
+        font-family: "Jaldi", sans-serif;
+        color: #080f44;
+        font-size: 3em;
+        font-weight: 700;
+        text-align: center;
+    }
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #FFFFFF;
+        margin: 0 0 1em 0;
+        padding: 0;
+    }
+    .subHeading {
+        font-size: 18px;
+        font-family: "Jaldi", sans-serif;
+        color: #757573;
+        padding-right: 50px;
+    }
+    .studentCard {
+        .card {
+            padding: 10px;
+            border-radius: 15px;
+            background-color: #FFFFFF;
+            border: none;
+            box-shadow: 4px 4px 8px;
+            font-family: "Jaldi", sans-serif;
+            margin-top: 20px;
+            h3{
+                font-family: "Jaldi", sans-serif;
+                font-size: 15px;
+                margin-top: 15px;
+                span{
+                    font-weight: bold;
+                }
+            }
+            h2{
+                font-family: "Jaldi", sans-serif;
+                font-size: 15px;
+                margin-top: 6px;
+            }
+            .firstRow{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                h4{
+                    color: #757573;
+                    font-size: 16px;
+                }
+            }
+            .paperName{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .firstPaper{
+                    background-color: #40A1E3;
+                    color: #FFF;
+                    width: 150px;
+                    height: 35px;
+                    border-radius: 25px;
+                    padding-left: 7px;
+                    padding-right: 7px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    h5{
+                        font-family: "Jaldi", sans-serif;
+                    }
+                }
+                h6{
+                    margin-left: 10px;
+                    color: #757573;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+
+th , td  {
+    font-family: 'jaldi', sans-serif;
+    text-align: center;
+}
+th{
+    font-size: 20px;
+}
+td{
+    font-size: 17px;
+}
+
+@media screen and (max-width: 400px) {
+    .buttonsSection{
+      justify-content: center !important;
+      .btnBlockedStudents{
+          margin-bottom: 15px;
+      }
+    }
+  }
+  

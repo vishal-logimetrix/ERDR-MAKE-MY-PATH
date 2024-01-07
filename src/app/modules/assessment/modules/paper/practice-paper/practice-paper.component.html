@@ -1,0 +1,474 @@
+<div *ngIf="Noripple" class="practicePaperNav">
+    <div class="container">
+        <div class="navData">
+            <div>
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#confirmationModal"><img src="assets/images/mmpNewLogo.png" alt=""></a>
+            </div>
+            <div class="verticalLine"></div>
+            <div class="examTitle">
+                <div><h4>{{chapter}}</h4></div>
+                <div><h5>(Practice)</h5></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="Noripple" class="practicePaperSecondSection mathjax" #mathjax>
+    <div class="container">
+        <div class="row practiceExamScreen">
+            <div class="col-xl-8 practiceQuestionAndSolutionDiv">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 "><h2>Question : {{currentQuestion + 1}} / {{questions?.length}}</h2></div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 ">
+                            <h2>
+                                <span *ngIf="question?.type_of_question==='mcq'"> Single Choice</span>
+                                <span *ngIf="question?.type_of_question==='mcc'"> Multiple Choice</span>
+                                <span *ngIf="question?.type_of_question==='boolean'"> True False</span>
+                                <span *ngIf="question?.type_of_question==='fillup_option'"> Fill Up With Option</span>
+                                <span *ngIf="question?.type_of_question==='fillup'"> Fill In The Blanks</span>
+                                <span *ngIf="question?.type_of_question==='subjective'"> Subjective</span>
+                            </h2>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                            <div class="bookmarkReportDiv">
+                                <div>
+                                    <a href="javascript:void(0)" *ngIf="!currentQuesBookmarked" (click)="bookmark()"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
+                                    <a *ngIf="currentQuesBookmarked" (click)="unmark()"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
+                                </div>
+                                <div>
+                                    <a href="javascript:void(0)" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                        <span class="iconify" (click)="resetIssue()" data-icon="eva:alert-triangle-outline" style="color: #ff1900;"></span>
+                                        <!-- <i (click)="resetIssue()" class="fa fa-exclamation-circle" style="color: #ff1900; cursor: pointer;"></i> -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            
+                        <!-- QUESTION BODY -->
+                <div class="card-body question-content QuestionAndSolutionSection">
+                    <!-- Question Text & Image -->
+                    <div class="text-black">
+                        <div class="mt-2">
+                            <p *ngIf="question?.comprehension" class="font-sm-1 mb-1 comprehension-question"
+                                [innerHtml]="question?.comprehension">
+                            </p>
+
+                            <ng-container *ngFor="let content of question?.contents">
+                                <p class="font-sm-1 mb-0 olList" *ngIf="content?.language?.text == 'English'" [innerHtml]="content?.text | safeHtml"></p>
+                            </ng-container>
+                            <!-- <p class="font-sm-1 mb-0" [innerHtml]="question?.text">
+                            </p> -->
+                        </div>
+                        <div class="mt-4 test-img-container d-flex align-items-start justify-content-between"
+                            *ngIf="question?.q_image">
+                            <div #questionImage>
+                                <button type="button" class="close-button d-none btn btn-link text-black"
+                                    (click)="enlargeImage(questionImage)"><i class="fa fa-times"></i></button>
+                                <img class="img-responsive" alt="Question Image" [src]="question?.q_image">
+                            </div>
+                            <button class="p-2 btn btn-link text-black" type="button"
+                                (click)="enlargeImage(questionImage)"><i class="fa fa-expand"
+                                    aria-hidden="true"></i></button>
+                        </div>
+
+                    </div>
+
+                    <!-- Question Options for fillup Type -->
+                    <div class="mt-3" *ngIf="question?.type_of_question==='fillup'">
+                        <input type="text" class="form-control numerical-input" placeholder="Enter Answer"
+                            name="numerical" value="{{ question?.user_string_answer }}" #fillUpInput>
+                    </div>
+
+                    <div class="mt-3" *ngIf="question?.type_of_question=='fillup_option'">
+                        <!-- <input type="text" class="form-control numerical-input" placeholder="Enter Text for Hints"
+                        id="typeahead-basic" [formControl]="myControl" [(ngModel)]="tag" 
+                        [ngbTypeahead]="search" (click)="detectTag($event)" #fillUpInput> -->
+                        <select [(ngModel)]="tag" class="form-control" name="tag" (change)="chooseFillUpOption($event.target.value)">
+                            <option value="" selected>Please Select Option</option>
+                            <option [value]="option?.id" *ngFor="let option of fillUpOptionDetails"><span [innerHtml]="option?.text"></span></option>
+                        </select>
+                    </div>
+                   
+
+                    <!-- Question Options for subjective Type -->
+                    <div class="mt-3"
+                        *ngIf="question?.type_of_question==='subjective'">
+                        <textarea type="text" rows="10" class="form-control subjective-input"
+                            placeholder="Enter Subjective Answer" name="subjective"
+                            value="{{ question?.user_subjective_answer}}" #subjectiveInput></textarea>
+                            <div *ngFor="let url of question?.user_subjective_answer_images" style="position: relative;">
+                                <img  
+                            [src]="env.media + url?.user_subjective_answer_image" class="subjective-image-display">
+                            <span class="deleteImage" (click)="deleteSubjectiveImage(url?.id)"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                            </div>
+                            <div *ngFor="let url of urls" style="position: relative;">
+                                <img [src]="env.media + url?.user_subjective_answer_image"
+                                    class="subjective-image-display">
+                                <span class="deleteImage" (click)="deleteSubjectiveImage(url?.id)"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                            </div>
+                        <br />
+                        <div id="upload_subjective_image">
+                            <input type="file" accept=".jpg,.png,.jpeg" class="form-control subjective-image-input"
+                                id="image-input" (change)="onSelectFile($event)" multiple #subjectiveInputImage>
+                        </div>
+                        <div id="short-loader" class="custom-loader" *ngIf="showLoader.visibility">
+                            <img src="{{env.static}}/images/gif/short-loader.gif" alt="">
+                        </div>
+                    </div>
+
+                    <!-- Question Options for MCQ or MCC Type -->
+                    <div class="mt-3" *ngIf="question?.type_of_question=='mcq' || question?.type_of_question=='assertion'">
+
+                        <!-- Options -->
+                        <div class="mb-2 option-container">
+                            <ul>
+                                <li class="cursor-pointer mb-2 text-black"
+                                    *ngFor="let option of mcqDetails; let optionIndex = index">
+                                    <div class="d-flex">
+                                        <label class="labl">
+                                            <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="option"
+                                            id="{{option['id']}}" [checked]="option['attempted']" (change)="selectMCQ($event, option?.id)" />
+                                            
+                                            <div *ngIf="!question?.completed && !question?.attempt" for="{{option['id']}}">
+                                                <span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span>
+                                                <span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span>
+                                            </div>
+                                            <div *ngIf="(question?.completed || question?.attempt) && !option['correct'] && !option['attempted']"  for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                            <div *ngIf="(question?.completed || question?.attempt) && !option['correct'] && option['attempted']" style="background-color: #ff1900 !important; color: white;" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                            <div *ngIf="(question?.completed || question?.attempt) && option['correct']"  style="background-color: #28a745 !important;" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering text-white">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1 text-white" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                        </label>
+                                    </div>
+                                    <div *ngIf="option['opt_image']"
+                                        class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                        <div #optionImage>
+                                            <button type="button" class="close-button d-none btn btn-link text-black"
+                                                (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                                            <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                                        </div>
+                                        <button class="p-2 btn btn-link text-black" type="button"
+                                            (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                                aria-hidden="true"></i></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-3" *ngIf="question?.type_of_question=='mcc'">
+
+                        <!-- Options -->
+                        <div class="mb-2 option-container">
+                            <ul>
+                                <li class="cursor-pointer mb-2 text-black"
+                                    *ngFor="let option of mcqDetails; let optionIndex = index">
+                                    <div class="d-flex">
+                                        <label class="labl">
+                                            <input [ngClass]="{'ml-5': radioIndex!==0}" type="checkbox" name="option"
+                                            id="{{option['id']}}" [checked]="option['attempted']" (change)="selectMCC($event, option?.id)" />
+                                            <!-- <div for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering" >{{optionIndex + 1}} </span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div> -->
+                                            <div *ngIf="!question?.completed && !question?.attempt" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                            <!-- <div *ngIf="(question?.completed || question?.attempt) && !option['correct']" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div> -->
+                                            <div *ngIf="(question?.completed || question?.attempt) && !option['correct'] && !option['attempted']"  for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                            <div *ngIf="(question?.completed || question?.attempt) && !option['correct'] && option['attempted']" style="background-color: #ff1900 !important; color: white;" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                            <div *ngIf="(question?.completed || question?.attempt) && option['correct']"  style="background-color: #28a745 !important;" for="{{option['id']}}"><span class="font-weight-bold font-sm-1 optionNumbering">{{optionIndex + 1}}</span><span class="ml-3 option-text font-sm-1" [innerHtml]="option['text'] | safeHtml"></span></div>
+                                        </label>
+                                    </div>
+                                    <div *ngIf="option['opt_image']"
+                                        class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                        <div #optionImage>
+                                            <button type="button" class="close-button d-none btn btn-link text-black"
+                                                (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                                            <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                                        </div>
+                                        <button class="p-2 btn btn-link text-black" type="button"
+                                            (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                                aria-hidden="true"></i></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div *ngIf="hiddenDiv">
+                    <div *ngIf="question?.type_of_question!='boolean'" class="solutionDiv">
+                        <div *ngIf="question?.completed || question?.attempt" class="mt-2" id="targetGreen">
+                            <b>Solution</b>
+                            <p class="mb-0" [innerHtml]="solutionDetails?.text | safeHtml"><strong></strong></p>
+                            <div class="closeSolutionDiv">
+                                <button (click)="closeSolutionFunction()" class="btn btnCloseSolution">Close Solution</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Question Type: Boolean -->
+                <div class="form-group mb-0 quesiton-select trueFalse" *ngIf="question?.type_of_question=='boolean'">
+                    <label class="labl mb-0 mt-4" style="margin-left: 2.2rem">
+                        <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="optionboolean"
+                        id="boolTrue" value="true" (click)="setBooleanTrue()" />
+                        <div class=""><span class="font-weight-bold font-sm-1 optionNumbering">1</span> <span class="ml-3">True</span></div>
+                    </label>
+                    <br>
+                    <label class="labl mb-0" style="margin-left: 2.2rem">
+                        <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="optionboolean"
+                        id="boolFalse" value="false" (click)="setBooleanFalse()" />
+                        <div class=""><span class="font-weight-bold font-sm-1 optionNumbering">2</span> <span class="ml-3">False</span></div>
+                    </label>
+                    <br>
+                    <div *ngIf="hiddenDiv" class="solutionDiv">
+                        <div class="mt-2">
+                            <h6 class="mb-0" [innerHtml]="solutionDetails?.text | safeHtml"><strong></strong></h6>
+                        </div>
+                    </div>
+    
+                </div>
+
+                
+                <div class="test-footer" [ngClass]="{'test-footer-active ': !questionSidebarActive}">
+                    <!-- ANSWER FORM FOR MCQ/MCC QUESTINS -->
+                    <div *ngIf="question?.type_of_question=='mcq' || question?.type_of_question=='mcc' || question?.type_of_question=='assertion' || question?.type_of_question=='boolean'">
+                        <form (submit)="submitAnswer(question, $event)">
+                            <!-- Question Type: MCQ -->
+                            <div style="display: none;" class="form-group mb-0 quesiton-select" *ngIf="question?.type_of_question==='mcq' || question?.type_of_question=='assertion'">
+                                <label class="mb-0" for="option"
+                                    *ngFor="let option of mcqDetails; let radioIndex = index">
+                                    <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="option"
+                                        id="{{option['id']}}" [checked]="option['attempted']">
+                                    <span class="ml-2 select-option-text">{{radioIndex + 1}}</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Question Type: MCC -->
+                            <div style="display: none;" class="form-group mb-0 quesiton-select" *ngIf="question?.type_of_question==='mcc'">
+                                <label class="mb-0" for="option"
+                                    *ngFor="let option of mcqDetails; let radioIndex = index">
+                                    <input [ngClass]="{'ml-5': radioIndex!==0}" type="checkbox" name="option"
+                                        id="{{option['id']}}" [checked]="option['attempted']">
+                                    <span class="ml-2 select-option-text">{{radioIndex + 1}}</span>
+                                </label>
+                            </div>
+                            <!-- Next & Previous Question -->
+                            <div class="mt-1 test-buttons d-flex allButtonsDiv">
+                                <button id="optionSubmit"  *ngIf="question?.completed === false || question?.attempt === false" class="btn btnSubmitQuestion" type="submit"
+                                    >Submit</button>
+                                    <button 
+         type="button" (click)="hiddenDivFunction()" (click)="goDown2()" *ngIf="question?.completed || question?.attempt" class="btn btnSubmitQuestion">View Solution</button>
+                                
+                            </div>
+                        </form>
+                    </div>
+                    <!-- ANSWER FORM FORM FILL UP QUETIONS -->
+                    <div *ngIf="question?.type_of_question==='fillup'">
+                        <form (submit)="submitAnswer(question, $event)">
+                            <!-- Question Submit Buttons -->
+                            <div class="test-buttons d-flex flex-wrap allButtonsDiv">
+                                <button id="fillUpSubmit"  *ngIf="question?.completed === false || question?.attempt === false" class="btn btnSubmitQuestion" type="submit"
+                                    >Submit</button>
+                                    <button type="button" (click)="hiddenDivFunction()" *ngIf="question?.completed || question?.attempt" class="btn btnViewSolution">View Solution</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ANSWER FORM FORM FILL UP WITH OPTION QUETIONS -->
+                    <div *ngIf="question?.type_of_question==='fillup_option'">
+                        <form (submit)="submitAnswer(question, $event)">
+                            <!-- Question Submit Buttons -->
+                            <div class="test-buttons d-flex flex-wrap allButtonsDiv">
+                                <button id="fillUpSubmit" *ngIf="!question?.completed || !question?.attempt" class="btn btnSubmitQuestion" type="submit"
+                                    >Submit</button>
+                                    <button type="button" (click)="hiddenDivFunction()" *ngIf="question?.completed || question?.attempt" class="btn btnSubmitQuestion">View Solution</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ANSWER FORM FORM subjective QUETIONS -->
+                    <div
+                        *ngIf="question?.type_of_question==='subjective'">
+                        <form (submit)="submitAnswer(question, $event)">
+                            <!-- Question Submit Buttons -->
+                            <div class="test-buttons d-flex flex-wrap allButtonsDiv">
+                                <button id="subjectiveSubmit"  *ngIf="question?.completed === false || question?.attempt === false" class="btn btnSubmitQuestion" type="submit"
+                                    >Submit</button>
+                                    <button type="button" (click)="hiddenDivFunction()" *ngIf="question?.completed || question?.attempt" class="btn btnSubmitQuestion">View Solution</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- PREVIOUS & NEXT BUTTONS -->
+                    <!-- <div class="mt-2 next-prev">
+                        <div>
+                            <a href="javascript:void(0)" (click)="previousQuestion()">
+                                <span [ngClass]="{'no-question': currentQuestion===0}"><i
+                                        class="fa fa-angle-double-left"></i> Previous</span>
+                            </a>
+                            <a href="javascript:void(0)" class="ml-4" (click)="nextQuestion()"
+                                [ngClass]="{'no-question': currentQuestion === totalQuestions-1 }">Next<i
+                                    class="fa fa-angle-double-right"></i></a>
+                        </div>
+                        <h6 class="text-success mb-4 mt-2" *ngIf="submittingQuestion">Saving your response, please
+                            wait...</h6>
+                        <button type="button" class="btn btn-success" (click)="completeTest()">Submit</button>
+                    </div> -->
+                </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <div class="allButtonsDiv">
+                                <!-- <div><button class="btn btnSubmitQuestion">submit question</button></div> -->
+                                <div class="prevNextBtnDiv">
+                                    <div>
+                                        <a href="javascript:void(0)" (click)="previousQuestion()">
+                                            <span [ngClass]="{'no-question': currentQuestion===0}"><i
+                                                class="fa fa-angle-double-left"></i> Previous</span>
+                                        </a>
+                                        <!-- <button class="btn btn-sm" (click)="previousQuestion()"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i></span> Previous</button>-->
+                                    </div> 
+                                    <div>
+                                        <a href="javascript:void(0)" class="ml-4" (click)="nextQuestion()" [ngClass]="{'no-question': currentQuestion === totalQuestions-1 }">
+                                            Next <span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+                                        </a>
+                                        <!-- <button class="btn btn-sm" (click)="nextQuestion()">Next <span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span></button> -->
+                                    </div>
+                                </div>
+                                <div><button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#confirmationModal">Finish Practice</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 practiceLegendsDiv">
+                <div class="card">
+                    <h2>Question Status</h2>
+                    <div class="row questionNumberHEight">
+                        <div class="col-xl-15"  *ngFor="let question of testObj?.data?.questions; let i=index">
+                            <button  type="button"
+                            class="btn btnNumbers d-inline-flex justify-content-center align-items-center"
+                            [ngClass]="i===currentQuestion ? 'btn-visited' + ' ' + getCircleClass(i) : getCircleClass(i)"
+                            (click)="jumpToQuestion(i)">
+                            {{i + 1}}
+                            <!-- <span [ngClass]="{'btn-s-review': question['sReview']}"></span> -->
+                            <span *ngIf ="question['sReview']"><i class="fa fa-check" aria-hidden="true"></i>
+                                <i class="fa fa-bookmark bookmarkgreen" aria-hidden="true"></i>
+                            </span>
+                            <span *ngIf ="question['review']">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="separtaor"></div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="circleSection">
+                                <div class="circle">{{currentQuestion + 1}}</div>
+                                <h2>Current</h2>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="circleSection">
+                                <div class="circleOne">{{ totalQuestions - (completedCount.length + reviewCount.length + savedReviewCount.length + notAnswerdCount.length) }}</div>
+                                <h2>Not Attempted</h2>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="circleSection">
+                                <div class="circleTwo">{{ completedCount.length }}</div>
+                                <h2>Answered</h2>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="circleSection">
+                                <div class="circleThree">{{ notAnswerdCount.length }}</div>
+                                <h2>Visited & Unanswered</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+<div *ngIf="ripple" class="spinnerContainer">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <br>
+    <h2>Preparing Exam Screen.....</h2>
+    </div>
+<div class="modal reportModal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Report <span>Question</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              
+              <div class="form-group">
+                  <label for="exampleInputPassword1">Select Issue</label>
+                  <div class="btn-group">
+                    <button type="button" (click)="selectErrorType(1, 'Question Unclear')" class=" reportReason pl-3 pr-3 btn btn-outline-primary" id="regi1">Incomplete Question</button>
+                    <button type="button" (click)="selectErrorType(2, 'Wrong Option')" class="btn reportReason pl-3 pr-3 btn-outline-success" id="regi2">Wrong Option</button>
+                    <button type="button" (click)="selectErrorType(3, 'Wrong Question')" class="btn reportReason pl-3 pr-3 btn-outline-info" id="regi3">Wrong Question</button>
+                    <button type="button" (click)="selectErrorType(4, 'Unclear Image')" class="btn reportReason pl-3 pr-3 btn-outline-dark" id="regi4">Unclear Image</button>
+                    <button type="button" (click)="selectErrorType(5, 'Question irrelevant for selected chapter')" class="btn reportReason pl-3 pr-3 btn-outline-info" id="regi5">Question irrelevant for selected chapter</button>
+                   </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Error Description</label>
+                <textarea class="form-control" id="exampleInputPassword1" [(ngModel)]="errorDesc" placeholder="Enter description....."></textarea>
+                </div>
+              
+            <div>
+              <button type="button" data-toggle="modal" data-target="#confirmationModalreportQuestion" class="btn btnReport btn-primary">REPORT</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+      <div class="modal-content" style="border-radius: 16px;border: none;">
+        <div class="modal-header" style="border: none;">
+          <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #04607D;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to finish this practice?</p>
+        </div>
+        <div class="modal-footer" style="background-color: #00A3F1; border-radius: 0 0 16px 16px;justify-content: space-between;">
+          <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" (click)="completeTest()">Yes!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModalreportQuestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+      <div class="modal-content" style="border-radius: 16px;border: none;">
+        <div class="modal-header" style="border: none;">
+          <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #04607D;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeReportModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-center" style="color: #544F4F; font-size: 16px;">Are you sure you want to report this question?</p>
+        </div>
+        <div class="modal-footer" style="background-color: #00A3F1; border-radius: 0 0 16px 16px;justify-content: space-between;">
+          <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" (click)="reportQuestion()">Yes!</button>
+        </div>
+      </div>
+    </div>
+  </div>

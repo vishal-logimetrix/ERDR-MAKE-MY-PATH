@@ -1,0 +1,326 @@
+
+.container-eexamLevel {
+    
+    background-color: #f5f4f4;
+    min-height: 100vh;
+    padding-top: 2vh;
+    padding-bottom: 3vh;
+    .noExamsFound{
+        font-family: 'jaldi';
+        padding-left: 15px;
+        font-size: 17px;
+        font-weight: bold;
+        color: #ED3433;
+    }
+    .card{
+        box-shadow: 0 -2px 2px -2px #333,
+              -5px 0 5px -5px #333, 
+              5px 0 5px -5px #333;
+              border: none;
+            border-radius: 10px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            height: 200px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 1s;
+    }
+    .card:hover{
+        box-shadow: 0 0 5px #333;
+    }
+}
+.container {
+    background: #f5f4f4;
+}
+h2 {
+    font-size: 22px;
+    // font-weight: 500;
+}
+.custom-radio {
+    margin-top: 5px;
+}
+.btn-group {
+    margin-top: 10px;
+    .btn {
+        border: 1px solid #048adf;
+        width: 100%;
+        height: 60px;
+        border-radius: 10px;
+    }
+    .btn:focus,
+    .btn:active {
+        background-color: #048adf;
+        color: #ffffff;
+    }
+}
+.SubmitButton {
+    border-radius: 20px;
+    width: 150px;
+    margin-top: 15px;
+}
+
+#design_details {
+    font-size: x-small;
+    margin: 10px 0 10px 20px;
+    padding: 7px 20px 7px 20px;
+}
+hr{
+    margin-top: 0px !important;
+}
+.breadcrumb {
+    background-color: #f5f4f4;
+    padding: 0px !important;
+    margin: 15px 0px 5px 0px !important;
+    a {
+      color: #007BBA;
+      font: {
+        size: 18px;
+        // weight: bold;
+      }
+      font-family: "jaldi";
+    }
+    a:hover {
+        text-decoration: underline;
+        color: #1B50A3;
+    }
+    span {
+      color:  #808180 !important;
+      font: {
+        size: 18px;
+        // weight: bold;
+      }
+      font-family: "jaldi";
+    }
+  }
+  .breadcrumb > li + li:before {
+    color: #5A5A5A;
+    content: ">>";
+    // font-weight: bold;
+    padding: 2px 5px 2px 2px;
+  }
+.juorneyRow {
+    // margin-left: 10%;
+    h2 {
+        font-weight: bold;
+        font-size: 30px;
+        font-family: 'jaldi';
+        margin: {
+            bottom: 20px;
+        }
+    }
+    ul {
+        // margin-left: 21px;
+        li {
+            font: {
+                size: 23px;
+            }
+            font-family: 'jaldi';
+            list-style-type: none;
+        }
+        h3 {
+            font: {
+                size: 23px;
+            }
+            font-family: 'jaldi';
+            color: #808180;
+            margin: {
+                top: 5px;
+            }
+            span{
+                color: #007BBA;
+            }
+        }
+        h3:hover{
+            color: #1B50A3;
+        }
+    }
+}
+.latestJobs {
+    .latestJobCard{
+        height: 90vh;
+    }
+    h2 {
+        color: #141515;
+        margin-left: 13px;
+        margin-right: 13px;
+        font-family: 'jaldi';
+        font-size: 32px;
+        font-weight: bold;
+        span{
+            color: #808180;
+            font-size: 17px;
+        }
+    }
+    .scrollSection{
+        height: 80vh;
+        overflow-y: scroll;
+        ul{
+            margin-top: 15px;
+            margin-left: 17px;
+            margin-right: 5px;
+            list-style: none;
+            li{
+                line-height: 1.1;
+                margin-top: 15px;
+                display: flex;
+                // align-items: center;
+                a{
+                font-family: 'jaldi';
+                font-size: 16px;
+                font-weight: 500;
+                color: #141824;
+                }
+                a:hover {
+                    color: #1B50A3;
+                    text-decoration: underline;
+                  }
+                .fa{
+                    color: #007BBA;
+                    font-size: 22px;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
+.dashboardCard {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    border: none;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    cursor: pointer;
+    .jAd {
+        width: 100px !important;
+        height: 100px !important;
+        
+    }
+    p {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-weight: bold;
+        color: #483D8C;
+        font-family: 'jaldi';
+        font-size: 17px;
+    }
+}
+.myPaper {
+    margin-top: 15px;
+    border-radius: 15px;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+    h3 {
+        font-size: 17px;
+        font-weight: bold;
+        span {
+            font-weight: normal;
+        }
+    }
+    h4 {
+        font-size: 14px;
+        font-weight: bold;
+        span {
+            font-weight: normal;
+        }
+    }
+    h5 {
+        font-size: 13px;
+    }
+    .card-link {
+        border-radius: 20px;
+    }
+    .btnShare {
+        background-color: #048adf;
+        width: 100px;
+        color: #ffffff;
+    }
+    .close {
+        font-size: 25px;
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        cursor: pointer;
+    }
+}
+.myPapersDiv {
+    h2 {
+        font-size: 26px;
+        color: #ffffff;
+    }
+}
+@media screen and (min-width: 767px) {
+    .dashboardCard {
+        height: 250px;
+        width: 200px;
+    }
+    .myPapersDiv {
+        border-radius: 15px 0px 0px 15px;
+    }
+    .schoolTabs {
+        border-radius: 0px 15px 15px 0px;
+    }
+}
+
+
+@media screen and (max-width: 760px) {
+    .container-eexamLevel {
+        padding: 10px;
+        .btn-toolbar {
+            display: flex;
+            flex-direction: column;
+        }
+        .dashboardCard {
+            width: 250px;
+            margin-right: auto;
+            margin-left: auto;
+            .jAd {
+                width: 90px !important;
+                height: 90px !important;
+                margin-top: 20px !important;
+            }
+        }
+        .juorneyRow{
+            margin-left: 0%;
+            h2{
+                font-size: 25px;
+            }
+            h3{
+                font-size: 18px;
+            }
+        }
+        .latestJobs{
+            margin-top: 25px;
+            h2{
+                font-size: 25px;
+                span{
+                    font-size: 15px;
+                }
+            }
+        }
+        .breadcrumb{
+            a{
+                font-size: 15px;
+            }
+            span{
+                font-size: 15px;
+            }
+        }
+        .breadcrumb > li + li:before {
+            color: #5A5A5A;
+            content: ">>";
+            // font-weight: bold;
+            padding: 0px 3px 0px 0px;
+        }
+    }
+}
+
+@media only screen and (min-width:710px) and (max-width: 1024px){
+    .container-eexamLevel{
+        .latestJobs{
+          .latestJobCard{
+            height: 65vh;
+          }
+        }
+    }
+  }

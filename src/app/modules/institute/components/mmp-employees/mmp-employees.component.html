@@ -1,0 +1,172 @@
+<div class="main">
+    <div class="container">
+      <div *ngIf="listFlag" class="row justify-content-around">
+        <div class="col-md-8 mainbody-day" style="border-radius: 16px;padding: 40px; min-height: 100vh; overflow-x: scroll !important;">
+          <div style="width: 100%">
+            <a [routerLink]="['/dashboard']">
+              <i style="font-size: 35px" class="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+            <span style="float: right" > Admin</span>
+          </div>
+          
+          <b>Admins</b>
+          <table *ngIf="showSchoolAdmins" id="studentTable" class="table shadow p-3 mb-5 bg-white" style="border-radius: 30px;margin-top:28px;">
+            <thead>
+                <tr>
+                    <th style="font-size: 13px;" scope="col">Name</th>
+                    <th style="font-size: 13px;" scope="col">Email</th>
+                    <th style="font-size: 13px;" scope="col">Contact</th>
+                    <th style="font-size: xx-small;" scope="col">LOGOUT</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let teacher of schoolAdmins">
+                   <tr>
+                       <td>{{teacher?.first_name}} {{teacher?.last_name}}</td>
+                       <td>{{teacher?.email}}</td>
+                       <td>{{teacher?.contactNumber}}</td>
+                       <td><button class="btn btnBlockedStudents" (click)="logoutUser(teacher?.user_id)">Logout From EveryWhere <i class="fas fa-angle-double-right"></i></button></td>
+                       <!-- <td *ngIf="teacher?.isactive" class="text-success">Active</td>
+                       <td *ngIf="!teacher?.isactive" class="text-danger">Inactive</td> -->
+                       <!-- <td style="text-transform: capitalize;">{{teacher?.mode}}</td> -->
+                       <!-- <td><a href="javascript:void(0)" (click)="populateForm(teacher)" style="cursor: pointer;">Edit</a></td> -->
+                   </tr>
+                </tbody>
+         </table>
+
+         <!-- <pagination-controls id="first" *ngIf="showSchoolAdmins" (pageChange)="ps = $event"></pagination-controls> -->
+         <section *ngIf="schoolAdmins?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+          <div class="container text-center">
+              <nav aria-label="navigation">
+                  <ul *ngIf="schoolAdmins" class="pagination justify-content-center">
+                      <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                          <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                      </li>
+                      <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                          <button (click)="goToPage(currentPage - 1)" class="page-link btn"><<</button>
+                      </li>
+  
+                      <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                          <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                      </li>
+                      <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                          <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                      </li>
+                  </ul>
+              </nav>
+          </div>
+      </section>
+
+        <b>Content Managers</b>
+         <table id="studentTable" class="table shadow p-3 mb-5 bg-white" style="border-radius: 30px;margin-top:28px;">
+            <thead>
+             <tr>
+                 <th style="font-size: 13px;" scope="col">Name</th>
+                 <th style="font-size: 13px;" scope="col">Email</th>
+                 <th style="font-size: 13px;" scope="col">Contact</th>
+                 <th style="font-size: 13px;" scope="col">Delete Account</th>
+             </tr>
+             </thead>
+             <tbody *ngFor="let teacher of contentManagers">
+                <tr>
+                    <td>{{teacher?.first_name}} {{teacher?.last_name}}</td>
+                    <td>{{teacher?.email}}</td>
+                    <td>{{teacher?.contactNumber}}</td>
+                    <td><button class="btn btnBlockedStudents" (click)="deleteUser(teacher?.user_id)">Delete User</button></td>
+                    <!-- <td style="text-transform: capitalize;">{{teacher?.mode}}</td> -->
+                    <!-- <td><a href="javascript:void(0)" (click)="populateForm(teacher)" style="cursor: pointer;">Edit</a></td> -->
+                </tr>
+             </tbody>
+         </table>
+         <section *ngIf="contentManagers?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+          <div class="container text-center">
+              <nav aria-label="navigation">
+                  <ul *ngIf="contentManagers" class="pagination justify-content-center">
+                      <li [ngClass]="{disabled:currentPageC == 1 }" class="page-item disabled">
+                          <button (click)="goToPageC(1)" class="page-link btn btn-link">First</button>
+                      </li>
+                      <li [ngClass]="{disabled:currentPageC == 1 }" class="page-item previous-item">
+                          <button (click)="goToPageC(currentPageC - 1)" class="page-link btn"><<</button>
+                      </li>
+  
+                      <li [ngClass]="{disabled:currentPageC == max_pageC || max_pageC == 1 }" class="page-item next-item">
+                          <button (click)="goToPageC(currentPageC - (-1))" class="page-link btn">>></button>
+                      </li>
+                      <li [ngClass]="{disabled:currentPageC == max_pageC || max_pageC == 1}" class="page-item last-item">
+                          <button (click)="goToPageC(max_pageC)" class="page-link btn btn-link">Last</button>
+                      </li>
+                  </ul>
+              </nav>
+          </div>
+      </section>
+
+        </div>
+
+        <div class="right-bar col-md-4 mainbody-day" style="border-radius: 16px;padding: 28px;">
+          <div class="row">
+            <div class="col-md-8" style="color: #255166;">
+              MMP User Info
+            </div>
+          </div>
+          
+          <div class="dropdown" style="margin-bottom: 15px;margin-top: 15px;">
+            
+           
+             <div style="overflow-x:auto;" class="box-2">
+                <label for="exampleFormControlSelect1" style="margin-top:28px">Admins</label>
+                <table class="table table-borderless shadow p-3 mb-5 bg-white "
+                       style="background: white;border-radius: 15px">
+                  <thead>
+                  <tr>
+                    <th style="font-size: xx-small;" scope="col">NAME</th>
+                    <th style="font-size: xx-small;" scope="col">USERNAME</th>
+                    <th style="font-size: xx-small;" scope="col">CONTACT NO.</th>
+                  </tr>
+                  </thead>
+                  <tbody *ngFor="let admin of schoolAdmins; let i = index" >
+                  <tr>
+                    <td style="text-align: left;">{{admin?.first_name}} </td>
+                    <td>{{admin?.username}}</td>
+                    <td>{{admin?.contactNumber}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+          
+        </div>
+  
+      </div>
+  
+    </div>
+    <div *ngIf="editFlag" class="col-md-12" [ngClass]="{'mainbody-day': displayMode=='daylight', 'mainbody-dark': displayMode=='dark'}" style="border-radius: 16px;padding: 40px; min-height: 100vh;">
+      <a href="javascript:void(0)" (click)="openListPage()">
+        <i style="font-size: 35px" class="fa fa-angle-left" aria-hidden="true"></i>
+      </a>
+      
+    </div>
+
+    <div *ngIf="paymentFlag" class="col-md-12" [ngClass]="{'mainbody-day': displayMode=='daylight', 'mainbody-dark': displayMode=='dark'}" style="border-radius: 16px;padding: 40px; min-height: 100vh;">
+      <a href="javascript:void(0)" (click)="openListPage()">
+        <i style="font-size: 35px" class="fa fa-angle-left" aria-hidden="true"></i>
+      </a>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+              <div class="card-body">
+                  <h2 style="font-size: 20px;"><b>Total Earnings </b><i class="fa fa-money" aria-hidden="true"></i></h2>
+                    <div class="form-group row">
+                      <div class="col-sm-12 text-center">
+                        <p style="font-size: 40px;">₹{{doctorDetail?.totalEarnings | number : '1.3-3'}}</p>
+                      </div>
+
+                    </div>
+              </div>
+          </div>
+      </div>
+     
+     
+      </div>
+       
+    </div>
+  </div>
+  </div>
+  

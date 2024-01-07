@@ -1,0 +1,114 @@
+<div class="container page_content">
+  <h1 style="text-align: center;"><b>{{examDetails?.title}}</b></h1>
+    <p style="color:cornflowerblue;font-size: small;"> &nbsp;&nbsp;>>&nbsp;Link Question Type</p>
+    <hr>
+    <button type="button" class="btn btn-primary" id="std" data-toggle="modal" data-target=".bd-example-modal-sm">LINK QUESTION TYPE</button>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+    
+<div id="table">
+    <table class="table table-bordered table-responsive">
+        <thead class="thead-dark">
+          <tr>
+            <th>Linked Type</th>
+            <th>Is Active?</th>
+            <th>Marks</th>
+            <th>Negative Marks</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let type of linkedTypes">
+            <td>
+                {{type?.type_of_question}}
+            </td>
+            <td>
+                {{type?.is_active}}
+            </td>
+            <td>
+                {{type?.marks}}
+            </td>
+            <td>
+              {{type?.negative_marks}}
+          </td>
+            <td>
+                <button type="button" (click)="fetchDetails(type?.id)" class="btn btn-warning btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm2">EDIT</button>
+               
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Link <span>Question Type</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Is Active</label>
+                <input type="checkbox" class="form-check-input" value="" style="margin-left: 10px;" [(ngModel)]="isActive">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Question Type</label>
+                <select class="form-control" name="selectedClass" [(ngModel)]="quesType">
+                    <!-- <option value="" selected disabled>Please Select Category</option> -->
+                    <option *ngFor="let sub of questionTypes" [value]="sub.val">{{sub.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Positive Marks</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="marks" placeholder="Enter marks">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Negative Marks</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="negMarks" placeholder="Enter negative marks (don't use - sign)">
+          </div>
+          <div>
+            <button type="button" (click)="submit()" class="btn btn-success">SAVE</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Edit <span>Question Type</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalEdit>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Is Active</label>
+                <input type="checkbox" class="form-check-input" value="" style="margin-left: 10px;" [(ngModel)]="editIsActive">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Positive Marks</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editMarks" placeholder="Enter marks">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Negative Marks</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editNegMarks" placeholder="Enter marks">
+          </div>
+            <div>
+              <button type="button" (click)="edit()" class="btn btn-success">SAVE</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  

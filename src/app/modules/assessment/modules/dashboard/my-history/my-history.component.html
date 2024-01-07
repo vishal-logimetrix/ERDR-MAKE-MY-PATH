@@ -1,0 +1,565 @@
+<div (click)="displaynoneicons()" class="container">
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <h2 class="text-center heading">Overall History</h2>
+            <p class="text-center headingPara">Get your overall performance here with detailed reports.</p>
+            <!-- <h3 class="studentName float-right">{{userProfile['first_name']}}</h3> -->
+            <button routerLink="/assessment/dashboard/" class="btn btnLeaderboard btn-sm"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="spinner">
+            <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          </div>
+    </div>
+
+<div class="containerOverAllHistory" (click)="displaynoneicons()" *ngIf="!spinner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row generateSpent">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div><h2>{{total_questions}}</h2></div>
+                        <div><h3>
+                                 Total questions <br>
+                                 generated till <br>
+                                 now
+                              </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div><h2>{{total_paper_time}} </h2></div>
+                        <div><h3>Total time spent <br>
+                             till now <br>
+                             (in Min.)</h3></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h2 class="paperPractice text-center font-weight-bold">My Previous <span>Paper</span> / <span>Practice</span></h2>
+        </div>
+        <div class="col-md-12 allHistory">
+            <div class="row">
+               
+                <ng-container *ngFor="let paper of papers">
+                    <div class="col-xl-4 col-lg-6" *ngIf="paper?.paper_type == 'paper'">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="paperFirstRow">
+                                    <div class="d-flex">
+                                        <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">Paper {{paper?.paper_count}}</h2>
+                                        <span *ngIf="paper?.actual_paper">
+                                                <h4><small>Re-attempt of: {{paper?.actual_paper?.paper_count}}</small></h4>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="paperFirstRow">
+                                    <div>
+                                        <h3 class="examTitle">{{paper?.learner_exam?.exam?.title}}</h3>
+                                    </div>
+                                </div>
+                                <div class="paperSecondRow">
+                                    <div>
+                                        <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects.length > 1 && paper?.subjects.length  > i + 1">, </span> </span></h4>
+                                    </div>
+                                </div>
+                                <div class="paperSecondRow">
+                                    <div>
+                                        <h4>Date : <span>{{paper?.created_at | date}}, {{paper?.created_at | date:'h:mm a'}}</span></h4>
+                                    </div>
+                                    <div>
+                                        <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                    </div>
+                                </div>
+                                <div class="marks">
+                                        <!-- <div class="blueDiv">
+                                            <h5>61/180 <br><span>3rd Attempt</span></h5>
+                                        </div> -->
+                                        <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                            <h4 *ngIf="paper?.reattempt_papers[0].submitted" class="mr-2">Last Attempt : {{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} </h4>
+                                            <h4 *ngIf="!paper?.reattempt_papers[0].submitted">Marks : NA</h4>
+                                        </div>
+                                        <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                            <h4 *ngIf="paper?.submitted" class="mr-2">This Attempt : {{paper?.score}}/{{paper?.marks}}</h4>
+                                            <h4 *ngIf="!paper?.submitted">Marks : NA</h4>
+                                        </div>
+                                        <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                            <h4 *ngIf="paper?.actual_paper?.submitted">1st Attempt : {{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} </h4>
+                                            <h4 *ngIf="!paper?.actual_paper?.submitted">Marks : NA</h4>
+                                        </div>
+                                        <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                            <h4 *ngIf="paper?.submitted"><span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt : </span> <span *ngIf="paper?.reattempt_papers?.length < 1">Marks : </span> {{paper?.score}}/{{paper?.marks}}</h4>
+                                            <h4 *ngIf="!paper?.submitted">Marks : NA</h4>
+                                        </div>
+                                </div>
+                                <div class="paperThirdRow">
+                                    <div>
+                                        <!-- <button class="btn btnReAttempt btn-sm" (click)="reattempt(paper?.learner_exam?.exam?.id, paper?.id)">Re-attempt</button> -->
+                                        <button *ngIf="paper?.submitted" class="btn attemptNow" (click)="reattempt(paper?.learner_exam?.exam?.id, paper?.id)">Re-attempt</button>
+                                        <button *ngIf="!paper?.submitted && paper?.remaining_time == 0" class="btn attemptNow" routerLink="/assessment/paper/test-instructions/{{paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                        <button *ngIf="!paper?.submitted && paper?.remaining_time != 0" class="btn attemptNow" routerLink="/assessment/paper/test-instructions/{{paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.id}">Resume</button>
+                                    </div>
+                                    <div>
+                                        <div class="mainbox">
+                                            <!-- <input style="pointer-events: inherit;" type="checkbox" class="check" id="check{{paper?.id}}">
+                                            <label for="check{{paper?.id}}">Share</label> -->
+                                            <button class="btn shareButton" (click)="showShareOption(paper?.id)">Share</button>
+                                            <div *ngIf="activeCard == paper?.id" class="media-icons">
+                                              <a href="https://www.facebook.com/sharer/sharer.php?u=https://makemypath.app/assessment/dashboard/respond-paper-request/{{paper?.learner_exam?.exam?.id}}?paper={{paper?.id}}&quote=Hi, I am inviting you to attempt this PAPER.&hashtag=%23MMP" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                              <a href="https://api.whatsapp.com/send?text=https://makemypath.app/assessment/dashboard/respond-paper-request/{{paper?.learner_exam?.exam?.id}}?paper={{paper?.id}} | %0D%0A%0D%0A*Hi, I am inviting you to attempt this PAPER.*" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                              <a href="https://instagram.com/accounts/login/?" (click)="shareinstaUrl(paper?.learner_exam?.exam?.id, paper?.id, paper?.paper_type)"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                              <a href="mailto:?subject=&body=:%20" (click)="sharemailUrl(paper?.learner_exam?.exam?.id, paper?.id, paper?.paper_type)"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- <button class="btn ShareButton btn-sm" data-toggle="modal" data-target="#exampleModal">Share</button> -->
+                                        <!-- <a class="btn ShareButton btn-sm" href="https://api.whatsapp.com/send?text=https://devmakemypaper.aptence.com/assessment/dashboard/respond-paper-request/{{paper?.learner_exam?.exam?.id}}?paper={{paper?.id}} | %0D%0A%0D%0A*Hi I'm inviting you to accept the exam paper created by me*" target="_blank">Share</a> -->
+                                    </div>
+                                    <div>
+                                        <button *ngIf="paper?.submitted && paper?.paper_type =='paper'" class="btn reportCard" routerLink="/assessment/dashboard/report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                        <button *ngIf="paper?.submitted && paper?.paper_type =='practice'" class="btn reportCard" routerLink="/assessment/dashboard/practice-report/{{paper?.id}}">Report Card</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6" *ngIf="paper?.paper_type == 'practice'">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="paperFirstRow">
+                                    <div class="d-flex">
+                                        <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">Practice {{paper?.paper_count}}</h2>
+                                        <span *ngIf="paper?.actual_paper">
+                                                <h4><small>Re-attempt of : {{paper?.actual_paper?.paper_count}}</small></h4>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="paperFirstRow">
+                                    <div>
+                                        <h3 class="examTitle">{{paper?.learner_exam?.exam?.title}}</h3>
+                                    </div>
+                                </div>
+                                <div class="paperSecondRow">
+                                    <div>
+                                        <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects.length > 1 && paper?.subjects.length  > i + 1">, </span> </span></h4>
+                                    </div>
+                                </div>
+                                <div class="paperSecondRow">
+                                    <div>
+                                        <h4 class="allSubjects">Chapter : <span *ngFor="let subject of paper?.chapters; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects.length > 1 && paper?.subjects.length  > i + 1">, </span> </span></h4>
+                                    </div>
+                                </div>
+                                <div class="paperSecondRow">
+                                    <div>
+                                        <h4>Date : <span>{{paper?.created_at | date}}, {{paper?.created_at | date:'h:mm a'}}</span></h4>
+                                    </div>
+                                    <div>
+                                        <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                    </div>
+                                </div>
+                                <div class="paperThirdRow">
+                                    <div>
+                                        <!-- <button class="btn btnReAttempt btn-sm" (click)="reattempt(paper?.learner_exam?.exam?.id, paper?.id)">Re-attempt</button> -->
+                                        <button *ngIf="paper?.submitted" class="btn attemptNow" (click)="reattempt(paper?.learner_exam?.exam?.id, paper?.id)">Re-attempt</button>
+                                        <button *ngIf="!paper?.submitted && paper?.remaining_time == 0" class="btn attemptNow" routerLink="/assessment/paper/practice-paper/{{paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                        <button *ngIf="!paper?.submitted && paper?.remaining_time != 0" class="btn attemptNow" routerLink="/assessment/paper/practice-paper/{{paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.id}">Resume</button>
+                                    </div>
+                                    <div>
+                                        <div class="mainbox">
+                                            <!-- <input style="pointer-events: inherit;" type="checkbox" class="check" id="check{{paper?.id}}">
+                                            <label for="check{{paper?.id}}">Share</label> -->
+                                            <button class="btn shareButton" (click)="showShareOption(paper?.id)">Share</button>
+                                            <div *ngIf="activeCard == paper?.id" class="media-icons">
+                                              <a href="https://www.facebook.com/sharer/sharer.php?u=https://makemypath.app/assessment/dashboard/respond-paper-request/{{paper?.learner_exam?.exam?.id}}?paper={{paper?.id}}&quote=Hi, I am inviting you to attempt this PRACTICE.&hashtag=%23MMP" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                              <a href="https://api.whatsapp.com/send?text=https://makemypath.app/assessment/dashboard/respond-paper-request/{{paper?.learner_exam?.exam?.id}}?paper={{paper?.id}} | %0D%0A%0D%0A*Hi, I am inviting you to attempt this PRACTICE.*" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                              <a href="https://instagram.com/accounts/login/?" (click)="shareinstaUrl(paper?.learner_exam?.exam?.id, paper?.id, paper?.paper_type)"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                              <a href="mailto:?subject=&body=:%20" (click)="sharemailUrl(paper?.learner_exam?.exam?.id, paper?.id, paper?.paper_type)"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button *ngIf="paper?.submitted && paper?.paper_type =='paper'" class="btn reportCard" routerLink="/assessment/dashboard/report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                        <button *ngIf="paper?.submitted && paper?.paper_type =='practice'" class="btn reportCard" routerLink="/assessment/dashboard/practice-report/{{paper?.id}}">Report Card</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <section *ngIf="papers?.length > 0" class="blogPageFold3 pb-3 mt-4 pt-2">
+                <div class=" text-center">
+                    <nav aria-label="navigation">
+                        <ul *ngIf="papers" class="pagination justify-content-center">
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                <button (click)="goToPage(currentPage - 1)" class="page-link btn btn-link"><<</button>
+                            </li>
+        
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </div>
+        
+        
+         <div class="col-md-12">
+             <div class="paperPracticeTab">
+            <ul class="nav nav-tabs tabs-marker tabs-dark bg-dark" id="myTab" role="tablist">
+                <li class="nav-item">
+                   <a class="nav-link active" (click)="switchPaper()" id="home" data-toggle="tab" href="#home-tab2" role="tab" aria-controls="home" aria-selected="true">Paper<span class="marker"></span></a>
+                    
+                </li>
+                <li class="nav-item">
+                   <a class="nav-link" (click)="switchPractice()" id="profile" data-toggle="tab" href="#profile-tab2" role="tab" aria-controls="profile" aria-selected="false">Practice<span class="marker"></span></a>
+                </li>
+            </ul>
+            </div>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab2" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="subjects">
+                    <div class="d-flex justify-content-center">
+                        <a id="slideLeft" class="mr-2 d-flex align-items-center" href="javascript:void(0)" (click)="slideLeft()" ><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                        <ul class="nav nav-tabs allSubjectTabs" id="myTab" role="tablist" #widgetsContent>
+                            <li class="nav-item" *ngFor="let exam of myExams; let i = index">
+                              <a class="nav-link active" *ngIf="i==0" (click)="switchExam(exam?.exam?.id)"  id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{exam?.exam?.title}}</a>
+                              <a class="nav-link " *ngIf="i!=0" (click)="switchExam(exam?.exam?.id)"  id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{exam?.exam?.title}}</a>
+                            </li>
+                        </ul>
+                        <a id="slideRight" class="ml-2 d-flex align-items-center" href="javascript:void(0)"
+                         (click)="slideRight()" ><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                        </div>
+                          <div class="tab-content" id="myTabContent" *ngIf ="paperHistory?.attempted">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div  class="card normalCard">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-12">
+                                            <h4 class="text-center reportSubHeading">Overall <span>PAPER</span> Report</h4>
+                                        </div>
+                                        <div class="col-md-10 mt-4">
+                                            <div class="dataCircle">
+                                                <div class="data">
+                                                    <div class="orange"><h4>
+                                                        <img src="assets/questionIcon.png" class="mb-1 questionIcon" alt=""> <br>
+                                                        {{paperHistory?.attempted}}</h4></div>
+                                                    <div><h6 class="orangeText">Attempted Questions</h6></div>
+                                                </div>
+                                                <div class="data">
+                                                    <div *ngIf="paperHistory?.percentage >= 0" class="blue"><h4>{{paperHistory?.percentage}} %</h4></div>
+                                                    <div *ngIf="paperHistory?.percentage < 0" class="blue"><h4>0</h4></div>
+                                                    <div><h6 class="blueText">Overall Accuracy</h6></div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="red"><h4>
+                                                        <img src="assets/timeIcon.png" class="mb-1 questionIcon" alt=""> <br>
+                                                        {{paperHistory?.time_taken}} Min</h4></div>
+                                                    <div><h6 class="redText">Total time spent</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadowCard">
+                                    <div class="col-md-12">
+                                        <h4 class="text-center reportSubHeading">My Relative Growth</h4>
+                                    </div>
+                                    <div *ngIf="convertedData?.length > 0" class="col-md-12">
+                                        <div class="relativeChart" style="height: 50vh;" [chart]="columnChart"></div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6 offset-md-3">
+                                    <div class="pinkDiv">
+                                        <div class="remarksTitle"><h6>Remarks</h6></div>
+                                        <div>
+                                            <p >You are excellent in <b> ab, cd, ef, gh</b> and you are doing good in <b> ij, kl , mn </b>chapter(s) but need more practice 
+                                                in <b>x, y, z</b>.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="card shadowCard">
+                                    <div class="col-md-12" >
+                                        <div class="accuracyMeter">
+                                            <div>
+                                                <h5 class="reportSubHeading text-center">Paperwise Report</h5>
+                                            </div>
+                                            <div *ngIf="paperType == 'paper' && showColumnPaper" class="barChart">
+                                                <highcharts-chart
+                                                    [Highcharts] = "highcharts" 
+                                                    [options] = "chartOptions" 
+                                                    style = "width: 100%; height: 60vh; display: block;"
+                                                    >
+                                                </highcharts-chart>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <h4 class="text-center reportSubHeading" style="margin-top: 20px;">Subjectwise Report</h4>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="subjects">
+                                        <div class="d-flex justify-content-center">
+                                            <a id="slideLeft" class="mr-2 d-flex align-items-center" href="javascript:void(0)" (click)="slideLeftSubject()" ><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist" #WidgetSubjectWise>
+                                                <ng-container *ngFor="let subject of subjects; let i = index">
+                                                <li class="nav-item">
+                                                  <a *ngIf="i==0" (click)="selectSubject(subject?.subject?.id)" class="nav-link active" id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.subject?.title}}</a>
+                                                  <a *ngIf="i!=0" (click)="selectSubject(subject?.subject?.id)" class="nav-link" id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.subject?.title}}</a>
+                                                </li>
+                                            </ng-container>
+                                            </ul>
+                                            <a id="slideRight" class="ml-2 d-flex align-items-center" href="javascript:void(0)"
+                                             (click)="slideRightSubject()" ><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                            </div>
+                                              <div class="tab-content" id="myTabContent">
+                                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                    <div class="card normalCard">
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class="col-md-8 pt-4">
+                                                                <div class="dataCircle">
+                                                                    <div class="data">
+                                                                        <div class="orange"><h4>
+                                                                            <img src="assets/questionIcon.png" class="mb-1 questionIcon" alt=""> <br>
+                                                                            {{selectedSubjectData?.attempted}}</h4></div>
+                                                                        <div><h6 class="orangeText">Attempted Questions</h6></div>
+                                                                    </div>
+                                                                    <div class="data">
+                                                                        <div *ngIf="selectedSubjectData?.percentage >= 0" class="blue"><h4>{{selectedSubjectData?.percentage}}%</h4></div>
+                                                                        <div *ngIf="selectedSubjectData?.percentage < 0" class="blue"><h4>0</h4></div>
+                                                                        <div><h6 class="blueText">Subject Accuracy</h6></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card shadowCard">
+                                                        <div class="col-md-12">
+                                                            <h4 class="text-center reportSubHeading">Chapterwise Report</h4>
+                                                        </div>
+                                                        <div *ngIf="showChapterGraph" class="col-md-12">
+                                                            <highcharts-chart
+                                                            [Highcharts] = "highchartsb" 
+                                                            [options] = "chartOptionsb" 
+                                                            style = "width: 100%; height: 500px; display: block;">
+                                                         </highcharts-chart>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                                              </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                          </div>
+                          <div *ngIf ="!paperHistory?.attempted">
+                              <h2 class="text-center noDataFound font-weight-bold">"You Have Not Attempted Any Paper Yet." 😞</h2>
+                          </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile-tab2" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="subjects">
+                        <div class="d-flex justify-content-center">
+                            <a id="slideLeft" class="mr-2 d-flex align-items-center" href="javascript:void(0)" (click)="slideLeftPractice()" ><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist" #WidgetPractice>
+                                <li class="nav-item" *ngFor="let exam of myExams; let i = index">
+                                  <a class="nav-link active" *ngIf="i==0" (click)="switchExam(exam?.exam?.id)"  id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{exam?.exam?.title}}</a>
+                                  <a class="nav-link " *ngIf="i!=0" (click)="switchExam(exam?.exam?.id)"  id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{exam?.exam?.title}}</a>
+                                </li>
+                            </ul>
+                            <a id="slideRight" class="ml-2 d-flex align-items-center" href="javascript:void(0)"
+                         (click)="slideRightPractice()" ><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            </div>
+                              <div class="tab-content" id="myTabContent" *ngIf="practiceHistory?.attempted">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="card normalCard">
+                                        <div class="col-md-12">
+                                            <h4 class="text-center reportSubHeading">Overall <span>PRACTICE</span> Report</h4>
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <div class="dataCircle">
+                                                <div class="data">
+                                                    <div class="orange"><h4>
+                                                        <img src="assets/questionIcon.png" class="mb-1 questionIcon" alt=""> <br>
+                                                        {{practiceHistory?.attempted}}</h4></div>
+                                                    <div><h6 class="orangeText">Attempted Questions</h6></div>
+                                                </div>
+                                                <div class="data">
+                                                    <div *ngIf="practiceHistory?.percentage >= 0" class="blue"><h4>{{practiceHistory?.percentage}} %</h4></div>
+                                                    <div *ngIf="practiceHistory?.percentage < 0" class="blue"><h4>0</h4></div>
+                                                    <div><h6 class="blueText">Overall Accuracy</h6></div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="red"><h4>
+                                                        <img src="assets/timeIcon.png" class="mb-1 questionIcon" alt=""> <br>
+                                                        {{practiceHistory?.time_taken}} Min</h4></div>
+                                                    <div><h6 class="redText">Total time spent</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card shadowCard">
+                                        <div class="col-md-12">
+                                            <h4 class="text-center reportSubHeading">My Relative Growth</h4>
+                                        </div>
+                                        <div *ngIf="convertedDataPractice?.length > 0" class="col-md-12">
+                                            <div class="relativeChart" style="height: 50vh;" [chart]="columnChartPractice"></div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-6 offset-md-3">
+                                        <div class="pinkDiv">
+                                            <div class="remarksTitle"><h6>Remarks</h6></div>
+                                            <div>
+                                                <p >You are excellent in <b> ab, cd, ef, gh</b> and you are doing good in <b> ij, kl , mn </b>chapter(s) but need more practice 
+                                                    in <b>x, y, z</b>.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="card shadowCard">
+                                        <div class="col-md-12" >
+                                            <div class="accuracyMeter">
+                                                <div>
+                                                    <h5 class="reportSubHeading text-center">Practicewise Report</h5>
+                                                </div>
+                                                <div *ngIf="paperType == 'practice' && showColumnPractie" class="barChart">
+                                                    <highcharts-chart
+                                                        [Highcharts] = "highcharts" 
+                                                        [options] = "chartOptionspractice" 
+                                                        style = "width: 100%; height: 60vh; display: block;"
+                                                        >
+                                                    </highcharts-chart>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="text-center reportSubHeading" style="margin-top: 20px;">Subjectwise Report</h4>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="subjects">
+                                            <div class="d-flex justify-content-center">
+                                                <a id="slideLeft" class="mr-2 d-flex align-items-center" href="javascript:void(0)" (click)="slideLeftPracticeSubject()" ><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist" #WidgetSubjectWisePractice>
+                                                    <ng-container *ngFor="let subject of subjects; let i = index">
+                                                    <li class="nav-item">
+                                                      <a *ngIf="i==0" (click)="selectSubject(subject?.subject?.id)" class="nav-link active" id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.subject?.title}}</a>
+                                                      <a *ngIf="i!=0" (click)="selectSubject(subject?.subject?.id)" class="nav-link" id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.subject?.title}}</a>
+                                                    </li>
+                                                </ng-container>
+                                                </ul>
+                                                <a id="slideRight" class="ml-2 d-flex align-items-center" href="javascript:void(0)"
+                                             (click)="slideRightPracticeSubject()" ><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                                </div>
+                                                  <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                        <div class="card normalCard">
+                                                            <div class="col-md-12 pt-4">
+                                                                <div class="dataCircle">
+                                                                    <div class="data">
+                                                                        <div class="orange"><h4>{{selectedSubjectData?.attempted}}</h4></div>
+                                                                        <div><h6>Attempted Questions</h6></div>
+                                                                    </div>
+                                                                    <div class="data">
+                                                                        <div *ngIf="selectedSubjectData?.percentage >= 0" class="blue"><h4>{{selectedSubjectData?.percentage}}%</h4></div>
+                                                                        <div *ngIf="selectedSubjectData?.percentage < 0" class="blue"><h4>0</h4></div>
+                                                                        <div><h6>Subject Accuracy</h6></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card shadowCard">
+                                                            <div class="col-md-12">
+                                                                <h4 class="text-center reportSubHeading">Chapterwise Report</h4>
+                                                            </div>
+                                                            <div *ngIf="showChapterGraph" class="col-md-12">
+                                                                <highcharts-chart
+                                                                [Highcharts] = "highchartsb" 
+                                                                [options] = "chartOptionsb" 
+                                                                style = "width: 100%; height: 500px; display: block;">
+                                                             </highcharts-chart>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                                                  </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                              </div>
+                              <div *ngIf ="!practiceHistory?.attempted">
+                                <h2 class="text-center noDataFound font-weight-bold">"You Have Not Attempted Any Practice Yet." 😞</h2>
+                            </div>
+                        </div>
+                </div>
+              </div> 
+            </div> 
+                <div class="col-md-12 lastDiv" >
+            <div class="card shadowCard gradCard" *ngIf="excellentChapters || averageChapters || poorChapter">
+                    <div class="pinkDiv">
+                        <div class="remarksTitle"><h6>Remarks</h6></div>
+                        <div>
+                            <p *ngIf="excellentChapters && averageChapters && poorChapter">You are excellent in <b>{{ excellentChapters }}</b> and you are doing good in <b>{{ averageChapters }}</b> chapter(s) but need more practice 
+                                in <b>{{ poorChapter }}</b>.
+                            </p>
+                            <p *ngIf="excellentChapters && averageChapters && !poorChapter">You are excellent in <b>{{ excellentChapters }}</b> and you are doing good in <b>{{ averageChapters }}</b> chapter(s).
+                            </p>
+                            <p *ngIf="averageChapters && poorChapter && !excellentChapters">You are doing good in <b>{{ averageChapters }}</b> chapter(s) but need more practice 
+                                in <b>{{ poorChapter }}</b>.
+                            </p>
+                            <p *ngIf="excellentChapters && poorChapter && !averageChapters">You are excellent in <b>{{ excellentChapters }}</b> chapter(s) but need more practice 
+                                in <b>{{ poorChapter }}</b>.
+                            </p>
+                            <p *ngIf="excellentChapters && !averageChapters && !poorChapter">You are excellent in all <b>{{ excellentChapters }}</b> chapters. Well done, keep it up!
+                            </p>
+                            <p *ngIf="poorChapter && !excellentChapters && !averageChapters">You couldn't make in any of the <b>{{reportObj?.report_data?.chapters?.length}}</b> chapters :( You need more practice 
+                                in all <b>{{ poorChapter }}</b> chapters.
+                            </p>
+                            <p *ngIf="averageChapters && !excellentChapters && !poorChapter">You are doing good enough in all {{averageChapters}} chapters. But you need more practice.
+                            </p>
+                            <p class="noDataFound" *ngIf="!excellentChapters && !averageChapters && !poorChapter">"No Remarks Found"</p>
+                        </div>
+                    </div>
+            </div>
+            </div>
+            
+         <!-- <div class="col-md-12 subjects">
+            <div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                </li>
+            </ul>
+            </div>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+              </div>
+        </div>  -->
+    </div>
+</div>
+</div>

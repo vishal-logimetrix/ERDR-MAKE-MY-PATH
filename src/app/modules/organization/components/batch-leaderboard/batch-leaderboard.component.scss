@@ -1,0 +1,153 @@
+
+
+.studentResultAnalysis{
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    padding-top: 12vh;
+    .textMentor {
+        color: #ff4935;
+    }
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #ffffff;
+        margin: 0 0 1em 0;
+        padding: 0;
+      }
+      .btnLeaderboard {
+        padding: 0;
+        font-family: "jaldi", Sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #ff4935;
+        background-color: rgba(0, 0, 0, 0);
+      }
+      .totalUser {
+        display: flex;
+        justify-content: space-between;
+        // margin: 0px 0px -12px 0px;
+        color: #000000;
+        font-family: 'jaldi', Sans-serif;
+        font-size: 1.375em;
+        font-weight: 300;
+        line-height: 1.545em;
+        letter-spacing: 0px;
+        a {
+          color: #FF1900;
+          font-weight: 600;
+        }
+        span {
+            font-weight: 600;
+            font-size: 25px;
+        }
+      }
+    .crHeading{
+        font-family: CenturyGothicRegular;
+        margin-bottom: 15px;
+    }
+    .crSubHeading{
+        font-family: GOTHICB;
+        margin-bottom: 15px;
+    }
+    .heading {
+        color: #080f44;
+      font-size: 3em;
+      font-weight: 700;
+      font-family: "Jaldi", sans-serif;
+      text-align: center;
+      span{
+        color: #ff4935;
+      }
+    }
+   
+    .subHeading {
+        font-size: 18px;
+        font-family: 'jaldi', sans-serif;
+        color: #757573;
+        font-weight: 500;
+        padding-right: 50px;
+    }
+    th , td {
+        font-family: 'Jaldi', sans-serif;
+        text-align: center;
+    }
+    .studentCard {
+        .card {
+            padding: 10px;
+            border-radius: 15px;
+            background-color: #FFFFFF;
+            border: none;
+            box-shadow: 4px 4px 8px;
+            font-family: GOTHICB;
+            margin-top: 20px;
+            h3{
+                font-family: CenturyGothicRegular;
+                font-size: 15px;
+                margin-top: 10px;
+                span{
+                    font-weight: bold;
+                }
+            }
+            h2{
+                font-family: CenturyGothicRegular;
+                font-size: 15px;
+                margin-top: 6px;
+            }
+            .firstRow{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                h4{
+                    color: #757573;
+                    font-size: 16px;
+                }
+            }
+            .secondRow{
+                display: flex;
+                justify-content: space-between;
+                h4 {
+                    font-family: CenturyGothicRegular !important;
+                    color: black;
+                    font-size: 14px !important;
+                    margin-top: 10px;
+                    font-weight: bold;
+                }
+            }
+            .paperName{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .firstPaper{
+                    background-color: #40A1E3;
+                    color: #FFF;
+                    width: 150px;
+                    height: 35px;
+                    border-radius: 25px;
+                    padding-left: 7px;
+                    padding-right: 7px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    h5{
+                        font-family: CenturyGothicRegular;
+                    }
+                }
+                h6{
+                    margin-left: 10px;
+                    color: #757573;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px){
+    .studentResultAnalysis{
+        .heading{
+            font-size: 1.8em;
+            }
+}
+}

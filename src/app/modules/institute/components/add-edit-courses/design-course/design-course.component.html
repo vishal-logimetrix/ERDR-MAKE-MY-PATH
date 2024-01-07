@@ -1,0 +1,107 @@
+<div class="container page_content">
+  <h1 style="text-align: center;"><b>{{examDetails?.title}}</b></h1>
+    <p style="color:cornflowerblue;font-size: small;"> &nbsp;&nbsp;>>&nbsp;Design Exam</p>
+    <hr>
+    <button type="button" class="btn btn-primary" id="std" data-toggle="modal" data-target=".bd-example-modal-sm">CREATE SUBJECT</button>
+<div id="table">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Subject</th>
+            <th>Order</th>
+            <th>Show/ Hide</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let subject of subjects">
+            
+            <td>
+              {{subject.title}}
+            </td>
+            <td>
+              {{subject.order}}
+            </td>
+            <td *ngIf="subject?.show">
+              Show
+            </td>
+            <td *ngIf="!subject?.show">
+              Hide
+            </td>
+            <td>
+                <button type="button" class="btn" (click)="fetchDetails(subject?.id)" id="std_details" data-toggle="modal" data-target=".bd-example-modal-sm2">EDIT SUBJECT</button>
+                <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/create-chapter" [queryParams]="{id: subject?.id}">CREATE CHAPTERS</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+</div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Create <span>Subject</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Subject Name</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="title" placeholder="Enter Subject Name">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Subject Order</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="order" placeholder="Enter Subject Order">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Show/ Hide</label>
+            <select class="form-control" name="selectedClass" [(ngModel)]="show">
+                <option value="true">Show</option>
+                <option value="false">Hide</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" (click)="submit()" class="btn btn-success">SAVE</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Edit <span>Subject</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalEdit>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputPassword1">New Name</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editTitle" placeholder="Enter Subject Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">New Order</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editOrder" placeholder="Enter Subject Order">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Show/ Hide</label>
+              <select class="form-control" name="selectedClass" [(ngModel)]="editShow">
+                  <option value="true">Show</option>
+                  <option value="false">Hide</option>
+              </select>
+            </div>
+            <div>
+              <button type="button" (click)="edit()" class="btn btn-success">SAVE</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,252 @@
+
+
+.makePaper{
+  min-height: 90vh;
+  padding-top: 5vh;
+  .totalUser {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    color: #1515159c;
+    font-family: 'jaldi', Sans-serif;
+    font-size: 1.375em;
+    font-weight: 300;
+    line-height: 1.545em;
+    letter-spacing: 0px;
+    width: 100%;
+  }
+  .OuterDiv{
+    display: flex;
+    justify-content: space-between;
+    .horizontalLine{
+     border-bottom: 2px solid gray;
+     width: 150px;
+     position: absolute;
+     top: 20px;
+     z-index: 1;
+     margin-left: 10px;
+   }
+    .innerDiv{
+      z-index: 2000;
+     .disableLink{
+       pointer-events: none;
+       cursor: default;
+       text-decoration: none;
+     }
+     a{
+       display: flex;
+     }
+     .stepCircle{
+       height: 40px;
+       width: 40px;
+       border-radius: 50%;
+       color: #FFFFFF;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       margin: 0px 10px;
+       z-index: 2000;
+     }
+     .checkedBG{
+       background-color: #0fb827;
+     }
+     .currentBG{
+       background-color: #37368e; 
+     }
+     .nextBG{
+       background-color: gray;
+     }
+    }
+  }
+    .mainHeading{
+        color: #000000;
+        font-size: 3em;
+        font-weight: 600;
+        margin-bottom: 5px;
+        font-family: "Jaldi";
+        text-align: center;
+        // margin-top: -15px;
+        span {
+          color: #007bba;
+          font-weight: 700;
+        }
+    }
+    .endDate{
+        font-size: 1em;
+        font-weight: 600;
+        font-family: 'Jaldi', sans-serif;
+        margin-top: -5px;
+    }
+    .stepSection{
+        .stepDiv{
+          display: flex;
+          margin-bottom: 20px;
+          .disableLink{
+            pointer-events: none;
+            cursor: default;
+            text-decoration: none;
+          }
+          .stepCircle{
+            height: 60px;
+            width: 60px;
+            font-size: 21px;
+            padding: 15px 15px 15px 15px;
+            border-radius: 50%;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .checkedBG{
+            background-color: #0fb827;
+          }
+          .currentBG{
+            background-color: #37368e; 
+          }
+          .nextBG{
+            background-color: #CCCCCC;
+          }
+          .stepText{
+            margin-left: 25px;
+            .stepNumber{
+              h5{
+                margin-bottom: 10px;
+                // color: #414247;
+                font-weight: 600;
+                font-size: 18px;
+                font-family: 'Roboto', sans-serif;
+              }
+              .checkedColor{
+                color: #0fb827;
+              }
+              .currentColor{
+                color: #37368e; 
+              }
+              .nextColor{
+                color: #CCCCCC;
+              }
+            }
+            h3{
+              font-size: 14px;
+              line-height: 1.5em;
+              font-weight: 400;
+              font-family: 'Roboto', sans-serif;
+            }
+            .activeColor{
+              h3{
+                color: #7a7a7a;
+              }
+            }
+            .inActiveColor{
+              h3{
+                color: #CCCCCC;
+              }
+            }
+          }
+        }
+      }
+     .card{
+        box-shadow: -3px -12px 27px -13px rgb(0 0 0 / 22%);
+        margin: 10px 10px 10px 10px;
+        padding: 2em 2em 2em 2em;
+        border-radius: 20px;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h2{
+            font-weight: 600;
+            font-size: 35px;
+            font-family: 'Jaldi', sans-serif;
+            color: #333;
+            line-height: 1.2;
+            text-align: center;
+            span{
+                color: #007bba;
+            }
+        }
+     }
+     .nextButton {
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.5em;
+        letter-spacing: 3.2px;
+        fill: #ffffff;
+        color: #ffffff;
+        background-color: #007bba;
+        border-radius: 50px 50px 50px 50px;
+        padding: 12px 24px;
+        box-shadow: 0px 2px 0px 0px #ffffff;
+        
+      }
+      .nextButton:hover {
+        background-color: #ff4935;
+      }
+     .nextButtonDesktop{
+        display: block;
+        position: fixed;
+          right: 8vw;
+          bottom: 15px;
+      }
+      .nextButtonMobile{
+        display: none;
+      }
+}
+
+@media screen and (max-width: 760px) {
+    .makePaper {
+      padding: 10px;
+      .topStepsSection{
+        margin-top: 6vh;
+      }
+      .totalUser {
+        flex-wrap: wrap;
+        font-size: 20px;
+        width: 91%;
+      }
+      .nextButtonDesktop{
+        display: none;
+      }
+      .nextButtonMobile{
+        display: block;
+      }
+    }
+}
+
+.progressSection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  .statusCircle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+    z-index: 5;
+  }
+  .checkedBG{
+   background-color: #0fb827;
+ }
+ .currentBG{
+   background-color: #37368e; 
+ }
+ .nextBG{
+   background-color: gray;
+ }
+  h4{
+    font-size: 16px;
+  }
+  .horizontalLine{
+   border-left: 1px solid gray;
+   height: 120px;
+   position: absolute;
+   top: 20px;
+   margin-left: 20px;
+   z-index: 1;
+ }
+}

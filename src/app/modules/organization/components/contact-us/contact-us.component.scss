@@ -1,0 +1,162 @@
+
+
+.contactUsContainer {
+  min-height: 100vh;
+  padding: 15vh 0vw 2vh 0vw;
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ffffff;
+    margin: 0 0 1em 0;
+    padding: 0;
+  }
+  .btnLeaderboard {
+    padding: 0;
+    font-family: "jaldi", Sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ff4935;
+    background-color: rgba(0,0,0,0);
+  }
+  textarea::placeholder {
+    font-size: 16px;
+  }
+  .topHeading {
+    color: #000000;
+    font-size: 3em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: "Jaldi", sans-serif;
+    text-align: center;
+    // margin-top: -15px;
+    span {
+      color: #007bba;
+      font-weight: 700;
+    }
+  }
+  .supportDiv {
+    display: flex;
+    align-items: center;
+    h2 {
+      font-family: "Jaldi", sans-serif;
+      font-size: 21px;
+      font-weight: bold;
+      color: #ff4935;
+    }
+  }
+  .headsetDiv {
+    // background-color: #18aee0;
+    border-radius: 50%;
+    display: flex;
+    margin-right: 20px;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  .briefcaseDiv {
+    // background-color: #f5b333;
+    border-radius: 50%;
+    display: flex;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 70px;
+      height: 55px;
+    }
+  }
+  .locationDiv {
+    border-radius: 50%;
+    display: flex;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  // .studentCard {
+  //   height: 120px;
+  // }
+  // .businessCard {
+  //   height: 95px;
+  // }
+  .card {
+    padding: 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    border: none;
+    box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 0 15px 12px rgb(0 0 0 / 22%);
+    h4 {
+      font-family: "Jaldi", sans-serif;
+      font-size: 17px;
+      color: #000000;
+      font-weight: bold;
+      margin-top: 10px;
+      a{
+        font-family: "Jaldi", sans-serif;
+      font-size: 17px;
+      color: #000000;
+      font-weight: bold;
+      }
+      a:hover{
+        text-decoration: underline;
+        color: #007bba;
+      }
+    }
+  }
+  .writeToUs {
+    font-family: "Jaldi", sans-serif;
+    font-size: 25px;
+  }
+  .form-control {
+    margin-bottom: 10px;
+  }
+  .btnSubmit {
+    background-color: #007cbb;
+        font-size: 1em;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.5em;
+        letter-spacing: 3.2px;
+        color: #ffffff;
+        height: 45px;
+        border-radius: 50px;
+        box-shadow: 0px 2px 0px 0px #ff4935;
+        padding: 0px 20px;
+        margin-bottom: 20px;
+  }
+  
+  input {
+    font-family: "jaldi", sans-serif;
+  }
+}
+
+
+@media screen and (min-width: 770px) and (max-width:990px){
+  .contactUsContainer{
+    .container{
+      .contactDetailsRow{
+        flex-direction: row;
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px){
+  .contactUsContainer{
+    .container{
+      .topRow{
+        flex-direction: column-reverse;
+      }
+    }
+    .formSection {
+      margin-top: 35px;
+    }
+  }
+}

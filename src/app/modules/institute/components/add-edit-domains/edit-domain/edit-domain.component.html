@@ -1,0 +1,114 @@
+<div id="table">
+    <form [formGroup]="domainForm" (submit)="submitForm()">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td colspan="3">
+                  Is active :
+              </td>
+              <td colspan="9">
+                  <input type="checkbox" class="form-check-input" value="" style="margin-left: 10px;" formControlName="isActive">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  Show HomePage :
+              </td>
+              <td colspan="9">
+                  <input type="checkbox" class="form-check-input" value="" style="margin-left: 10px;" formControlName="showHome">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  Consider Nodes' Orders :
+              </td>
+              <td colspan="9">
+                  <input type="checkbox" class="form-check-input" value="" style="margin-left: 10px;" formControlName="consider_node_order">
+              </td>
+            </tr>
+             <tr>
+              <td colspan="3">
+                  Title :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="title">
+                      <div *ngIf="f.title?.touched && f.title?.invalid" class="text-danger">
+                        <div *ngIf="f.title.errors.required">Title is required</div>
+                      </div>
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  Order :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="order">
+                      <div *ngIf="f.order?.touched && f.order?.invalid" class="text-danger">
+                        <div *ngIf="f.order.errors.required">Order is required</div>
+                      </div>
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    Exam Category:
+                </td>
+                <td colspan="9">
+                    <div class="form-group">
+                        
+                        <div class="form-group">
+                            <select multiple class="form-control" name="selectedClass" formControlName="category">
+                                <!-- <option value="" selected disabled>Please Select Category</option> -->
+                                <option [value]="category?.id" *ngFor="let category of examCategories">{{category?.title}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="f.category?.touched && f.category?.invalid" class="text-danger">
+                            <div *ngIf="f.category.errors.required">Category is required</div>
+                          </div>
+                    </div>            
+                </td>
+              </tr>
+            
+            <tr>
+              <td colspan="3">
+                  Short Description :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="shortDescription">
+                      <div *ngIf="f.shortDescription?.touched && f.shortDescription?.invalid" class="text-danger">
+                        <div *ngIf="f.shortDescription.errors.required">Short description is required</div>
+                      </div>
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  Description :
+              </td>
+              <td colspan="9">
+                      <textarea class="form-control" rows="5" formControlName="description"></textarea>
+                      <div *ngIf="f.description?.touched && f.description?.invalid" class="text-danger">
+                        <div *ngIf="f.description.errors.required">Description is required</div>
+                      </div>
+                  </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  Image :
+              </td>
+              <td colspan="9">
+                      <input type="file" #fileInput id="imageFile" (change)="readURL($event)" ng2FileSelect />
+                  </td>
+            </tr>
+  
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary" id="design_details" >SAVE</button>
+      </form>
+        
+  
+      </div>      

@@ -1,0 +1,281 @@
+
+
+.navbarWebsite{
+    .navbar-brand {
+      .navbarLogoDiv{
+        width: 100%;
+        height: 60px;
+        img{
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      }
+    .navbar {
+        box-shadow: 0 0 5px #dae2e6;
+        padding-right: 70px;
+        padding-left: 70px;
+        li {
+          a {
+            font-family: 'jaldi', sans-serif;
+            color: rgb(155, 147, 147);
+            font-size: 20px;
+            margin-right: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            sup {
+              font-size: 10px;
+              text-transform: capitalize;
+              color: #ff4935;
+            }
+          }
+          .btn {
+            width: 100px;
+            border-radius: 5px;
+            margin-left: 10px;
+            font-family: 'jaldi', sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            background-color: #007cbb;
+            color: #FFFFFF;
+          }
+          .btnRegister:hover {
+            background-color: #ff4935;
+          }
+        }
+      }
+}
+.orDiv {
+  h6 {
+    font-family: 'jaldi', sans-serif;
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: 20px;
+  }
+}
+.switchAccount {
+  font-family: 'jaldi', Sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+  letter-spacing: 3.2px;
+  padding: 9px 15px;
+  transition: all 0.3s;
+  color: #007cbb;
+  border-radius: 7px;
+  box-shadow: 0px 2px 0px 0px #e23522;
+  text-transform: uppercase;
+  background-color: #FFFFFF;
+  border: 1px solid #007cbb;
+  border-bottom: none;
+}
+.switchAccountOne{
+  font-family: 'jaldi', Sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+  letter-spacing: 3.2px;
+  padding: 9px 15px;
+  transition: all 0.3s;
+  color: #e23522;
+  border-radius: 7px;
+  box-shadow: 0px 2px 0px 0px #007cbb;
+  text-transform: uppercase;
+  background-color: #FFFFFF;
+  border: 1px solid #e23522;
+  border-bottom: none;
+  margin-right: 50px;
+}
+
+.activeBooks {
+    fill: #ffffff;
+    color: #ffffff;
+    background-color: #007cbb;
+}
+.activeBooksOne {
+  fill: #ffffff;
+  color: #ffffff;
+  background-color: #e23522;
+}
+.loginModal {
+  ::-webkit-input-placeholder { /* Edge */
+    font-family: 'jaldi', sans-serif;
+    font-size: 15px;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-family: 'jaldi', sans-serif;
+    font-size: 15px;
+  }
+  
+  ::placeholder {
+    font-family: 'jaldi', sans-serif;
+    font-size: 15px;
+  }
+    .btn {
+      text-align: center;
+      color: white;
+      width: 160px;
+      border-radius: 0px;
+      font-family: 'jaldi', sans-serif;
+    }
+    .modal-body {
+      padding: 0;
+    }
+    .studentBg {
+      background-color: #007cbb;
+    }
+    .mentorBg {
+      background-color: #e23522;
+    }
+    .signUpContentSection {
+      padding: 20px 0px 70px 40px;
+      h2 {
+        font-family: 'jaldi', sans-serif;
+        font-weight: bold;
+        padding-bottom: 20px;
+      }
+      p {
+        text-align: justify;
+      }
+    }
+    .rocket-launch {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+      width: 115px;
+      height: 116px;
+    }
+    .rocket-launchTwo {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+      width: 115px;
+      height: 116px;
+    }
+    .signUpFormSection {
+      padding: 15px 10px 15px 10px;
+      .btnOtpPassword {
+        font-family: 'jaldi', Sans-serif;
+        font-size: 15px;
+        background-color: #FFFFFF;
+        color: #007cbb;
+        font-weight: bold;
+      }
+      .activeBooks {
+        fill: #ffffff;
+        color: #ffffff;
+        background-color: #007cbb;
+    }
+      .signupImage {
+        width: 115px;
+        height: 81px;
+      }
+      .welcomeTitleStudent {
+        color: #007cbb;
+        font-family: 'jaldi', sans-serif;
+      }
+      .welcomeTitleTeacher {
+        color: #e23522;
+        font-family: 'jaldi', sans-serif;
+      }
+      .alreadyAccount {
+        font-size: 16px;
+        font-weight: 500;
+      }
+      label {
+        color: #000000;
+        font-weight: bold;
+        font-family: 'jaldi', sans-serif;
+        font-size: 18px;
+      }
+      input {
+          outline: 0;
+          border-width: 1px;
+          border-radius: 5px;
+        }
+        .studentInput {
+          border-color: #007cbb;
+        }
+        .mentorInput {
+          border-color: #e23522;
+        }
+    }
+    // .closeModal {
+    //   background-color: lightgray;
+    //   border-radius: 50%;
+    //   width: 25px;
+    //   height: 25px;
+    //   display: none;
+    //   justify-content: center;
+    //   align-items: center;
+    // }
+    // input {
+    //   outline: 0;
+    //   border-width: 0 0 2px;
+    //   border-radius: 0px;
+    //   border-color: blue;
+    // }
+    // input:focus {
+    //   border-color: green;
+    //   box-shadow: none;
+    // }
+  }
+  .loginSignupModal {
+    h2 {
+      font-family: 'jaldi', sans-serif;
+      margin-top: 20px;
+    }
+    label {
+      font-family: 'jaldi', sans-serif;
+      color: grey;
+      margin-top: 10px;
+    }
+  }
+
+@media screen and (max-width:760px){
+    .navbarWebsite{
+        .navbar {
+            padding: 10px;
+            ul {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+            li .btn {
+              margin-right: 25px;
+              margin-top: 10px;
+            }
+          }
+    }
+}
+
+@media screen and (max-width: 992px) {
+  .LoginSignupSection {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+.modalCloseButton {
+  display: block;
+  position: absolute;
+  right: 0px ;
+  top: 10px;
+  z-index: 1000000;
+}
+@media screen and (max-width: 768px) {
+  .loginModal {
+    
+    // padding: 25px;
+    .signUpFormSection {
+      padding: 25px 10px 10px 10px;
+      .btnOtpPassword {
+        font-size: 10px;
+        margin: 5px;
+      }
+    }
+    .signUpContentSection {
+      padding: 10px 10px 70px 10px;
+    }
+  }
+}

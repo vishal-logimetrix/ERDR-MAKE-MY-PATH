@@ -1,0 +1,26 @@
+<div class="mentorsExams">
+    <div class="row">
+        <div class="col-md-12 heading">
+            <h1 *ngIf="batchDetails?.institute_room?.id"><span>{{batchDetails?.institute_room?.grade_name}} - {{batchDetails?.institute_room?.name}}</span></h1>
+            <h1 *ngIf="!batchDetails?.institute_room?.id"><span>{{batchDetails?.name}}</span></h1>
+            <h2 class="text-info">Batch Code : {{batchDetails?.batch_code}}</h2>
+        </div>
+        <div class="col-md-3" *ngFor="let exam of batchDetails?.exams">
+            <div class="card examCard  bg-white">
+                <div style="margin-top: 20px content">
+                    <img [src]="exam?.image" class="jAd" alt="sbi po">
+                    <p class="text-center">{{exam?.title}}</p>
+                  </div>
+            </div>
+        </div>
+    
+        <!-- <div class="col-md-3">
+            <div class="card examCard  bg-white" [routerLink]="['/organization/exam']">
+                <div style="margin-top: 20px content">
+                    <img src="assets/Exams/12thpassed.png" class="jAd" alt="sbi po">
+                    <p class="text-center">UG</p>
+                  </div>
+            </div>
+        </div> -->
+    </div>
+</div>

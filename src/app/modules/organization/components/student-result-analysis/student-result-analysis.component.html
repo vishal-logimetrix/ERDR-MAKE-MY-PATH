@@ -1,0 +1,184 @@
+<div class="studentResultAnalysis">
+    <div>
+        <h2 class="heading pt-4">Batch Result Analysis</h2>
+    </div>
+    <div class="totalUser">
+        <div>
+            <a href="" routerLink="/organization/group/{{batchId}}" *ngIf="batchDetails?.institute_room?.id"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> Batch : {{batchDetails?.institute_room?.grade_name}} - {{batchDetails?.institute_room?.name}}</span></a>
+            <a href="" routerLink="/organization/group/{{batchId}}" *ngIf="!batchDetails?.institute_room?.id"><span><i class="fa fa-angle-double-left" aria-hidden="true"></i> Batch : {{batchDetails?.name}}</span></a>
+        </div>
+        <div><span>Total Students: {{batchDetails?.students?.length}}</span></div>
+    </div>
+    <div class="">
+        <hr>
+    </div>
+    <div class="row" *ngIf="topSpinner">
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+    <div *ngIf="!topSpinner">
+    <div class="row" *ngIf = "papers?.length > 0">
+        <div class="col-xl-4 col-lg-5 scrollingSection">
+            <div class="row">
+                <div class="col-md-12 studentCard" *ngFor="let paper of papers">
+                    <div class="card" style="cursor: pointer;" [ngClass]="{'activeCards': activeCard === paper?.id}" (click)="fetchPaperType(paper?.paper_type, paper?.paper_count, paper?.id)">
+                        <div class="firstRow">
+                            <div class="paperName">
+                                <div class="firstPaper"><h5>{{paper?.paper_type}} {{paper?.paper_count}}</h5></div>
+                            </div>
+                        </div>
+                        <div class="firstRow">
+                            <h6 class="examTitle">{{paper?.exam?.title}}</h6>
+                        </div>
+                        <div class="secondRow">
+                            <div><h4 class="startEndDate"><span>Start</span> - {{paper?.exam_start_date_time | date}} - {{paper?.exam_start_date_time | date:'h:mm a'}}</h4></div>
+                            <div><h4 class="startEndDate"><span>End</span> - {{paper?.exam_end_date_time | date}} - {{paper?.exam_end_date_time | date:'h:mm a'}}</h4></div>
+                        </div>
+                        <!-- <div class="secondRow">
+                            <div><h4 class="startEndDate">End Date - {{paper?.exam_end_date_time | date}} - {{paper?.exam_end_date_time | date:'h:mm a'}}</h4></div>
+                        </div> -->
+                        <div class="secondRow">
+                            <h6 class="allSubjects"><span class="titleBold">Subject(s) : </span> <span *ngFor="let subject of paper?.subjects"> {{subject?.title}}, </span></h6>
+                        </div>
+                        <div class="thirdRow">
+                            <div>
+                                <h2><span class="titleBold">No of Questions</span> : {{paper?.questions?.length}}</h2>
+                            </div>
+                            <div>
+                                <h2><span class="titleBold">Max Marks</span> : {{paper?.marks}}</h2>
+                           </div>
+                        </div>
+                        <div class="fourthRow">
+                            
+                            <div>
+                                <button class="btn btnReportCard btn-sm" routerLink="/organization/exam-questions/{{batchId}}" [queryParams]="{paper: paper?.id}">View & Analyse Questions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section *ngIf="papers?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+                <div class="container text-center">
+                    <nav aria-label="navigation">
+                        <ul *ngIf="papers" class="pagination justify-content-center">
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                <button (click)="goToPage(currentPage - 1)" class="page-link btn"><<</button>
+                            </li>
+    
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </div>
+        <div class="col-xl-8 col-lg-7 scrollingSection">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadowCard">
+                        <div style="overflow-x:auto;">
+                            <h6 class="crHeading text-center text-capitalize">{{selectedPaperType}} {{selectedPaperCount}} - Complete Result</h6>
+                           <div *ngIf="answerPapers.length > 0">
+                            <table class="table table-bordered" style="width: 100%;">
+                                <thead class="thead-dark">
+                                  <tr>
+                                    <th>Rank</th>
+                                    <th>Name</th>
+                                    <th>Total Correct</th>
+                                    <th>Wrong</th>
+                                    <th>Skipped</th>
+                                    <th>Total Marks</th>
+                                    <th *ngIf="selectedPaperType=='paper'">Total Time</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let paper of answerPapers; let i = index">
+                                    <td>
+                                        {{i+1}}
+                                    </td>
+                                    <td>
+                                        {{paper?.full_name}}
+                                    </td>
+                                    <td>
+                                      {{paper?.correct}}
+                                    </td>
+                                    <td>
+                                        {{paper?.incorrect}}
+                                    </td>
+                                    <td>
+                                      {{paper?.total_questions - paper?.attempted}}
+                                    </td>
+                                    <td>
+                                        {{paper?.score}}/ {{paper?.marks}}
+                                    </td>
+                                    <td *ngIf="selectedPaperType=='paper'">
+                                        {{paper?.time_taken}}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                              <div *ngIf="answerPapers.length < 1">
+                                  <h5 class="noDataFound">No Data Found</h5>
+                              </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-4" >
+                    <div class="card shadowCard">
+                        <div>
+                            <h5 class="crHeading text-center text-capitalize">{{selectedPaperType}} {{selectedPaperCount}} - Chapterwise Analysis</h5>
+                        </div>
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <ng-container *ngFor="let subject of reportObj?.report_data[0].subjects; let i = index">
+                               
+                                  <li class="nav-item">
+                                    <a *ngIf="i==0" (click)="fetchSubjectChaptersData(subject?.id)" class="nav-link active" id="pills-{{i}}-tab" data-toggle="pill" href="#pills-{{i}}" role="tab" aria-controls="pills-{{i}}" aria-selected="true">{{subject?.title}}</a>
+                                    <a *ngIf="i!=0" (click)="fetchSubjectChaptersData(subject?.id)" class="nav-link" id="pills-{{i}}-tab" data-toggle="pill" href="#pills-{{i}}" role="tab" aria-controls="pills-{{i}}" aria-selected="false">{{subject?.title}}</a>
+                                  </li>
+                            </ng-container>
+                            
+                          </ul>
+                          <div class="tab-content" id="pills-tabContent">
+                            <!-- <ng-container *ngFor="let subject of reportObj?.report_data?.subjects; let i = index"> -->
+                                
+                                <div class="tab-pane fade show active" id="pills-{{i}}" role="tabpanel" aria-labelledby="pills-{{i}}tab">
+                                    <div *ngIf="!showChapterGraph && spinner" class="d-flex justify-content-center">
+                                        <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                                    </div>
+                                    <div class="barChart" *ngIf="showChapterGraph && !spinner">
+                                        <highcharts-chart
+                                        [Highcharts] = "highchartsb" 
+                                        [options] = "chartOptionsb" 
+                                        style = "width: 100%; height: 400px; display: block;">
+                                     </highcharts-chart>
+                                    </div>
+                                </div>
+                                <div *ngIf="!showChapterGraph && !spinner">
+                                    <h5 class="noDataFound">No Data Found</h5>
+                                </div>
+                            <!-- </ng-container> -->
+                            
+                            <!-- <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                ...
+                            </div>
+                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div> -->
+                          </div>
+                         
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <h4 class="text-center text-danger" *ngIf = "papers?.length === 0">No Data Found in this Batch</h4>
+</div>
+</div>

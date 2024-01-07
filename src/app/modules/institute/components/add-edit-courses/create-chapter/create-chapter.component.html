@@ -1,0 +1,200 @@
+<div class="container page_content">
+    <p style="color:cornflowerblue;font-size: small;"> &nbsp;&nbsp;>>&nbsp;Create Chapter</p>
+    <hr>
+    <button type="button" class="btn btn-primary" id="std" data-toggle="modal" data-target=".bd-example-modal-sm">CREATE CHAPTER</button>
+<div id="table">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Chapter</th>
+            <th>Order</th>
+            <th>Show/ Hide</th>
+            <th>Tags</th>
+            <th>Topics</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let chapter of chapters">
+            
+            <td>
+              {{chapter.title}}
+            </td>
+            <td>
+              {{chapter.order}}
+            </td>
+            <td *ngIf="chapter?.show">
+              Show
+            </td>
+            <td *ngIf="!chapter?.show">
+              Hide
+            </td>
+            <td *ngIf="selectedSubject?.id == chapter?.id">
+              <b>Total ftags: </b>{{chapter?.topics?.length}}<hr>
+              <ul>
+                  <li *ngFor="let tag of selectedSubject?.topics">
+                    {{tag?.title}} <a href="javascript:void(0)" (click)="removeFTagFromChapter(chapter?.id, tag?.id)"><i class="fa fa-trash" aria-hidden="true"></i></a> &nbsp; <a href="javascript:void(0)" routerLink="/institute/question" [queryParams]="{tag: tag?.title}" target="_blank"><i class="fa fa-list" aria-hidden="true"></i></a>
+                  </li>
+              </ul>
+            </td>
+            <td *ngIf="selectedSubject?.id != chapter?.id">
+              <!-- <a href="javascript:void(0)" (click)="fetchDetails(chapter?.id)">Show Tags</a> -->
+              <button type="button" class="btn" (click)="fetchDetails(chapter?.id)" id="std_details">SHOW TAGS</button>
+            </td>
+            <td>
+              <ul>
+                  <li *ngFor="let hint of chapter?.hints">
+                      <a href="javascript:void(0)" (click)="removeHintFromChapter(hint?.id)">{{hint?.title}}</a>
+                  </li>
+              </ul>
+          </td>
+            <td>
+                <button type="button" class="btn" (click)="fetchDetails(chapter?.id)" id="std_details" data-toggle="modal" data-target=".bd-example-modal-sm2">EDIT CHAPTER</button>
+                <button type="button" class="btn btn-primary" id="design_details" (click)="fetchDetails(chapter?.id)" data-toggle="modal" data-target=".bd-example-modal-smtag">ASSIGN TAGS</button>
+                <!-- <button type="button" class="btn btn-primary" id="design_details" (click)="fetchDetails(chapter?.id)" data-toggle="modal" data-target=".bd-example-modal-smhint">ADD TOPIC</button> -->
+                <button type="button" class="btn btn-info ml-2" (click)="syncTag(chapter?.id)" id="sync_details"><i class="fa fa-refresh" aria-hidden="true"></i>  SYNC MASTER FTAG</button>
+                <a href="javascript:void(0)" type="button" class="btn btn-primary" id="design_details" routerLink="/institute/chapter-questions" [queryParams]="{chapter: chapter?.id}" target="_blank">MASTER TAG QUESTIONS</a>
+                <a href="javascript:void(0)" type="button" class="btn btn-primary" id="design_details" routerLink="/institute/topic-concepts" [queryParams]="{id: chapter?.id}" target="_blank">MANAGE TOPICS</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+</div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Create <span>Chapter</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Chapter Title</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="title" placeholder="Enter Chapter Name">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Chapter Description</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="description" placeholder="Enter Chapter Description">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Chapter Order</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="order" placeholder="Enter Chapter Order">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Show/ Hide</label>
+            <select class="form-control" name="selectedClass" [(ngModel)]="show">
+                <option value="true">Show</option>
+                <option value="false">Hide</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" (click)="submit()" class="btn btn-success">SAVE</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <div class="modal fade bd-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Edit <span>Chapter</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalEdit>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputPassword1">New Title</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editTitle" placeholder="Enter Chapter Name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">New Description</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editdescription" placeholder="Enter Chapter Description">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">New Order</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editOrder" placeholder="Enter Chapter Description">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Show/ Hide</label>
+            <select class="form-control" name="selectedClass" [(ngModel)]="editShow">
+                <option value="true">Show</option>
+                <option value="false">Hide</option>
+            </select>
+          </div>
+            <div>
+              <button type="button" (click)="edit()" class="btn btn-success">SAVE</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade bd-example-modal-smtag" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Assign <span>Tag</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalTag>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Chapter</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" value="{{selectedSubject?.title}}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">New Tag</label>
+              <input id="typeahead-basic" type="text" [formControl]="myControl" [(ngModel)]="tag" 
+                class="input-field form-control shadow p-3 bg-white" style="border:none;outline: none;" placeholder="Search FTag"
+                [ngbTypeahead]="search" />
+                <i *ngIf="searchIcon" style="color: #255166;font-size: larger;margin-top: -37px;" class="search-icon fa fa-search icon"></i> 
+                <button class="btn btn-primary btn-sm" (click)="fetchAndSelectMultipleTags()">Select</button>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Selected F Tags</label>
+              <nav aria-label="breadcrumb" *ngIf="selectedtags?.length > 0">
+                <ol class="breadcrumb">
+                  <ng-container *ngFor="let tag of selectedtags">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="removeTag(tag?.id)">{{tag?.title}}</a></li>
+                  </ng-container>
+                </ol>
+              </nav>
+            </div>
+            <div>
+              <button type="button" (click)="assignTag()" class="btn btn-success">SAVE</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade bd-example-modal-smhint" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Create <span>Topic</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalHint>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Title</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="hintTitle" placeholder="Enter Topic">
+            </div>
+            <div>
+              <button type="button" (click)="submitHint()" class="btn btn-success">SAVE</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>

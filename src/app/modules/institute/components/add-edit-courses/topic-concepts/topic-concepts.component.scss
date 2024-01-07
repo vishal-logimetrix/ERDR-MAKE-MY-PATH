@@ -1,0 +1,48 @@
+.card-body {
+    padding-right : .25rem !important;
+    padding-bottom: .25rem !important;
+}
+
+.container{
+    margin: 30px 20px 10px 10px;
+}
+
+#std{
+    font-size: small;
+    padding:10px 20px 10px 20px;
+}
+
+#table{
+    margin-top:10px;
+}
+
+#std_details{
+    background-color: #f84747;
+    color:white;
+    font-size:x-small;
+    margin: 10px 0 10px 0;
+    padding: 7px 20px 7px 20px;
+}
+
+#sync_details{
+    color: #f84747;
+    background-color:white;
+    font-size: 11px;
+    margin: 10px 0 10px 0;
+    padding: 7px 20px 7px 20px;
+}
+
+#design_details{
+    font-size:x-small;
+    margin: 10px 0 10px 20px;
+    padding: 7px 20px 7px 20px;
+}
+
+.breadcrumb{
+    background-color: #FFFFFF;
+}
+.breadcrumb > li + li:before {
+    color: #000000;
+    content: ",   ";
+    padding: 0 2px;
+}

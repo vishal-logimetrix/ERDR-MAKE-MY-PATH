@@ -1,0 +1,156 @@
+<!-- WEBSITE VIEW -->
+<div #mathjaxEl>
+  <div *ngIf="testAnalysis && !isMobile">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">S No.</th>
+          <th scope="col">Quesiton Details</th>
+          <th scope="col">Attempted</th>
+          <th scope="col">Score</th>
+          <th scope="col">Time Taken</th>
+          <th scope="col">Corrected By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let question of testAnalysis; let i = index">
+
+          <!-- S No. -->
+          <td>{{i+1}}</td>
+
+          <!-- Question -->
+          <td>
+            <span [innerHTML]="question.questionText"></span>
+            <br><br>
+            <button type="button" class="btn btn-outline-info mr-2" tooltip="Subject">{{ question.subject }}</button>
+            <button type="button" class="btn btn-outline-info m-2" tooltip="Chapter">{{ question.chapter }}</button>
+            <button type="button" class="btn btn-outline-info mr-2" tooltip="Topic">{{ question.topic }}</button>
+
+            <br>
+
+            <button type="button" class="btn btn-outline-info mr-2"
+              tooltip="Difficulty">{{ question.difficulty }}</button>
+            <button type="button" class="btn btn-outline-info" tooltip="Question Type">
+              <span *ngIf="question.questionType ==='mcc' ">Single Choice</span>
+              <span *ngIf="question.questionType ==='mcq' ">Multiple Choice</span>
+              <span *ngIf="question.questionType ==='flup' ">Fill Up</span>
+            </button>
+
+          </td>
+
+          <!-- Attempted -->
+          <td>
+            <span *ngIf="!question.attempt"><i class="fa fa-times text-danger ml-2"></i></span>
+            <span *ngIf="question.attempt"><i class="fa fa-check text-success ml-2"></i></span>
+          </td>
+
+          <!-- Score -->
+          <td class="text-muted">{{ question.score }}</td>
+
+          <!-- Time taken -->
+          <td class="text-muted">{{ question.timespent }} Sec(s)</td>
+
+          <!-- Corrected By -->
+          <td class="text-muted">{{ question.correctedBy }}% Students</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- MOBILE VIEW -->
+  <ul class="list-unstyled" *ngIf="testAnalysis && isMobile">
+    <li class="mb-2" *ngFor="let question of testAnalysis; let i = index">
+      <accordion>
+        <accordion-group>
+          <div accordion-heading>
+
+            <!-- Quesiton Text and status-->
+            <strong>Question: {{ i+1 }}</strong>
+            <div class="d-flex justify-content-between align-items-start">
+
+              <div [innerHTML]="question.questionText"></div>
+              <!-- Question text-->
+
+              <!-- Quesiton status-->
+              <span *ngIf="!question.status"><i class="fa fa-times text-danger"></i></span>
+              <span *ngIf="question.status"><i class="fa fa-check text-success"></i></span>
+            </div>
+
+            <div class="mt-2">
+              <span class="badge subject-badge">Subject: {{ question.subject }}</span> <!-- Subject -->
+              <span class="badge difficulty-badge ml-2">Difficulty: {{ question.difficulty }}</span>
+              <!-- Difficulty -->
+            </div>
+
+          </div>
+
+          <div class="d-flex flex-wrap justify-content-between">
+            <table class="table table-bordered">
+              <tbody>
+
+                <!-- Chapter -->
+                <tr>
+                  <th scope="row">Chapter: </th>
+                  <td class="text-muted">{{ question.chapter }}</td>
+                </tr>
+
+                <!-- Topic -->
+                <tr>
+                  <th scope="row">Topic:</th>
+                  <td class="text-muted">{{ question.topic }}</td>
+                </tr>
+
+                <!-- Attempted -->
+                <tr>
+                  <th scope="row">Attempted</th>
+                  <td colspan="2">
+                    <span *ngIf="!question.attempt"><i class="fa fa-times text-danger ml-2"></i></span>
+                    <span *ngIf="question.attempt"><i class="fa fa-check text-success ml-2"></i></span>
+                  </td>
+                </tr>
+
+
+                <!-- Question type-->
+                <tr>
+                  <th scope="row">Question Type:</th>
+                  <td>
+                    <span class="text-muted" *ngIf="question.questionType ==='mcc' ">Single Choice</span>
+                    <span class="text-muted" *ngIf="question.questionType ==='mcq' ">Multiple Choice</span>
+                    <span class="text-muted" *ngIf="question.questionType ==='flup' ">Fill Up</span>
+                  </td>
+                </tr>
+
+                <!-- Score -->
+                <tr>
+                  <th scope="row">Score:</th>
+                  <td class="text-muted">{{ question.score }}</td>
+                </tr>
+
+                <!-- Time Spent -->
+                <tr>
+                  <th scope="row">Time Spent:</th>
+                  <td class="text-muted">{{ question.timespent }} Sec(s)</td>
+                </tr>
+
+
+                <!-- Correct by -->
+                <tr>
+                  <th scope="row">Corrected By :</th>
+                  <td class="text-muted">{{ question.correctedBy }}% Students</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </accordion-group>
+      </accordion>
+    </li>
+  </ul>
+</div>
+
+<ng-container *ngIf="analysisFeedback && !testAnalysis">
+  <h5 class="text-center text-muted">
+    {{ analysisFeedback }}
+  </h5>
+</ng-container>

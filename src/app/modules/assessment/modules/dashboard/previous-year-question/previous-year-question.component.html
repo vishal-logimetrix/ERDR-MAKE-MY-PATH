@@ -1,0 +1,36 @@
+<div class="pYq container">
+    <h2 class="text-center topHeading"> Previous Year PAPERS
+    </h2>
+    <div class="totalUser">
+        <!-- <div><span>{{examDetails?.title}}</span></div> -->
+        <button routerLink="/assessment/dashboard/mypath/{{examDetails?.id}}" class="btn float-left btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>Exam Overview</button>
+        <div><a href="" routerLink="/assessment/dashboard/choose-p/{{examDetails?.id}}">{{examDetails?.title}}</a></div>
+        <div><span>Total Users : {{totalusers}}</span></div>
+    </div>
+    <div>
+      <hr>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="spinner">
+        <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+    <div class="container" *ngIf="!spinner">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6" *ngFor="let paper of papers; let i = index">
+                <div class="card">
+                    <div class="row">
+                    <div class="col-xl-8 col-lg-7">
+                        <!-- <h4>Paper - {{i+1}}</h4> -->
+                        <h2>{{paper?.title}}</h2>
+                    </div>
+                    <div class="col-xl-4 col-lg-5 download">
+                        <a href="{{paper?.file}}" target="_blank"><button class="btn btn-sm">Download</button></a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center">
+            <h2 class="text-center errorMSg" *ngIf="papers?.length < 1">"Previous Year Paper Is Not Available But Will Be Updated Soon”</h2>
+            </div>
+        </div>
+    </div>
+</div>

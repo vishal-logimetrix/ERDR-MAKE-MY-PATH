@@ -1,0 +1,31 @@
+image: prabhatiitbhu/ubuntuangularngtoolkit:latest
+
+stages:
+  - master
+  - development
+  - test
+
+development:
+  stage: development
+  script:
+    - dos2unix ./bin/development.sh
+    - bash ./bin/development.sh
+  only:
+    - development
+
+test:
+  stage: test
+  script:
+    - dos2unix ./bin/test.sh
+    - bash ./bin/test.sh
+  only:
+    - test
+
+master:
+  stage: master
+  script:
+    - sed -i.bak "s/backend/backendprod/g" src/environments/environment.prod.ts
+    - dos2unix ./bin/master.sh
+    - bash ./bin/master.sh
+  only:
+    - master

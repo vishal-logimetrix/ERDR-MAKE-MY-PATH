@@ -1,0 +1,105 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light shadow-sm ">
+    <div class="d-flex align-items-center">
+      <a href="javascript:void(0)" (click)="toggleSidebar()"><i class="fa fa-bars"></i></a>
+      <a class="navbar-brand text-black ml-3" href="javascript:void(0)" routerLink="/assessment/dashboard"><img src="{{env.static}}/images/mmpNewLogo.png" alt=""></a>
+    </div>
+    <div class="navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+  <!-- <li class="navDesktop" *ngIf="islocation">
+    <div class="input-group mb-2 ">
+      <input type="text" class="form-control searchInput" [(ngModel)]="searchTerm" placeholder="Search Exam" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <span style="cursor: pointer;" (click)="searchExam()" class="input-group-text mr-2" id="basic-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  </li> -->
+        <!-- NOTIFICATION SECTION -->
+        <!-- <li class="nav-item dropdown " dropdown>
+  
+          <a id="navbarDropdown" class="nav-link position-relative" role="button" data-toggle="dropdown">
+            <i class="fa fa-bell" area-hidden="true"></i>
+            <span class="item-count" *ngIf="notificationCount" [ngClass]="{'d-none':notificationCount['count']===0}">
+              {{ notificationCount['count'] }}
+            </span>
+          </a>
+  
+          <div class="dropdown-menu dropdown-menu-right p-0 notification-dropdown" aria-labelledby="navbarDropdown">
+           
+            <div *ngIf="notificationCount['count']>=0 else noNotifications">
+              <h4 class="p-3">Notifications</h4>
+              <div *ngIf="notificationList">
+                <div class="dropdown-item p-0"
+                  *ngFor="let notification of notificationList['results'] | slice:0:env.NOTIFICATION_LENGTH;">
+                  <a class="p-3 text-black d-flex align-items-center"
+                    routerLink="/assessment/dashboard/test-list/{{notification['related_object_id']}}">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+  
+                    <span class="ml-3">
+                      {{ notification['notification'] }}
+                    </span>
+                    <small class="ml-4">{{ notification['created_at'] | date:'short' }}</small>
+                  </a>
+                  <hr class="mt-0 mb-0">
+                </div>
+              </div>
+            </div>
+  
+            <ng-template #noNotifications>
+              <div class="dropdown-item text-center">
+                No New Notifications
+              </div>
+            </ng-template>
+  
+            <div class="border-top bg-light">
+              <a routerLink="view-notifications" class="text-center d-block p-2 text-black">Show
+                All</a>
+            </div>
+          </div>
+        </li> -->
+        <!-- NOTIFICATION SECTION ENDS-->
+  
+        <!-- <li class="nav-item ">
+          <a class="nav-link" href="javascript:void(0)" (click)="logout()">
+            <i class="fa fa-sign-out pointer-events-none" area-hidden="true"></i>
+          </a>
+        </li> -->
+        <!-- <li class="nav-item d-flex align-items-center" *ngIf="isAuthenticated" style="cursor: pointer; margin-right: 10px;">
+          <i routerLink="/assessment/dashboard/notifications" style="font-size: larger;"
+        class="fa fa-bell icon"></i>
+      </li> -->
+    <li class="nav-item d-flex align-items-center searchExams">
+      <input id="typeahead-basic" type="text" [formControl]="myControl" [(ngModel)]="tag" class="form-control"
+        placeholder="Search Exams" [ngbTypeahead]="search" (selectItem)="selectedItem($event)"
+         />
+      
+      <i  style="color: lightgray; font-size: larger;margin-left: -35px;"
+        class="search-icon fa fa-search icon"></i>
+    </li>
+        <li class="nav-item dropdown d-flex flex-column align-items-center">
+          <div>
+            <a class="shortNamedd nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img *ngIf="userProfile?.image" class="user-img" src="{{ userProfile?.image}}" alt="Profile Image">
+            <img *ngIf="!userProfile?.image" class="user-img" src="assets/images/avatar-2.png" alt="Profile Image">
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a *ngIf="isAuthenticated" class="dropdown-item" href="javascript:void(0)"
+              routerLink="/assessment/dashboard/profile">{{userProfile?.first_name}} {{userProfile?.last_name}}</a>
+            <a *ngIf="!isAuthenticated" class="dropdown-item inactiveLink" href="javascript:void(0)" >Guest User</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item searchExamMobile" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Search Exam</a>
+            <div class="dropdown-divider searchExamMobile"></div>
+           
+            <a *ngIf="isAuthenticated" class="dropdown-item" href="javascript:void(0)" (click)="logout()">Log out </a>
+            <a *ngIf="!isAuthenticated" class="dropdown-item" href="javascript:void(0)" data-toggle="modal"
+              data-target="#exampleModalLogin" (click)="showLoginForm()" >Login</a>
+          </div>
+          </div>
+          <div><small style="color: #0A6FB3; font-weight: bold;">{{userProfile?.first_name?.split(' ')[0]}}</small></div>
+      </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  

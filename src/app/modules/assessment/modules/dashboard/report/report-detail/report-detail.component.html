@@ -1,0 +1,215 @@
+<div class="test-report-section">
+    <div class="report-content">
+        <div class="d-flex justify-content-between align-items-center report-header">
+
+            <!-- Practice Report Heading -->
+            <ng-container *ngIf="reportObj.type === 'mock'">
+                <h2 class="text-white font-weight-bold title">Practice Test Report</h2>
+            </ng-container>
+
+            <!-- Assessment Report Heading -->
+            <ng-container *ngIf="reportObj.type==='assessment'">
+                <h2 class="text-white font-weight-bold">Assessment Test Report</h2>
+            </ng-container>
+
+            <!-- View Solutions -->
+            <a *ngIf="reportObj['report_data'] && reportObj['report_data']['show_solution']" class="btn btn-lg header-btn" routerLink="/assessment/paper/test-solutions/{{ reportObj.type }}/{{ reportObj.id }}/{{ reportObj.attemptOrder }}">View
+        Solutions
+      </a>
+        </div>
+    </div>
+
+    <!------------- REPORT ------------->
+    <div *ngIf="reportObj['report_data']">
+
+        <tabset>
+
+            <!-- ---------------------- GENERAL REPORT TAB ---------------------- -->
+            <tab heading="Overview" id="tab1">
+
+                <div *ngIf="reportObj['report_data'] else noResultstab" class="row justify-content-between">
+
+                    <!-- Attempted -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card report-card shadow-sm border-0 attempted mt-0">
+                            <div class="card-body">
+                                <h2 class="my-auto font-weight-bold">{{ reportObj.report_data.attempted }} / {{ reportObj.report_data.totalquestion }}</h2>
+                            </div>
+                            <div class="card-footer border-0">
+                                <h4 class="font-weight-bold">Attempted</h4>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Correct -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card report-card shadow-sm border-0 corrected">
+                            <div class="card-body">
+                                <h2 class="my-auto font-weight-bold">{{ reportObj.report_data.corrected }} / {{ reportObj.report_data.totalquestion }}</h2>
+                            </div>
+                            <div class="card-footer border-0">
+                                <h4 class="font-weight-bold">Correct</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Incorrectd -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card report-card shadow-sm border-0 corrected mt-0">
+                            <div class="card-body">
+                                <h2 class="my-auto font-weight-bold">{{ reportObj.report_data.incorrected }} / {{ reportObj.report_data.totalquestion }}</h2>
+                            </div>
+                            <div class="card-footer border-0">
+                                <h4 class="font-weight-bold">Incorrect</h4>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Skipped -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card report-card shadow-sm border-0 attempted">
+                            <div class="card-body">
+                                <h2 class="my-auto font-weight-bold">{{ reportObj.report_data.skipped }} / {{ reportObj.report_data.totalquestion }}</h2>
+                            </div>
+                            <div class="card-footer border-0">
+                                <h4 class="font-weight-bold">Skipped</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Score -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card report-card shadow-sm border-0 score">
+                            <div class="card-body">
+                                <h2 class="my-auto font-weight-bold">{{ reportObj.report_data.score }} / {{ reportObj.report_data.totalscore}}</h2>
+                            </div>
+                            <div class="card-footer border-0">
+                                <h4 class="font-weight-bold">Score</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time Taken -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card report-card shadow-sm border-0 time-taken">
+                            <div class="card-body">
+                                <h2 class="my-auto font-weight-bold">
+                                    {{ reportObj.report_data.time_taken
+                                    < 1 ? 'Less than a minute' : reportObj.report_data.time_taken + ' minute(s)' }} </h2>
+                            </div>
+                            <div class="card-footer border-0">
+                                <h4 class="font-weight-bold">Time Taken</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <ng-template #noResultstab>
+                    <div class="p-5 text-center">
+                        <h4 class="text-muted">Report is not available for this test</h4>
+                    </div>
+                </ng-template>
+
+
+            </tab>
+
+            <!-- ---------------------- TEST ANALYSIS ---------------------- -->
+            <tab heading="Test Analysis" *ngIf="reportObj.type==='assessment' && reportObj['report_data']['show_solution']" (selectTab)="onTabSelect('analysis')">
+                <app-analysis *ngIf="viewTestAnalysis && reportObj['report_data'].attempted else noResultstab" [answerPaperId]="reportObj.id"></app-analysis>
+                <ng-template #noResultstab>
+                    <div class="p-5 text-center">
+                        <h4 class="text-muted">Report is not available for this test</h4>
+                    </div>
+                </ng-template>
+            </tab>
+
+            <!-- ---------------------- CHAPTER WISE REPORT ---------------------- -->
+            <tab heading="Chapter Wise Report" *ngIf="reportObj.type==='assessment'" (selectTab)="onTabSelect('chapterWiseReport')">
+                <app-chapter-wise *ngIf="viewChapteWiseReport && reportObj['report_data'].attempted else noResultstab" [answerPaperId]="reportObj.id"></app-chapter-wise>
+
+                <ng-template #noResultstab>
+                    <div class="p-5 text-center">
+                        <h4 class="text-muted">Report is not available for this test</h4>
+                    </div>
+                </ng-template>
+            </tab>
+
+
+            <!-- ---------------------- DIFFICULTY & QUESTIO TYPE REPORT TAB ---------------------- -->
+            <tab heading="Question Wise Report" *ngIf="reportObj.type==='aa'">
+                <div *ngIf="reportObj['report_data'].attempted else noResultstab">
+                    <!-- Difficulty Wise Report Chart -->
+                    <div class="report-container">
+                        <h4 class="text-black">Difficulty Level Based Correct Questions Analysis</h4>
+                        <div class="card shadow-sm mt-3">
+                            <div class="card-body">
+                                <div [chart]="difficultyWiseChart"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question Type Report Chart -->
+                    <div class="report-container">
+                        <h4 class="text-black">Type of Question Based Correct Question Analysis</h4>
+                        <div class="card shadow-sm mt-3">
+                            <div class="card-body">
+                                <div [chart]="questionWiseChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <ng-template #noResultstab>
+                    <div class="p-5 text-center">
+                        <h4 class="text-muted">Report is not available for this test</h4>
+                    </div>
+                </ng-template>
+            </tab>
+
+
+            <!-- ---------------------- OVERALL REPORT TAB ---------------------- -->
+            <tab heading="Overall Report" *ngIf="reportObj.type === 'mock'" (selectTab)="onTabSelect('attemptedCorrected')">
+                <app-attempted-corrected *ngIf="viewAttemptedCorrectedReport && reportObj['report_data'].attempted else noResultstab" [answerPaperId]="reportObj.id">
+                </app-attempted-corrected>
+
+                <ng-template #noResultstab>
+                    <div class="p-5 text-center">
+                        <h4 class="text-muted">Report is not available for this test</h4>
+                    </div>
+                </ng-template>
+            </tab>
+
+            <!-- Overll Report For Assessment Test-->
+            <tab heading="Percentile Report" *ngIf="reportObj.type === 'assessment'" (selectTab)="onTabSelect('percentile')">
+                <app-percentile *ngIf="viewPercentileReport && reportObj['report_data'].attempted else noResultstab" [answerPaperId]="reportObj.id"></app-percentile>
+                <ng-template #noResultstab>
+                    <div class="p-5 text-center">
+                        <h4 class="text-muted">Report is not available for this test</h4>
+                    </div>
+                </ng-template>
+            </tab>
+
+            <!-- ---------------------- COMPARISON REPORT ---------------------- -->
+            <tab heading="Comparison" *ngIf="reportObj.type==='assessment'" (selectTab)="onTabSelect('comparison')">
+                <app-comparison *ngIf="viewComparisonReport && reportObj['report_data'].attempted else noResultstab" [answerPaperId]="reportObj.id"></app-comparison>
+                <ng-template #noResultstab>
+                    <div class="p-5 text-center">
+                        <h4 class="text-muted">Report is not available for this test</h4>
+                    </div>
+                </ng-template>
+            </tab>
+
+        </tabset>
+    </div>
+</div>
+
+
+<ng-container *ngIf="contentAvailable && !reportObj">
+    <div class="p-5 text-center">
+        <h4 class="text-muted">Report not available</h4>
+    </div>
+</ng-container>

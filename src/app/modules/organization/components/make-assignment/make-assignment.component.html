@@ -1,0 +1,190 @@
+
+<div *ngIf="abcd" class="makePaper container">
+    <div class="row" *ngIf="chooseSubjectsFlag">
+       <div class="col-md-12">
+        <!-- {{selectedChapters | json}} -->
+           <div class=" chooseChapterCard">
+               <div class="row">
+                <div class="col-md-12">
+                    <div class="">
+                        <h2 class="text-center" *ngIf="paperType == 'paper'">
+                            Make My <span>PAPER</span>
+                        </h2>
+                        <h2 class="text-center" *ngIf="paperType == 'practice'">
+                            Make My <span>PRACTICE</span>
+                        </h2>
+                        <!-- <h6 *ngIf="paperType == 'paper'">Choose your desired topics to create your own Paper</h6>
+                        <h6 *ngIf="paperType == 'practice'">Choose your desired topics to create your own Practice</h6> -->
+                        <div class="totalUser">
+                          <div><span><button class="btn btn-sm btnLeaderboard" routerLink="/organization/group/{{batchId}}"><i class="fas fa-angle-double-left mr-1"></i>Batch Dashboard</button></span></div>
+                            <div><span><a href="" routerLink="/organization/choose-p/{{batchId}}/{{examId}}">{{examDetails?.title}}</a></span></div>
+                            <div><span>Total Users : {{totalusers}}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12"><hr></div>
+                <div class="col-md-12 d-flex chapterCheckbox">
+                    <!-- <button class="btn mockPaper">Mock Paper</button> -->
+                    <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="spinner">
+                      <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                  </div>
+                  <div class="col-md-12 d-flex chapterCheckbox" *ngIf="chapters  && !spinner">
+                    <div class="subjects">
+                            <div class="d-flex justify-content-center">
+                              <a id="slideLeft" class="mr-2 d-flex align-items-center" href="javascript:void(0)" (click)="slideLeft()" ><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist" #widgetsContent>
+                                <li class="nav-item" *ngFor="let subject of subjects; let i = index">
+                                  <a class="nav-link active" *ngIf="selectedSubjectId == subject?.id" (click)="getChapters(subject?.id)"  id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.title}}</a>
+                                  <a class="nav-link " *ngIf="selectedSubjectId != subject?.id" (click)="getChapters(subject?.id)" id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.title}}</a>
+                                </li>
+                            </ul>
+                            <a id="slideRight" class="ml-2 d-flex align-items-center" href="javascript:void(0)"
+                            (click)="slideRight()" ><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            </div>
+                           
+                            <div class="panel-body mt-4">
+                             
+                                <div class="card newChapterCard" *ngFor="let chapter of chapters; let i = index">
+                                    <!-- <p style="margin-left: -15px !important;color: green; font-size: 22px;">|</p> -->
+                                    <div class="row">
+                                      <div class="col-md-1">
+                                        <div class="numbering"> {{i + 1}} </div>
+                                      </div>
+                                      <div class="col-md-8">
+                                        <div class="chapterTitle"><h2>{{chapter?.title}}</h2></div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <button type="button" data-toggle="modal" data-target=".bd-example-modal" (click)="saveChapterId(chapter?.id)" class="btn btnStartNewCard">Select</button>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                  </div>
+                  <div class="col-md-12 d-flex justify-content-center" *ngIf="!chapters  && !spinner">
+                    <h5 class="noCahpter">No Chapters Found</h5>
+                </div>
+                </div>
+           
+               </div>
+           </div>
+       </div>
+   
+    </div>
+   
+</div>
+
+<div class="modal fade makePaperModal bd-example-modal-smhint" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Chapter <span>Topics</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+              <span aria-hidden="true" style="color: red;">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           
+            <div class="form-group">
+                <div class="listDiv" *ngIf="selectedChapter?.hints?.length > 0">
+                    <ol>
+                        <ng-container *ngFor="let hint of selectedChapter?.hints">
+                            <li>{{hint?.title}}</li>
+                        </ng-container>
+                    </ol>
+                </div>
+              <!-- <nav aria-label="breadcrumb" *ngIf="selectedChapter?.hints?.length > 0">
+                <ol class="breadcrumb">
+                  <ng-container *ngFor="let hint of selectedChapter?.hints">
+                    <li class="breadcrumb-item">{{hint?.title}}</li>
+                  </ng-container>
+                </ol>
+              </nav> -->
+            </div>
+            <div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal reportModal fade bd-example-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Assignment <span>Parameters</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModald>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                  <div class="selectDiiffTitle">
+                    <label for="exampleInputPassword1">Select Difficulty Level</label> 
+                  </div>
+                  <div class="btn-group">
+                    <div>
+                      <button type="button" (click)="selectDifficultyLevel(1, 1)" class="active reportReasonEasy btn btn-default" id="regi1">Easy</button>
+                    </div>
+                    <div>
+                      <button type="button" (click)="selectDifficultyLevel(2, 5)" class="btn reportReasonMedium btn-default" id="regi2">Medium</button>
+                    </div>
+                    <div>
+                      <button type="button" (click)="selectDifficultyLevel(3, 9)" class="btn reportReasonHard btn-default" id="regi3">Hard</button>
+                    </div>
+                    <div>
+                      <button type="button" (click)="selectAnyRange()" class="btn reportReasonAny btn-default" id="allrange">Any</button>
+                    </div>
+                   </div>
+                   <div class="modalCheckbox mt-3" *ngIf="showSubjective">
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" (change)="includeObjective($event)" class="custom-control-input" id="customCheck" name="example1">
+                      <label class="custom-control-label" for="customCheck">Objective</label>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" (change)="includeSubjective($event)" class="custom-control-input" id="customCheckSecond" name="example1">
+                      <label class="custom-control-label" for="customCheckSecond">Subjective</label>
+                    </div>
+                  </div>
+                   <br>
+                   <div class="form-group row totalQuestionRow">
+                    <label for="exampleInputPassword1" class="col-sm-4 col-form-label">Total Questions</label>
+                    <div class="col-sm-3 ">
+                    <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="totalQuestions" placeholder="Eg. 10">
+                    </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="" >Start Date & Time:</label>
+                        <div class="slidecontainer">
+                            <input type="date" [(ngModel)]="startDate" id="startDate">
+                            <input class="timeDiv" type="time" [(ngModel)]="startTime" id="startTime">
+                        </div>
+                    </div> -->
+                    <div class="form-group row endDateAndTime">
+                        <label for="" class="col-lg-4 col-form-label">End Date & Time</label>
+                        <div class="slidecontainer col-lg-3">
+                            <input  type="date" [(ngModel)]="endDate" id="endDate">
+                        </div>
+                        <div class="slidecontainer col-lg-3 offset-lg-1">
+                          <input class="timeDiv" type="time" [(ngModel)]="endTime" id="endTime">
+                        </div>
+                        <div class="col-lg-12">
+                          <p class="leaveBlankMsg" for="">*(Leave Date blank if not applicable)</p>
+                        </div>
+                    </div>
+              </div>
+             
+            <div class="btnChooseDiff">
+              <button type="button" (click)="fetchQuestions()" class="btn btnReport">Create <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="efgh" class="spinnerContainer">
+    <h2>{{examDetails?.title}}</h2>
+    <h3 >Fetching your question paper....</h3>
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>

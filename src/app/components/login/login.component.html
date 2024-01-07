@@ -1,0 +1,56 @@
+<div class="modal-content">
+  <div class="modal-header border-0">
+    <h5 class="modal-title" id="loginTitle">Login</h5>
+    <button type="button" class="close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p *ngIf="modalData" class="text-success">{{modalData.message}}</p>
+    <form [formGroup]="loginForm" (submit)="loginUser()">
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="email" placeholder="Email, Username or Phone Number"
+               (input)="resetValidations()" required>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" formControlName="password" placeholder="Password"
+               (input)="resetValidations()" required>
+      </div>
+
+      <div *ngIf="errors" class="mb-2">
+        <ul *ngFor="let error of errors" class="list-unstyled">
+          <li class="error-text">{{error}}</li>
+        </ul>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <button type="submit" class="btn btn-info" style="width: 6rem" [disabled]="loaderActive">
+          <img *ngIf="loaderActive" style="width: 1rem" src="{{env.static}}/images/gif/short-loader.gif" alt="loader">
+          <span *ngIf="!loaderActive">Login</span>
+        </button>
+        <a href="javascript:void(0)" class="mb-0 ml-3 text-muted" (click)="openForgotPassword()">Forgot Password?</a>
+      </div>
+
+      <!-- <div class="mt-5 text-center">
+        <p class="text-muted">or login with</p>
+        <div class="social-login d-flex justify-content-center">
+          <a href="javascript:void(0)" class="google" (click)="socialLogin('google')">
+            <i class="fa fa-google" aria-hidden="true"></i>
+            <span class="pl-2">Google</span>
+          </a>
+          <a href="javascript:void(0)" class="ml-4 facebook" (click)="socialLogin('facebook')">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="pl-2">Facebook</span>
+          </a>
+        </div>
+      </div> -->
+
+      <div class="text-right mt-5">
+        <a href="javascript:void(0)" class="text-muted mr-3" (click)="openRegister()">
+          Don't have account?
+          <span class="text-success pl-1">Register Now</span>
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

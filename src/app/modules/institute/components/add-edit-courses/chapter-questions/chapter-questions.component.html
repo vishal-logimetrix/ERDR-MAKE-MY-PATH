@@ -1,0 +1,89 @@
+<div class="container page_content">
+    <p style="font-size:larger;margin-bottom: 30px;">Search Questions By Chapter Master Ftag</p>
+    <div class="form-group">
+        <div class="row">
+        </div> 
+        <div>
+        <div  class="col-6">
+            <label>Total Questions: {{totalQuestions}}</label><br>
+            <label><b>Single Correct Questions</b>: {{mcqQuestions}}</label><br>
+            <label><b>Multiple Correct Questions</b>: {{mccQuestions}}</label><br>
+            <label><b>Fillup Questions</b>: {{fillupQuestions}}</label><br>
+            <label><b>Subjective Questions</b>: {{subjectiveQues}}</label><br>
+            <label><b>Numerical Questions</b>: {{numericalQues}}</label><br>
+            <label><b>Assertion Questions</b>: {{assertionQues}}</label><br>
+            <label><b>Boolean Questions</b>: {{booleanQues}}</label><br>
+            <label><b>Fillup Option Questions</b>: {{fillup_optionQues}}</label>
+        </div>
+    </div>
+        <hr>
+
+        <!----------------------------------------->
+    <div> Questions
+    </div>    
+     <div>   
+        <div id="table">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Text</th>
+                    <th>Type of Question</th>
+                    <th>Options</th>
+                    <th>Active/Inactive</th>
+                    <th>Verified/Unverified</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ques of questions">
+                    <td [innerHtml]="ques.contents[0].text">
+                    </td>
+                    <td>
+                        {{ques.type_of_question}}
+                    </td>
+                    <td>
+                        <button type="button" class="btn" id="std_details" routerLink="/institute/edit-question" [queryParams]="{id: ques?.id}">EDIT QUESTION</button>
+                        <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/view-question" [queryParams]="{id: ques?.id}">VIEW QUESTION</button>
+                    </td>
+                    <td>
+                        <button type="button" *ngIf="ques?.is_active" class="btn" id="click">ACTIVE</button>
+                        <button type="button" *ngIf="!ques?.is_active" class="btn" id="unclick">INACTIVE</button>
+                    </td>  
+                    <td>
+                        <button type="button" *ngIf="ques?.is_verified" class="btn" id="click">VERIFIED</button>
+                        <button type="button" *ngIf="!ques?.is_verified" class="btn" id="unclick">UNVERIFIED</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <section *ngIf="questions?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+                <div class="container text-center">
+                    <nav aria-label="navigation">
+                        <ul *ngIf="questions" class="pagination justify-content-center">
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                <button (click)="goToPage(currentPage - 1)" class="page-link btn btn-link">Prev</button>
+                            </li>
+    
+                            <li *ngFor="let page of pages | slice:startPage:endPage; let i = index" class="page-item number-item">
+                                <button (click)="goToPage(startPage + i)" class="page-link btn btn-link" [ngClass]="{active: currentPage == i + startPage}">{{i+ startPage }}</button>
+                            </li>
+    
+                            <li *ngIf="currentPage > 0 && max_page > 0" class="page-item number-item">
+                                <button (click)="goToPage(endPage)" class="page-link btn btn-link" [ngClass]="{active: currentPage == endPage}">{{ endPage }}</button>
+                            </li>
+    
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                <button (click)="goToPage(currentPage - (-1))" class="page-link btn btn-link">Next</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </div>
+</div>  
+</div>

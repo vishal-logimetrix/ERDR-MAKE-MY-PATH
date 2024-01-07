@@ -1,0 +1,111 @@
+h4{
+    color: #9D9F9E;
+}
+.formRow{
+    font-family: CenturyGothicRegular;
+    .btnSave{
+        background-color: #0389DE;
+        color: #FFFFFF;
+        width: 100px;
+        font-weight: bold;
+        border-radius: 7px;
+    }
+    .col-form-label{
+        color: black;
+    }
+    .form-control {
+        // border: 0.06rem solid #e6e7e8;
+        border-radius: .2rem;
+        margin-top: -.5rem;
+        color: black;
+        border: 5px solid orange;
+        border-top: none;
+        border-bottom: none;
+        border-right: none;
+        height: 50px;
+    }
+    
+    ::-webkit-input-placeholder {
+        text-align: center;
+        color: #DCDCDC;
+     }
+     
+     :-moz-placeholder { /* Firefox 18- */
+        text-align: center;
+        color: #DCDCDC;  
+     }
+     
+     ::-moz-placeholder {  /* Firefox 19+ */
+        text-align: center;
+        color: #DCDCDC;  
+     }
+     
+     :-ms-input-placeholder {  
+        text-align: center;
+        color: #DCDCDC; 
+     }
+}
+// .btn-success{
+//     width: 150px;
+//     border-radius: 20px;
+// }
+label {
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.user-image {
+    input {
+        display: none;
+    }
+}
+
+.profile-img-container {
+    height: 10rem;
+    width: 10rem;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5rem;
+
+    img {
+        width: 10rem;
+    }
+}
+
+
+.customFileInput {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #4CAF50;
+    color: white;
+    border-radius: 2rem;
+    height: 2rem;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width:768px) {
+    .parent {
+        .detail-container {
+            margin-top: 0 !important;
+        }
+
+        .father-name {
+            margin-bottom: 0;
+        }
+
+        .details {
+            flex-direction: column;
+        }
+
+        input {
+            margin-left: 0 !important;
+            margin-bottom: 1rem;
+        }
+    }
+}

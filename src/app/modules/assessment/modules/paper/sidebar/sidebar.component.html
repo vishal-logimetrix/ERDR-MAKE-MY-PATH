@@ -1,0 +1,154 @@
+<div class="text-center sidebar-content">
+    <!-- <div class="sidebar-logo shadow-sm">
+      <a href="javascript:void(0)" class="text-white" routerLink="/assessment/dashboard">
+        <img src="{{env.static}}/images/mmp_small.jpeg" alt="">
+      </a>
+    </div> -->
+    <div class="mt-2 profile">
+      <a class="float-right" style="margin-right: 10px;" href="javascript:void(0)" (click)="toggleSidebar()"><i style="color: #FFFFFF;" class="fas fa-arrow-left"></i></a>
+      <div class="profileImage">
+      <a href="javascript:void(0)" routerLink="/assessment/dashboard/profile" class="profile-container">
+        <img class="user-img" src="{{ userProfile['image'] ? userProfile['image'] : env.DEFAULT_USER_PROFILE }}"
+          alt="Profile Image">
+      </a>
+    </div>
+      <div class="detail">
+        <h4 class="username">{{userProfile['first_name']}} {{userProfile['last_name']}}</h4>
+        <!-- <a class=" mb-4" href="javascript:void(0)" routerLink="/assessment/dashboard/profile">Edit Profile</a> -->
+      </div>
+      <!-- <p><b>{{courseDetail?.title}}</b></p> -->
+      <!-- <p *ngIf="examId"><b>({{examDetail?.title}})</b></p> -->
+    </div>
+    
+  
+    <div class="content text-left ">
+      <ul class="list-unstyled sidebar-links">
+        <li>
+           <!-- Dashboard -->
+           <a (click)="toggleSidebar()" routerLink="/assessment/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="fa fa-home" aria-hidden="true"></i> 
+             <span class="ml-3">Dashboard</span>
+           </a>
+        </li>
+        <li>
+  
+          <!-- Home -->
+          <!-- <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <span class="ml-3">Home</span>
+          </a> -->
+  
+         
+  
+          <a (click)="toggleSidebar()" routerLink="/assessment/dashboard/myhistory" routerLinkActive="active">
+            <i class="fa fa-history" aria-hidden="true"></i>
+            <span class="ml-3">Overall History</span>
+          </a>
+          <!-- <a routerLink="/assessment/dashboard/my-papers" routerLinkActive="active">
+            <i class="fa fa-book" aria-hidden="true"></i>
+            <span class="ml-3">My Papers</span>
+          </a> -->
+        </li>
+  
+        <!-- My Mentors -->
+        <li >
+          <a (click)="toggleSidebar()" routerLink="/assessment/dashboard/mymentors" routerLinkActive="active">
+            <span class="iconify" data-icon="fa-solid:chalkboard-teacher"></span> 
+            <span class="ml-3">My Mentors</span>
+          </a>
+        </li>
+  
+        <!-- My HomeWorks -->
+        <!-- <li >
+          <a routerLink="/assessment/dashboard/homework" routerLinkActive="active">
+            <i class="fa fa-book" aria-hidden="true"></i>
+            <span class="ml-3">My Homework</span>
+          </a>
+        </li> -->
+  
+        <!-- <li>
+          <a routerLink="/assessment/dashboard/leaderboard" routerLinkActive="active">
+            <i class="fa fa-th" aria-hidden="true"></i>
+            <span class="ml-3">Leaderboard</span>
+          </a>
+        </li> -->
+  
+        <!-- <li class="mt-4">
+          <a routerLink="/assessment/dashboard/report" routerLinkActive="active">
+            <i class="fa fa-th" aria-hidden="true"></i>
+            <span class="ml-3">Report</span>
+          </a>
+        </li> -->
+  
+        <li >
+          <a (click)="toggleSidebar()" routerLink="/assessment/dashboard/my-sharing" routerLinkActive="active">
+            <i class="fa fa-slideshare"></i>
+            <span class="ml-3">My Sharing</span>
+          </a>
+        </li>
+        <!-- <li >
+          <a  routerLinkActive="active">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            <span class="ml-3">Settings</span>
+          </a>
+        </li> -->
+        <li>
+          <a (click)="toggleSidebar()" href="javascript:void(0)" (click)="shareApp()" routerLinkActive="active">
+            <i class="fa fa-share-alt" aria-hidden="true"></i>
+            <span class="ml-3">Share App</span>
+          </a>
+        </li>
+        
+        <!-- Post a query -->
+        <li>
+          <a (click)="toggleSidebar()" class="mb-0" routerLink="contact-us" routerLinkActive="active">
+            <i class="fa fa-question-circle" aria-hidden="true"></i>
+            <span class="ml-3">Post Your Query</span>
+          </a>
+        </li>
+        <!-- <li >
+          <a  routerLinkActive="active">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <span class="ml-3">Rate us</span>
+          </a>
+        </li>
+        <li >
+          <a  routerLinkActive="active">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            <span class="ml-3">Setting</span>
+          </a>
+        </li> -->
+        <!-- Report -->
+        <!-- <li class="mt-4">
+          <a routerLink="report" routerLinkActive="active">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+            <span class="ml-3">Report</span>
+          </a>
+        </li> -->
+  
+        <!-- Change Passoword -->
+        <!-- <li >
+          <a routerLink="change-password" routerLinkActive="active">
+            <i class=" fa fa-lock" aria-hidden="true"></i>
+            <span class="ml-3">Change Password</span>
+          </a>
+        </li> -->
+  
+  
+        <!-- Faq -->
+        <li>
+          <a (click)="toggleSidebar()" routerLink="/assessment/dashboard/faq" class="mb-0"  routerLinkActive="active">
+            <span class="iconify" data-icon="wpf:faq" ></span>
+            <span class="ml-3">FAQ</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="toggleSidebar()" class="mb-0" routerLink="/assessment/dashboard/contact" routerLinkActive="active">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <span class="ml-3">Contact US</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  

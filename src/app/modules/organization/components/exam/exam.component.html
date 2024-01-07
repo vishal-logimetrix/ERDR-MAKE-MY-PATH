@@ -1,0 +1,75 @@
+<div class="container allExams">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="javascript:void(0)" routerLink="/organization/select-domain/{{batchId}}">Choose Domain</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><span>{{categoryDetails?.title}}</span></li>
+                </ol>
+              </nav>
+              <hr>
+        </div>
+    </div>
+    <div class="row topRow">
+        <div class="col-xl-8 col-lg-7 col-md-6">
+            <h2>{{categoryDetails?.title}}</h2>
+            <div class="row">
+                <ng-container *ngFor="let course of courses; let i = index">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-4">
+                    <div class="card" routerLink="/organization/choose-subcategory/{{batchId}}/{{ course?.id }}">
+                        <div class="imageDiv mt-2">
+                            <img src="{{course?.image}}" alt="">
+                        </div>
+                        <h5 class="text-center">{{course?.title}}</h5>
+                    </div>
+                </div>
+            </ng-container>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-5 col-md-6 latestJobs">
+            <div class="card latestJobCard">
+            <h2 class="text-center">Latest Updates
+            </h2>
+            <div class="scrollSection" #theElementYouWantToCheck>
+            <p *ngIf="announcements?.length == 0" class="text-danger noExamsFound">No Exams Found</p>
+            <ul>
+                <ng-container *ngFor="let announcement of announcements; let i = index">
+                    <li>
+                        <div>
+                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                        </div> 
+                        <div>
+                            <a (click)="selectExam(announcement?.linked_exam?.id)" routerLink="/organization/choose-p/{{batchId}}/{{announcement?.linked_exam?.id}}">{{announcement?.text}} <br> <span >(Last Date: {{announcement?.last_date | date: 'dd/MM/yyyy'}})</span></a>
+                        </div>
+                    </li>
+                </ng-container>
+               
+            </ul>
+            <div *ngIf="checkOverflow(theElementYouWantToCheck)">
+            <section *ngIf="announcements?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+                <div class="container text-center">
+                    <nav aria-label="navigation">
+                        <ul *ngIf="announcements" class="pagination justify-content-center">
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                <button (click)="goToPage(currentPage - 1)" class="page-link btn"><<</button>
+                            </li>
+      
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>

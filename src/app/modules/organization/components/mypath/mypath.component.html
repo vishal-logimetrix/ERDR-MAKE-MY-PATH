@@ -1,0 +1,93 @@
+<div class="container mypath">
+    <div class="row buttonsSection">
+        <div>
+            <h4 class="updatedOn">Updated On: {{examDetails?.update_date | date}}</h4>
+        </div>
+        <!-- <div>
+            <button class="btn btn-sm btn-danger shadow btnBlockedStudents"
+                routerLink="/organization/group/{{batchId}}">Batch Dashboard</button>
+        </div> -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Exam Overview</h2>
+            <div class="totalUser">
+                <div>
+                    <button routerLink="/organization/group/{{batchId}}" class="btn float-left btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+                </div>
+                <div><span><a href=""
+                            routerLink="/organization/choose-p/{{batchId}}/{{examId}}">{{examDetails?.title}}</a></span>
+                </div>
+                <div><span>Total Users : {{totalusers}}</span></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <div class="col-xl-3 col-lg-4 optionDiv">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <ng-container *ngFor="let ques of pathQuestions; let i = index">
+                    <a *ngIf="i==0" class="nav-link active" id="v-pills-{{ques?.id}}-tab" data-toggle="pill"
+                        href="#v-pills-{{ques?.id}}" role="tab" aria-controls="v-pills-{{ques?.id}}"
+                        aria-selected="true"><span class="text">{{ques?.title}}</span></a>
+                    <a *ngIf="i!=0" class="nav-link" id="v-pills-{{ques?.id}}-tab" data-toggle="pill"
+                        href="#v-pills-{{ques?.id}}" role="tab" aria-controls="v-pills-{{ques?.id}}"
+                        aria-selected="false"><span class="text">{{ques?.title}}</span></a>
+                </ng-container>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-8">
+            <div class="contentDiv">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <ng-container *ngFor="let ques of pathQuestions; let i = index">
+                        <div *ngIf="i==0" class="tab-pane fade show active" id="v-pills-{{ques?.id}}" role="tabpanel"
+                            aria-labelledby="v-pills-{{ques?.id}}-tab" [innerHtml]="ques?.content | safeHtml">
+                        </div>
+                        <div *ngIf="i!=0" class="tab-pane fade" id="v-pills-{{ques?.id}}" role="tabpanel"
+                            aria-labelledby="v-pills-{{ques?.id}}-tab" [innerHtml]="ques?.content | safeHtml">
+                        </div>
+                    </ng-container>
+
+                    <!-- <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div> -->
+                    <!-- <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div> -->
+                    <!-- <div class="buttonGroup">
+                    <div>
+                        <button class="btn" routerLink="/organization/suggested-books/{{batchId}}/{{examId}}">Best Books
+                            <br>Suggested</button>
+                    </div>
+                    <div>
+                        <button class="btn" routerLink="/organization/previous-year-question/{{batchId}}/{{examId}}">Previous Year <br>Papers</button>
+                    </div>
+                    <div>
+                        <button class="btn" routerLink="/organization/make-paper/{{batchId}}/{{examId}}" [queryParams]="{type: 'paper'}">Make My
+                            Paper</button>
+                    </div>
+                </div> -->
+                </div>
+            </div>
+            <div class="buttonsGroup">
+                <div>
+                    <button class="btn" routerLink="/organization/suggested-books/{{batchId}}/{{examId}}">Best Books
+                        Suggested</button>
+                </div>
+                <div>
+                    <button class="btn" >Best Resources <small>"Coming Soon"</small></button>
+                </div>
+                <div>
+                    <button class="btn"
+                        routerLink="/organization/previous-year-question/{{batchId}}/{{examId}}">Previous Year
+                        Papers</button>
+                </div>
+                <!-- <div>
+                    <button class="btn" routerLink="/organization/make-paper/{{batchId}}/{{examId}}"
+                        [queryParams]="{type: 'paper'}">Make My Paper</button>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- <button class="postAquery" routerLink="/assessment/dashboard/contact-us" [queryParams]="{exam: examId}"><span><i class="fas fa-comment-alt"></i></span>Post a query (If any)</button> -->
+        <!-- <div class="notification"><img src="assets/notibell.png" alt=""><span>Get Notification</span></div> -->
+        <button *ngIf="isAuthenticated" class="postAquery" routerLink="/organization/post-query" [queryParams]="{exam: examId}"><span class="iconify" data-icon="ri:chat-smile-3-fill" style="color: #ff4935;"></span></button>
+    </div>
+</div>

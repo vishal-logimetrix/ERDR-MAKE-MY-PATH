@@ -1,0 +1,181 @@
+<div class="d-flex" id="wrapper" [ngClass]="{ 'toggled': navbarOpen }">
+    <!-- Sidebar -->
+    <div class="bg-light border-right sidenav" id="sidebar-wrapper">
+        <div class="sidebar-heading text-info"  style="text-align:center;margin-top:10px">
+            <a href="javascript:void(0)" routerLink="/institute">
+                <!-- <h4>{{instituteOrganizationProfileData?.name }}</h4> -->
+                <img src="{{env.static}}/images/mmp_small.jpeg" alt="" height="60px">
+            </a></div>
+            <P id="mod">MMP Admin</P>
+        <div class="list-group list-group-flush" id="list">
+            <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute">Home</a>
+            </div>
+            <!-- <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" data-toggle="collapse" href="#contentdd" role="button" aria-expanded="false" aria-controls="contentdd">
+                    Content <i class="fa fa-caret-down align-right" aria-hidden="true"></i>
+                </a>
+                <div class="collapse" id="contentdd">
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/standard">Create/View Standard</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/subject">Add/Edit Subject</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/sub-standard">Add/Edit Subject-Standard</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/chapter">Add/Edit Chapter</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/topic">Add/Edit Topic</a>
+                    </div>
+                </div>
+            </div> -->
+            <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" data-toggle="collapse" href="#collapseQB" role="button" aria-expanded="false" aria-controls="collapseQB">
+                    Question Bank <i class="fa fa-caret-down align-right" aria-hidden="true"></i>
+                </a>
+                <div class="collapse" id="collapseQB">
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/question-tag">View/Edit Tags</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/question">View/Edit Questions</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/add-question">Add Questions</a>
+                    </div>
+                    <hr>
+                    <!-- <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/upload-question">Upload Questions</a>
+                    </div> -->
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/search-question">Search Question</a>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/add-edit-domains">Add/Edit Domains</a>
+            </div>
+            <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/add-edit-courses">Add/Edit Exams</a>
+            </div>
+           
+            <!-- <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/add-edit-packages">Add/Edit Packages</a>
+            </div> -->
+            <!-- <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" data-toggle="collapse" href="#collapseQP" role="button" aria-expanded="false" aria-controls="collapseQP">
+                    Question Paper <i class="fa fa-caret-down align-right" aria-hidden="true"></i>
+                </a>
+                <div class="collapse" id="collapseQP">
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/practice-test">Practice Test</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/assess-test">Assessment Test</a>
+                    </div>
+                </div>
+            </div> -->
+            <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/student-list">Student List</a>
+            </div>
+            <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/reported-questions">Reported Questions</a>
+            </div>
+            <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/manage-faq">Manage FAQ</a>
+            </div>
+            <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/manage-states-cities">Manage State / Cities</a>
+            </div>
+            <!-- <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/user-queries">User Queries</a>
+            </div> -->
+            <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/contact-us">Contact Us</a>
+            </div>
+            <!-- <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" data-toggle="collapse" href="#collapseUS" role="button" aria-expanded="false" aria-controls="collapseUS">
+                    Get/Create/Upload Students <i class="fa fa-caret-down align-right" aria-hidden="true"></i>
+                </a>
+                <div class="collapse" id="collapseUS">
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/create-student">Create Student Id</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/upload-student">Upload Students</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/upload-student-package">Upload Students With Package</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/add-student">Add Students to Package</a>
+                    </div>
+                    <hr>
+                    <div class="pl-3 pt-3">
+                        <a class="text-primary" href="javascript:void(0)" routerLink="/institute/student-list">Student List</a>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/upload-student-result">Upload Student Result</a>
+            </div> -->
+            <!-- <div class="list-group-item list-group-item-action bg-light">
+                <a class="text-primary" href="javascript:void(0)" routerLink="/institute/file-upload-history">File Upload History</a>
+            </div> -->
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-primary" id="menu-toggle" (click)="toggleNavbar()">Menu</button>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div style="font-size: 20px;margin-left: 40%;">Home</div>
+            <div class="collapse navbar-collapse" id="navbarSupportedCont ent">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-gear" style="font-size:24px"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-user" ></i> Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)" (click)="logout()"><i class="fa fa-sign-out" ></i> Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+
+<!-- /#wrapper -->

@@ -1,0 +1,40 @@
+<div class="container page_content">
+    <p style="color:cornflowerblue;font-size: small;"> &nbsp;&nbsp;>>&nbsp;Search Questions By Identifier</p>
+    <hr>
+    
+    <div class="row">
+      <div class="col-md-12">
+    
+<div id="table">
+    <input type="text" [(ngModel)]="identifier" placeholder="Eg. AAA4400"/>
+<button (click)="searchQuestions()">Search</button>
+<br><br>
+    <table class="table table-bordered table-responsive">
+        <thead class="thead-dark">
+          <tr>
+            <th>Identifier</th>
+            <th>Question Type</th>
+            <th>Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tag of queries">
+            <td>
+                {{tag?.question_identifier}}
+            </td>
+            <td>
+                {{tag?.type_of_question}}
+            </td>
+            <td><a target="_blank" routerLink="/institute/view-question" [queryParams]="{id: tag?.id}">
+                <b>Id: </b> {{tag?.id}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+     
+</div>
+</div>
+</div>
+</div>
+

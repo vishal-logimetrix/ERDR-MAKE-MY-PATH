@@ -1,0 +1,372 @@
+/*********************************
+1. Body and some general stuff
+*********************************/
+
+* {
+    margin                : 0;
+    padding               : 0;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-shadow   : rgba(0, 0, 0, .01) 0 0 1px;
+    text-shadow           : rgba(0, 0, 0, .01) 0 0 1px;
+  }
+  
+  
+  html,
+  body {
+    margin     : 0;
+    padding    : 0;
+    overflow-x : hidden;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    background : #FFFFFF;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    height: 100%;
+  }
+  @font-face {
+    font-family: CenturyGothicRegular;
+    src: url(assets/fonts/CenturyGothicRegular.ttf) format("truetype");
+  }
+  @font-face {
+    font-family: GOTHICB;
+    src: url(assets/fonts/GOTHICB.TTF) format("truetype");
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Jaldi:wght@400;700&display=swap");
+  div {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing   : border-box;
+    box-sizing        : border-box;
+  }
+  
+  p {
+    line-height           : 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  a:hover {
+    text-decoration: none;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-shadow   : rgba(0, 0, 0, .01) 0 0 1px;
+    text-shadow           : rgba(0, 0, 0, .01) 0 0 1px;
+    margin-bottom         : 0;
+  }
+  
+  button:focus {
+    box-shadow: none !important;
+  }
+  
+  section {
+    display   : block;
+    position  : relative;
+    box-sizing: border-box;
+  }
+  
+  // Page Layout
+  #loader {
+    position       : absolute;
+    top            : 0;
+    height         : 100vh;
+    background     : white;
+    width          : 100%;
+    z-index        : 10;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+  }
+  
+  // Page Loader
+  #short-loader {
+    position       : fixed;
+    top            : 0;
+    height         : 100%;
+    background     : rgba(255, 255, 255, .94);
+    width          : 100%;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    z-index        : 9999;
+  
+    img {
+      width: 5rem;
+    }
+  }
+  
+  .home-loader {
+    z-index: 100 !important;
+  }
+  
+  .custom-loader {
+    position: absolute !important;
+  }
+  
+  
+  /* DASHBOARD CONTENT */
+  .dashboard-content {
+    padding: 3rem 3rem;
+  }
+  
+  
+  /* **** Common Css **** */
+  .package-card {
+    height: 19rem;
+  }
+  
+  
+  /* **** Extra Bootstrap **** */
+  .btn {
+    border-radius: 0.125rem;
+  }
+  
+  .mt-6 {
+    margin-top: 4.5rem;
+  }
+  
+  .mb-7 {
+    margin-bottom: 5.5rem;
+  }
+  
+  .pointer-events-none {
+    pointer-events: none
+  }
+  
+  .font-sm {
+    font-size: .8rem;
+  }
+  
+  font-sm-1 {
+    font-size: 1rem;
+  }
+  
+  .font-sm-2 {
+    font-size: 1.2rem;
+  }
+  
+  
+  /* *** Extra *** */
+  .text-black {
+    color: #495057 !important;
+  }
+  
+  .text-dark {
+    color: #0c5460 !important;
+  }
+  
+  .text-oranged {
+    color: #ff9800 !important;
+  }
+  
+  
+  .bg-black {
+    background-color: #495057 !important;
+  }
+  
+  .bg-dark-2 {
+    background-color: #6c757d !important;
+  }
+  
+  .bg-white {
+    background-color: white !important;
+  }
+  
+  .bg-oranged {
+    background-color: #ff9800 !important;
+  }
+  
+  .bg-blue {
+    background-color: #00BCD4 !important;
+  }
+  
+  .error-text {
+    font-size: 90%;
+    color    : #ff3547;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  .z-depth-1 {
+    box-shadow: 0 0 1px 1px rgba(20, 23, 28, 0.1), 0 3px 1px 0 rgba(20, 23, 28, 0.1);
+  }
+  
+  /** Scroll Bar Desing **/
+  /* width */
+  ::-webkit-scrollbar {
+    width: 0.6rem;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f4f4f4;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    border-radius: 2rem;
+    background   : linear-gradient(90deg, rgba(23, 163, 184, 1) 0%, rgba(139, 195, 74, 1) 100%);
+  }
+  
+  /* **** Media Query **** */
+  @media (max-width: 768px) {
+  
+    html,
+    body {
+      overflow-x: hidden;
+    }
+  
+    .dashboard-content {
+      padding: 1rem;
+    }
+  
+    .column-margin {
+      margin-top: 2rem;
+    }
+  
+    /* Extra Classes For Mobile */
+    .font-md-m {
+      font-size: 1.8rem;
+    }
+  
+    .font-sm-m {
+      font-size: 1rem;
+    }
+  
+    .font-lg-m {
+      font-size: 2rem;
+    }
+  }
+  
+  
+  .page_content {
+    letter-spacing: 1px;
+    margin-top    : 15px;
+    padding-left  : 15px;
+    margin-bottom : 100px;
+  }
+  
+  /* Institute*/
+  
+  #sidebar-wrapper {
+    min-height        : 100vh;
+    margin-left       : -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition   : margin .25s ease-out;
+    -o-transition     : margin .25s ease-out;
+    transition        : margin .25s ease-out;
+  }
+  
+  #sidebar-wrapper .sidebar-heading {
+    padding  : 0.875rem 1.25rem;
+    font-size: 1.2rem;
+  }
+  
+  #sidebar-wrapper .list-group {
+    width: 15rem;
+  }
+  
+  #page-content-wrapper {
+    min-width: 100vw;
+  }
+  
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #wrapper.toggled #page-content-wrapper {
+    margin-left: 0;
+  }
+  
+  @media (min-width: 768px) {
+    #sidebar-wrapper {
+      margin-left: 0;
+    }
+  
+    #page-content-wrapper {
+      min-width: 0;
+      width    : 100%;
+    }
+  
+    #wrapper.toggled #sidebar-wrapper {
+      margin-left: -20rem;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+      margin-left: 0;
+    }
+  }
+  
+  
+  .pl-table {
+    .row {
+      margin     : 5px 0;
+      padding    : 0 20px;
+      align-items: center;
+    }
+  
+    .col {
+      padding      : 0 10px;
+      overflow     : hidden;
+      text-overflow: ellipsis;
+    }
+  
+    .pl-thead {
+      color         : #979797;
+      font-weight   : bold;
+      text-transform: uppercase;
+      font-size     : 11px;
+      margin        : 15px 0;
+  
+      &.tall {
+        background-color: #263338;
+        margin          : 0;
+        padding         : 5px 0;
+        color           : rgba(255, 255, 255, 0.7);
+        text-transform  : initial;
+  
+        .col {
+          border-right: 1px solid rgba(255, 255, 255, 0.2);
+          text-align  : center;
+          align-self  : stretch;
+  
+          &:last-child {
+            border: none;
+          }
+  
+          .large {
+            font-size: 21px;
+            color    : #ffffff;
+          }
+        }
+      }
+    }
+  
+    .pl-tbody {
+      .row {
+        background-color: #ffffff;
+        padding-top     : 7px;
+        padding-bottom  : 7px;
+        color           : #004085;
+        font-size       : 15px;
+      }
+  
+      &.scroll {
+        max-height: 500px;
+        overflow-x: scroll;
+      }
+    }
+  }

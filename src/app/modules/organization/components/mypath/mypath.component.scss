@@ -1,0 +1,275 @@
+.mypath {
+  min-height: 90vh;
+  padding: 15vh 0px 25px 0px;
+  .buttonsSection {
+    display: flex;
+    justify-content: space-between;
+  }
+  .btnBlockedStudents {
+    padding: 9px 0;
+    font-family: Lato, Sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ff4935;
+    background-color: transparent;
+    border: 1px solid #ff4935;
+    border-radius: 50px 50px 50px 50px;
+    box-shadow: 19px 19px 40px 0 rgb(0 0 0 / 10%);
+    width: 190px;
+  }
+  .btnBlockedStudents:hover {
+    background-color: #ff4935;
+    color: #ffffff;
+  }
+  .buttonsGroup {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 0px;
+    flex-wrap: wrap;
+    .btn {
+      background: #ff4935;
+      box-shadow: 0px 4px 4px #0781b1;
+
+      font-size: 0.6em;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.5em;
+      letter-spacing: 3.2px;
+      fill: #ffffff;
+      color: #ffffff;
+      border-radius: 50px 50px 50px 50px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 0px;
+      width: 240px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      align-items: center;
+      small {
+        position: absolute;
+        top: 0;
+        color: #ffffff;
+      }
+    }
+    .btn:hover {
+      border: 1px solid #ff4935;
+      background: #FFFFFF;
+      color: #ff4935;
+      small {
+   
+        color: #ff4935;
+      }
+    }
+  }
+  .btnLeaderboard {
+    padding: 0;
+    font-family: "jaldi", Sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #FF4935;
+    background-color: rgba(0,0,0,0);
+  }
+  .totalUser {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: #18181b;
+    font-family: "jaldi", Sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+    line-height: 1.545em;
+    letter-spacing: 0px;
+    a{
+      color: #FF1900;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0 7px;
+      font-family: "jaldi", Sans-serif;
+    }
+  }
+  .updatedOn {
+    color: #1515156e;
+    font-family: "Jaldi", Sans-serif;
+    font-size: 1.2em;
+    font-weight: 500;
+    line-height: 1.278em;
+    letter-spacing: 0px;
+    margin: 5px 0px 0px 0px;
+  }
+  h2 {
+    color: #000000;
+    font-size: 3em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: "Jaldi";
+    text-align: center;
+    margin-top: -15px;
+    span {
+      color: #007bba;
+      font-weight: 700;
+    }
+  }
+  h3 {
+    font-family: GOTHICB;
+    float: right;
+    color: #666766;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  }
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ffffff;
+    margin: 0 0 1em 0;
+    padding: 0;
+  }
+  .postAquery{
+    position: fixed;
+    right: 5px;
+    top: 35vh;
+    // background-color: #5898CE;
+    // color: #FFFFFF;
+    // font-family: 'jaldi',sans-serif;
+    border: none;
+    // height: 35px;
+    // padding-right: 10px;
+    // font-weight: bold;
+    // font-size: 14px;
+    // span{
+    //   padding: 5px;
+    //   background-color: #498EC8;
+    // }
+    .iconify {
+      font-size: 35px;
+    }
+  }
+  .optionDiv {
+    height: 60vh;
+    overflow-y: scroll;
+  }
+  .contentDiv {
+    color: #000000;
+    background-color: #ffffff;
+    padding: 10px 15px 20px 25px;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: #000000;
+    border-radius: 5px 5px 5px 5px;
+    font-family: "jaldi", sans-serif;
+    list-style-type: none;
+    height: 49vh;
+    overflow-y: scroll;
+  }
+
+  .notification {
+    background-color: #fdfdfd;
+    border: 2px solid #eaeaea;
+    transition: width 1s;
+    width: 65px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    right: 0;
+    top: 55vh;
+    img {
+      width: 40px;
+      height: 40px;
+      padding: 5px;
+    }
+    span {
+      display: none;
+    }
+  }
+  .notification:hover {
+    width: 220px;
+    span {
+      display: block;
+      font-family: CenturyGothicRegular;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  }
+  .nav-pills .nav-link {
+    border: 1px solid #ff4935;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.32);
+    border-radius: 5px;
+    font-family: "Jaldi", Sans-serif;
+    font-size: 1.275em;
+    font-weight: 500;
+    padding: 10px 15px;
+    color: #ff4935;
+    background-color: #ffffff;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .nav-pills .nav-link.active,
+  .nav-pills .show > .nav-link {
+    color: #ffffff;
+    background: #ff4935;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+  }
+  .rightArrow {
+    img {
+      width: 35px;
+      height: 35px;
+      float: right;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .mypath {
+    .buttonsGroup {
+      .btn {
+        width: 230px;
+      }
+    }
+    .contentDiv {
+      margin-top: 20px;
+    }
+  }
+}
+@media screen and (max-width: 760px) {
+  .mypath {
+    padding: 15vh 10px 25px 10px;
+    .totalUser {
+      flex-wrap: wrap;
+      font-size: 20px;
+    }
+  }
+  .nav {
+    width: 89%;
+  }
+  .buttonsGroup {
+    padding: 10px !important;
+    flex-wrap: wrap;
+    .btn {
+      margin-bottom: 20px;
+      margin-right: 0px !important;
+    }
+  }
+  .contentDiv {
+    margin: 14px 0px 5px 0px;
+  }
+  .mypath {
+    h2 {
+      font-size: 30px;
+      margin-top: 5px;
+    }
+    .notification {
+      width: 50px;
+      top: 40vh;
+    }
+  }
+}

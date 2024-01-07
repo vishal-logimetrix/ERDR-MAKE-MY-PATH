@@ -1,0 +1,114 @@
+<section class=" header container">
+    <div class="mb-2">
+        <header class="text-center ">
+            <h2 *ngIf="!isExamBookMark" class="display-4">My Bookmarks</h2>
+            <h2 *ngIf="isExamBookMark" class="display-4">My Bookmarks</h2>
+            <div class="totalUser">
+                <!-- <div><span>{{examDetails?.title}}</span></div> -->
+                <button routerLink="/organization/" class="btn float-left btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+                <div><a href="" routerLink="/organization/choose-p/{{batchId}}/{{examDetails?.id}}">{{examDetails?.title}}</a></div>
+                <div><span>Total Users : {{totalusers}}</span></div>
+            </div>
+        </header>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <div class="col-md-12 newBookmark" *ngIf="totalNumberOfBookmarks > 0">
+            <div class="subjects">
+                <div>
+           <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+               <li class="nav-item" *ngFor="let subject of subjects; let i = index">
+                 <a *ngIf="i==0" (click)="selectSubject(subject?.subject?.id, subject?.subject?.title)" class="nav-link active"  id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.subject?.title}} : ({{subject?.total_bookmarks}})</a>
+                 <a *ngIf="i!=0" (click)="selectSubject(subject?.subject?.id, subject?.subject?.title)" class="nav-link" id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.subject?.title}} : ({{subject?.total_bookmarks}})</a>
+               </li>
+           </ul>
+           </div>
+             <div class="tab-content" id="myTabContent">
+               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <ul class="bookmarksList">
+                    <ng-container *ngFor="let chapter of chapters; let i = index">
+                        <li class="arrow" *ngIf = "chapter?.total_bookmarks > 0" (click)="selectChapter(chapter?.chapter?.id)"><i class="fa fa-angle-double-right mr-1"></i>{{chapter?.chapter?.title}}  <span>( {{chapter?.total_bookmarks}} )</span></li>
+                    </ng-container>
+                   
+                </ul>
+               </div>
+               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+             </div>
+            </div>
+        </div>
+        <div class="notBookmarkedDiv" *ngIf="totalNumberOfBookmarks === 0">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="notBookmarked">You Have Not Bookmarked  Any  Question Yet</h5>
+                </div>
+                <div class="col-md-12">
+                    <img src="assets/notBookmarked.svg" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-12 dataDiv">
+            <ul *ngIf="!isExamBookMark" class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" *ngFor="let exam of myExams; let i = index">
+                  <a class="nav-link active" *ngIf="i==0" id="pills-home-tab" (click)="selectExam(exam?.id)" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{exam?.exam?.title}}</a>
+                  <a class="nav-link" *ngIf="i!=0" id="pills-home-tab" (click)="selectExam(exam?.id)" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{exam?.exam?.title}}</a>
+                </li>
+            </ul>
+            <ul *ngIf="isExamBookMark" class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" *ngFor="let exam of myExams; let i = index">
+                    <a class="nav-link active" *ngIf="exam?.id==selectedExamId" id="pills-home-tab" (click)="selectExam(exam?.id)" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{exam?.exam?.title}}</a>
+                </li>
+            </ul>
+        </div> -->
+       
+        <!-- <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <ng-container *ngFor="let subject of subjects; let i = index">
+                        <a *ngIf="i==0" (click)="selectSubject(subject?.id, subject?.title)" class="nav-link mb-3 p-3  active" id="v-pills-{{i}}-tab" data-toggle="pill" href="#v-pills-{{i}}" role="tab" aria-controls="v-pills-{{i}}" aria-selected="true">
+                        
+                            <span class="font-weight-bold  text-uppercase">{{subject?.title}}</span><span class="rightArrow"><img src="assets/8.png" alt=""></span></a>
+                        <a *ngIf="i!=0" (click)="selectSubject(subject?.id, subject?.title)" class="nav-link mb-3 p-3 " id="v-pills-{{i}}-tab" data-toggle="pill" href="#v-pills-{{i}}" role="tab" aria-controls="v-pills-{{i}}" aria-selected="true">
+                    
+                            <span class="font-weight-bold  text-uppercase">{{subject?.title}}</span><span class="rightArrow"><img src="assets/8.png" alt=""></span></a>
+                    </ng-container>
+                    </div>
+            </div>
+
+
+            <div class="col-md-8">
+                <div class="tab-content" id="v-pills-tabContent">
+
+                    <div *ngIf="chapters?.length > 0" class="tab-pane fade  show active " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <h4 class=" mb-4">Bookmarks : {{selectedSubjectName}}</h4>
+                        
+                            <ul>
+                                <li (click)="selectChapter(chapter?.id)" *ngFor="let chapter of chapters; let i = index"><span><i class="fas fa-angle-double-right mr-2"></i> {{chapter?.chapter?.title}} <span *ngIf="chapter?.total_bookmarks">- <b>{{chapter?.total_bookmarks}}</b></span></span> </li>
+                            </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</section>
+<!-- <div id="outer">
+    <div class="inner"><button type="submit" class="btn btn-primary" >Physics</button></div>
+    <div class="inner"><button type="submit" class="btn btn-secondary">Chemistry</button></div>
+    <div class="inner"><button class="btn btn-secondary">Biology</button></div>
+</div> 
+
+<div style="margin-left: 20px;">
+    <ul>
+        <li routerLink="/assessment/dashboard/bookmark-detail"><span>Electrostatics - 12</span></li>
+        <li routerLink="/assessment/dashboard/bookmark-detail"><span>Projectile Motion - 12</span></li>
+        <li routerLink="/assessment/dashboard/bookmark-detail"><span>Vector - 12</span></li>
+        <li routerLink="/assessment/dashboard/bookmark-detail"><span>Wave</span></li>
+        <li routerLink="/assessment/dashboard/bookmark-detail"><span>Law of gravity</span></li>
+        <li routerLink="/assessment/dashboard/bookmark-detail"><span>Power</span></li>
+    </ul>
+</div> -->
+
+<!-- <div id="outer">
+    <button class="btn btn-success" routerLink="/assessment/dashboard/make-paper">Next</button>
+</div> -->

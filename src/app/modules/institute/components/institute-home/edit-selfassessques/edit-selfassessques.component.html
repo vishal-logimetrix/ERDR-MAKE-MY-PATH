@@ -1,0 +1,242 @@
+<div class="card">
+    <form [formGroup]="questionForm" (submit)="submitForm()">
+    <div class="card-body">
+          
+        <br>
+        <!-- <label>Question Text <span style="color: red;"> *</span></label> 
+        <p>{{questionDetails?.text}}</p> -->
+        <div class="form-group">
+            <label for="sel1">Question Text</label>
+            <input type="text" class="form-control" formControlName="questionText">
+        </div> 
+        <!-- <ckeditor
+        [config]="{uiColor: '#dddcdc'}"
+        [readonly]="false"
+        (change)="onChange($event)"
+        formControlName="questionText"
+        debounce="500">
+      </ckeditor> -->
+        <br>
+
+        <div class="row">
+            <div  class="col-6">
+                <label>Is Active :</label>
+                <input type="checkbox" formControlName="isActive" class="form-check-input" value="" style="margin-left: 10%;">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sel1"> Type of Question<span style="color: red;">*</span></label>
+            <select class="form-control" formControlName="questionType" id="sel1">
+                <option disabled>---------</option>
+                <option *ngFor="let sub of questionTypes" [value]="sub.val" disabled>{{sub.name}}</option>
+            </select>
+        </div> 
+        <ng-container *ngIf="mcqType || mccType">
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 1
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option1"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                <!-- <label>Option Image : </label> &nbsp;
+                <input type="file" ng2FileSelect />
+                <br>  -->
+                <!-- <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" value="option1" (change)="onCheckChangeOption1($event)" class="form-check-input" style="margin-left: 2%;"> -->
+                </div>
+            </div>    
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 2
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option2"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                <!-- <label>Option Image : </label> &nbsp;
+                <input type="file" ng2FileSelect />
+                <br>  -->
+                <!-- <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" value="option2" (change)="onCheckChangeOption2($event)" class="form-check-input" style="margin-left: 2%;"> -->
+                </div>
+            </div>  
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 3
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option3"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                <!-- <label>Option Image : </label> &nbsp;
+                <input type="file" ng2FileSelect />
+                <br>  -->
+                <!-- <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" value="option3" (change)="onCheckChangeOption3($event)" class="form-check-input" style="margin-left: 2%;"> -->
+                </div>
+            </div>  
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 4
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option4"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                <!-- <label>Option Image : </label> &nbsp;
+                <input type="file" ng2FileSelect />
+                <br> -->
+                <!-- <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" value="option4" (change)="onCheckChangeOption4($event)" class="form-check-input" style="margin-left: 2%;"> -->
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 5
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option5"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 6
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option6"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 7
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option7"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 8
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option8"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 9
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option9"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 10
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option10"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                </div>
+            </div> 
+        </ng-container> 
+        <div class="row" *ngIf="fillUpType">
+            <div  class="col-6">
+                <label>Is Numeric :</label>
+                <input type="checkbox" formControlName="isNumeric" class="form-check-input" value="" style="margin-left: 10%;">
+            </div>
+        </div>
+        
+        <br>
+        <button type="submit" class="btn btn-primary" id="design_details" >SAVE</button>
+   
+    </div>
+</form>
+</div>

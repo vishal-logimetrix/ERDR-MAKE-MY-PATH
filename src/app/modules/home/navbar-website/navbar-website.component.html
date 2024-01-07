@@ -1,0 +1,465 @@
+<div class="navbarWebsite" id="landingNav">
+    <nav class="navbar fixed-top navbar-expand-xl navbar-light bg-light" id="spyNav">
+        <a class="navbar-brand" href="#">
+            <div class="navbarLogoDiv">
+                <img class="" src="assets/images/mmpNewLogo.png" alt="MakeMyPath" />
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <!-- <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)" [ngClass]="{'active': activeAbout == true}"
+                        [queryParams]="{ 'pageSec': 'about' }" routerLink="/about-us">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)" [ngClass]="{'active': activeGoal == true}"
+                        [routerLink]="['/']" [queryParams]="{ 'pageSec': 'exams' }">Goals</a>
+                </li>
+                <!-- (click)="goDown1()" -->
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)" [ngClass]="{'active': activeAssociation == true}"
+                        [routerLink]="['/']" [queryParams]="{ 'pageSec': 'institute' }">Association</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="javascript:void(0)">Ed Talk <sup>"Coming Soon"</sup></a>
+
+                </li>
+                <!-- (click)="goDown2()" -->
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)" [ngClass]="{'active': activeFaq == true}"
+                        [routerLink]="['/']" [queryParams]="{ 'pageSec': 'faqDiv' }">FAQ</a>
+                </li>
+                <!-- (click)="onClickScroll('faqDiv')" -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal" (click)="showLoginForm()"
+                        href="#">Login</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btnRegister" data-toggle="modal" data-target="#exampleModal"
+                        (click)="openRegister()">
+                        Register
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+<ng-template #otpModal>
+    <app-verify-phone [modalData]="modalData"></app-verify-phone>
+</ng-template>
+
+<div class="modal fade loginModal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close closeModal modalCloseButton" data-dismiss="modal" aria-label="Close"
+                    #closeModal>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="loginSignupModal">
+                    <ng-container *ngIf="showLogin">
+                        <div class="row LoginSignupSection">
+                            <div class="col-lg-6 text-white studentBg">
+                                <div class="signUpContentSection">
+                                    <h2>Log In <span class="iconify" data-icon="entypo:login"></span></h2>
+                                    <p><span class="iconify" data-icon="eos-icons:ai-operator"></span> Join MMP, A
+                                        Single Platform for preparation of all sorts/categories of examinations. 100%
+                                        Free.</p>
+                                    <p><span class="iconify" data-icon="eos-icons:ai-operator"></span> MMP offers
+                                        detailed information & right tool for exam preparation ranging from K-12,
+                                        Olympiads, NTSE, Entrance Exams & Government Recruitment exams.</p>
+                                    <p><span class="iconify" data-icon="eos-icons:ai-operator"></span> Our AI-Enabled
+                                        Make My Path section helps you to set your Goal & will recommend best path to
+                                        achieve the same in minimum possible time.</p>
+                                </div>
+                                <img class="rocket-launchTwo" src="assets/images/mdi_rocket-launch.png"
+                                    alt="Make My Path">
+                            </div>
+                            <div class="col-lg-6 d-flex justify-content-center align-items-center"
+                                style="background-color: #F3F3F3;">
+                                <div class="signUpFormSection">
+                                    <h2 class="text-center welcomeTitleStudent font-weight-bold">Log in to MMP</h2>
+                                    <div class="d-flex justify-content-center">
+                                        <img class="signupImage" src="assets/images/signInImage.png"
+                                            alt="Make My Practice">
+                                    </div>
+                                    <!-- <div *ngIf="!showOtp" class="d-flex justify-content-center flex-wrap">
+                                        <div>
+                                            <button class="btn btnOtpPassword" type="button"
+                                            [ngClass]="{'activeBooks': activeLogin === 'otp'}"
+                                            (click)="hidePasswordForm()"> Login Using OTP </button>
+                                        </div>
+                                        <div>
+                                            <button class="btn btnOtpPassword" type="button"
+                                            [ngClass]="{'activeBooks': activeLogin === 'password'}" 
+                                            (click)="showPasswordForm()"> Login Using Password </button>
+                                        </div>
+                                    </div> -->
+                                    <form *ngIf="!showOtp && !passwordLogin">
+                                        <div class="form-group">
+                                            <div class="formdiv">
+                                                <label for="username">Mobile Number</label>
+                                                <input class="form-control studentInput" type="text"
+                                                    placeholder="Enter Your Mobile No." name="phoneNumber"
+                                                    [(ngModel)]="phoneNumber" required autofocus
+                                                    (input)="validateLoginNumber()" />
+                                            </div>
+                                            <div id="loginError" class="mt-2" *ngIf="phoneNumber && !validLoginNo">
+                                                <span class="text-danger">Please enter valid mobile number</span>
+                                            </div>
+                                            <!-- <div>
+                              <p class="text-left text-danger"></p>
+                            </div> -->
+                                            <div class="formdiv d-flex justify-content-center">
+                                                <button [disabled]="!phoneNumber || !validLoginNo"
+                                                    class="btn mt-4 z-depth-0 login-submit studentBg" type="submit"
+                                                    (click)="sendOTP()">
+                                                    Log In
+                                                </button>
+
+                                            </div>
+                                            <div class="d-flex justify-content-center orDiv">
+                                                <h6>OR</h6>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btnOtpPassword" type="button"
+                                                    [ngClass]="{'activeBooks': activeLogin === 'password'}"
+                                                    (click)="showPasswordForm()"> Login With Password </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form *ngIf="showOtp">
+                                        <div class="form-group">
+                                            <div class="formdiv">
+                                                <label for="password">Enter OTP</label>
+                                                <input class="form-control studentInput" type="otp" name="otp"
+                                                    placeholder="Enter OTP" [(ngModel)]="otp" required />
+                                            </div>
+                                            <div id="loginError" class="mt-2" hidden></div>
+                                            <!-- <div>
+                              <p class="text-left text-danger"></p>
+                            </div> -->
+                                            <div class="formdiv d-flex justify-content-center flex-wrap">
+                                                <button [disabled]="!otp" class="
+                                                        btn
+                                                        mt-4
+                                                        ml-0
+                                                        mr-0
+                                                        z-depth-0
+                                                        login-submit studentBg
+                                                    " type="submit" (click)="verifyLoginOtp()">
+                                                    Log In
+                                                </button>
+
+                                                <button *ngIf="timer > 0" class="
+                                                        btn
+                                                        mt-4
+                                                        ml-2
+                                                        mr-0
+                                                        z-depth-0
+                                                        login-submit
+                                                    " type="button"
+                                                    style="background-color: #ffe1dd; border-radius: 50%; width: 40px; color: black;">
+                                                    <b *ngIf="timer > 9" style="margin-left: -9px;">0:{{timer}}</b>
+                                                    <b *ngIf="timer <= 9" style="margin-left: -9px;">0:0{{timer}}</b>
+                                                </button>
+                                                <button *ngIf="timer <= 0" class="
+                                                        btn
+                                                        mt-4
+                                                        ml-2
+                                                        mr-0
+                                                        z-depth-0
+                                                        login-submit studentBg
+                                                    " type="button" (click)="sendOTP()">
+                                                    Resend OTP
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form *ngIf="passwordLogin">
+                                        <div class="form-group">
+                                            <div class="formdiv">
+                                                <label for="username">Mobile Number</label>
+                                                <input class="form-control studentInput" type="text"
+                                                    placeholder="Enter Your Mobile No." name="phoneNumber"
+                                                    [(ngModel)]="phoneNumber" required autofocus
+                                                    (input)="validateLoginNumber()" />
+                                            </div>
+                                            <div class="formdiv">
+                                                <label for="password">Enter Password</label>
+                                                <input class="form-control studentInput" type="password" name="password"
+                                                    placeholder="Enter Password" [(ngModel)]="password" required />
+                                            </div>
+                                            <div id="loginError" class="mt-2" hidden></div>
+                                            <div class="formdiv d-flex justify-content-center">
+                                                <button [disabled]="!password" class="
+                                                        btn
+                                                        mt-4
+                                                        ml-0
+                                                        mr-0
+                                                        z-depth-0
+                                                        login-submit studentBg
+                                                    " type="submit" (click)="loginUsingPassword()">
+                                                    Log In
+                                                </button>
+                                                <!-- <button *ngIf="timer <= 0" class="
+                                                        btn
+                                                        mt-4
+                                                        ml-2
+                                                        mr-0
+                                                        z-depth-0
+                                                        login-submit studentBg
+                                                    " type="button" (click)="sendOTP()">
+                                                    Resend OTP
+                                                </button> -->
+
+                                            </div>
+                                            <div class="d-flex justify-content-center orDiv">
+                                                <h6>OR</h6>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btnOtpPassword" type="button"
+                                                    [ngClass]="{'activeBooks': activeLogin === 'otp'}"
+                                                    (click)="hidePasswordForm()"> Login With OTP </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="formdiv text-center mb-3">
+                                        <a href="javascript:void(0)" class="welcomeTitleStudent"
+                                            (click)="openRegister()">
+                                            Don't have an account?
+                                            <span class="pl-1">Register Now</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!showLogin">
+                        <div class="row LoginSignupSection">
+                            <div class="col-lg-6 text-white" [ngClass]="{
+                                'studentBg': activeCard === 'student',
+                                'mentorBg': activeCard === 'teacher'
+                                }">
+                                <div class="signUpContentSection">
+                                    <h2>Register <span class="iconify" data-icon="ic:round-app-registration"></span>
+                                    </h2>
+                                    <p *ngIf="activeCard === 'student'"><span class="iconify"
+                                            data-icon="eos-icons:ai-operator"></span> Join MMP, A Single Platform for
+                                        preparation of all sorts/categories of examinations. 100% Free.</p>
+                                    <p *ngIf="activeCard === 'student'"><span class="iconify"
+                                            data-icon="eos-icons:ai-operator"></span> MMP offers detailed information &
+                                        right tool for exam preparation ranging from K-12, Olympiads, NTSE, Entrance
+                                        Exams & Goverment Recruitment exams.</p>
+                                    <p *ngIf="activeCard === 'student'"><span class="iconify"
+                                            data-icon="eos-icons:ai-operator"></span> Our AI-Enabled Make My Path
+                                        section helps you to set your Goal & will recommend best path to achieve the
+                                        same in minimum possible time.</p>
+
+                                    <p *ngIf="activeCard === 'teacher'"><span class="iconify"
+                                            data-icon="eos-icons:ai-operator"></span> Join MMP, A Single Platform for
+                                        your students to prepare all sorts/categories of examinations. 100% Free.</p>
+                                    <p *ngIf="activeCard === 'teacher'"><span class="iconify"
+                                            data-icon="eos-icons:ai-operator"></span> MMP offers detailed information &
+                                        right tool for exam preparation ranging from K-12, Olympiads, NTSE, Entrance
+                                        Exams & Goverment Recruitment exams.</p>
+                                    <p *ngIf="activeCard === 'teacher'"><span class="iconify"
+                                            data-icon="eos-icons:ai-operator"></span> Our AI-Enabled Make My Path
+                                        section helps your students to set their Goal & recommend best path to achieve
+                                        the same in minimum possible time.</p>
+                                </div>
+                                <img class="rocket-launch" src="assets/images/mdi_rocket-launch.png"
+                                    alt="Make My Paper">
+                            </div>
+                            <div class="col-lg-6 d-flex justify-content-center align-items-center"
+                                style="background-color: #F3F3F3;">
+                                <div class="signUpFormSection">
+                                    <div *ngIf="!showOtpRegister" class="d-flex justify-content-center">
+                                        <div>
+                                            <button class="switchAccountOne"
+                                                [ngClass]="{'activeBooks': activeCard === 'student'}"
+                                                (click)="signUpStudent()">Student</button>
+                                        </div>
+                                        <div>
+                                            <button class="switchAccount"
+                                                [ngClass]="{'activeBooksOne': activeCard === 'teacher'}"
+                                                (click)="signUpTeacher()">Mentor</button>
+                                        </div>
+                                    </div>
+                                    <h2 class="text-center welcomeTitleStudent font-weight-bold"
+                                        *ngIf="signupAsStudent">Welcome Student!</h2>
+                                    <h2 class="text-center welcomeTitleTeacher font-weight-bold"
+                                        *ngIf="!signupAsStudent">Welcome Mentor!</h2>
+                                    <div class="d-flex justify-content-center">
+                                        <img class="signupImage" src="assets/images/obc.png" alt="MakeMyPath">
+                                    </div>
+                                    <form *ngIf="!showOtpRegister">
+                                        <div class="form-group">
+                                            <div class="formdiv">
+                                                <label for="username">Mobile Number</label>
+                                                <input class="form-control" type="text"
+                                                    placeholder="Enter Your Mobile No." name="phoneNumber"
+                                                    [(ngModel)]="registrationPhoneNumber" required
+                                                    (input)="validateSignUpNumber()" [ngClass]="{
+                                                    'studentInput': activeCard === 'student',
+                                                    'mentorInput': activeCard === 'teacher'
+                                                    }" />
+                                            </div>
+                                            <div id="loginError" class="mt-2"
+                                                *ngIf="registrationPhoneNumber && !validLoginNo">
+                                                <span class="text-danger">Please enter valid mobile number</span>
+                                            </div>
+                                            <div class="mt-1">
+                                                <div class="formdiv">
+                                                    <label for="password">Enter Name</label>
+                                                    <input class="form-control" type="otp" name="otp"
+                                                        placeholder="Enter Your Full Name" [(ngModel)]="name" required
+                                                        (input)="validateSignUpName()" [ngClass]="{
+                                                        'studentInput': activeCard === 'student',
+                                                        'mentorInput': activeCard === 'teacher'
+                                                        }" />
+                                                </div>
+                                            </div>
+                                            <div class="mt-1">
+                                                <div class="formdiv">
+                                                    <label for="password">Enter Password (Optional)</label>
+                                                    <input class="form-control" type="password" name="registerpassword"
+                                                        placeholder="Enter Password" [(ngModel)]="password" required
+                                                        (input)="validateSignUpName()" [ngClass]="{
+                                                        'studentInput': activeCard === 'student',
+                                                        'mentorInput': activeCard === 'teacher'
+                                                        }" />
+                                                </div>
+                                            </div>
+                                            <div id="loginError" class="mt-2" *ngIf="name && !validName">
+                                                <span class="text-danger">Please enter valid Name</span>
+                                            </div>
+                                            <div id="loginError" class="mt-2" hidden></div>
+                                            <!-- <div>
+                                <p class="text-left text-danger"></p>
+                                </div> -->
+                                            <div class="formdiv d-flex justify-content-center">
+                                                <button [disabled]="!validName || !validLoginNo" class="
+                                                    btn
+                                                    mt-3
+                                                    ml-0
+                                                    mr-0
+                                                    z-depth-0
+                                                    login-submit
+                                                " type="submit" (click)="register()" [ngClass]="{
+                                                    'studentBg': activeCard === 'student',
+                                                    'mentorBg': activeCard === 'teacher'
+                                                    }">
+                                                    Register
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form *ngIf="showOtpRegister">
+                                        <div class="form-group">
+                                            <div class="formdiv">
+                                                <label class="font-weight-bold" for="password">Enter OTP</label>
+                                                <input class="form-control" type="otp" name="otp"
+                                                    placeholder="Enter OTP" [(ngModel)]="registrationOTP" required
+                                                    [ngClass]="{
+                                                    'studentInput': activeCard === 'student',
+                                                    'mentorInput': activeCard === 'teacher'
+                                                    }" />
+                                            </div>
+                                            <div id="loginError" class="mt-2" hidden></div>
+                                            <!-- <div>
+                                      <p class="text-left text-danger"></p>
+                                       </div> -->
+                                            <div class="formdiv d-flex justify-content-center">
+                                                <button class="
+                                                    btn
+                                                    mt-4
+                                                    ml-0
+                                                    mr-0
+                                                    z-depth-0
+                                                    login-submit
+                                                " type="submit" (click)="verifyOtp(registrationOTP)" [ngClass]="{
+                                                    'studentBg': activeCard === 'student',
+                                                    'mentorBg': activeCard === 'teacher'
+                                                    }">
+                                                    Register
+                                                </button>
+                                                <button *ngIf="timer > 0" class="
+                                                    btn
+                                                    mt-4
+                                                    ml-2
+                                                    mr-0
+                                                    z-depth-0
+                                                    login-submit
+                                                " type="button"
+                                                    style="background-color: #ffe1dd; border-radius: 50%; width: 40px; color: black;">
+                                                    <b *ngIf="timer > 9" style="margin-left: -9px;">0:{{timer}}</b>
+                                                    <b *ngIf="timer <= 9" style="margin-left: -9px;">0:0{{timer}}</b>
+                                                </button>
+                                                <button *ngIf="timer <= 0" class="
+                                                    btn
+                                                    mt-4
+                                                    ml-2
+                                                    mr-0
+                                                    z-depth-0
+                                                    login-submit
+                                                " type="button" (click)="sendOTPRegister()" [ngClass]="{
+                                                    'studentBg': activeCard === 'student',
+                                                    'mentorBg': activeCard === 'teacher'
+                                                    }">
+                                                    Resend OTP
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="formdiv text-center mb-3">
+                                        <!-- <a
+                                        style="color: blue"
+                                        *ngIf="signupAsStudent"
+                                        href="javascript:void(0)"
+                                        class="mr-3 mb-3"
+                                        (click)="signUpTeacher()"
+                                    >
+                                        Signing up as a teacher?
+                                        </a>
+                                        <br *ngIf="signupAsStudent" /> -->
+                                        <!-- <a
+                                        style="color: blue"
+                                        *ngIf="!signupAsStudent"
+                                        href="javascript:void(0)"
+                                        class="mr-3 mb-3"
+                                        (click)="signUpStudent()"
+                                    >
+                                        Sign up as a learner..
+             </a>
+             <br *ngIf="!signupAsStudent" /> -->
+                                        <a href="javascript:void(0)" class="alreadyAccount" (click)="showLoginForm()"
+                                            [ngClass]="{
+                                        'welcomeTitleStudent': activeCard === 'student',
+                                        'welcomeTitleTeacher': activeCard === 'teacher'
+                                        }">
+                                            Already have an account?
+                                            <span class="pl-1">Login Now</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

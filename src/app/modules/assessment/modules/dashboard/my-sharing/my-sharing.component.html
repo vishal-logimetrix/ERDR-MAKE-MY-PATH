@@ -1,0 +1,103 @@
+<div class="container-sharing container">
+  <h2 class="pt-3 text-center topHeading"> My Sharing
+  </h2>
+  <div class="row">
+    <div class="col-md-12">
+    <button routerLink="/assessment/dashboard/" class="btn float-left btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+    </div>
+    <div class="col-md-12">
+      <hr>
+    </div>
+  </div>
+ <div class="row">
+  <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="spinner">
+    <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+  <div class="col-lg-6 col-md-12 " *ngIf="!spinner">
+    <div class="row firstDiv">
+      <div class="col-md-12">
+        <div class="sentDiv">
+          <h4 class="text-center font-weight-bold">Sent</h4>
+        </div>
+      </div>
+      <div class="col-md-12 mb-3" *ngFor="let paper of sharedByMe | slice:0:3;">
+        <div class="card bg-white shadow">
+          <div>
+            <div class="mobFirstRow">
+              <div class="user-info">
+                <div class="user-info__basic">
+                  <h5 class="paperCount text-center" [ngStyle]="{'color':paper?.shared_paper?.paper_type === 'paper' ? '#1B50A3' : '#FBB623' }">{{paper?.shared_paper?.paper_type}} {{paper?.shared_by_me_paper_count}}</h5>
+                  <h5 class="paperPracticeName text-center">{{paper?.shared_paper?.learner_exam?.exam?.title}}</h5>
+                </div>
+              </div>
+            </div>
+            <h6 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.shared_paper?.subjects; let i = index">{{subject?.title}}<span *ngIf="paper?.shared_paper?.subjects.length > 1 && paper?.shared_paper?.subjects.length > i + 1">, </span> </span> </h6>
+            <h6 *ngIf="paper?.shared_paper?.paper_type === 'practice'" class="allSubjects">Chapter : <span *ngFor="let subject of paper?.shared_paper?.chapters; let i = index">{{subject?.title}} </span> </h6>
+            <h6 class="allSubjects">Date : <span>{{paper?.created_at | date}}</span></h6>
+            <h6 class="allSubjects">No of Questions : {{paper?.shared_paper?.questions?.length}} </h6>
+            <div class="d-flex justify-content-between flex-wrap mt-2 allLinks">
+              <a class="attemptNow" *ngIf="!paper?.shared_paper?.submitted  && paper?.shared_paper?.paper_type == 'paper'"  routerLink="/assessment/paper/test-instructions/{{paper?.shared_paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.shared_paper?.id}" target="_blank"><span class="">Attempt Now</span></a>
+              <a class="attemptNow" *ngIf="!paper?.shared_paper?.submitted  && paper?.shared_paper?.paper_type == 'practice'"  routerLink="/assessment/paper/practice-paper/{{paper?.shared_paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.shared_paper?.id}" target="_blank"><span class="">Attempt Now</span></a>
+              <a class="reportCard" *ngIf="paper?.shared_paper?.submitted && paper?.shared_paper?.paper_type == 'paper'"  routerLink="/assessment/dashboard/report/{{paper?.shared_paper?.paper_type}}/{{paper?.shared_paper?.id}}/1" target="_blank"><span class="">Report Card</span></a>
+              <a class="reportCard" *ngIf="paper?.shared_paper?.submitted && paper?.shared_paper?.paper_type == 'practice'"  routerLink="/assessment/dashboard/practice-report/{{paper?.shared_paper?.id}}" target="_blank"><span class="">Report Card</span></a>
+              <a class="shareButton" href="javascript:void(0)" (click)="deeplinkShareSharedPaper(paper?.shared_paper?.learner_exam?.exam?.id, paper?.shared_paper?.id, paper?.shared_paper?.paper_type)"><span class="">Share</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 " *ngIf="sharedByMe?.length < 1">
+        <div class="d-flex justify-content-center">
+          <h6 class="noPaper text-center">You have not shared any PAPER/PRACTICE yet.</h6>
+        </div>
+      </div>
+      
+      <div class="col-md-12 viewallSent">
+        <a href="" routerLink="/assessment/dashboard/sent-received/sent" *ngIf="sharedByMe?.length >3">View All</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12" *ngIf="!spinner">
+  <div class="row secondDiv">
+    <div class="col-md-12">
+      <div class="recieveDiv">
+        <h4 class="text-center font-weight-bold">Received</h4>
+      </div>
+    </div>
+    <div class="col-md-12 mb-3" *ngFor="let paper of sharedToMe | slice:0:3;">
+      <div class="card shadow">
+        <div>
+          <div class="mobFirstRow">
+            <div class="user-info">
+  
+              <div class="user-info__basic">
+                <h5 class="paperCount text-center" [ngStyle]="{'color':paper?.shared_paper?.paper_type === 'paper' ? '#1B50A3' : '#FBB623' }">{{paper?.shared_paper?.paper_type}} {{paper?.shared_to_me_paper_count}} - Paper Id : {{paper?.newly_created_paper_count}}</h5>
+                <h5 class="paperPracticeName text-center">{{paper?.shared_paper?.learner_exam?.exam?.title}}</h5>
+              </div>
+            </div>
+          </div>
+          <h6 class="allSubjects">Subject(s): <span *ngFor="let subject of paper?.shared_paper?.subjects; let i = index">{{subject?.title}}<span *ngIf="paper?.shared_paper?.subjects.length > 1 && paper?.shared_paper?.subjects.length > i + 1">, </span> </span> </h6>
+          <h6 *ngIf="paper?.shared_paper?.paper_type === 'practice'" class="allSubjects">Chapter : <span *ngFor="let subject of paper?.shared_paper?.chapters; let i = index">{{subject?.title}} </span> </h6>
+          <h6 class="allSubjects">Date : {{paper?.created_at | date}}</h6>
+          <h6 class="allSubjects">No of Questions : {{paper?.shared_paper?.questions?.length}} </h6>
+          <div class="d-flex justify-content-between flex-wrap mt-2 allLinks">
+            <a class="attemptNow" *ngIf="!paper?.newly_created_submitted && paper?.shared_paper?.paper_type == 'paper'"  routerLink="/assessment/paper/test-instructions/{{paper?.shared_paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.newly_created_paper}" target="_blank"><span>Attempt Now</span></a>
+            <a class="attemptNow" *ngIf="!paper?.newly_created_submitted && paper?.shared_paper?.paper_type == 'practice'"  routerLink="/assessment/paper/practice-paper/{{paper?.shared_paper?.learner_exam?.exam?.id}}" [queryParams]="{paper: paper?.newly_created_paper}" target="_blank"><span>Attempt Now</span></a>
+            <a class="reportCard" *ngIf="paper?.newly_created_submitted && paper?.shared_paper?.paper_type == 'paper'"  routerLink="/assessment/dashboard/report/{{paper?.shared_paper?.paper_type}}/{{paper?.newly_created_paper}}/1" target="_blank"><span>Report Card</span></a>
+            <a class="reportCard" *ngIf="paper?.newly_created_submitted && paper?.shared_paper?.paper_type == 'practice'"  routerLink="/assessment/dashboard/practice-report/{{paper?.newly_created_paper}}" target="_blank"><span>Report Card</span></a>
+            <a class="shareButton" href="javascript:void(0)" (click)="deeplinkShareSharedPaper(paper?.shared_paper?.learner_exam?.exam?.id, paper?.newly_created_paper, paper?.shared_paper?.paper_type)"><span>Share</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" *ngIf="sharedToMe?.length < 1">
+      <div class="d-flex justify-content-center">
+      <h6 class="noPaper text-center">You have not received any PAPER/PRACTICE yet.</h6>
+    </div>
+    </div>
+    <div class="col-md-12 viewAllReceived">
+      <a href="" routerLink="/assessment/dashboard/sent-received/received" *ngIf="sharedToMe?.length >3" >View All</a>
+    </div>
+  </div>
+    
+  </div>
+ </div>

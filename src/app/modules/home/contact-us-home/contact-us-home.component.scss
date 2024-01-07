@@ -1,0 +1,21 @@
+.cu-section {
+  padding: 10rem 0;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 1.8rem;
+  color: #343a40;
+}
+
+.form-control {
+  border-radius: 0;
+}
+
+
+@media (max-width: 767px) {
+  .cu-section {
+    padding: 8rem 1.5rem;
+  }
+}

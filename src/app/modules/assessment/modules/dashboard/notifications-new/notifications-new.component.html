@@ -1,0 +1,251 @@
+<div class="container-fluid">
+    <div style="border-radius: 16px; min-height: 60vh;">
+        <div class="row" *ngIf="!readActive">
+            <div class="col-md-4" style="background: #a5a5f3;border-radius: 0px 40px;width: 557px;height: 580px;">
+                <h5 id="listHeading"><u>Unread</u>
+                <span (click)="clickTabs('read')" style="color: rgba(13, 19, 50, 0.48); margin-left: 5px;"><a href="javascript:void(0)"> Read </a></span> 
+                
+                <!-- <button id="clearFilter" class="ml-2" type="button" (click)="clearFilter()" style=" border-radius: 20px; color: white; background-color: #F44089;border: none;">Clear Filter</button>--> </h5> 
+                
+                <div class="inbox_peoples">
+
+                    <div class="inbox_chat">
+                        <span *ngFor="let message of notificationList['results']; let i = index">
+                            <div class="chat_list" id="{{'chat'+i}}" *ngIf="i%2==0">
+                                <div class="chat_people" (click)="fetchParticularMsg(message.id, i)">
+                                    <div class="chat_ib">
+                                        <p style="color: black;"><b>{{message?.subject}}</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat_list" id="{{'chat'+i}}" *ngIf="i%2!=0" style="background-color: white;">
+                                <div class="chat_people" (click)="fetchParticularMsg(message.id, i)">
+                                    <div class="chat_ib">
+                                        <p style="color: black;"><b>{{message?.subject}}</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                        <div class="chat_list">
+                            <div class="chat_ib">
+                                <span *ngIf="notificationList['results']?.length == 0">No unread notifications</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <section class="blogPageFold3 pb-5" style="margin-top: 20px;">
+                        <div class="container text-center">
+                            <nav aria-label="navigation">
+                                <ul class="pagination flex-wrap justify-content-center">
+                                    <li [ngClass]="{disabled:currentPage === 0 }" class="page-item first-item">
+                                        <button (click)="goToPage(0)" class="page-link btn btn-link">First</button>
+                                    </li>
+                          
+                                    <li [ngClass]="{disabled:currentPage === 0 }" class="page-item previous-item">
+                                        <button (click)="goToPage(currentPage - 1)" class="page-link btn btn-link">Previous</button>
+                                    </li>
+                          
+                                    <li *ngFor="let page of pages; let i = index" class="page-item number-item">
+                                        <button (click)="goToPage(i)" class="page-link btn btn-link"
+                                            [ngClass]="{active: currentPage==i}">{{i+1}}</button>
+                                    </li>
+                          
+                                    <li [ngClass]="{disabled:currentPage >= max_page -1 }" class="page-item next-item">
+                                        <button (click)="goToPage(currentPage+1)" class="page-link btn btn-link">Next</button>
+                                    </li>
+                                    <li [ngClass]="{disabled:currentPage === max_page }" class="page-item last-item">
+                                        <button (click)="goToPage(max_page -1)" class="page-link btn btn-link">Last</button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </section>
+                   
+                </div>
+                
+            </div>
+            <div class="col-md-8">
+                <div >
+                    <div class="row" id="changeDirection">
+                        <div class="col-md-6" id="ActiveChat">
+                            <div class="chat_list1 ">
+                                <ng-container *ngIf="fetchedMessage">
+                                <div class="chat_people">
+                                    <div class="chat_ib">
+                                        <h5 id="activeName"><b>{{fetchedMessage?.to?.name}} {{fetchedMessage?.to?.surname}}</b></h5>
+                                       
+                                    </div>
+                                </div>
+                            </ng-container>
+                            
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row">
+                   
+                    <div class="col-md-12">
+                        <div class="msg_history">
+                            <ng-container *ngIf="fetchedMessage">
+                                <div class="incoming_msg" >
+                                    <div class="received_msg">
+                                        <div class="received_withd_msg" >
+                                            <!-- <p *ngIf="!fetchedMessage?.meeting_id">{{fetchedMessage?.notification}} </p> -->
+                                            <p>{{fetchedMessage?.notification}}
+                                                <span *ngIf="fetchedMessage?.exam">
+                                                    <br>
+                                                    <b>Exam: </b> <a style="color: white; text-decoration: underline;" routerLink="/assessment/dashboard/choose-p/{{fetchedMessage?.exam}}">Go to Exam</a>
+                                                </span>
+                                                <span *ngIf="fetchedMessage?.batch">
+                                                    <br>
+                                                    <b>Batch: </b> <a style="color: white; text-decoration: underline;" routerLink="/assessment/dashboard/batch-details/{{fetchedMessage?.batch}}">Go to Batch</a>
+                                                </span>
+                                            </p>
+                                            <!-- <i class="fas fa-check-double"  ></i> -->
+                                            <span class="time_date"> {{fetchedMessage?.created_at | date:'short'}}</span>
+                                            <a href="javascript:void(0)"  *ngIf="fetchedMessage?.meeting_id && fetchedMessage?.type == 'witty'">Link</a>
+                                        </div>
+                                    </div>
+                                </div>
+                              </ng-container>
+                            
+                        </div>
+                        <!-- <div class="msg_history">
+                        </div> -->
+                        </div>
+                </div>
+                
+                <div class="row" id="typeSendMsg">
+                    <div class="col-md-10" *ngIf="fetchedMessage">
+                        <i id="microphone" class="fas fa-microphone"></i>
+                        <input type="text" class="moveText" [(ngModel)]="studentsMessage" id="typeMsg" placeholder="Type your message">
+                        <div class="image-upload">
+                            <!-- <label for="file-input">
+                                <img src="assets/icons/uploadVector.png" alt="">
+                            </label>
+                            <input id="file-input" type="file" /> -->
+                        </div>
+                    </div>
+                   
+                    <div class="row text-success" *ngIf="successMsg">
+                        <div class="col-md-12" style="margin-left: 10px;">
+                            {{ successMsg }}  <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    <div class="row text-danger" *ngIf="errors">
+                        <div class="col-md-12" style="margin-left: 10px;">
+                            {{ errors }}  <i class="far fa-lightbulb"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="readActive">
+            <div class="col-md-4" style="background: #F4F4FC;border-radius: 0px 40px;width: 557px;height: 580px;">
+                <h5 id="listHeading"><span (click)="clickTabs('unread')" style="color: rgba(13, 19, 50, 0.48);"><a href="javascript:void(0)">Unread</a></span>  <u style="margin-left: 5px;"><a href="javascript:void(0)"></a>Read</u> </h5>
+                <div class="inbox_peoples">
+
+                    <div class="inbox_chat">
+                        <span *ngFor="let message of notificationList['results']; let i = index">
+                            <div class="chat_list" id="{{'chatsent'+i}}" *ngIf="i%2==0">
+                                <div (click)="fetchParticularMsg(message.id, i)">
+                                    <div class="chat_ib">
+                                        <p>{{message?.subject}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat_list" id="{{'chatsent'+i}}" *ngIf="i%2!=0" style="background-color: white;">
+                                <div (click)="fetchParticularMsg(message.id, i)">
+                                    <div class="chat_ib">
+                                        <p>{{message?.subject}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                        <div class="chat_list">
+                            <div class="chat_ib">
+                                <span *ngIf="notificationList['results']?.length == 0">No read notifications</span>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <section class="blogPageFold3 pb-5" style="margin-top: 20px;">
+                        <div class="container text-center">
+                            <nav aria-label="navigation">
+                                <ul class="pagination flex-wrap justify-content-center">
+                                    <li [ngClass]="{disabled:currentPage === 0 }" class="page-item first-item">
+                                        <button (click)="goToPage(0)" class="page-link btn btn-link">First</button>
+                                    </li>
+                          
+                                    <li [ngClass]="{disabled:currentPage === 0 }" class="page-item previous-item">
+                                        <button (click)="goToPage(currentPage - 1)" class="page-link btn btn-link">Previous</button>
+                                    </li>
+                          
+                                    <li *ngFor="let page of pages; let i = index" class="page-item number-item">
+                                        <button (click)="goToPage(i)" class="page-link btn btn-link"
+                                            [ngClass]="{active: currentPage==i}">{{i+1}}</button>
+                                    </li>
+                          
+                                    <li [ngClass]="{disabled:currentPage >= max_page -1 }" class="page-item next-item">
+                                        <button (click)="goToPage(currentPage+1)" class="page-link btn btn-link">Next</button>
+                                    </li>
+                                    <li [ngClass]="{disabled:currentPage === max_page }" class="page-item last-item">
+                                        <button (click)="goToPage(max_page -1)" class="page-link btn btn-link">Last</button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </section>
+                </div>
+                
+            </div>
+            <div class="col-md-8">
+                
+                <div class="row" id="changeDirection"> 
+                    <div class="col-md-6" id="ActiveChat">
+                        <div class="chat_list1 ">
+                            <div class="chat_people" *ngIf="fetchedMessage">
+                                <!-- <div class="chat_img">
+                                    <img *ngIf="!fetchedMessage?.to?.profileImage" id="img" src="assets/images/pic-not-found.png" alt=""> 
+                                    <img *ngIf="fetchedMessage?.to?.profileImage" id="img" [src]="media + fetchedMessage?.to?.profileImage" alt=""> 
+                                </div> -->
+                                <div class="chat_ib">
+                                    <!-- <h5 id="activeName"><b>{{fetchedMessage?.to?.name}} {{fetchedMessage?.to?.surname}}</b></h5> -->
+                                    <!-- <img id="activeIcon" src="assets/icons/Ellipse 45.png" alt=""> -->
+                                    <!-- <p id="activeNow">Active Now</p> -->
+                                    <!-- <select (change)="filterMsg($event.target.value)" name="selectedMentorForFilter" id="newMessageSelect" class="filterMessage mt-2">
+                                        <option value="" selected>Filter Inbox</option>
+                                        <option [value]="mentor?.id" *ngFor="let mentor of mentorsList | sortBy: 'asc'" >{{mentor?.name}} {{mentor?.surname}}</option>
+                                    </select> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="msg_history">
+					<div class="outgoing_msg" *ngIf="fetchedMessage">
+                        <div class="sent_msg">
+                            <!-- <p>{{fetchedMessage?.notification}}</p> -->
+                            <p>{{fetchedMessage?.notification}}
+                                <span *ngIf="fetchedMessage?.exam">
+                                    <br>
+                                    <b>Exam: </b> <a routerLink="/assessment/dashboard/choose-p/{{fetchedMessage?.exam}}">Go to Exam</a>
+                                </span>
+                                <span *ngIf="fetchedMessage?.batch">
+                                    <br>
+                                    <b>Batch: </b> <a routerLink="/assessment/dashboard/batch-details/{{fetchedMessage?.batch}}">Go to Batch</a>
+                                </span>
+                            </p>
+                            <span class="time_date"> {{fetchedMessage?.created_at | date:'short'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,174 @@
+
+<div  class="container instructionDiv" *ngIf="show">
+  <div class="row">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></li>
+                <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard/my-goals/{{examDetails?.id}}" >Make My Path</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><span>Create Path</span></li>
+              </ol>
+        </nav>
+    </div>
+    <div class="col-md-12">
+        <h2 class="examTitle text-center">Create Path</h2>
+        <div class="totalUser">
+            <div><button class="btn float-left btnLeaderboard" routerLink="/assessment/dashboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button></div>
+            <div><span><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></span></div>
+            <div><span>Total Users : {{totalusers}}</span></div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <hr>
+    </div>
+</div>
+<div class="row d-flex justify-content-center">
+  <div class="col-md-10">
+    <div class="row formBg">
+   
+      <div class="col-xl-4 col-lg-4">
+        <div class="progressSectionDiv progressMobile">
+          <div class="row mobileProgressSection">
+            <div class="col" *ngFor="let number of [0,1,2]; let i = index">
+              <div class="progressSection">
+                  <div class="statusCircle" [ngClass]="{
+                      'checkedBG': number + 1 < currentStep,
+                      'currentBG': number + 1 ==  currentStep,
+                      'nextBG': number + 1 > currentStep
+                      }"><h6 *ngIf="number + 1 < currentStep"><i class="fa fa-check" aria-hidden="true"></i></h6></div>
+                  <div [ngClass]="{
+                      'currentColor': number + 1 < currentStep,
+                      'currentColor': number + 1 ==  currentStep,
+                      'nextColor': number + 1 > currentStep
+                      }">
+                      <h4 *ngIf="number == 0">Goal <br> Setting</h4>
+                      <h4 *ngIf="number == 1">Self <br> Evaluation</h4>
+                      <h4 *ngIf="number == 2">Diagnostic <br> Assessment</h4>
+                  </div>
+                  <ng-container *ngIf="number < 2">
+                  <div [ngClass]="{
+                      'currentBorderColor': number + 1 < currentStep,
+                      'currentBorderColor': number + 1 <=  currentStep,
+                      'nextBorderColor': number + 1 > currentStep
+                      }" class="horizontalLine"></div>
+                  </ng-container>
+              </div>
+          </div>
+          <div class="goalSettingSection">
+            <div class="row">
+                <div class="col-md-8" *ngFor="let numberSecond of [0,1]; let i = index">
+                    <div class="goalSettingDiv">
+                        <div class="circle" [ngClass]="{
+                            'checkedBG': numberSecond + 1 < currentStepNew,
+                            'currentBG': numberSecond + 1 ==  currentStepNew,
+                            'nextBG': numberSecond + 1 > currentStepNew
+                            }"></div>
+                        <h3 *ngIf="numberSecond == 0" >Basic Details</h3>
+                        <h3 *ngIf="numberSecond == 1" >Select Syllabus</h3>
+                        <div *ngIf="numberSecond < 1" class="gsHrLine"></div>
+                    </div>
+                </div>
+        </div>
+        <!-- <div class="horizontalLineOuter"></div> -->
+          </div>
+        </div>
+        <div class="row desktopProgressSection">
+                <div class="col-md-12" *ngFor="let number of [0,1,2]; let i = index">
+                    <div class="progressSection">
+                        <div class="statusCircle" [ngClass]="{
+                            'checkedBG': number + 1 < currentStep,
+                            'currentBG': number + 1 ==  currentStep,
+                            'nextBG': number + 1 > currentStep
+                            }"><h6 *ngIf="number + 1 < currentStep"><i class="fa fa-check" aria-hidden="true"></i></h6></div>
+                        <div [ngClass]="{
+                            'currentColor': number + 1 < currentStep,
+                            'currentColor': number + 1 ==  currentStep,
+                            'nextColor': number + 1 > currentStep
+                            }">
+                            <h4 *ngIf="number == 0">Goal Setting</h4>
+                            <h4 *ngIf="number == 1">Self Evaluation</h4>
+                            <h4 *ngIf="number == 2">Diagnostic Assessment</h4>
+                        </div>
+                        <ng-container *ngIf="number < 2">
+                        <div [ngClass]="{
+                            'currentBorderColor': number + 1 < currentStep,
+                            'currentBorderColor': number + 1 <=  currentStep,
+                            'nextBorderColor': number + 1 > currentStep
+                            }" class="horizontalLine"></div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="goalSettingSection">
+                  <div class="row">
+                      <div class="col-md-8" *ngFor="let numberSecond of [0,1]; let i = index">
+                          <div class="goalSettingDiv">
+                              <div class="circle" [ngClass]="{
+                                  'checkedBG': numberSecond + 1 < currentStepNew,
+                                  'currentBG': numberSecond + 1 ==  currentStepNew,
+                                  'nextBG': numberSecond + 1 > currentStepNew
+                                  }"></div>
+                              <h3 *ngIf="numberSecond == 0" >Basic Details</h3>
+                              <h3 *ngIf="numberSecond == 1" >Select Syllabus</h3>
+                              <div *ngIf="numberSecond < 1" class="gsHrLine"></div>
+                          </div>
+                      </div>
+              </div>
+              <!-- <div class="horizontalLineOuter"></div> -->
+                </div>
+                <div class="horizontalLineOuter"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8">
+      <div class="progressSectionDiv">
+        <h2 class="subjectAssessment text-center">Diagnostic Assessment</h2>
+        <div class="examDetail">
+          <div *ngFor="let instruction of instructions">
+            <h2 class="instructionData"  [innerHtml]="instruction.instruction"></h2>
+          </div>
+        </div>
+        <h3 class="instructionHeading">Exam Instructions</h3>
+        <div class="row ">
+            <div class="col-md-12 squareDiv">
+              <div class="squareOne"></div>
+              <div><h6>You have answered the question. <span style="color: transparent;">you have answered</span></h6></div>
+            </div>
+            <div class="col-md-12 squareDiv">
+              <div class="squareTwo"></div>
+              <div><h6>You have visited but not answered the question yet.</h6></div>
+            </div>
+            <div class="col-md-12 squareDiv">
+              <div class="squareThree"><i class="fa fa-check" aria-hidden="true"></i></div>
+              <div><h6>You have not answered the question but have marked for review.</h6></div>
+            </div>
+            <div class="col-md-12 squareDiv">
+              <div class="squareFour"><i class="fa fa-bookmark" aria-hidden="true"></i><i class="fa fa-check" aria-hidden="true"></i></div>
+              <div><h6>You have answered the question but have marked for review.</h6></div>
+            </div>
+            <div class="col-md-12 squareDiv">
+              <div class="squareFive"></div>
+              <div><h6>You have not visited the question yet.</h6></div>
+            </div>
+          </div>
+          <div class="row skipStartButtonRow">
+              <div>
+                <button class="btn btnSkipButton" (click)="skipassessment(paperDetails?.goal?.id)" routerLink="/assessment/dashboard/goal-path/{{paperDetails?.goal?.id}}" [queryParams]="{exam: examId}">Skip</button>
+              </div>
+              <div>
+                <button class="btn btnNextButton btnNextInstruction" routerLink="/assessment/paper/pregoal-paper/{{examId}}" [queryParams]="{paper: paperId}">Start</button>
+              </div>
+          </div>
+    </div>
+    </div>
+    </div>
+  </div>
+</div>  
+  </div>
+  
+  
+  
+  <div *ngIf="efgh" class="spinnerContainer">
+    <h2>{{examDetails?.title}}</h2>
+    <h3 class="p-2 text-center">Mapping to diagnostic assessment test to know your current proficiency....</h3>
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>

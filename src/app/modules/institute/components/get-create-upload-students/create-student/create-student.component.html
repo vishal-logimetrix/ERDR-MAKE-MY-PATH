@@ -1,0 +1,59 @@
+<div class="body">
+    <p>Enter The Following Details To Create a Student Id</p>
+    <form [formGroup]="createStudentForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+        <label>UserName:</label>
+        <input type="text" class="form-control" id="Name" formControlName="username" placeholder="Add UserName">
+    </div>
+    <div class="form-group">
+        <label>Email :</label>
+        <input type="text" class="form-control" id="Email" formControlName="email" placeholder="Add Email">
+    </div>
+    <div class="form-group">
+        <label>Password :</label>
+        <input type="password" class="form-control" id="Password" formControlName="password" placeholder="Add Password">
+    </div>
+    <div class="form-group">
+        <label>Confirm Password :</label>
+        <input type="password" class="form-control" id="con-Password" formControlName="confirmPassword" placeholder="Enter Password Again">
+    </div>
+    <div class="form-group">
+        <label>Phone :</label>
+        <input type="number" class="form-control" id="Phone" formControlName="phonenumber" placeholder="Add Phone Number">
+    </div>
+    <hr>
+    <hr>
+    <p style="color: gray;">Select Package For Student or leave blank if no package bought by student.</p>
+    <table class="table table-bordered" >
+      <thead>
+        <tr style="text-align: center;">
+          <th>#</th>
+          <th>Package</th>
+          <th>Tick</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pack of stu_package" >
+          <td>{{pack.number}}</td>
+          <td>{{pack.package}}</td>
+          <td style="text-align: center;"> 
+              <div class="form-check" style="margin-bottom: 20px;">
+                  <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" value="">
+                  </label>
+              </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="crte">
+    <button [disabled]="!createStudentForm.valid" type="submit" class="btn" id="click">CREATE</button>
+    </div>
+  </form>
+  <div class="form-group row alert alert-success" id="successMsg" *ngIf="successMsg">
+    {{ successMsg }}
+  </div>
+  <div class="form-group row alert alert-danger" id="errors" *ngIf="errors">
+    {{ errors }}
+  </div>
+</div>

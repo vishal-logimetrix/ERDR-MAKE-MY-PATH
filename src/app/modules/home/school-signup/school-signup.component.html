@@ -1,0 +1,91 @@
+<div class="login">
+    <div class="container-fluid" style="min-height: 100vh;">
+      <div class="row justify-content-center align-items-center login-container" style="padding-top: 85px;">
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-header border-0">
+              <h2 class=" text-center mb-0 text-danger"><b>School Registration</b></h2>
+            </div>
+            <div class="card-body">
+              <img width="180px" class="d-block mx-auto"
+                   src="assets/images/mmpLogo.png"
+                   alt="Institute Logo">
+              <div class="mt-4">
+                <form>
+                  <div class="form-group">
+                    <div>
+                      <label class="font-weight-bold" for="name">School Admin Name</label>
+                      <input class="form-control rounded-0" type="text" placeholder="Enter your name"
+                             name="name" [(ngModel)]="name" required>
+                    </div>
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="name">School Admin Phone Number</label>
+                        <input class="form-control rounded-0" type="text" placeholder="Enter your number"
+                               name="name" [(ngModel)]="registrationPhoneNumber" required>
+                      </div>
+                    <div class="mt-4">
+                      <label class="font-weight-bold" for="password">Password</label>
+                      <input class="form-control rounded-0"
+                             type="password" name="password" placeholder="Enter your password"
+                             [(ngModel)]="password" required>
+                    </div>
+                    <hr>
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="password">School Name</label>
+                        <input class="form-control rounded-0"
+                               type="text" name="school" placeholder="Enter school name"
+                               [(ngModel)]="schoolName" required>
+                    </div>
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="website">School website</label>
+                        <input class="form-control rounded-0"
+                               type="text" name="website" placeholder="Enter school website"
+                               [(ngModel)]="website" required>
+                    </div>
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="email">School email</label>
+                        <input class="form-control rounded-0"
+                               type="text" name="email" placeholder="Enter school email"
+                               [(ngModel)]="email" required>
+                    </div>
+                    <div class="mt-4">
+                    <label class="font-weight-bold" for="password">School State</label>
+                    <select class="form-control" name="selectedClass" [(ngModel)]="state" (change)="fetchStateCities($event.target.value)">
+                        <option [value]="state?.id" *ngFor="let state of states">{{state?.name}}</option>
+                    </select>
+                    </div>
+                    <div class="mt-4">
+                    <label class="font-weight-bold" for="password">School City</label>
+                    <select class="form-control" name="selectedClass" [(ngModel)]="city">
+                        <option [value]="city?.id" *ngFor="let city of cities">{{city?.name}}</option>
+                    </select>
+                    </div>
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="password">School Street</label>
+                        <input class="form-control rounded-0"
+                               type="text" name="street" placeholder="Enter street"
+                               [(ngModel)]="street" required>
+                    </div>
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="password">School Pincode</label>
+                        <input class="form-control rounded-0"
+                               type="text" name="pin" placeholder="Enter pincode"
+                               [(ngModel)]="pin" required>
+                    </div>
+                    <div id="loginError" class="mt-2" hidden></div>
+                    <!-- <div>
+                      <p class="text-left text-danger"></p>
+                    </div> -->
+                    <button class="btn mt-4 ml-0 mr-0 w-100 z-depth-0
+                                    login-submit" type="submit" (click)="registerSchool()">Sign Up
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

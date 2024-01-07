@@ -1,0 +1,66 @@
+<div class="comparison">
+  <tabset>
+    <tab heading="Score Comparison" class="mt-2" (selectTab)="getScoreComparison()">
+      <div [chart]="scoreChart">
+
+        <!-- Loader -->
+        <div class="chart-loader" *ngIf="!scoreFeedback && dataAvailable">
+          <img class="d-block mx-auto" src="{{static}}/images/gif/short-loader.gif" alt="">
+        </div>
+
+        <!-- Feedback -->
+        <h4 class="text-center text-muted" *ngIf="scoreFeedback">
+          {{ scoreFeedback }}
+        </h4>
+
+        <!-- Feedback -->
+        <h4 class="text-center text-muted" *ngIf="!scoreFeedback && !dataAvailable">
+          No Data Available
+        </h4>
+
+      </div>
+    </tab>
+    <tab heading="Attempted Question Comparison" class="mt-2" (selectTab)="getAttemptedComparison()">
+      <div [chart]="attemptedChart">
+
+        <!-- Loader -->
+        <div class="chart-loader" *ngIf="!attemptedFeedack && dataAvailable">
+          <img class="d-block mx-auto" src="{{static}}/images/gif/short-loader.gif" alt="">
+        </div>
+
+        <!-- Feedback -->
+        <h4 class="text-center text-muted" *ngIf="attemptedFeedack">
+          {{ attemptedFeedack }}
+        </h4>
+
+        <!-- Feedback -->
+        <h4 class="text-center text-muted" *ngIf="!attemptedFeedack && !dataAvailable">
+          No Data Available
+        </h4>
+
+      </div>
+    </tab>
+    <tab heading="Accuracy Comparison" class="mt-2" (selectTab)="getAccuracyComparison()">
+      <div [chart]="accuracyChart">
+
+        <!-- Loader -->
+        <div class="chart-loader" *ngIf="!accuracyFeedback && dataAvailable">
+          <img class="d-block mx-auto" src="{{static}}/images/gif/short-loader.gif" alt="">
+        </div>
+
+        <!-- Feedback -->
+        <h4 class="text-center text-muted" *ngIf="accuracyFeedback">
+          {{ accuracyFeedback }}
+        </h4>
+
+        <!-- Feedback -->
+        <h4 class="text-center text-muted" *ngIf="!accuracyFeedback && !dataAvailable">
+          No Data Available
+        </h4>
+
+      </div>
+    </tab>
+  </tabset>
+
+
+</div>

@@ -1,0 +1,473 @@
+<div *ngIf="abcd" class="makePaper container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></li>
+                  <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard/my-goals/{{examDetails?.id}}" >Make My Path</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><span>Create Path</span></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-12">
+            <h2 class="examTitle text-center">Create Path</h2>
+            <div class="totalUser">
+                <div><button class="btn float-left btnLeaderboard" routerLink="/assessment/dashboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button></div>
+                <div><span><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{examDetails?.title}}</a></span></div>
+                <div><span>Total Users : {{totalusers}}</span></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <!-- <div class="col-xl-9 col-md-7" *ngIf="currentStep == 3">
+            <div class="progressSectionDiv">
+                <h2>Self Evaluation</h2>
+                <form>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Q.1 Which board is/was your school affiliated to?</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Your Answer">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Q.1 Which board is/was your school affiliated to?</label>
+                    </div>
+                </form>   
+                <button class="btn btnNextButton" (click)="showAssessment()">Finish</button> 
+            </div>
+        </div> -->
+        <!-- <div class="col-xl-9 col-md-7" *ngIf="currentStep == 4">
+            <div class="progressSectionDiv">
+                <h2 class="subjectAssessment">Subject Assessment</h2>
+                <div class="examDetail">
+                    <div><h2>Total Questions: 5</h2></div>
+                    <div><h2>Total Time (in Min): 12:00</h2></div>
+                    <div><h2>Max. Marks: 20.00</h2></div>
+                </div>
+                <h3 class="instructionHeading">Exam Instructions</h3>
+                <div class="row ">
+                    <div class="col-md-12 squareDiv">
+                      <div class="squareOne"></div>
+                      <div><h6>You have answered the question. <span style="color: transparent;">you have answered</span></h6></div>
+                    </div>
+                    <div class="col-md-12 squareDiv">
+                      <div class="squareTwo"></div>
+                      <div><h6>You have visited but not answered the question yet.</h6></div>
+                    </div>
+                    <div class="col-md-12 squareDiv">
+                      <div class="squareThree"><i class="fa fa-check" aria-hidden="true"></i></div>
+                      <div><h6>You have not answered the question but have marked for review.</h6></div>
+                    </div>
+                    <div class="col-md-12 squareDiv">
+                      <div class="squareFour"><i class="fa fa-bookmark" aria-hidden="true"></i><i class="fa fa-check" aria-hidden="true"></i></div>
+                      <div><h6>You have answered the question but have marked for review.</h6></div>
+                    </div>
+                    <div class="col-md-12 squareDiv">
+                      <div class="squareFive"></div>
+                      <div><h6>You have not visited the question yet.</h6></div>
+                    </div>
+                  </div>
+                  <div class="row skipStartButtonRow">
+                      <div>
+                        <button class="btn btnSkipButton mr-4" (click)="showAssessment()">Skip</button>
+                      </div>
+                      <div>
+                        <button class="btn btnNextButton" (click)="showAssessment()">Start</button>
+                      </div>
+                  </div>
+            </div>
+        </div> -->
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="row formBg">
+                <div class="col-xl-4 col-lg-4">
+                    <div class="progressSectionDiv">
+                        <div class="row mobileProgressSection">
+                            <div class="col" *ngFor="let number of [0,1,2]; let i = index">
+                                <div class="progressSection">
+                                    <div class="statusCircle" [ngClass]="{
+                                        'checkedBG': number + 1 < currentStep,
+                                        'currentBG': number + 1 ==  currentStep,
+                                        'nextBG': number + 1 > currentStep
+                                        }"><h6 *ngIf="number +1 < currentStep"><i class="fa fa-check" aria-hidden="true"></i></h6></div>
+                                    <div [ngClass]="{
+                                        'currentColor': number + 1 <= currentStep,
+                                        'currentColor': number + 1 ==  currentStep,
+                                        'nextColor': number + 1 > currentStep
+                                        }">
+                                        <h4 *ngIf="number == 0">Goal <br> Setting</h4>
+                                        <h4 *ngIf="number == 1">Self <br> Evaluation</h4>
+                                        <h4 *ngIf="number == 2">Diagnostic <br> Assessment</h4>
+                                    </div>
+                                    <ng-container *ngIf="number < 2">
+                                    <div [ngClass]="{
+                                        'currentBorderColor': number + 1 < currentStep,
+                                        'currentBorderColor': number + 1 <=  currentStep,
+                                        'nextBorderColor': number + 1 > currentStep
+                                        }" class="horizontalLine"></div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="goalSettingSection">
+                                <div class="row">
+                                    <div class="col-md-8" *ngFor="let numberSecond of [0,1]; let i = index">
+                                        <div class="goalSettingDiv">
+                                            <div class="circle" [ngClass]="{
+                                                'checkedBG': numberSecond + 1 < currentStepNew,
+                                                'currentBG': numberSecond + 1 ==  currentStepNew,
+                                                'nextBG': numberSecond + 1 > currentStepNew
+                                                }"></div>
+                                            <h3 *ngIf="numberSecond == 0">Basic Details</h3>
+                                            <h3 *ngIf="numberSecond == 1">Select Syllabus</h3>
+                                            <div *ngIf="numberSecond < 1" class="gsHrLine"></div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <!-- <div class="horizontalLineOuter"></div> -->
+                        </div>
+                        </div>
+                        <div class="row desktopProgressSection">
+                            <div class="col-md-12" *ngFor="let number of [0,1,2]; let i = index">
+                                <div class="progressSection">
+                                    <div class="statusCircle" [ngClass]="{
+                                        'checkedBG': number + 1 < currentStep,
+                                        'currentBG': number + 1 ==  currentStep,
+                                        'nextBG': number + 1 > currentStep
+                                        }"><h6 *ngIf="number +1 < currentStep"><i class="fa fa-check" aria-hidden="true"></i></h6></div>
+                                    <div [ngClass]="{
+                                        'currentColor': number + 1 <= currentStep,
+                                        'currentColor': number + 1 ==  currentStep,
+                                        'nextColor': number + 1 > currentStep
+                                        }">
+                                        <h4 *ngIf="number == 0">Goal Setting</h4>
+                                        <h4 *ngIf="number == 1">Self Evaluation</h4>
+                                        <h4 *ngIf="number == 2">Diagnostic Assessment</h4>
+                                    </div>
+                                    <ng-container *ngIf="number < 2">
+                                    <div [ngClass]="{
+                                        'currentBorderColor': number + 1 < currentStep,
+                                        'currentBorderColor': number + 1 <=  currentStep,
+                                        'nextBorderColor': number + 1 > currentStep
+                                        }" class="horizontalLine"></div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="goalSettingSection">
+                                <div class="row">
+                                    <div class="col-md-8" *ngFor="let numberSecond of [0,1]; let i = index">
+                                        <div class="goalSettingDiv">
+                                            <div class="circle" [ngClass]="{
+                                                'checkedBG': numberSecond + 1 < currentStepNew,
+                                                'currentBG': numberSecond + 1 ==  currentStepNew,
+                                                'nextBG': numberSecond + 1 > currentStepNew
+                                                }"></div>
+                                            <h3 *ngIf="numberSecond == 0">Basic Details</h3>
+                                            <h3 *ngIf="numberSecond == 1">Select Syllabus</h3>
+                                            <div *ngIf="numberSecond < 1" class="gsHrLine"></div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <!-- <div class="horizontalLineOuter"></div> -->
+                        </div>
+                            <div class="horizontalLineOuter"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8" *ngIf="showPage">
+                    <div class="row justify-content-center">
+                        <div class="col-md-11">
+                            <h2 class="text-center tooVastMsg mt-4">As per our calculation, the syllabus is too vast to complete in the given time period you have selected. Please take a longer time period to complete the syllabus or reduce the syllabus.</h2>
+                            <div class=" d-flex justify-content-center">
+                            <button class="btn btnCreateAgain mt-3 mb-3 shadow" (click)="createNewGoal()">Create Again</button>
+                            </div>
+                            <img class="mt-3 mb-4 tooVastMsgImage" src="assets/ds.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8" *ngIf="currentStep == 1 && currentStepNew == 1 && !showPage">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="progressSectionDiv">
+                                <h2 class="text-center">Goal Setting</h2>
+                                <h3 class="text-center subHeading">(Basic Details)</h3>
+                                <form>
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">Enter a title for your <span>PATH</span></label>
+                                      <input type="text" [(ngModel)]="goalTitle" name="goalTitle" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Example: Jee Maths">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Select Proficiency</label>
+                                        <select name="level" class="form-control" id="exampleFormControlSelect1" [(ngModel)]="level">
+                                            <!-- <option value="" >Select Level</option> -->
+                                            <option value="beginner" selected>Beginner</option>
+                                            <option value="intermediate">Intermediate</option>
+                                            <option value="advanced">Advanced</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1">End Date</label>
+                                        <input type="date" name="endDate" [(ngModel)]="endDate" max="2999-12-31" class="form-control" >
+                                      </div>
+                                      <button class="btn btnNextButton" (click)="showChapterList()">Next</button>
+                                </form>
+                            </div>
+                        </div>
+                        <img class="basicDetailImage" src="assets/goalPath/basicDetails.svg" alt="">
+
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8" *ngIf="currentStep == 1 && currentStepNew == 2">
+                    <div class="progressSectionDiv">
+                        <h2 class="text-center">Goal Setting</h2>
+                        <h3 class="text-center subHeading">(Select Syllabus)</h3>
+                        <div class=" chooseChapterCard">
+                            <div class="row">
+                             <div class="col-md-12 d-flex chapterCheckbox">
+                                 <div class="subjects mb-4">
+                                              <div class="d-flex justify-content-center">
+                                                <a id="slideLeft" class="mr-2 d-flex align-items-center" href="javascript:void(0)" (click)="slideLeft()" ><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                                                  <!-- <h2 class="text-center chooseChapterHeading"><b>Choose Chapters </b></h2> -->
+                                         <ul class="nav nav-tabs" id="myTab" role="tablist" #widgetsContent>
+                                             <li class="nav-item" *ngFor="let subject of subjects; let i = index">
+                                               <a class="nav-link active" *ngIf="selectedSubjectId == subject?.id" (click)="getChapters(subject?.id)"  id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject.title}}</a>
+                                               <a class="nav-link " *ngIf="selectedSubjectId != subject?.id" (click)="getChapters(subject?.id)" id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.title}}</a>
+                                             </li>
+                                         </ul>
+                                         <a id="slideRight" class="ml-2 d-flex align-items-center" href="javascript:void(0)"
+                         (click)="slideRight()" ><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                         </div>
+                                         <div class="scrollingSection mt-4">
+                                         <button class="btn mockButton mockBtnDesktop" (click)="coverFullSyllabus()">Full Syllabus <img class="ml-1" src="assets/goalPath/fullSyllabus.svg" alt=""></button>
+                                           <div class="tab-content" id="myTabContent">
+                                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                 <div class="form-check">
+                                                     <input class="form-check-input largerCheckBox" type="checkbox" (change)="onCheckSelectChapters($event)" value="" id="flexCheckCheckedAll" >
+                                                     <label class="form-check-label" for="flexCheckChecked">
+                                                       All
+                                                     </label>
+                                                 </div>
+                                                 <div class="form-check " *ngFor="let chapter of chapters; let i = index">
+                                                     <input class="form-check-input largerCheckBox" type="checkbox" (change)="selectUnselectSingleChapter(chapter?.id, $event)" value="" id="{{chapter?.id}}" >
+                                                     <label class="form-check-label d-flex" for="flexCheckChecked">
+                                                         <span>
+                                                             <div class="icon twitter">
+                                                                 <span>{{chapter?.title}}</span>
+                                                             </div>
+                                                         </span>
+                                                     </label>
+                                                 </div> 
+                                             </div>
+                                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                                             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                                           </div>
+                                        </div>
+                                 </div>
+                                 <!-- <button class="btn btnNextButton" (click)="showMakePaper()">Next</button> -->
+                             </div>
+                             <div class="col-md-12" >
+                                <div>
+                                    <button class="btn btnNextButton btnNextBtnChapters" (click)="submitFilterForm()">Next</button>
+                                </div>
+                             </div>
+                             <div class="col-md-12 mobButtons">
+                                 <div>
+                                    <button class="btn mockButton" (click)="coverFullSyllabus()">Full Syllabus <img class="ml-1" src="assets/goalPath/fullSyllabus.svg" alt=""></button>
+                                 </div>
+                                 <div>
+                                    <button class="btn btnNextButton" (click)="submitFilterForm()">Next</button>
+                                 </div>
+                             </div>
+                            </div>
+                            <!-- <button class="btn btnNextButton btnNextBtnChapters" (click)="submitFilterForm()">Next</button> -->
+                        </div>
+                    </div>
+                </div>
+    </div>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mainHeading">Make My <span>PATH</span></h2>
+            <div class="">
+                <div class="totalUser">
+                    <button routerLink="/assessment/dashboard/" class="btn float-left btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+                    <div><span><a href="" routerLink="/assessment/dashboard/choose-p/{{examDetails?.id}}">{{examDetails?.title}}</a></span></div>
+                    <div><span>Total Users : {{totalusers}}</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12"><hr></div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12" *ngFor="let number of [0,1,2]; let i = index">
+                    <div class="progressSection">
+                        <div class="statusCircle" [ngClass]="{
+                            'checkedBG': number + 1 < currentStep,
+                            'currentBG': number + 1 ==  currentStep,
+                            'nextBG': number + 1 > currentStep
+                            }"><h6 *ngIf="number + 1 < currentStep"><i class="fa fa-check" aria-hidden="true"></i></h6></div>
+                        <div>
+                            <h4 *ngIf="number == 0">Path Creation</h4>
+                            <h4 *ngIf="number == 1">Syllabus Selection</h4>
+                            <h4 *ngIf="number == 2">Assessment</h4>
+                        </div>
+                        <ng-container *ngIf="number.index === 0">
+                        <div class="horizontalLine"></div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9" *ngIf="currentStep == 1">
+            <form>
+                <div class="form-group row">
+                  <label for="staticEmail" class="col-sm-4 col-form-label">Enter a title for your PATH</label>
+                  <div class="col-sm-4">
+                    <input type="text" [(ngModel)]="goalTitle" name="goalTitle" class="form-control-plaintext" id="staticEmail" placeholder="Example : JEE MATHs">
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-4 col-form-label">Proficiency</label>
+                    <div class="col-sm-4">
+                        <select name="level" id="" class="form-control" [(ngModel)]="level">
+                            <option value="" selected disabled>Select Level</option>
+                            <option value="beginner" selected>Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                          </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-4 col-form-label">End Date</label>
+                    <div class="col-sm-4">
+                        <input type="date" [(ngModel)]="endDate" name="endDate" id="endDate">
+                    </div>
+                  </div>
+            </form>
+        </div>
+        <div class="col-md-9" *ngIf="currentStep == 2">
+         
+               <div class=" chooseChapterCard">
+                   <div class="row">
+                    
+                   
+                    <div class="col-md-12 d-flex chapterCheckbox">
+                        <div class="subjects">
+                                     <div>
+                                         <h2 class="text-center chooseChapterHeading"><b>Choose Chapters </b></h2>
+                                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                    <li class="nav-item" *ngFor="let subject of subjects; let i = index">
+                                      <a class="nav-link active" *ngIf="selectedSubjectId == subject?.id" (click)="getChapters(subject?.id)"  id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject.title}}</a>
+                                      <a class="nav-link " *ngIf="selectedSubjectId != subject?.id" (click)="getChapters(subject?.id)" id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.title}}</a>
+                                    </li>
+                                </ul>
+                                </div>
+                                <button class="btn mockButton" (click)="coverFullSyllabus()">Full Syllabus <i class="fa fa-newspaper-o ml-2" aria-hidden="true"></i></button>
+                                  <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="form-check">
+                                            <input class="form-check-input largerCheckBox" type="checkbox" (change)="onCheckSelectChapters($event)" value="" id="flexCheckCheckedAll" >
+                                            <label class="form-check-label" for="flexCheckChecked">
+                                              All
+                                            </label>
+                                        </div>
+                                        <div class="form-check " *ngFor="let chapter of chapters; let i = index">
+                                            <input class="form-check-input largerCheckBox" type="checkbox" (change)="selectUnselectSingleChapter(chapter?.id, $event)" value="" id="{{chapter?.id}}" >
+                                            <label class="form-check-label d-flex" for="flexCheckChecked">
+                                                <span>
+                                                    <div class="icon twitter">
+                                                        <span (mouseover)="selectChapter(chapter?.id)">{{chapter?.title}}</span>
+                                                    </div>
+                                                </span>
+                                            </label>
+                                        </div> 
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                                  </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mockNextButton">
+                            
+                            <div class="mockAndNext">
+                                <div>
+                                    <button class="btn nextButton nextButtonMobile"  (click)="showMakePaper()">Next <i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                                    <button class="btn nextButton nextButtonDesktop"  (click)="submitFilterForm()">Next<i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                                    <button class="btn nextButton nextButtonMobile"  (click)="submitFilterForm()">Next <i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+               </div>
+        </div>
+        <div class="col-md-9" *ngIf="currentStep == 3">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card" style="cursor: pointer;" >
+                        <h2>Take Self  <br> <span>Evaluation</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card" style="cursor: pointer;">
+                        <h2>Take <br> <span>Assessment</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12"><hr></div>
+        <div class="col-md-12 mobPadding" *ngIf="currentStep == 1"> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mockNextButton">
+                            
+                            <div class="mockAndNext">
+                                <div>
+                                    <button class="btn nextButton nextButtonDesktop"  (click)="showChapterList()">Next<i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                                    <button class="btn nextButton nextButtonMobile"  (click)="showChapterList()">Next <i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div> -->
+</div>
+
+<!-- <div class="modal fade makePaperModal bd-example-modal-smhint" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Chapter <span>Topics</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+              <span aria-hidden="true" style="color: red;">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           
+            <div class="form-group">
+                <div class="listDiv" *ngIf="selectedChapter?.hints?.length > 0">
+                    <ol>
+                        <ng-container *ngFor="let hint of selectedChapter?.hints">
+                            <li>{{hint?.title}}</li>
+                        </ng-container>
+                    </ol>
+                </div>
+             
+            </div>
+            <div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <div *ngIf="efgh" class="spinnerContainer">
+    <h2>{{examDetails?.title}}</h2>
+    <h3 >Fetching your question paper....</h3>
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div> -->

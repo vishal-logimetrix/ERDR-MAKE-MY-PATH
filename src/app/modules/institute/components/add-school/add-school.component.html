@@ -1,0 +1,157 @@
+<div id="table">
+    <form [formGroup]="domainForm" (submit)="submitForm()">
+      <h2 style="text-align: center; margin-top: 5px; margin-bottom: 5px;"><b>Create School</b></h2>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td colspan="3">
+                  Is verified :
+              </td>
+              <td colspan="9">
+                  <input type="checkbox" class="form-check-input" value="" style="margin-left: 10px;" formControlName="isActive">
+              </td>
+            </tr>
+             <tr>
+              <td colspan="3">
+                  Name :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="name">
+                      <div *ngIf="f.name?.touched && f.name?.invalid" class="text-danger">
+                        <div *ngIf="f.name.errors.required">Name is required</div>
+                      </div>
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  Email :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="email">
+                      <div *ngIf="f.email?.touched && f.email?.invalid" class="text-danger">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                      </div>
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  Website :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="website">
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  School Code :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="code">
+                      <div *ngIf="f.code?.touched && f.code?.invalid" class="text-danger">
+                        <div *ngIf="f.code.errors.required">Code is required</div>
+                      </div>
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  Head :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="head">
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                  Head Contact No. :
+              </td>
+              <td colspan="9">
+                  <div class="form-group">
+                      <input type="text" class="form-control" formControlName="headcontact">
+                  </div>            
+              </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    Head Password :
+                </td>
+                <td colspan="9">
+                    <div class="form-group">
+                        <input type="password" class="form-control" formControlName="password">
+                    </div>            
+                </td>
+              </tr>
+            <tr>
+                <td colspan="3">
+                    State:
+                </td>
+                <td colspan="9">
+                    <div class="form-group">
+                        
+                        <div class="form-group">
+                            <select class="form-control" name="selectedClass" formControlName="state" (change)="fetchStateCities($event.target.value)">
+                                <!-- <option value="" selected disabled>Please Select Category</option> -->
+                                <option [value]="state?.id" *ngFor="let state of states">{{state?.name}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="f.state?.touched && f.state?.invalid" class="text-danger">
+                            <div *ngIf="f.state.errors.required">State is required</div>
+                          </div>
+                    </div>            
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                    City:
+                </td>
+                <td colspan="9">
+                    <div class="form-group">
+                        
+                        <div class="form-group">
+                            <select class="form-control" name="selectedClass" formControlName="city">
+                                <!-- <option value="" selected disabled>Please Select Category</option> -->
+                                <option [value]="city?.id" *ngFor="let city of cities">{{city?.name}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="f.city?.touched && f.city?.invalid" class="text-danger">
+                            <div *ngIf="f.city.errors.required">City is required</div>
+                          </div>
+                    </div>            
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                    Street :
+                </td>
+                <td colspan="9">
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="street">
+                    </div>            
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                    Pin :
+                </td>
+                <td colspan="9">
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="pin">
+                    </div>            
+                </td>
+              </tr>
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary" id="design_details" >SAVE</button>
+      </form>
+        
+  
+      </div>      

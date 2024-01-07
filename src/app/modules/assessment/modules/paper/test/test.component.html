@@ -1,0 +1,497 @@
+<div class="test-header" *ngIf="!maximizeScreen">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm test-nav">
+        <a class="navbar-brand" routerLink="/assessment/dashboard">
+            <img src="{{env.static}}/images/logo.png" alt="" style="width: 8rem">
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span><i class="fa fa-bars"></i></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link p-2 border-left user-detail" href="#">
+                        <div *ngIf="userProfileObj">
+                            <img [src]="userProfileObj['image']" alt="">
+                        </div>
+                        <div class="ml-4 d-flex justify-content-between align-items-center">
+                            <table class="table mb-0">
+                                <tbody>
+                                    <tr class="username">
+                                        <td class="border-0 p-0">Candidate Name</td>
+                                        <td class="border-0 p-0 pl-2 text-oranged" *ngIf="userProfileObj"> :
+                                            {{ userProfileObj['full_name'] }}
+                                        </td>
+                                    </tr>
+                                    <tr class="test-name" *ngIf="testObj['data']">
+                                        <td class="border-0 p-0">Test Name</td>
+                                        <td class="border-0 p-0 pl-2 text-oranged"> :
+                                            {{testObj['data']['mockpaperdetails'] ? testObj['data']['mockpaperdetails']['title'] : testObj['data']['assessmentpaperdetails']['title']}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- assessmentpaperdetails -->
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- Test Details -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark-2">
+        <div class="navbar-collapse d-flex" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link">
+                        <h1 class="test-title font-lg-m text-white">
+                            <span *ngIf="testObj['type'] === 'assessment'">Assessment Test</span>
+                            <span *ngIf="testObj['type'] === 'mock'">Practice Test</span>
+                        </h1>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mx-auto align-items-center subjects">
+                <li class="nav-item" *ngFor="let subject of subjectObj">
+                    <a class="nav-link badge badge-light mr-2" href="javascript:void(0)"
+                        (click)="nextSubject(subject['index'])">
+                        {{subject['title']}}
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto back-to-dashboard">
+                <li class="nav-item">
+                    <a routerLink="/assessment/dashboard" class="nav-link">
+                        <button type="button" class="btn btn-light btn-sm" style="padding: .0rem .4rem">
+                            <i class="fa fa-angle-double-left"></i>
+                            Back To Dashboard
+                        </button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="mathjax test-content"
+    [ngClass]="{'test-content-active ': !questionSidebarActive, 'maximize':maximizeScreen}" #mathjax>
+    <div id="question" class="test-section" *ngIf="testObj['data'] &&  testStatus['testAvailable'] else testCompleted">
+
+        <div class="question-container">
+            <div class="card border-0">
+
+                <!-- QUESTION HEADER -->
+                <div class="card-header bg-info border-0 text-white question-header">
+                    <div class="d-flex justify-content-between align-items-center header-content">
+                        <div>
+                            <h3 class="question-no font-sm-2">
+                                <span class="text">
+                                    Question:
+                                </span> {{currentQuestion + 1}} / {{totalQuestions}}
+                            </h3>
+                        </div>
+                        <h2 *ngIf="testDuration" class="font-md-m">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            {{ testDuration['hours'] > 0 ? testDuration['hours'] + ': ' : '' }}{{ testDuration['minutes'] }}:
+                            {{ testDuration['seconds'] }}
+                        </h2>
+
+                        <h3 class="question-type font-sm-2" *ngIf="question['type_of_question']==='mcq'">Single Choice</h3>
+                        <h3 class="question-type font-sm-2" *ngIf="question['type_of_question']==='mcc'">Multiple Choice
+                        </h3>
+                        <h3 class="question-type font-sm-2" *ngIf="question['type_of_question']==='flup'">Fill In The
+                            Blanks</h3>
+                        <h3 class="question-type font-sm-2" *ngIf="question['type_of_question']==='numerical'">Integral
+                            value type</h3>
+                        <h3 class="question-type font-sm-2" *ngIf="question['type_of_question']==='subjective'">Subjective</h3>
+                        <h3 class="question-type font-sm-2" *ngIf="question['type_of_question']==='subjective_medium'">
+                            Subjective</h3>
+                        <h3 class="question-type font-sm-2" *ngIf="question['type_of_question']==='subjective_short'">
+                            Subjective</h3>
+                        <h3 class="question-type font-sm-2" *ngIf="question['type_of_question']==='subjective_very_short'">
+                            Subjective</h3>
+
+                        <div class="maximize-screen font-sm-2">
+                            <a class="text-white" href="javascript:void(0)" style="font-size: 1.2rem;" role="button"
+                                (click)="toggleScreen()">
+                                <span *ngIf="!maximizeScreen else minimize">
+                                    <i class="fa fa-window-maximize" aria-hidden="true"></i> Maximize
+                                </span>
+                                <ng-template #minimize>
+                                    <span class="d-flex">
+                                        <i class="fa fa-window-minimize mr-2" aria-hidden="true"></i> Minimize
+                                    </span>
+                                </ng-template>
+                            </a>
+                        </div>
+                        <h2 class="d-none font-sm-m" [ngClass]="{'toggler-active': !questionSidebarActive}"
+                            (click)="toggleSidebar()">
+                            <i class="fa fa-bars"></i>
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- QUESTION BODY -->
+                <div class="card-body question-content">
+                    <!-- Question Text & Image -->
+                    <div class="text-black">
+                        <div class="mt-2">
+                            <p *ngIf="question['comprehension']" class="font-sm-1 mb-1 comprehension-question"
+                                [innerHtml]="question['comprehension']">
+                            </p>
+                            <h6 class="mb-0"><strong>Question: {{question_score }} Marks</strong></h6>
+
+                            <p class="font-sm-1 mb-0" [innerHtml]="question['text']">
+                            </p>
+                        </div>
+                        <div class="mt-4 test-img-container d-flex align-items-start justify-content-between"
+                            *ngIf="question['q_image']">
+                            <div #questionImage>
+                                <button type="button" class="close-button d-none btn btn-link text-black"
+                                    (click)="enlargeImage(questionImage)"><i class="fa fa-times"></i></button>
+                                <img class="img-responsive" alt="Question Image" [src]="question['q_image']">
+                            </div>
+                            <button class="p-2 btn btn-link text-black" type="button"
+                                (click)="enlargeImage(questionImage)"><i class="fa fa-expand"
+                                    aria-hidden="true"></i></button>
+                        </div>
+
+                        <!-- numerical Answer -->
+                        <ng-container *ngIf="question['type_of_question']==='numerical'">
+                            <div class="form-group mt-5 mb-3">
+                                <input type="text" class="form-control numerical-input" placeholder="Enter Answer"
+                                    name="numerical" value="{{ question['user_string_answer']}}"
+                                    *ngIf="question['user_string_answer'] && !clicked" maxlength="50" #numericalInput
+                                    disabled>
+                                <input type="text" class="form-control numerical-input" placeholder="Enter Answer"
+                                    name="numerical" value="{{numericalAnswer}}" *ngIf="clicked" maxlength="50"
+                                    #numericalInput disabled>
+                                <input type="text" class="form-control numerical-input" placeholder="Enter Answer"
+                                    name="numerical" value="" *ngIf="!question['user_string_answer'] && !clicked"
+                                    maxlength="50" #numericalInput disabled>
+                            </div>
+                            <div class="calcWrapper">
+                                <div class="col-12 bg-light pt-4 pb-4 col-lg-4">
+                                    <div class="row no-gutters">
+                                        <div class="col-12">
+                                            <input type="button" class="form-control" value="Backspace"
+                                                (click)="onclickClearAnswer()" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 7 "
+                                                (click)="onclickNumericalAnswer('7')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 8 "
+                                                (click)="onclickNumericalAnswer('8')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 9 "
+                                                (click)="onclickNumericalAnswer('9')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 4 "
+                                                (click)="onclickNumericalAnswer('4')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 5 "
+                                                (click)="onclickNumericalAnswer('5')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 6 "
+                                                (click)="onclickNumericalAnswer('6')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 1 "
+                                                (click)="onclickNumericalAnswer('1')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 2 "
+                                                (click)="onclickNumericalAnswer('2')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 3 "
+                                                (click)="onclickNumericalAnswer('3')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" 0 "
+                                                (click)="onclickNumericalAnswer('0')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" . "
+                                                (click)="onclickNumericalAnswer('.')" />
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="button" class="form-control" value=" - "
+                                                (click)="onclickNumericalAnswer('-')" />
+                                        </div>
+                                        <div class="col-12">
+                                            <input type="button" class="form-control" value="Clear All"
+                                                (click)="onclickClearallAnswer()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
+
+                    </div>
+
+                    <!-- Question Options for flup Type -->
+                    <div class="mt-3" *ngIf="question['type_of_question']==='flup'">
+                        <input type="text" class="form-control numerical-input" placeholder="Enter Answer"
+                            name="numerical" value="{{ question['user_string_answer'] }}" #fillUpInput>
+                    </div>
+
+                    <!-- Question Options for subjective Type -->
+                    <div class="mt-3"
+                        *ngIf="(question['type_of_question']==='subjective' || question['type_of_question']==='subjective_medium' || question['type_of_question']==='subjective_short' || question['type_of_question']==='subjective_very_short')">
+                        <textarea type="text" rows="10" class="form-control subjective-input"
+                            placeholder="Enter Subjective Answer" name="subjective"
+                            value="{{ question['user_subjective_answer']}}" #subjectiveInput></textarea>
+                        <img *ngFor="let url of question['user_subjective_answer_images']"
+                            [src]="env.media + url['user_subjective_answer_image']" class="subjective-image-display">
+                        <img *ngFor='let url of urls' [src]="env.media + url['user_subjective_answer_image']"
+                            class="subjective-image-display">
+                        <br />
+                        <div id="upload_subjective_image">
+                            <input type="file" accept=".jpg,.png,.jpeg" class="form-control subjective-image-input"
+                                id="image-input" (change)="onSelectFile($event)" multiple #subjectiveInputImage>
+                        </div>
+                        <div id="short-loader" class="custom-loader" *ngIf="showLoader.visibility">
+                            <img src="{{env.static}}/images/gif/short-loader.gif" alt="">
+                        </div>
+                    </div>
+
+                    <!-- Question Options for MCQ or MCC Type -->
+                    <div class="mt-3" *ngIf="question['type_of_question']=='mcq' || question['type_of_question']=='mcc'">
+
+                        <!-- Options -->
+                        <div class="mb-2 option-container">
+                            <ul>
+                                <li class="cursor-pointer mb-2 text-black"
+                                    *ngFor="let option of question['mcqtestcase'] let optionIndex = index">
+                                    <div class="d-flex">
+                                        <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                                        <span class="ml-3 option-text font-sm-1" [innerHtml]="option['text']"></span>
+                                    </div>
+                                    <div *ngIf="option['opt_image']"
+                                        class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                                        <div #optionImage>
+                                            <button type="button" class="close-button d-none btn btn-link text-black"
+                                                (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                                            <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                                        </div>
+                                        <button class="p-2 btn btn-link text-black" type="button"
+                                            (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                                aria-hidden="true"></i></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-footer" [ngClass]="{'test-footer-active ': !questionSidebarActive}">
+                    <!-- ANSWER FORM FOR MCQ/MCC QUESTINS -->
+                    <div *ngIf="question['type_of_question']=='mcq' || question['type_of_question']=='mcc'">
+                        <form (submit)="submitAnswer(question, $event)">
+                            <!-- Question Type: MCQ -->
+                            <div class="form-group mb-0 quesiton-select" *ngIf="question['type_of_question']==='mcq'">
+                                <label class="mb-0" for="option"
+                                    *ngFor="let option of question['mcqtestcase'] let radioIndex = index">
+                                    <input [ngClass]="{'ml-5': radioIndex!==0}" type="radio" name="option"
+                                        id="{{option['id']}}" [checked]="option['attempted']">
+                                    <span class="ml-2 select-option-text">{{radioIndex + 1}})</span>
+                                </label>
+                            </div>
+                            <!-- Question Type: MCC -->
+                            <div class="form-group mb-0 quesiton-select" *ngIf="question['type_of_question']==='mcc'">
+                                <label class="mb-0" for="option"
+                                    *ngFor="let option of question['mcqtestcase'] let radioIndex = index">
+                                    <input [ngClass]="{'ml-5': radioIndex!==0}" type="checkbox" name="option"
+                                        id="{{option['id']}}" [checked]="option['attempted']">
+                                    <span class="ml-2 select-option-text">{{radioIndex + 1}})</span>
+                                </label>
+                            </div>
+                            <!-- Next & Previous Question -->
+                            <div class="mt-1 test-buttons d-flex ">
+                                <button id="optionSubmit" type="submit"
+                                    class="btn save-next mr-3 mt-3">{{ currentQuestion === totalQuestions - 1 ? 'Save' : 'Save & Next' }}</button>
+                                <button type="submit" class="btn save-mark-for-review mr-3 mt-3"
+                                    (click)="saveAndMarkForReview($event)">Save & Mark For Review</button>
+                                <button type="submit" class="btn mark-for-review-next mr-3 mt-3"
+                                    (click)="markForReviewAndNext()">{{ currentQuestion === totalQuestions - 1 ? 'Mark For Review' : 'Mark For Review & Next' }}</button>
+                                <button id="optionClear" type="submit" class="btn clear-response mt-3"
+                                    (click)="clearResponse()">Clear Response</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- ANSWER FORM FORM FILL UP QUETIONS -->
+                    <div *ngIf="question['type_of_question']==='flup'">
+                        <form (submit)="submitAnswer(question, $event)">
+                            <!-- Question Submit Buttons -->
+                            <div class="test-buttons d-flex flex-wrap">
+                                <button id="fillUpSubmit" type="submit"
+                                    class="btn save-next mr-3 mt-3">{{ currentQuestion === totalQuestions - 1 ? 'Save' : 'Save & Next' }}</button>
+                                <button type="submit" class="btn save-mark-for-review mr-3 mt-3"
+                                    (click)="saveAndMarkForReview($event)">Save & Mark For Review</button>
+                                <button type="submit" class="btn mark-for-review-next mr-3 mt-3"
+                                    (click)="markForReviewAndNext()">{{ currentQuestion === totalQuestions - 1 ? 'Mark For Review' : 'Mark For Review & Next' }}</button>
+                                <button id="optionClear" type="submit" class="btn clear-response mt-3"
+                                    (click)="clearResponse()">Clear Response</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ANSWER FORM FORM numerical QUETIONS -->
+                    <div *ngIf="question['type_of_question']==='numerical'">
+                        <form (submit)="submitAnswer(question, $event)">
+                            <!-- Question Submit Buttons -->
+                            <div class="test-buttons d-flex flex-wrap">
+                                <button id="numericalSubmit" type="submit"
+                                    class="btn save-next mr-3 mt-3">{{ currentQuestion === totalQuestions - 1 ? 'Save' : 'Save & Next' }}</button>
+                                <button type="submit" class="btn save-mark-for-review mr-3 mt-3"
+                                    (click)="saveAndMarkForReview($event)">Save & Mark For Review</button>
+                                <button type="submit" class="btn mark-for-review-next mr-3 mt-3"
+                                    (click)="markForReviewAndNext()">{{ currentQuestion === totalQuestions - 1 ? 'Mark For Review' : 'Mark For Review & Next' }}</button>
+                                <button id="optionClear" type="submit" class="btn clear-response mt-3"
+                                    (click)="clearResponse()">Clear Response</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ANSWER FORM FORM subjective QUETIONS -->
+                    <div
+                        *ngIf="(question['type_of_question']==='subjective' || question['type_of_question']==='subjective_medium' || question['type_of_question']==='subjective_short' || question['type_of_question']==='subjective_very_short')">
+                        <form (submit)="submitAnswer(question, $event)">
+                            <!-- Question Submit Buttons -->
+                            <div class="test-buttons d-flex flex-wrap">
+                                <button id="subjectiveSubmit" type="submit"
+                                    class="btn save-next mr-3 mt-3">{{ currentQuestion === totalQuestions - 1 ? 'Save' : 'Save & Next' }}</button>
+                                <button type="submit" class="btn save-mark-for-review mr-3 mt-3"
+                                    (click)="saveAndMarkForReview($event)">Save & Mark For Review</button>
+                                <button type="submit" class="btn mark-for-review-next mr-3 mt-3"
+                                    (click)="markForReviewAndNext()">{{ currentQuestion === totalQuestions - 1 ? 'Mark For Review' : 'Mark For Review & Next' }}</button>
+                                <button id="optionClear" type="submit" class="btn clear-response mt-3"
+                                    (click)="clearResponse()">Clear Response</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- PREVIOUS & NEXT BUTTONS -->
+                    <div class="mt-2 next-prev">
+                        <div>
+                            <a href="javascript:void(0)" (click)="previousQuestion()">
+                                <span [ngClass]="{'no-question': currentQuestion===0}"><i
+                                        class="fa fa-angle-double-left"></i> Previous</span>
+                            </a>
+                            <a href="javascript:void(0)" class="ml-4" (click)="nextQuestion()"
+                                [ngClass]="{'no-question': currentQuestion === totalQuestions-1 }">Next<i
+                                    class="fa fa-angle-double-right"></i></a>
+                        </div>
+                        <h6 class="text-success mb-4 mt-2" *ngIf="submittingQuestion">Saving your response, please
+                            wait...</h6>
+                        <button type="button" class="btn btn-success" (click)="completeTest()">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="test-sidebar" [ngClass]="{'sidebar-inactive': !questionSidebarActive, 'maximize':maximizeScreen}">
+
+    <!-- QUESTION STATUS SIDEBAR WITH CIRCLES -->
+    <div #sidebar>
+        <div id="circle" class="d-flex flex-column s-h-1" *ngIf="testObj['data']" [ngClass]="{'s-h-2':maximizeScreen}">
+            <a class="text-dark font-sm-m times" *ngIf="questionSidebarActive" (click)="toggleSidebar()">
+                <h2><i class="fa fa-times"></i></h2>
+            </a>
+            <div class="text-center text-black pt-4 question-status-title">
+                <h2>Question Status</h2>
+            </div>
+            <!-- Toggle Legends -->
+            <div class="text-center mt-2">
+                <small class="text-white bg-info pl-2 pr-2 pb-1 pt-1 rounded" (click)="viewLengends = !viewLengends">
+                    <span *ngIf="viewLengends">Hide Legends <i class="fa fa-angle-up"></i></span>
+                    <span *ngIf="!viewLengends">Show Legends <i class="fa fa-angle-down"></i></span>
+                </small>
+            </div>
+
+            <div class="mt-4 text-black" *ngIf="viewLengends">
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="p-1">
+                                <span class="not-visited-circle">
+                                    {{ totalQuestions - (completedCount.length + reviewCount.length + savedReviewCount.length + notAnswerdCount.length) }}
+                                </span>
+                                <span class="ml-2 font-sm">Not Visited</span>
+                            </td>
+                            <td class="p-1">
+                                <span class="submitted-circle">{{ completedCount.length }}</span>
+                                <span class="ml-2 font-sm">Answered</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-1">
+                                <span class="rounded-circle circle btn-danger">
+                                    {{ notAnswerdCount.length }}
+                                </span>
+                                <span class="ml-2 font-sm">Not Answered</span>
+                            </td>
+                            <td class="p-1">
+                                <span class="marked-for-review-circle"> {{ reviewCount.length }} </span>
+                                <span class="ml-2 font-sm">Marked For Review</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-1">
+                                <span class="mark-for-review-and-save">
+                                    {{ savedReviewCount.length }}
+                                    <span class="btn-s-review"></span>
+                                </span>
+                                <span class="ml-2 font-sm">Saved & Marked For Review <br>
+                                    <small>( Will be considered for evaluation )</small>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mb-auto circle-container cursor-pointer pt-4 pb-2">
+                <div class="question-circle text-center">
+                    <button *ngFor="let question of testObj['data']['questions']; let i=index" type="button"
+                        class="btn btn-circle d-inline-flex justify-content-center align-items-center"
+                        [ngClass]="i===currentQuestion ? 'circle-border' + ' ' + getCircleClass(i) : getCircleClass(i)"
+                        (click)="jumpToQuestion(i)">
+                        {{i + 1}}
+                        <span [ngClass]="{'btn-s-review': question['sReview']}"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #testCompleted>
+    <div class="text-center mt-5 mb-5">
+
+        <!-- If Test Type is Mock-->
+        <h2 class="text-muted" *ngIf="testObj['type']==='mock'">Oops! some error occured
+            <a routerLink="/assessment/dashboard/contact-us">Contact Us</a>
+        </h2>
+
+        <!-- If Test Type Is Assessment-->
+        <h2 class="text-muted" *ngIf="testObj['exam_status']">{{testObj['exam_status']}}</h2>
+    </div>
+</ng-template>

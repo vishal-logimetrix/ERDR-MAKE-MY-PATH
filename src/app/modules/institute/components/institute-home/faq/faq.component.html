@@ -1,0 +1,28 @@
+<div class="container page_content">
+       
+    <button type="button" class="btn btn-primary" id="std" routerLink="/institute/create-faq">CREATE FAQ</button>
+<div id="table">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let faq of faqs">
+            <td>
+               <strong>{{faq?.title}}</strong> 
+            </td>
+            <td>{{faq?.content}}</td>
+            <td>
+                <!-- <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/edit-path-question" [queryParams]="{id: ques?.id}">EDIT PATH QUESTION</button> -->
+                <button type="button" class="btn ml-2" id="std_details" (click)="deleteFAQ(faq?.id)">DELETE</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+</div>

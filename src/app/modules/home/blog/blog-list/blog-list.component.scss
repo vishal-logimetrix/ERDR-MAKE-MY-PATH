@@ -1,0 +1,154 @@
+/* **** Section 1 Styles **** */
+.blog-section {
+  background: #212121;
+
+  .page-title {
+    padding-top: 8rem;
+    color: white;
+  }
+
+  .page-content {
+    background: #212121;
+    padding: 2rem;
+    border-radius: .5rem;
+  }
+
+  .card {
+    border: 0;
+  }
+
+  a, a:hover {
+    color: white;
+  }
+}
+
+/** Carousel Styles **/
+.blog-carousel, .carousel-item, .carousel-inner {
+  height: 100%;
+}
+
+.carousel-item {
+  //position: relative;
+
+  img {
+    max-width: 100%;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+.carousel-caption, .card-img-overlay {
+  z-index: 10;
+}
+
+/** Carousel Styles Ends **/
+
+.post-content:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(33, 37, 41, 0.5);
+  z-index: 0;
+}
+
+
+/* **** Section 2 Styles **** */
+.section-2 {
+  .content {
+    padding: 4rem 8rem;
+  }
+
+  .card-title {
+    color: #151b3e;
+    font-family: 'PT Serif', serif;
+  }
+
+  a, a:hover {
+    color: #495057;
+  }
+
+}
+
+.img-container {
+  height: 16rem;
+  overflow: hidden;
+}
+
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  /****** SECTION 1 ******/
+  .post-title {
+    font-size: 3.5rem !important;
+  }
+
+  /** Carousel Styles **/
+  .carousel-item {
+    height: 30rem;
+    overflow: hidden;
+
+    img {
+      position: static;
+    }
+  }
+
+  /** Post Styles **/
+  .post-section-2 {
+    display: flex;
+
+    .card {
+      width: 50%;
+    }
+  }
+
+  /****** SECTION 2 ******/
+  .section-2 {
+    .content {
+      padding: 0rem 1rem;
+    }
+  }
+}
+
+
+@media (max-width: 767px) {
+  .blog-section {
+
+    .page-content {
+      padding: 0;
+    }
+
+    .post-title {
+      font-size: 1.5rem !important;
+    }
+  }
+
+
+  /** Carousel Styles **/
+  .carousel-item img {
+    position: static;
+  }
+
+  .carousel-caption {
+    top: 10%;
+  }
+
+  .card-img-overlay {
+    text-align: center;
+  }
+
+  .post-meta-description {
+    margin-top: 1rem;
+  }
+
+  /****** SECTION 2 ******/
+  .section-2 .content {
+    padding: 1rem;
+  }
+}

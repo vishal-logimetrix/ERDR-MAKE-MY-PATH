@@ -1,0 +1,349 @@
+
+<div class="container makePaper">
+    <div class="row" *ngIf="chooseSubjectsFlag">
+       <div class="col-md-12">
+        <!-- {{selectedChapters | json}} -->
+           <div class=" chooseChapterCard">
+            <!-- <div class="row buttonsSection">
+                <div>
+                    <button class="btn btn-sm btn-danger shadow btnBlockedStudents" routerLink="/organization/group/{{batchId}}">Batch Dashboard</button>
+                </div>
+            </div> -->
+               <div class="row">
+                <div class="col-md-12 mt-3">
+                    <div class="">
+                       
+                        <h2 class="text-center" *ngIf="paperType == 'paper'">
+                            Make My <span>PAPER</span>
+                        </h2>
+                        <h2 class="text-center" *ngIf="paperType == 'practice'">
+                            Make My <span>PRACTICE</span>
+                        </h2>
+                        
+                        <div class="totalUser">
+                            <div><span><button class="btn btn-sm btnLeaderboard" routerLink="/organization/group/{{batchId}}"><i class="fas fa-angle-double-left mr-1"></i>Batch Dashboard</button></span></div>
+                            <div><span><a href="" routerLink="/organization/choose-p/{{batchId}}/{{examId}}">{{examDetails?.title}}</a></span></div>
+                            <div><span>Total Users : {{totalusers}}</span></div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12"><hr></div>
+                <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="spinner">
+                    <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div>
+                <div class="col-md-12 d-flex chapterCheckbox" *ngIf="chapters && !spinner">
+                    <div class="subjects">
+                        <div class="d-flex justify-content-center">
+                            <a id="slideLeft" class="mr-2 d-flex align-items-center" href="javascript:void(0)" (click)="slideLeft()" ><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                   <ul class="nav nav-tabs" id="myTab" role="tablist" #widgetsContent>
+                       <li class="nav-item" *ngFor="let subject of subjects; let i = index">
+                         <a class="nav-link active" *ngIf="selectedSubjectId == subject?.id" (click)="getChapters(subject?.id)"  id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject.title}}</a>
+                         <a class="nav-link " *ngIf="selectedSubjectId != subject?.id" (click)="getChapters(subject?.id)" id="home-{{i}}-tab" data-toggle="tab" href="#home-{{i}}" role="tab" aria-controls="home-{{i}}" aria-selected="true">{{subject?.title}}</a>
+                       </li>
+                   </ul>
+                   <a id="slideRight" class="ml-2 d-flex align-items-center" href="javascript:void(0)"
+                         (click)="slideRight()" ><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                   </div>
+                   <!-- <button class="btn mockButton" [disabled]="submitStatus" (click)="generateMockPaper()">Mock Paper <i class="fa fa-newspaper-o ml-2" aria-hidden="true"></i></button> -->
+                     <div class="tab-content mt-4" id="myTabContent">
+                       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                           <div class="form-check">
+                               <input class="form-check-input largerCheckBox" type="checkbox" (change)="onCheckSelectChapters($event)" value="" id="flexCheckCheckedAll" >
+                               <label class="form-check-label" for="flexCheckChecked">
+                                 All
+                               </label>
+                           </div>
+                           <div class="form-check " *ngFor="let chapter of chapters; let i = index">
+                               <input class="form-check-input largerCheckBox" type="checkbox" (change)="selectUnselectSingleChapter(chapter?.id, $event)" value="" id="{{chapter?.id}}" >
+                               <label class="form-check-label d-flex" for="flexCheckChecked">
+                                   <!-- {{chapter?.title}} -->
+                                   <!-- <button tabindex="-1" 
+                                   class="btn btn-lg btn-danger" 
+                                   role="button" data-toggle="popover" 
+                                   data-trigger="focus" title="Dismissible popover" 
+                                   data-content="And here's some amazing content. It's very engaging. Right?"><i class="fa fa-info-circle"></i>
+                                   </button> -->
+                                   <!-- <span><a  class="tooltipas" data-title="Html, Css, javascript, jss"><i class="fa fa-info-circle"></i></a></span>  -->
+                                   <span>
+                                       <div class="icon twitter">
+                                           <!-- <div class="tooltip">
+                                               <span class="tooltipList" *ngFor="let hint of selectedChapter?.hints">{{hint?.title}}, </span>
+                                           </div> -->
+                                           <span (mouseover)="selectChapter(chapter?.id)">{{chapter?.title}}</span>
+                                       </div>
+                                   </span>
+                               </label>
+                           </div> 
+                       </div>
+                       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                       <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                     </div>
+           </div>
+                    <!-- <button class="btn mockPaper">Mock Paper</button> -->
+                    <!-- <button class="btn btn-sm nextButton" (click)="showMakePaper()">Next</button> -->
+                    <!-- <div class="tabsDiv">
+                    <div class="nav flex-row nav-pills" id="v-pills-tab" role="tablist" >
+                        <ng-container *ngFor="let subject of subjects; let i = index">
+                            <a *ngIf="selectedSubjectId == subject?.id" (click)="getChapters(subject?.id)" class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">{{subject.title}}</a>
+                            <a *ngIf="selectedSubjectId != subject?.id" (click)="getChapters(subject?.id)" class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"  aria-controls="v-pills-home" aria-selected="false">{{subject?.title}}</a>
+                        </ng-container>
+                      </div>
+                    </div>
+                      <div class="tab-content mt-3" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" (change)="onCheckSelectChapters($event)" value="" id="flexCheckCheckedAll" >
+                                <label class="form-check-label" for="flexCheckChecked">
+                                  All
+                                </label>
+                            </div>
+                            <div class="form-check" *ngFor="let chapter of chapters; let i = index">
+                                <input class="form-check-input" type="checkbox" (change)="selectUnselectSingleChapter(chapter?.id, $event)" value="" id="{{chapter?.id}}" >
+                                <label class="form-check-label d-flex" for="flexCheckChecked">
+                                    {{chapter?.title}} 
+                                    <span>
+                                        <div class="icon twitter">
+                                            <div class="tooltip">
+                                                <span class="tooltipList" *ngFor="let hint of selectedChapter?.hints">{{hint?.title}}, </span>
+                                            </div>
+                                            <span><i (mouseover)="selectChapter(chapter?.id)" class="fa fa-info-circle"></i></span>
+                                        </div>
+                                    </span>
+                                </label>
+                            </div> 
+                        </div>
+                      </div> -->
+                </div>
+                <div class="col-md-12" *ngIf="chapters && !spinner">
+                    <div class="mockNextButton">
+                        
+                        <div class="mockAndNext">
+                            <div>
+                                <!-- <button class="btn mockButtonMobile" [disabled]="submitStatus" (click)="generateMockPaper()">Mock Paper <i class="fa fa-newspaper-o ml-2" aria-hidden="true"></i></button> -->
+                            </div>
+                            <div>
+                                <button class="btn nextButton nextButtonDesktop"  (click)="showMakePaper()">Next<i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                                <button class="btn nextButton nextButtonMobile"  (click)="showMakePaper()">Next<i class="fa fa-paper-plane-o ml-2" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center" *ngIf="!chapters  && !spinner">
+                    <h5 class="noCahpter">No Chapters Found</h5>
+                </div>
+                <!-- <div class="col-md-3 mt-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <ng-container *ngFor="let subject of subjects; let i = index">
+                            <a *ngIf="selectedSubjectId == subject?.id" (click)="getChapters(subject?.id)" class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">{{subject.title}}</a>
+                            <a *ngIf="selectedSubjectId != subject?.id" (click)="getChapters(subject?.id)" class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"  aria-controls="v-pills-home" aria-selected="false">{{subject?.title}}</a>
+                        </ng-container>
+                      </div>
+                </div>
+                
+                <div class="col-md-7 mt-3">
+                    <div class="tab-content " id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" (change)="onCheckSelectChapters($event)" value="" id="flexCheckCheckedAll" >
+                                <label class="form-check-label" for="flexCheckChecked">
+                                  All
+                                </label>
+                            </div>
+                            <div class="form-check" *ngFor="let chapter of chapters; let i = index">
+                                <input class="form-check-input" type="checkbox" (change)="selectUnselectSingleChapter(chapter?.id, $event)" value="" id="{{chapter?.id}}" >
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    {{chapter?.title}}
+                                </label>
+                            </div>
+                        </div>
+                      </div>
+                </div> -->
+                
+               </div>
+           </div>
+       </div>
+   
+    </div>
+    <div class="row d-flex justify-content-center " *ngIf="!chooseSubjectsFlag">
+       
+        <div class="col-md-12">
+            <div class="paperCard">
+                <!-- <div class="row buttonsSection">
+                    <div>
+                        <button class="btn btn-sm btn-danger shadow btnBlockedStudents" (click)="resetChaptersSelection()">Make My Paper</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-danger shadow btnBlockedStudents" routerLink="/organization/group/{{batchId}}">Batch Dashboard</button>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <h2 class="text-center">
+                                Paper Statistics
+                            </h2>
+                            <div class="totalUser">
+                                <div><span><button class="btn btn-sm btnLeaderboard" (click)="resetChaptersSelection()"><i class="fas fa-angle-double-left mr-1"></i>Make My Paper</button></span></div>
+                                <div><span><a href="" routerLink="/organization/choose-p/{{batchId}}/{{examId}}">{{examDetails?.title}}</a></span></div>
+                                <div><span>Total Users : {{totalusers}}</span></div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+                <div class="topDiv">
+                    <div class="firstDiv">
+                        <label for="">Selected Subject(s)</label>
+                    </div>
+                    <div class="secondDiv">
+                        <label for=""> : </label>
+                    </div>
+                    <div class="thirdDiv">
+                        <label for=""><span class="subjects" *ngFor="let subject of selectedSubjects; let i = index">{{subject?.title}}<span *ngIf = "selectedSubjects?.length > 1 && selectedSubjects?.length  > i + 1">, </span> </span></label>
+                    </div>
+                </div>
+                <div class="topDiv">
+                    <div class="firstDiv">
+                        <label for="">Number of Questions</label>
+                    </div>
+                    <div class="secondDiv">
+                        <label for=""> : </label>
+                    </div>
+                    <div class="thirdDiv">
+                        <span>
+                            <a href="javascript:void(0)" class="ArrowDown" (click)="decQues()"><span class="iconify" data-icon="bi:arrow-down-circle" style="color: #ff4935;"></span></a>
+                            <span class="noOfProblems"><input type="number" style="width: 40px;text-align: center;" id="inputQuestions" (input)="calculateTime(totalQuestions)" [(ngModel)]="totalQuestions"></span>
+                            <a href="javascript:void(0)" class="ArrowUp" (click)="incQues()"><span class="iconify" data-icon="bi:arrow-up-circle" style="color: #ff4935;"></span></a></span>
+                        <!-- <span><i (click)="decQues()" class="fa fa-caret-down" aria-hidden="true"></i><span class="noOfProblems"><input type="number" style="width: 40px;" id="inputQuestions" (input)="calculateTime(totalQuestions)" [(ngModel)]="totalQuestions"></span><i (click)="incQues()" class="fa fa-caret-up" aria-hidden="true"></i></span> -->
+                        <div style="width: 100%; text-align: center;" class="offset-md-2 form-group row alert alert-danger" id="errors" *ngIf="errorMsg">
+                            {{ errorMsg }}
+                        </div> 
+                    </div>
+                </div>
+                <div class="topDiv" *ngIf="paperType == 'paper'">
+                    <div class="firstDiv">
+                        <label for="">Time Allotted</label>
+                    </div>
+                    <div class="secondDiv">
+                        <label for=""> : </label>
+                    </div>
+                    <div class="thirdDiv">
+                        <!-- <span><i (click)="decTime()" class="fa fa-caret-down" aria-hidden="true"></i><span class="noOfProblems">(<input type="number" style="width: 55px;" id="inputQuestions" (input)="manageNegTime()" [(ngModel)]="totalTime"> Min)</span><i (click)="incTime()" class="fa fa-caret-up" aria-hidden="true"></i></span> -->
+                        <span><a href="javascript:void(0)" class="ArrowDown" (click)="decTime()"><span class="iconify" data-icon="bi:arrow-down-circle" style="color: #ff4935;"></span></a><span class="noOfProblems"><input type="number" style="width: 55px;text-align: center;" id="inputQuestions" (input)="manageNegTime()"  [(ngModel)]="totalTime"> Min</span><a href="javascript:void(0)" class="ArrowUp" (click)="incTime()"><span class="iconify" data-icon="bi:arrow-up-circle" style="color: #ff4935;"></span></a></span>
+                    </div>
+                </div>
+                <div class="topDiv">
+                    <div class="firstDiv">
+                        <label for="">Type(s) Of Questions</label>
+                    </div>
+                    <div class="secondDiv">
+                        <label for=""> : </label>
+                    </div>
+                    <div class="thirdDiv">
+                        <ul class="laparent">
+                            <ng-container *ngFor="let type of linkedTypes; let i = index">
+                                <li *ngIf="type?.is_active" class="checko">
+                                    <input type="checkbox" (change)="questionTypeChange(type?.type_of_question, $event)" id="customCheck{{i}}" />
+                                        <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'mcq'">Single correct option [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'mcc'">Multiple correct option [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'fillup'">Fill in the blanks [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'assertion'">Assertion [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'subjective'">Subjective [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'numerical'">Numerical [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'fillup_option'">Fill Up with Option [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label for="customCheck{{i}}" *ngIf="type?.type_of_question == 'boolean'">True False [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                    <!-- <label><input type="checkbox" /> A checkbox</label> -->
+                                    <!-- <div class="custom-control custom-checkbox mb-3"> 
+                                        <input type="checkbox" class="custom-control-input" (change)="questionTypeChange(type?.type_of_question, $event)" id="customCheck{{i}}" name="example1">
+                                        <label class="custom-control-label" for="customCheck{{i}}" *ngIf="type?.type_of_question == 'mcq'">Single correct option [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label class="custom-control-label" for="customCheck{{i}}" *ngIf="type?.type_of_question == 'mcc'">Multiple correct option [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label class="custom-control-label" for="customCheck{{i}}" *ngIf="type?.type_of_question == 'fillup'">Fill in the blanks [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label class="custom-control-label" for="customCheck{{i}}" *ngIf="type?.type_of_question == 'assertion'">Assertion [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label class="custom-control-label" for="customCheck{{i}}" *ngIf="type?.type_of_question == 'subjective'">Subjective [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label class="custom-control-label" for="customCheck{{i}}" *ngIf="type?.type_of_question == 'numerical'">Numerical [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label class="custom-control-label" for="customCheck{{i}}" *ngIf="type?.type_of_question == 'fillup_option'">Fill Up with Option [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                        <label class="custom-control-label" for="customCheck{{i}}" *ngIf="type?.type_of_question == 'boolean'">True False [+{{type?.marks}}/ -{{type?.negative_marks}}]</label>
+                                      </div> -->
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+                <div class="topDiv">
+                    <div class="firstDiv">
+                        <label for="">Difficulty Level</label>
+                    </div>
+                    <div class="secondDiv">
+                        <label for=""> : </label>
+                    </div>
+                    <div class="thirdDiv">
+                        <div class="slidecontainer">
+                            <input type="range" [(ngModel)]="difficulty" min="1" max="10" value="5" class="slider" id="myRange" (change)="getSliderValue($event)" (oninput)="getSliderValue($event)" >
+                            <p class="levels">Easy <span class="float-right">Hard</span></p>
+                            <!-- <p><b>Level: <span id="demo">{{difficulty}}</span></b></p> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="topDiv">
+                    <div class="firstDiv">
+                        <label for="" >Start Date & Time</label>
+                    </div>
+                    <div class="secondDiv">
+                        <label for=""> : </label>
+                    </div>
+                    <div class="thirdDiv">
+                        <div class="slidecontainer">
+                            <input type="date" [(ngModel)]="startDate" id="startDate">
+                            <input class="timeDiv" type="time" [(ngModel)]="startTime" id="startTime">
+                        </div>
+                    </div>
+                </div>
+                <div class="topDiv">
+                    <div class="firstDiv">
+                        <label for="" >End Date & Time</label>
+                    </div>
+                    <div class="secondDiv">
+                        <label for=""> : </label>
+                    </div>
+                    <div class="thirdDiv">
+                        <div class="slidecontainer">
+                            <input type="date" [(ngModel)]="endDate" id="endDate">
+                            <input class="timeDiv" type="time" [(ngModel)]="endTime" id="endTime">
+                        </div>
+                    </div>
+                </div>
+                 
+                <div class="topDiv">
+                    <div class="firstDiv">
+                        <label for="">Show ideal time suggestion with questions</label>
+                    </div>
+                    <div class="secondDiv">
+                        <label for=""> : </label>
+                    </div>
+                    <div class="thirdDiv">
+                        <input type="checkbox" id="showTime" [(ngModel)]="showTime"><span class="yesSpan">Yes</span>
+                    </div>
+                </div>
+                <div class="startPaperButton mb-3">
+                    <div>
+                        <h4>Create paper now!</h4>
+                    </div>
+                    <div class="resetAndProceed">
+                          <div>
+                            <button class="btn btnProceeds" [disabled]="submitStatus" (click)="submitFilterForm()">PROCEED <span><i class="fa fa-paper-plane-o" aria-hidden="true"></i></span></button>
+
+                          </div>
+                          <div>
+                            <button class="btn btnResets" (click)="resetChaptersSelection()">RESET <span><i class="fas fa-remove-format"></i></span></button>
+
+                          </div>
+                    </div>
+                </div>
+             
+            </div>
+        </div>
+     
+    </div>
+</div>

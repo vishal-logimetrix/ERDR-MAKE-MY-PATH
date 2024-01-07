@@ -1,0 +1,93 @@
+
+
+label {
+    width: 100%;
+    font-weight: bold;
+    // color: #6c757d;
+    margin-bottom: 1rem;
+}
+.btnBlockedStudents{
+    // padding: 9px 0;
+    font-family: Lato,Sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ff4935;
+    border: none;
+}
+
+.faqMentorImage {
+    img {
+        width: 70%;
+    }
+}
+input , textarea{
+    border: 1px solid #ff4935;
+    color: #ff4935 !important;
+}
+
+.form-control {
+    margin-top: .5rem;
+}
+.cu-section{
+    font-family: 'jaldi' , sans-serif;
+    min-height: 100vh;
+    padding-top: 10vh;
+    h2{
+        color: #000000;
+    font-size: 3em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: 'Jaldi', sans-serif;
+    text-align: center;
+    padding-top: 5vh;
+    span{
+      color: #ff4935;
+      font-weight: 700;
+    }
+    }
+    .btn{
+        background-color: #ff4935;
+        font-size: 1em;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.5em;
+        letter-spacing: 3.2px;
+        color: #ffffff;
+        height: 45px;
+        border-radius: 50px;
+        box-shadow: 0px 2px 0px 0px #007cbb;
+        padding: 0px 20px;
+    }
+    .btn:hover {
+        border: 1px solid #ff4935;
+        background: #ffffff;
+        color: #ff4935;
+      }
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #ffffff;
+        margin: 0 0 1em 0;
+        padding: 0;
+    }
+    label{
+        font-family: 'jaldi' , sans-serif;
+    }
+    input{
+        font-family: 'jaldi' , sans-serif;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .faqMentorImage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 30px;
+        img {
+            width: 50%;
+        }
+    }
+}

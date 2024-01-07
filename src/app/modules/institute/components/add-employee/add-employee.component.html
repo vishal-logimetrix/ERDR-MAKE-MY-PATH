@@ -1,0 +1,94 @@
+<div class="login">
+    <div class="container-fluid">
+      <div class="row justify-content-center align-items-center login-container">
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-header border-0">
+              <h2 class=" text-center mb-0" style="font-family: 'Exo 2', sans-serif;"><b>Register Employee</b></h2>
+            </div>
+            <div class="card-body">
+             
+              <div class="mt-4">
+                <form [formGroup]="signupForm" (ngSubmit)="signup()" id="signupform">
+                  <div class="form-group">
+                    <div>
+                      <label class="font-weight-bold" for="username">Name</label>
+                      <input class="form-control rounded-0" type="text" placeholder="Enter your name"
+                             name="username" formControlName="name" required (click)="resetValidations()">
+                        <div class="col-md-2"></div>
+                        <div *ngIf="signupForm.get('name').invalid && signupForm.get('name').touched" (click)="resetValidations()">
+                        <small *ngIf="signupForm.get('name').errors?.required" class="text-danger">Name is required</small>
+                        <small *ngIf="signupForm.get('name').errors?.minlength" class="text-danger">Name must be atleast 2
+                            characters</small>
+                            <small *ngIf="signupForm.get('name').errors?.pattern" class="text-danger">Enter only alphabets without spaces</small>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="username">Surname</label>
+                        <input class="form-control rounded-0" type="text" placeholder="Enter your name"
+                               name="username" formControlName="surname" required (click)="resetValidations()">
+                        <div class="col-md-2"></div>
+                        <div
+                            *ngIf="signupForm.get('surname').invalid && signupForm.get('surname').touched">
+                            <small *ngIf="signupForm.get('surname').errors?.required" class="text-danger">Surname is
+                            required</small>
+                            <small *ngIf="signupForm.get('surname').errors?.minlength" class="text-danger">Surname must be atleast 2
+                            characters</small>
+                            <small *ngIf="signupForm.get('surname').errors?.pattern" class="text-danger">Enter only alphabets without spaces</small>
+                        </div>
+                      </div>
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="username">Email</label>
+                        <input class="form-control rounded-0" type="text" placeholder="Enter your email"
+                               name="username" formControlName="email" required (click)="resetValidations()">
+                        <div class="col-md-2"></div>
+                        <div
+                            *ngIf="signupForm.get('email').invalid && signupForm.get('email').touched">
+                            <small *ngIf="signupForm.get('email').errors?.required" class="text-danger">Email is required</small>
+                            <small *ngIf="signupForm.get('email').errors?.pattern" class="text-danger">Enter correct email</small>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="username">Contact</label>
+                        <input class="form-control rounded-0" type="text" placeholder="Enter your mobile number"
+                            name="username" formControlName="contactNumber" required (click)="resetValidations()">
+                        <div class="col-md-2"></div>
+                        <div
+                            *ngIf="signupForm.get('contactNumber').invalid && signupForm.get('contactNumber').touched">
+                            <small *ngIf="signupForm.get('contactNumber').errors?.required" class="text-danger">Number is
+                            required</small>
+                            <small *ngIf="signupForm.get('contactNumber').errors?.pattern" class="text-danger">Enter correct
+                            number</small>
+                        </div>
+                    </div>
+                   
+                    <div class="mt-4">
+                        <label class="font-weight-bold" for="password">Role</label>
+                        <select class="form-control rounded-0" formControlName="role">
+                            <option value="" disabled>Select Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="analytics_manager">Analytics Manager</option>
+                            <option value="content_manager">Content Manager</option>
+                        </select>
+                          <div class="col-md-2"></div>
+                          <div
+                          *ngIf="signupForm.get('role').invalid && signupForm.get('role').touched">
+                          <small *ngIf="signupForm.get('role').errors?.required" class="text-danger">Role is
+                              required</small>
+                          </div>
+                      </div>
+                    <div id="loginError" class="mt-2" hidden></div>
+                    <button [disabled]="!signupForm.valid" class="btn mt-4 ml-0 mr-0 w-100 z-depth-0
+                            login-submit" type="submit">Sign Up
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

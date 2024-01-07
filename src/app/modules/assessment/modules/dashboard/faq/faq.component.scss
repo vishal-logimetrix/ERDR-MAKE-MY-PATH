@@ -1,0 +1,153 @@
+
+.faqContainer{
+    min-height: 100vh;
+    // .btn-link:focus{
+    //     outline-color: #FFFFFF  !important;
+    // }
+    .btnLeaderboard {
+      padding: 0;
+      font-family: "jaldi", Sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #007bba;
+      background-color: rgba(0,0,0,0);
+    }
+    .faqImage {
+      width: 100%;
+    }
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #ffffff;
+        margin: 0 0 1em 0;
+        padding: 0;
+    }
+    .card{
+      .card-body{
+        font-family: 'jaldi', sans-serif;
+      }
+    }
+    .topHeading{
+      color: #000000;
+      font-size: 3em;
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-family: 'Jaldi', sans-serif;
+      text-align: center;
+      // margin-top: -15px;
+      span{
+        color: #007bba;
+        font-weight: 700;
+      }
+    }
+    // .accordion > .card{
+    //     margin-bottom: 15px;
+    //     border-radius: 8px;
+    // }
+    // .accordion > .card > .card-header{
+    //     background-color: #18AEE0;
+    //     border-radius: 5px 5px 0px 0px;
+    //     cursor: pointer;
+    // }
+    // .card-body{
+    //     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    //     border-radius: 5px 5px 0px 0px;
+    // }
+    // .card-body p{
+    //     font-family: CenturyGothicRegular;
+    //     font-size: 15px;
+    //     color: #666;
+    // }
+    // .btn-link{
+    //     color: #FFFFFF;
+    //     font-family: GOTHICB;
+    //     font-size: 20px;
+    //     text-decoration: none;
+    // }
+
+    #main {
+      padding: 0 0 50px 0;
+      #faq {
+        box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 0 15px 12px rgb(0 0 0 / 22%);
+      }
+      hr {
+        border-top: 1px solid lightgray;
+        margin: 0 0 0 0;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+      .card {
+        border: none;
+      }
+      .card-body {
+        padding: 0 20px 0 45px;
+      }
+      p {
+        margin-bottom: 0;
+      }
+      .fa {
+        font-weight: bold;
+        color: #007bba;
+        font-size: 18px;
+        margin-right: 5px;
+      }
+    }
+      #main #faq .card .card-header {
+        border: 0;
+        -webkit-box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+                box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+        border-radius: 2px;
+        padding: 0;
+      }
+      
+      #main #faq .card .card-header .btn-header-link {
+        color: #fff;
+        display: block;
+        text-align: left;
+        background: #fff;
+        color: #222;
+        font-family: 'jaldi', sans-serif;
+        padding: 10px 20px;
+        font-weight: bold;
+      }
+      
+      #main #faq .card .card-header .btn-header-link.collapsed {
+        background: #FFF;
+        color: #222;
+      }
+      
+      #main #faq .card .collapsing {
+        background: #FFF;
+        line-height: 30px;
+      }
+      
+      #main #faq .card .collapse {
+        border: 0;
+      }
+      
+      #main #faq .card .collapse.show {
+        background: #FFF;
+        line-height: 30px;
+        color: grey;
+        font-family: 'jaldi', sans-serif;
+      }
+}
+
+@media screen and (max-width: 992px){
+  .faqContainer{
+    .topHeading{
+      font-size: 2em;
+    }
+  }
+}
+
+@media screen and (max-width: 600px){
+  .faqContainer{
+    .topHeading{
+      font-size: 1.5em;
+    }
+  }
+}

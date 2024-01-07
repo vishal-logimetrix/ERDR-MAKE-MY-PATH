@@ -1,0 +1,216 @@
+
+    <div class="container container-dashboard-home">
+      <div class="row">
+        <div class="col-md-12">
+            <h2 class="heading text-center pt-4">Choose Your Domain</h2>
+            <!-- <h2 class="heading text-center pt-4" *ngIf="!batchDetails?.institute_room?.id">Batch : <span>{{batchDetails?.name}}</span></h2> -->
+            <!-- <h3 class="subHeading float-right pr-2">Batch Code : {{batchDetails?.batch_code}}</h3> -->
+            <div class="totalUser">
+                <div>
+                    <button routerLink="/organization/group/{{batchId}}" class="btn float-left btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+                </div>
+                <div><h4><span>Batch :</span> {{batchDetails?.name}}</h4></div>
+                <div><span>Total Students: {{batchDetails?.students?.length}}</span></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+    </div>
+      <div class="row topRow">
+        <div class="col-xl-9 col-lg-8 col-md-6">
+          <!-- <h2 class=" mainHeading">Choose Your Domain</h2> -->
+          <div class="row goal">
+            <ng-container *ngFor="let category of examCategories; let i = index">
+            <div *ngIf ="i == 0" class="col-xl-4 col-lg-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{category?.title}}/<span>Academics</span></h5>
+                  <h6 class="card-subtitle mb-2 ">Popular goals</h6>
+                  <ul>
+                    <li><span>CBSE 10th</span></li>
+                    <li><span>CBSE 12th</span></li>
+                    <li><span>ISC 12th</span></li>
+                    <li><span>ISC 10th</span></li>
+                    <li><span>NTSE</span></li>
+                    <li><span>JNVST</span></li>
+                    <li><span>HBBVS</span></li>
+                    <li><span>INO 9th</span></li>
+                    <li><span>NSEJS10th</span></li>
+                  </ul>
+                  <div class="goalsImage">
+                    <img src="assets/Mentor/k-12.svg" alt="">
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <button routerLink="/organization/all-exams/{{batchId}}/{{category?.id}}" class="btn btn-sm goAhead">Go Ahead</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf ="i == 1" class="col-xl-4 col-lg-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{category?.title}}</h5>
+                  <h6 class="card-subtitle mb-2 ">Popular goals</h6>
+                  <ul>
+                    <li><span>JEE</span></li>
+                    <li><span>NEET</span></li>
+                    <li><span>CLAT</span></li>
+                    <li><span>NIFT</span></li>
+                    <li><span>GATE</span></li>
+                    <li><span>CAT</span></li>
+                    <li><span>GRE</span></li>
+                    <li><span>NATA</span></li>
+                    <li><span>RIE</span></li>
+                    <li><span>CEE</span></li>
+                    <li><span>AIEEA</span></li>
+                    <li><span>WBJEE</span></li>
+                    <li><span>SAT</span></li>
+                    <li><span>NDA</span></li>
+                  </ul>
+                  <div class="goalsImage">
+                    <img src="assets/Mentor/entrance.svg" alt="">
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <button routerLink="/organization/all-exams/{{batchId}}/{{category?.id}}" class="btn btn-sm goAhead">Go Ahead</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf ="i == 2" class="col-xl-4 col-lg-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{category?.title}}</h5>
+                  <h6 class="card-subtitle mb-2 ">Popular goals</h6>
+                  <ul>
+                    <li><span>Civil Services</span></li>
+                    <li><span>Teaching</span></li>
+                    <li><span>Engineering</span></li>
+                    <li><span>SSC</span></li>
+                    <li><span>Defence & Police</span></li>
+                    <li><span>IT Placement</span></li>
+                    <li><span>Banking & Finance</span></li>
+                  </ul>
+                  <div class="goalsImage">
+                    <img src="assets/Mentor/job.svg" alt="">
+                  </div>
+                  
+                  <div class="d-flex justify-content-center">
+                    <button routerLink="/organization/all-exams/{{batchId}}/{{category?.id}}" class="btn btn-sm goAhead">Go Ahead</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6 scrollSection">
+          <div class="row">
+            <!-- <div class="col-md-12">
+              <h2 class="mobHeading mainHeading">Choose Your Domain</h2>
+            </div> -->
+            <!-- <div class="col-md-12">
+              <div class="profileDiv">
+                <div>
+                  <img *ngIf="!userProfile?.image" class="profileImage" src="assets/images/avatar-2.png" alt="">
+                  <img *ngIf="userProfile?.image" class="profileImage" [src]="userProfile['image']"  alt="">
+                </div>
+                <div><h2><span>Welcome {{userProfile['first_name']}} !</span></h2></div>
+              </div>
+            </div> -->
+            <div class="col-md-12">
+              <h3 class="text-center routesHeading">My Routes</h3>
+            </div>
+            <div *ngIf="!myExams && spinner" class="col-md-12 d-flex justify-content-center">
+              <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div class="col-md-12">
+              <div class="scrollDiv">
+                <div class="card" *ngFor="let exam of myExams;">
+                  <div class="card-body">
+                    <h5 class="card-title">{{exam?.exam?.title}}</h5>
+                    <h6 class="card-subtitle">Assigned on : {{exam?.updated_at | date}}, {{exam?.updated_at | date:'h:mm a'}}</h6>
+                    <div class="cardButtons">
+                      <div>
+                        <button class="btn btnStartAgain" routerLink="/organization/choose-p/{{batchId}}/{{exam?.exam?.id}}">Start Again</button>
+                      </div>
+                      <div>
+                        <button class="btn btnRemove" (click)="setDeletionId(exam?.id)" data-toggle="modal" data-target="#confirmationModal" >Remove</button>
+                      </div>
+                    </div>
+                    <!-- <a class="card-link cardLinkFirst" routerLink="/organization/choose-p/{{batchId}}/{{exam?.exam?.id}}">Start Again</a>
+                    <a href="javascript:void(0)" class="card-link text-muted cardLinkSecond" (click)="removeExam(exam?.id)">Remove</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div  *ngIf="myExams?.length < 1 && !spinner">
+                <h5 class="noExamsFound">“It seems that you haven't created any Paper/Practice yet. Routes of your created Paper/Practice will appear here. ” </h5>
+              </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center" *ngIf="myExams?.length > 3">
+              <button class="removeAllBtn">Remove All <span class="iconify ml-2" data-icon="carbon:row-delete"></span></button>
+          </div>
+          </div>
+          
+       
+        </div>
+      </div>
+    </div>
+  
+  
+  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create <span>Exam</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <select name="" id="" class="form-control">
+              <option value="" selected>Sellect Level</option>
+              <option value="">1</option>
+              <option value="">2</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="" id="" class="form-control">
+              <option value="" selected>Sellect Exam</option>
+              <option value="">1</option>
+              <option value="">2</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-success">Create Exam</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"  role="document">
+    <div class="modal-content" style="border-radius: 16px;border: none;">
+      <div class="modal-header" style="border: none;">
+        <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #ff1900;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="deletionBatchId" class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to remove this batch?</p>
+        <p *ngIf="!deletionBatchId" class="text-center" style="color: #544F4F; font-size: 16px;">Do you want to remove all batches?</p>
+      </div>
+      <div class="modal-footer" style="background-color: #ff4935; border-radius: 0 0 16px 16px;justify-content: space-between;">
+        <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal" (click)="clearSelection()">Cancel</button>
+        <button *ngIf="deletionBatchId" type="button" class="btn btn-sm text-white" style="background-color: #00A3F1; border-radius: 6px;" (click)="removeExam(deletionBatchId)">Yes, delete it!</button>
+        <!-- <button *ngIf="!deletionBatchId" type="button" class="btn btn-sm text-white" style="background-color: #00A3F1; border-radius: 6px;" (click)="removeAllBatches()">Yes, delete it!</button> -->
+      </div>
+    </div>
+  </div>
+</div>

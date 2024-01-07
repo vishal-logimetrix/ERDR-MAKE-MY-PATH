@@ -1,0 +1,117 @@
+.instructionDiv{
+    font-family: CenturyGothicRegular;
+    h2{
+        font-weight: bold;
+        text-align: center;
+        padding: {
+            top: 45px;
+        }
+        span{
+            color: #048ADF;
+        }
+    }
+    h3{
+        text-align: center;
+    }
+    .dataDiv{
+        text-align: center;
+        padding-top: 40px;
+        display: flex;
+        justify-content: center;
+        h5{
+            font-weight: bold;
+            color: #048ADF;
+            margin-right: 20px;
+            border: 1px solid #048ADF;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    }
+    .squareDiv{
+        display: flex;
+        margin: {
+            top: 15px;
+        }
+        .squareOne{
+            width: 50px;
+            height: 50px;
+            background-color: #28A745;
+            border-radius: 10px;
+            box-shadow: 4px 4px 8px;
+        }
+        .squareTwo{
+            width: 50px;
+            height: 50px;
+            background-color: #DC3545;
+            border-radius: 10px;
+            box-shadow: 4px 4px 8px;
+        }
+        .squareThree{
+            width: 50px;
+            height: 50px;
+            background-color: #6C53AD;
+            border-radius: 10px;
+            box-shadow: 4px 4px 8px;
+        }
+        .squareFour{
+            width: 50px;
+            height: 50px;
+            background-color: #6C53AD;
+            border-radius: 10px;
+            box-shadow: 4px 4px 8px;
+        }
+        .squareFive{
+            width: 50px;
+            height: 50px;
+            // background-color: #999999;
+            background-color: #EBEDF0;
+            border-radius: 10px;
+            box-shadow: 4px 4px 8px;
+        }        
+        h6{
+            margin: {
+                top: 15px;
+                left: 10px;
+            } 
+            font: {
+                weight: bold;
+            }
+        }
+    }
+    .btnShare{
+        border-radius: 30px;
+        width: 150px;
+        // font-weight: bold;
+        text-transform: uppercase;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+    }
+    .btn-success{
+        border-radius: 30px;
+        width: 150px;
+        // font-weight: bold;
+        text-transform: uppercase;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+    }
+    .btn-success:hover{
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        transform: translateY(-7px);
+    }
+     .btnShare:hover{
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  transform: translateY(-7px);
+    }
+    .fa-check{
+        color: #FFFFFF;
+        background: #6BB71E;
+        border-radius: 50%;
+        padding: 2px;
+        float: right;
+        font-size: 10px;
+    }
+}
+
+.btnShare{
+    background-color: #c9c7c7;
+}

@@ -1,0 +1,293 @@
+<div class="card">
+    <form [formGroup]="questionForm" (submit)="submitForm()">
+    <div class="card-body">
+         <div class="row">
+            <div  class="col-3">
+                <label>Search F Tag</label>
+                
+            </div>
+            <div  class="col-3">
+                <!--  formControlName="inputPara" -->
+                <input id="typeahead-basic" type="text" [formControl]="myControl" [(ngModel)]="tag" 
+                class="input-field form-control shadow p-3  bg-white" style="border:none;outline: none;" placeholder="Search FTag"
+                [ngbTypeahead]="search" (input)="detectTag($event)" />
+                <i *ngIf="searchIcon" style="color: #255166;font-size: larger;margin-top: -37px;" class="search-icon fa fa-search icon"></i> 
+                <button class="btn btn-primary btn-sm" type="button" (click)="TagFilter()">Select</button>
+            </div>
+            <div  class="col-3">
+                <label>Selected F Tag</label>
+            </div>
+            <div  class="col-3">
+                <p></p>
+                <nav aria-label="breadcrumb" *ngIf="selectedtags?.length > 0">
+                    <ol class="breadcrumb">
+                      <ng-container *ngFor="let tag of selectedtags">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="removeTag(tag?.id)">{{tag?.title}}</a></li>
+                      </ng-container>
+                    </ol>
+                </nav>
+            </div>
+        </div>   
+        <br>
+        <div class="form-group">
+            <label for="sel1">Language<span style="color: red;">*</span></label>
+            <select class="form-control" formControlName="language" id="sel1" (change)="fetchContentDetails($event.target.value)">
+                <option>-------</option>
+                <option *ngFor="let lang of languages" [value]="lang?.id">{{lang?.text}}</option>
+            </select>
+        </div> 
+        <br>
+        <div class="form-group">
+            <label for="sel1">Ideal Time (sec)<span style="color: red;"></span></label>
+            <input type="text" class="form-control" formControlName="idealTime">
+        </div> 
+        <br>
+        <label>Question Text <span style="color: red;"> *</span></label> 
+        <ckeditor
+        [config]="{uiColor: '#dddcdc'}"
+        [readonly]="false"
+        (change)="onChange($event)"
+        formControlName="questionText"
+        debounce="500">
+      </ckeditor>
+        <br>
+        <!-- <label>Upload Question Image : </label> <br>
+        <input type="file" ng2FileSelect />
+        <br>   -->
+        <br>
+
+        <div class="row">
+            <div  class="col-6">
+                <label>Is Active :</label>
+                <input type="checkbox" formControlName="isActive" class="form-check-input" value="" style="margin-left: 10%;">
+
+            </div>
+            <!-- <div  class="col-6">
+                <label>Is Verified :</label>
+                <input type="checkbox" formControlName="isVerified" class="form-check-input" value="" style="margin-left: 10%;">
+            </div> -->
+        </div>   
+        <div class="card">
+            <div class="card-body">
+                <label>Tag</label>
+                <select multiple class="form-control" id="sel2" formControlName="tags" name="sellist2">
+                    <option *ngFor="let tag of tags" [value]="tag?.id">{{tag?.text}}</option>
+                </select>
+                <br>
+                <label style="color:gray">Hold Down "control", or "Command" on a Mac, to select more than one</label>
+
+            </div>
+        </div>  
+         
+        <div class="form-group">
+            <label for="sel1">Question Difficulty<span style="color: red;">*</span></label>
+            <select class="form-control" formControlName="difficulty" id="sel1">
+                <option>-------</option>
+                <option *ngFor="let sub of questionDifficulty">{{sub}}</option>
+            </select>
+        </div> 
+        
+        <ng-container *ngIf="mcqType || mccType">
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 1
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option1"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                <!-- <label>Option Image : </label> &nbsp;
+                <input type="file" ng2FileSelect />
+                <br>  -->
+                <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" id="option1check" value="option1" (change)="onCheckChangeOption1($event)" class="form-check-input" style="margin-left: 2%;">
+                </div>
+            </div>    
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 2
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option2"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                <!-- <label>Option Image : </label> &nbsp;
+                <input type="file" ng2FileSelect />
+                <br>  -->
+                <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" id="option2check" value="option2" (change)="onCheckChangeOption2($event)" class="form-check-input" style="margin-left: 2%;">
+                </div>
+            </div>  
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 3
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option3"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                <!-- <label>Option Image : </label> &nbsp;
+                <input type="file" ng2FileSelect />
+                <br>  -->
+                <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" id="option3check" value="option3" (change)="onCheckChangeOption3($event)" class="form-check-input" style="margin-left: 2%;">
+                </div>
+            </div>  
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 4
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option4"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                <!-- <label>Option Image : </label> &nbsp;
+                <input type="file" ng2FileSelect />
+                <br> -->
+                <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" id="option4check" value="option4" (change)="onCheckChangeOption4($event)" class="form-check-input" style="margin-left: 2%;">
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Option 5
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <ckeditor
+                formControlName="option5"
+                [config]="{uiColor: '#dddcdc'}"
+                [readonly]="false"
+                (change)="onChange($event)"
+                debounce="500">
+                </ckeditor>
+                <br>
+                <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" id="option5check" value="option5" (change)="onCheckChangeOption5($event)" class="form-check-input" style="margin-left: 2%;">
+                </div>
+            </div> 
+        </ng-container> 
+        <ng-container *ngIf="fillUpOptionType">
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Fill Up Option 1
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <input type="text" class="form-control" formControlName="filloption1">
+                <br>
+                <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" id="optionfill1check" value="option1" (change)="onCheckfillChangeOption1($event)" class="form-check-input" style="margin-left: 2%;">
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Fill Up Option 2
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <input type="text" class="form-control" formControlName="filloption2">
+                <br>
+                <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" id="optionfill2check" value="option2" (change)="onCheckfillChangeOption2($event)" class="form-check-input" style="margin-left: 2%;">
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Fill Up Option 3
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <input type="text" class="form-control" formControlName="filloption3">
+                <br>
+                <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" id="optionfill3check" value="option3" (change)="onCheckfillChangeOption3($event)" class="form-check-input" style="margin-left: 2%;">
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-body">
+                <div class="row" id="card_inside"> 
+                    &nbsp; Fill Up Option 4
+                </div>
+                <hr style="margin-top: 0px;">
+                <label><strong>Option</strong></label> 
+                <input type="text" class="form-control" formControlName="filloption4">
+                <br>
+                <br>
+                <label><strong>Correct :</strong></label>
+                <input type="checkbox" id="optionfill4check" value="option4" (change)="onCheckfillChangeOption4($event)" class="form-check-input" style="margin-left: 2%;">
+                </div>
+            </div> 
+        </ng-container>
+        <div class="form-group" *ngIf="fillUpType">
+            <label for="sel1">Fill Up Text</label>
+            <input type="text" class="form-control" formControlName="fillUp">
+        </div> 
+        <div class="form-group" *ngIf="numericalType">
+            <label for="sel1">Correct Numerical Value</label>
+            <input type="text" class="form-control" formControlName="numerical">
+        </div>   
+        <div class="form-group" *ngIf="booleanType">
+            <label for="sel1">Select Option</label>
+            <input type="radio" class="form-control" id="trueradio" (click)="setBooleanTrue()" name="booleanType" value="true">
+            <label for="male">True</label><br>
+            <input type="radio" class="form-control" id="falseradio" (click)="setBooleanFalse()" name="booleanType" value="false">
+            <label for="female">False</label><br>
+        </div> 
+        <label>Solution Explanation <span style="color: red;"> *</span></label> 
+        <ckeditor
+        [config]="{uiColor: '#dddcdc'}"
+        [readonly]="false"
+        (change)="onChange($event)"
+        formControlName="solution"
+        debounce="500">
+      </ckeditor>
+        <br>
+        <!-- <label>Upload Solution Image : </label> <br>
+        <input type="file" ng2FileSelect />
+        <br>              -->
+        <button type="submit" class="btn btn-primary" id="design_details" >SAVE</button>
+   
+    </div>
+</form>
+</div>

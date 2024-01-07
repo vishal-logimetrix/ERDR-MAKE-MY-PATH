@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mt-3">My <span>Exams</span></h2>
+        </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-12"><p *ngIf="myExams?.length == 0"><b class="text-danger">No Exams Found for you account</b></p></div>
+        <div class="col-md-6" *ngFor="let exam of myExams">
+            <div class="col-md-12">
+                <div class="card myPaper">
+                  <div class="card-body">
+                    <h3 class="card-title">{{exam?.exam?.title}}</h3>
+                    <h4 class="card-subtitle mb-2 text-muted">Subjects : <span *ngFor="let subject of exam?.exam?.subjects">{{subject?.title}}, </span></h4>
+                    <h5 class="card-subtitle mb-2 text-muted mt-2">Last attempted : <span>{{exam?.updated_at | date}}, {{exam?.updated_at | date:'h:mm a'}}</span></h5>
+                    <a href="javascript:void(0)" class="card-link btn  btn-success btn-sm mt-2" routerLink="/assessment/dashboard/choose-p/{{exam?.domain?.id}}/{{exam?.exam?.id}}">Start Now</a>
+                    <a href="javascript:void(0)" class="card-link btn btnShare btn-sm mt-2" (click)="removeExam(exam?.id)">Remove</a>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

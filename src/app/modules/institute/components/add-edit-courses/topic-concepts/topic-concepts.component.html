@@ -1,0 +1,190 @@
+<div class="container page_content">
+    <p style="color:cornflowerblue;font-size: small;"> &nbsp;&nbsp;>>&nbsp;Create Chapter Topic</p>
+    <hr>
+    <button type="button" class="btn btn-primary" id="std" data-toggle="modal" data-target=".bd-example-modal-sm">CREATE TOPIC</button>
+<div id="table">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Topic</th>
+            <th>Show/ Hide</th>
+            <th>Concepts</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let hint of hints">
+            
+            <td>
+              {{hint.title}}
+            </td>
+            <td *ngIf="hint?.show">
+              Show
+            </td>
+            <td *ngIf="!hint?.show">
+              Hide
+            </td>
+            <td>
+              <ul>
+                  <li *ngFor="let concept of hint?.concepts">
+                      <a href="javascript:void(0)" (click)="removeHintFromChapter(concept?.id)">{{concept?.title}}</a>
+                  </li>
+              </ul>
+          </td>
+            <td>
+                <button type="button" class="btn" (click)="fetchDetails(hint?.id)" id="std_details" data-toggle="modal" data-target=".bd-example-modal-sm2">EDIT TOPIC</button>
+                <button type="button" class="btn btn-primary" id="design_details" (click)="fetchDetails(hint?.id)" data-toggle="modal" data-target=".bd-example-modal-smhint">ADD CONCEPT</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+</div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Create <span>Chapter Topic</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Title</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="title" placeholder="Enter Chapter Name">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Bloom Level</label>
+            <select multiple class="form-control" name="selectedClass" [(ngModel)]="bloom">
+                <!-- <option value="memory">Memory Based</option>
+                <option value="conceptual">Conceptual</option>
+                <option value="application">Application</option> -->
+                <option [value]="level?.id" *ngFor="let level of bloomlevels">{{level?.title}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Difficulty</label>
+            <select class="form-control" name="selectedClass" [(ngModel)]="difficulty">
+              <option [value]="range" *ngFor="let range of allrange">{{range}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Importance</label>
+            <select class="form-control" name="selectedClass" [(ngModel)]="importance">
+                <option [value]="range" *ngFor="let range of allrange">{{range}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Learning Time (in Mins)</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="learningTime" placeholder="Eg. 100">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Practice Time (in Mins)</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="practiceTime" placeholder="Eg. 50">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Revision Importance</label>
+            <select class="form-control" name="selectedClass" [(ngModel)]="revisionImportance">
+              <option [value]="range" *ngFor="let range of allrange">{{range}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Show/ Hide</label>
+            <select class="form-control" name="selectedClass" [(ngModel)]="show">
+                <option value="true">Show</option>
+                <option value="false">Hide</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" (click)="submit()" class="btn btn-success">SAVE</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <div class="modal fade bd-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Edit <span>Chapter Topic</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalEdit>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputPassword1">New Title</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editTitle" placeholder="Enter Chapter Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Bloom Level</label>
+              <select multiple class="form-control" name="selectedClass" [(ngModel)]="editbloom">
+                <option [value]="level?.id" *ngFor="let level of bloomlevels">{{level?.title}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Difficulty</label>
+              <select class="form-control" name="selectedClass" [(ngModel)]="editdifficulty">
+                <option [value]="range" *ngFor="let range of allrange">{{range}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Importance</label>
+              <select class="form-control" name="selectedClass" [(ngModel)]="editimportance">
+                  <option [value]="range" *ngFor="let range of allrange">{{range}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Learning Time (in Mins)</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editlearningTime" placeholder="Eg. 100">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Practice Time (in Mins)</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="editpracticeTime" placeholder="Eg. 50">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Revision Importance</label>
+              <select class="form-control" name="selectedClass" [(ngModel)]="editrevisionImportance">
+                <option [value]="range" *ngFor="let range of allrange">{{range}}</option>
+              </select>
+            </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Show/ Hide</label>
+            <select class="form-control" name="selectedClass" [(ngModel)]="editShow">
+                <option value="true">Show</option>
+                <option value="false">Hide</option>
+            </select>
+          </div>
+            <div>
+              <button type="button" (click)="edit()" class="btn btn-success">SAVE</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="modal fade bd-example-modal-smhint" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Create <span>Concept</span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModalHint>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Title</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="hintTitle" placeholder="Enter Topic">
+            </div>
+            <div>
+              <button type="button" (click)="submitHintConcept()" class="btn btn-success">SAVE</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>

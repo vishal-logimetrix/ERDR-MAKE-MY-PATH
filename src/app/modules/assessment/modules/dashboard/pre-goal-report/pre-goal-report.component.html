@@ -1,0 +1,255 @@
+<div *ngIf="noripple" class="container userReport">
+    <div class="row">
+        <div class="col-md-12 topButtons">
+            <div>
+                <button class="btn btnPracticeAgain" routerLink="/assessment/dashboard/goal-path/{{paperDetails?.goal?.id}}" [queryParams]="{exam: paperDetails?.goal?.exam?.id}">Continue To My Path <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h2 class="mainHeading">Report Card</h2>
+            <div class="totalUser">
+                <div>
+                    <button routerLink="/assessment/dashboard/make-paper/{{paperDetails?.learner_exam?.exam?.id}}" [queryParams]="{type: 'paper'}" class="btn btnLeaderboard btn-sm"><i class="fa fa-angle-double-left"></i>MAKE MY PAPER</button>
+                </div>
+                <div><span><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-p/{{examId}}">{{paperDetails?.learner_exam?.exam?.title}}</a></span></div>
+                <div><span>Total Users : {{totalusers}}</span></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <div class="col-md-12">
+            <div class="card noShadowCard">
+                <!-- <div class="col-md-12">
+                    <h4 class="text-center reportSubHeading">Overall Report</h4>
+                </div> -->
+                <div class="col-md-12 mt-4">
+                    <div class="dataCircle">
+                        <div class="data">
+                            <div class="orange"><h4>
+                                <span class="iconify mb-1" data-icon="bi:file-earmark-text" style="color: #e81c61; font-size: 23px;"></span> <br>
+                                {{reportObj?.report_data?.totalquestion}}</h4></div>
+                            <div><h6 class="orangeSubText">Total Questions</h6></div>
+                        </div>
+                        <div class="data">
+                            <div class="blue"><h4>
+                                <span class="iconify mb-1" data-icon="bi:file-earmark-text" style="color: #fe9600; font-size: 23px;"></span> <br>
+                                {{reportObj?.report_data?.attempted}}</h4></div>
+                            <div><h6 class="blueSubtext">Attempted</h6></div>
+                        </div>
+                        <div class="data">
+                            <div class="red">
+                                <h4 *ngIf="reportObj?.report_data?.percentage > 0">{{bottomLabel}}</h4>
+                                <h4 *ngIf="reportObj?.report_data?.percentage <= 0">0</h4>
+                            </div>
+                            <div><h6 class="redSubText">Accuracy</h6></div>
+                        </div>
+                        <div class="data">
+                            <div class="green" *ngIf="reportObj?.report_data?.totalscore > 0">
+                                <div><h4>{{reportObj?.report_data?.score}}</h4></div>
+                                <div style="border: 1px solid #000; width: 65px;"></div>
+                                <div><h4>{{reportObj?.report_data?.totalscore}}</h4></div>
+                            </div>
+                            <div class="green" *ngIf="reportObj?.report_data?.totalscore == 0">
+                                <div><h4>NA</h4></div>
+                            </div>
+                                <!-- <h4>{{reportObj?.report_data?.score}}/{{reportObj?.report_data?.totalscore}}</h4> -->
+                            
+                            <div><h6 class="greenSubText">Marks</h6></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-12">
+            <div class="blueDiv">
+                <div class="topDiv">
+                    <div>
+                        <h4 class="totalMarks">{{reportObj?.report_data?.score}}/{{reportObj?.report_data?.totalscore}} <br><span>Total Marks</span></h4>
+                    </div>
+                    <div>
+                        <h4>{{reportObj?.report_data?.totalquestion}} <br><span>Problems Generated</span></h4>
+                    </div>
+                    <div>
+                        <h4>{{reportObj?.report_data?.corrected}} <br><span>Correct</span></h4>
+                    </div>
+                    <div>
+                        <h4>{{reportObj?.report_data?.incorrected}} <br><span>Incorrect</span></h4>
+                    </div>
+                    <div>
+                        <h4>{{reportObj?.report_data?.skipped}} <br><span>Left</span></h4>
+                    </div>
+                </div>
+                <div class="bottomDiv">
+                    <div>
+                        <button class="btn btn-success btn-sm" (click)="reattempt()">RE-ATTEMPT</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="col-md-12">
+            <div class="accuracyMeter">
+                <div>
+                    <h5><i class="fa fa-caret-right" aria-hidden="true"></i>Accuracy meter</h5>
+                </div>
+                <div>
+                    <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue"
+                        [centralLabel]="centralLabel" [options]="options" [name]="name" [bottomLabel]="bottomLabel">
+                    </rg-gauge-chart>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-md-12" *ngIf="reportObj?.report_data?.attempted">
+            <div class="card shadowCard">
+                <div class="col-md-12">
+                    <div class="accuracyMeter">
+                        <div>
+                            <h5 class="reportSubHeading">Subjectwise Report</h5>
+                        </div>
+                        <div *ngIf="showGraph" class="barChart" style="width: 100%;">
+                            <highcharts-chart
+                                [Highcharts] = "highcharts" 
+                                [options] = "chartOptions" 
+                                style = "width: 100%; height: 60vh; display: block;"
+                                >
+                            </highcharts-chart>
+                            <!-- <highcharts-chart
+                            [Highcharts] = "highchartsb" 
+                            [options] = "chartOptionsb" 
+                            style = "width: 800px; height: 400px; display: block;">
+                         </highcharts-chart> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" *ngIf="reportObj?.report_data?.attempted">
+            <div class="card shadowCard">
+                <div class="col-md-12" *ngIf="showGraph">
+                    <div class="">
+                        <div>
+                            <h5 class="text-center reportSubHeading">Chapterwise Report</h5>
+                        </div>
+                        <div class="subjects">
+                            <div class="d-flex justify-content-center">
+                                <a id="slideLeft" class="mr-2 d-flex align-items-center" href="javascript:void(0)" (click)="slideLeft()" ><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                                <ul class="nav nav-tabs" id="myTab" role="tablist" #widgetsContent>
+                                    <ng-container *ngFor="let subject of reportObj?.report_data?.subjects; let i = index">
+                                        <li class="nav-item">
+                                          <a *ngIf="i==0" (click)="fetchSubjectChaptersData(subject?.id)" class="nav-link active" id="pills-{{i}}-tab" data-toggle="pill" href="#pills-{{i}}" role="tab" aria-controls="pills-{{i}}" aria-selected="true">{{subject?.title}}</a>
+                                          <a *ngIf="i!=0" (click)="fetchSubjectChaptersData(subject?.id)" class="nav-link" id="pills-{{i}}-tab" data-toggle="pill" href="#pills-{{i}}" role="tab" aria-controls="pills-{{i}}" aria-selected="false">{{subject?.title}}</a>
+                                        </li>
+                                  </ng-container>
+                                </ul>
+                                <a id="slideRight" class="ml-2 d-flex align-items-center" href="javascript:void(0)"
+                         (click)="slideRight()" ><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                </div>
+                                  <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div *ngIf="showChapterGraph" class="tab-pane fade show active" id="pills-" role="tabpanel" aria-labelledby="pills-tab">
+                                            <div class="barChart mt-3">
+                                                <highcharts-chart
+                                                [Highcharts] = "highchartsb" 
+                                                [options] = "chartOptionsb" 
+                                                style = "width: 100%; height: 60vh; display: block;">
+                                             </highcharts-chart>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                                  </div>
+                            </div>
+                        <!-- <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <ng-container *ngFor="let subject of reportObj?.report_data?.subjects; let i = index">
+                               
+                                  <li class="nav-item">
+                                    <a *ngIf="i==0" (click)="fetchSubjectChaptersData(subject?.id)" class="nav-link active" id="pills-{{i}}-tab" data-toggle="pill" href="#pills-{{i}}" role="tab" aria-controls="pills-{{i}}" aria-selected="true">{{subject?.title}}</a>
+                                    <a *ngIf="i!=0" (click)="fetchSubjectChaptersData(subject?.id)" class="nav-link" id="pills-{{i}}-tab" data-toggle="pill" href="#pills-{{i}}" role="tab" aria-controls="pills-{{i}}" aria-selected="false">{{subject?.title}}</a>
+                                  </li>
+                            </ng-container>
+                            
+                          </ul>
+                          <div class="tab-content" id="pills-tabContent">
+                                <div *ngIf="showChapterGraph" class="tab-pane fade show active" id="pills-" role="tabpanel" aria-labelledby="pills-tab">
+                                    <div class="barChart">
+                                        <highcharts-chart
+                                        [Highcharts] = "highchartsb" 
+                                        [options] = "chartOptionsb" 
+                                        style = "width: 100%; height: 400px; display: block;">
+                                     </highcharts-chart>
+                                    </div>
+                                </div>
+                             </ng-container> 
+                            
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                ...
+                            </div>
+                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div> 
+                          </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- <div class="col-md-12 d-flex justify-content-center">
+            <h5><i class="fa fa-caret-right" aria-hidden="true"></i>Total Bookmarked Problems : <span>{{paperDetails?.bookmarks.length}}</span></h5>
+        </div> -->
+        <div class="col-md-12" *ngIf="reportObj?.report_data?.attempted">
+            <div class="card shadowCard gradCard">
+                <div class="col-md-12">
+                    <div class="pinkDiv">
+                        <div class="remarksTitle"><h6>Remarks</h6></div>
+                        <div>
+                            <p *ngIf="excellentChapters && averageChapters && poorChapter">You are excellent in <b>{{ excellentChapters }}</b> and you are doing good in <b>{{ averageChapters }} </b>chapter(s) but need more practice 
+                                in <b>{{ poorChapter }}</b>.
+                            </p>
+                            <p *ngIf="excellentChapters && averageChapters && !poorChapter">You are excellent in <b>{{ excellentChapters }}</b> and you are doing good in <b>{{ averageChapters }} </b>chapter(s).
+                            </p>
+                            <p *ngIf="averageChapters && poorChapter && !excellentChapters">You are doing good in <b>{{ averageChapters }} </b>chapter(s) but need more practice 
+                                in <b>{{ poorChapter }}</b>.
+                            </p>
+                            <p *ngIf="excellentChapters && poorChapter && !averageChapters">You are excellent in <b>{{ excellentChapters }} </b>chapter(s) but need more practice 
+                                in <b>{{ poorChapter }}</b>.
+                            </p>
+                            <p *ngIf="excellentChapters && !averageChapters && !poorChapter">You are excellent in all <b>{{ excellentChapters }}</b> chapters. Well done, keep it up!
+                            </p>
+                            <p *ngIf="poorChapter && !excellentChapters && !averageChapters">You couldn't make in any of the {{reportObj?.report_data?.chapters?.length}} chapters :( You need more practice 
+                                in all <b>{{ poorChapter }}</b> chapters.
+                            </p>
+                            <p *ngIf="averageChapters && !excellentChapters && !poorChapter">You are doing good enough in all {{averageChapters}} chapters. But you need more practice.
+                            </p>
+                            <p *ngIf="!poorChapter && !excellentChapters && !averageChapters && reportObj?.report_data?.totalscore == 0">It seems you attempted all the subjective questions, and our system doesn't evaluate subjective category, hence we suggest you to review the answers on your own :)
+                            </p>
+                            <p *ngIf="!poorChapter && !excellentChapters && !averageChapters && reportObj?.report_data?.totalscore > 0 && hasSubjective">It seems you attempted all the subjective questions, and our system doesn't evaluate subjective category, hence we suggest you to review the answers on your own :)
+                            </p>
+                            <p *ngIf="!poorChapter && !excellentChapters && !averageChapters && reportObj?.report_data?.totalscore > 0 && !hasSubjective">It seems you did not attempt any question.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="whiteDiv">
+                <!-- <div class="solutionButton">
+                    <button >Solution</button>
+                </div> -->
+                <div class="otherButtons">
+                    <div>
+                        <button class="btn compSolution" routerLink="/assessment/paper/pregoal-paper-solution" [queryParams]="{paper: paperId}">Complete Solution</button>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="ripple" class="spinnerContainer">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <br>
+    <h2>Loading your report.....</h2>
+</div>

@@ -1,0 +1,111 @@
+<div *ngIf="abcd" class="pppp container">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb" *ngIf="currentNode?.journey_nodes?.length >= 0">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard">Home</a></li>
+              <li *ngIf="domains?.length > 0" class="breadcrumb-item activeLinks"><a href="javascript:void(0)" routerLink="/assessment/dashboard/all-exams/{{domains[0]?.exam_category[0]?.id}}">{{domains[0]?.exam_category[0]?.title}}</a></li>
+              <!-- <li *ngIf="domains?.length > 0" class="breadcrumb-item"><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-subcategory/{{ domains[0]?.id }}" (click)="selectCourse(domains[0]?.id)"><span>{{domains[0]?.title}}</span></a></li> -->
+              <ng-container *ngFor="let node of currentNode?.journey_nodes">
+                <li class="breadcrumb-item"><a href="javascript:void(0)" routerLink="/assessment/dashboard/choose-subcategory/{{ domains[0]?.id }}" [queryParams]="{node: node?.node}">{{node?.title}}</a></li>
+              </ng-container>
+              <li class="breadcrumb-item active" aria-current="page"><span>{{examDetails?.title}}</span></li>
+            </ol>
+          </nav>
+    </div>
+    <div class="col-md-12">
+        <h2 class="examTitle text-center">{{examDetails?.title}}</h2>
+        <div class="totalUser">
+            <!-- <div><button class="btn examOverview" routerLink="/assessment/dashboard/mypath/{{examId}}">Exam Overview</button></div> -->
+            <div><span>Total Users : {{totalusers}}</span></div>
+        </div>
+        
+    </div>
+
+    <hr>
+    <div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6">
+                <button class="btn examOverview" routerLink="/assessment/dashboard/mypath/{{examId}}">Exam Overview <span class="iconify" data-icon="healthicons:i-exam-multiple-choice"></span></button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <div class="row newCardRow d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 nopadding">
+
+                    <div class="card">
+                        <h3 class="text-center">Make My <span>PRACTICE</span></h3>
+                        <div class="imageDiv"><img src="assets/images/practice.svg" alt=""></div>
+                        <button *ngIf="isAuthenticated" class="btn" routerLink="/assessment/dashboard/practice/{{examId}}"
+                            >start practice</button>
+                            <button *ngIf="!isAuthenticated" class="btn" data-toggle="modal" data-target="#exampleModalLogin" 
+                            >start practice</button>
+
+                            <!-- <a href="javascript:void(0)" 
+                            > Start Practice</a> -->
+                    </div>
+                    <div class="line"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 nopadding">
+
+                    <div class="card">
+                        <h3 class="text-center">Make My <span>PAPER</span></h3>
+                        <div class="imageDiv"><img src="assets/images/paper.svg" alt=""></div>
+                        <button *ngIf="isAuthenticated" class="btn" routerLink="/assessment/dashboard/make-paper/{{examId}}"
+                        [queryParams]="{type: 'paper'}">attempt paper</button>
+                        <button *ngIf="!isAuthenticated" class="btn" data-toggle="modal" data-target="#exampleModalLogin" 
+                            >attempt paper</button>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 nopadding">
+                    <div class="card">
+                        <h3 class="text-center">Make My <span>PATH</span></h3>
+                        <div class="imageDiv"><img src="assets/images/path.svg" alt=""></div>
+                        <!-- <button class="btn" routerLink="/assessment/dashboard/mypath/{{examId}}">View path</button> -->
+                        <button *ngIf="isAuthenticated && examDetails?.allow_goal" class="btn" routerLink="/assessment/dashboard/my-goals/{{examId}}">Create Path</button>
+                        <button *ngIf="isAuthenticated && !examDetails?.allow_goal" class="btn" style="color: red;">Coming Soon...</button>
+                        <button *ngIf="!isAuthenticated" class="btn" data-toggle="modal" data-target="#exampleModalLogin" 
+                        >Create Path</button>
+                        <!-- <div *ngIf="!examDetails?.allow_goal" class="comingSoonDiv"><h4>Coming Soon...</h4></div> -->
+                    </div>
+                    <div class="line"></div>
+                </div>
+                <div class="col-md-12 mt-4 historyBookmark">
+                    <div *ngIf="isAuthenticated">
+                        <button class="btn" routerLink="/assessment/dashboard/leaderboard/{{examId}}">Leader Board<span><i class="fa fa-trophy" aria-hidden="true"></i></span></button>
+                    </div> 
+                    <div *ngIf="mockParameterFound">
+                        <button class="btn" [disabled]="submitStatus" (click)="generateMockPaper()">Mock Paper<i class="fa fa-newspaper-o ml-2" aria-hidden="true"></i></button>
+                    </div>
+                    <div *ngIf="isAuthenticated">
+                        <button class="btn" routerLink="/assessment/dashboard/myexam-history/{{examId}}">my history<span><i class="fa fa-history" aria-hidden="true"></i></span></button>
+                    </div>
+                    <div *ngIf="isAuthenticated">
+                        <button class="btn" routerLink="/assessment/dashboard/bookmarks" [queryParams]="{exam: examId}">my bookmarks<span><i class="fa fa-bookmark" aria-hidden="true"></i></span></button>
+                    </div>
+                    <!-- <ul class="float-right">
+                        <li><a href="javascript:void(0)" routerLink="/assessment/dashboard/myexam-history/{{examId}}">MY HISTORY</a></li>
+                        <li><a routerLink="/assessment/dashboard/bookmarks" [queryParams]="{exam: examId}">MY BOOKMARKS</a></li>
+                    </ul> -->
+                    <!-- <div>
+                        <button class="btn btn-primary btn-lg"
+                            routerLink="/assessment/dashboard/myhistory">History</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-success btn-lg"
+                            routerLink="/assessment//dashboard/bookmarks">Bookmark</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div *ngIf="efgh" class="spinnerContainer">
+    <h2>{{examDetails?.title}}</h2>
+    <h3 >Fetching your question paper....</h3>
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>

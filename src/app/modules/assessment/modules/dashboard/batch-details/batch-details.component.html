@@ -1,0 +1,640 @@
+<div class="container mentorBatchDetails">
+    <div class="row myHistory">
+        <div class="col-md-12">
+            <!-- <button routerLink="/assessment/dashboard" class="btn float-left btnLeaderboard btn-sm">Leader Board</button> -->
+            <h2 class="text-center heading" *ngIf="batchDetails?.institute_room?.id">{{batchDetails?.institute_room?.grade_name}} - {{batchDetails?.institute_room?.name}} <span>Detail</span></h2>
+            <h2 class="text-center heading" *ngIf="!batchDetails?.institute_room?.id">{{batchDetails?.name}} <span>Detail</span></h2>
+            <div class="totalUser">
+                <button routerLink="/assessment/dashboard/mymentors" class="btn btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>My Mentor</button>
+                <div><span class="mentorName"><b>Mentor Name : <span>{{batchDetails?.teacher_full_name}}</span></b></span></div>
+                <div><span>Total Students : {{batchDetails?.students.length}}</span></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <div class="col-md-12">
+            <h3>My Tasks</h3>
+ 
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link all active" id="pills-home-tab" data-toggle="pill" href="#pills-home" (click)="showAll()" role="tab" aria-controls="pills-home" aria-selected="true">All: {{paperCountData?.all}}</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link complete" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" (click)="showCompleted()" role="tab" aria-controls="pills-profile" aria-selected="false">Complete: {{paperCountData?.attempted}}</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link pending" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" (click)="showPending()" role="tab" aria-controls="pills-contact" aria-selected="false">Pending: {{paperCountData?.pending}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link over" id="pills-over-tab" data-toggle="pill" href="#pills-over" (click)="showOver()" role="tab" aria-controls="pills-over" aria-selected="false">Over: {{paperCountData?.over}}</a>
+                      </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="row papers">
+                            <ng-container *ngFor="let paper of papers">
+                                <div class="col-md-6 mb-3" *ngIf="paper?.paper_type == 'paper'">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <!-- <h2 class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Paper {{paper?.paper_count}}</a></h2> -->
+                                                    <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">Paper {{paper?.paper_count}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <h3 class="examTitle">{{paper?.exam?.title}}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="dates">Start : <span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                                <div *ngIf ="paper?.exam_end_date_time">
+                                                    <h4 class="dates">End : <span>{{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects?.length > 1 && paper?.subjects?.length  > i + 1">, </span></span></h4>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div class="">
+                                                    <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                                </div>
+                                                <div class="marks">
+                                                    <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                                        <h4 *ngIf="paper?.reattempt_papers[0].submitted">Marks : {{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.reattempt_papers[0].submitted">Marks : NA</h4>
+                                                    </div>
+                                                    <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                                        <h4 *ngIf="paper?.attempt_status?.attempted">Marks : {{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.attempt_status?.attempted">Marks : NA</h4>
+                                                    </div>
+                                                    <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                                        <h4 *ngIf="paper?.actual_paper?.submitted">Marks : {{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.actual_paper?.submitted">Marks : NA</h4>
+                                                    </div>
+                                                    <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                                        <h4 *ngIf="paper?.attempt_status?.attempted">Marks : {{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.attempt_status?.attempted">Marks : NA</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="paperThirdRow">
+                                                <div *ngIf="!isBlocked">
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn attemptNow btn-sm" routerLink="/assessment/dashboard/mentor-paper-solution-review/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && paper?.attempt_status?.start_status" class="btn attemptNow btn-sm" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && !paper?.attempt_status?.message" class="btn dataAnalyse attemptNow btn-sm">Test Over</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && paper?.attempt_status?.message" class="btn dataAnalyse attemptNow btn-sm">Upcoming</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn shareButton btn-sm" data-toggle="modal" data-target="#exampleModalRemark">Remark</button>
+                                                </div>
+                                               
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='paper'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='practice'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/assignment-report/{{paper?.id}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3" *ngIf="paper?.paper_type == 'practice'">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <!-- <h2 style="background-color: #FBB623;" class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Practice {{paper?.paper_count}}</a></h2> -->
+                                                    <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">PRACTICE {{paper?.paper_count}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <h3 class="examTitle">{{paper?.exam?.title}}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4>Start : <span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                                <div *ngIf ="paper?.exam_end_date_time">
+                                                    <h4>End : <span>{{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects?.length > 1 && paper?.subjects?.length  > i + 1">, </span></span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Chapter : <span>{{paper?.chapters[0].title}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperThirdRow">
+                                                <div *ngIf="!isBlocked">
+                                                    <!-- <button class="btn btnReAttempt btn-sm">Re-attempt</button> -->
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn attemptNow btn-sm" routerLink="/assessment/dashboard/mentor-paper-solution-review/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && paper?.attempt_status?.start_status" class="btn attemptNow btn-sm" routerLink="/assessment/paper/mentor-assignment/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && !paper?.attempt_status?.message" class="btn attemptNow btn-sm">Test Over</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && paper?.attempt_status?.message" class="btn attemptNow btn-sm">Upcoming</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn shareButton btn-sm" data-toggle="modal" data-target="#exampleModalRemark">Remark</button>
+                                                </div>
+            
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='paper'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='practice'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/assignment-report/{{paper?.id}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </ng-container>
+                        </div>
+                        <h4 class="text-danger text-center" *ngIf="paperCountData?.all === 0">No Tasks Found</h4>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row papers">
+                            <ng-container *ngFor="let paper of papers">
+                                <div class="col-md-6 mb-3" *ngIf="paper?.paper_type == 'paper'">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <!-- <h2 class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Paper {{paper?.paper_count}}</a></h2> -->
+                                                    <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">Paper {{paper?.paper_count}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <h3 class="examTitle">{{paper?.exam?.title}}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="dates">Start : <span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                                <div *ngIf ="paper?.exam_end_date_time">
+                                                    <h4 class="dates">End : <span>{{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects?.length > 1 && paper?.subjects?.length  > i + 1">, </span></span></h4>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div class="">
+                                                    <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                                </div>
+                                                <div class="marks">
+                                                    <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                                        <h4 *ngIf="paper?.reattempt_papers[0].submitted">Marks : {{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.reattempt_papers[0].submitted">Marks : NA</h4>
+                                                    </div>
+                                                    <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                                        <h4 *ngIf="paper?.attempt_status?.attempted">Marks : {{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.attempt_status?.attempted">Marks : NA</h4>
+                                                    </div>
+                                                    <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                                        <h4 *ngIf="paper?.actual_paper?.submitted">Marks : {{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.actual_paper?.submitted">Marks : NA</h4>
+                                                    </div>
+                                                    <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                                        <h4 *ngIf="paper?.attempt_status?.attempted">Marks : {{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.attempt_status?.attempted">Marks : NA</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="paperThirdRow">
+                                                <div *ngIf="!isBlocked">
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn attemptNow btn-sm" routerLink="/assessment/dashboard/mentor-paper-solution-review/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && paper?.attempt_status?.start_status" class="btn attemptNow btn-sm" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && !paper?.attempt_status?.message" class="btn dataAnalyse attemptNow btn-sm">Test Over</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && paper?.attempt_status?.message" class="btn dataAnalyse attemptNow btn-sm">Upcoming</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn shareButton btn-sm" data-toggle="modal" data-target="#exampleModalRemark">Remark</button>
+                                                </div>
+                                               
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='paper'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='practice'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/assignment-report/{{paper?.id}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3" *ngIf="paper?.paper_type == 'practice'">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <!-- <h2 style="background-color: #FBB623;" class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Practice {{paper?.paper_count}}</a></h2> -->
+                                                    <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">PRACTICE {{paper?.paper_count}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <h3 class="examTitle">{{paper?.exam?.title}}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4>Start : <span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                                <div *ngIf ="paper?.exam_end_date_time">
+                                                    <h4>End : <span>{{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects?.length > 1 && paper?.subjects?.length  > i + 1">, </span></span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Chapter : <span>{{paper?.chapters[0].title}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperThirdRow">
+                                                <div *ngIf="!isBlocked">
+                                                    <!-- <button class="btn btnReAttempt btn-sm">Re-attempt</button> -->
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn attemptNow btn-sm" routerLink="/assessment/dashboard/mentor-paper-solution-review/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && paper?.attempt_status?.start_status" class="btn attemptNow btn-sm" routerLink="/assessment/paper/mentor-assignment/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && !paper?.attempt_status?.message" class="btn attemptNow btn-sm">Test Over</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && paper?.attempt_status?.message" class="btn attemptNow btn-sm">Upcoming</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn shareButton btn-sm" data-toggle="modal" data-target="#exampleModalRemark">Remark</button>
+                                                </div>
+            
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='paper'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='practice'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/assignment-report/{{paper?.id}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </ng-container>
+                        </div>
+                        <h4 class="text-danger text-center" *ngIf="paperCountData?.attempted === 0">No Attempted Tasks Found</h4>
+                    </div>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        <div class="row papers">
+                            <ng-container *ngFor="let paper of papers">
+                                <div class="col-md-6 mb-3" *ngIf="paper?.paper_type == 'paper'">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <!-- <h2 class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Paper {{paper?.paper_count}}</a></h2> -->
+                                                    <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">Paper {{paper?.paper_count}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <h3 class="examTitle">{{paper?.exam?.title}}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="dates">Start : <span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                                <div *ngIf ="paper?.exam_end_date_time">
+                                                    <h4 class="dates">End : <span>{{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects?.length > 1 && paper?.subjects?.length  > i + 1">, </span></span></h4>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div class="">
+                                                    <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                                </div>
+                                                <div class="marks">
+                                                    <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                                        <h4 *ngIf="paper?.reattempt_papers[0].submitted">Marks : {{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.reattempt_papers[0].submitted">Marks : NA</h4>
+                                                    </div>
+                                                    <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                                        <h4 *ngIf="paper?.attempt_status?.attempted">Marks : {{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.attempt_status?.attempted">Marks : NA</h4>
+                                                    </div>
+                                                    <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                                        <h4 *ngIf="paper?.actual_paper?.submitted">Marks : {{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.actual_paper?.submitted">Marks : NA</h4>
+                                                    </div>
+                                                    <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                                        <h4 *ngIf="paper?.attempt_status?.attempted">Marks : {{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.attempt_status?.attempted">Marks : NA</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="paperThirdRow">
+                                                <div *ngIf="!isBlocked">
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn attemptNow btn-sm" routerLink="/assessment/dashboard/mentor-paper-solution-review/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && paper?.attempt_status?.start_status" class="btn attemptNow btn-sm" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && !paper?.attempt_status?.message" class="btn dataAnalyse attemptNow btn-sm">Test Over</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && paper?.attempt_status?.message" class="btn dataAnalyse attemptNow btn-sm">Upcoming</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn shareButton btn-sm" data-toggle="modal" data-target="#exampleModalRemark">Remark</button>
+                                                </div>
+                                               
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='paper'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='practice'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/assignment-report/{{paper?.id}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3" *ngIf="paper?.paper_type == 'practice'">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <!-- <h2 style="background-color: #FBB623;" class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Practice {{paper?.paper_count}}</a></h2> -->
+                                                    <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">PRACTICE {{paper?.paper_count}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <h3 class="examTitle">{{paper?.exam?.title}}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4>Start : <span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                                <div *ngIf ="paper?.exam_end_date_time">
+                                                    <h4>End : <span>{{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects?.length > 1 && paper?.subjects?.length  > i + 1">, </span></span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Chapter : <span>{{paper?.chapters[0].title}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperThirdRow">
+                                                <div *ngIf="!isBlocked">
+                                                    <!-- <button class="btn btnReAttempt btn-sm">Re-attempt</button> -->
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn attemptNow btn-sm" routerLink="/assessment/dashboard/mentor-paper-solution-review/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && paper?.attempt_status?.start_status" class="btn attemptNow btn-sm" routerLink="/assessment/paper/mentor-assignment/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && !paper?.attempt_status?.message" class="btn attemptNow btn-sm">Test Over</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && paper?.attempt_status?.message" class="btn attemptNow btn-sm">Upcoming</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn shareButton btn-sm" data-toggle="modal" data-target="#exampleModalRemark">Remark</button>
+                                                </div>
+            
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='paper'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='practice'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/assignment-report/{{paper?.id}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </ng-container>
+                        </div>
+                        <h4 class="text-danger text-center" *ngIf="paperCountData?.pending === 0">No Pending Tasks Found</h4>
+                    </div>
+                    <div class="tab-pane fade" id="pills-over" role="tabpanel" aria-labelledby="pills-over-tab">
+                        <div class="row papers">
+                            <ng-container *ngFor="let paper of papers">
+                                <div class="col-md-6 mb-3" *ngIf="paper?.paper_type == 'paper'">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <!-- <h2 class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Paper {{paper?.paper_count}}</a></h2> -->
+                                                    <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">Paper {{paper?.paper_count}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <h3 class="examTitle">{{paper?.exam?.title}}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="dates">Start : <span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                                <div *ngIf ="paper?.exam_end_date_time">
+                                                    <h4 class="dates">End : <span>{{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects?.length > 1 && paper?.subjects?.length  > i + 1">, </span></span></h4>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div class="">
+                                                    <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                                </div>
+                                                <div class="marks">
+                                                    <div class="blueDiv" *ngIf="paper?.reattempt_papers?.length > 0">
+                                                        <h4 *ngIf="paper?.reattempt_papers[0].submitted">Marks : {{paper?.reattempt_papers[0].score}}/{{paper?.reattempt_papers[0].marks}} <br> <span>Last Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.reattempt_papers[0].submitted">Marks : NA</h4>
+                                                    </div>
+                                                    <div class="blueDiv" *ngIf="paper?.actual_paper">
+                                                        <h4 *ngIf="paper?.attempt_status?.attempted">Marks : {{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span>This Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.attempt_status?.attempted">Marks : NA</h4>
+                                                    </div>
+                                                    <div *ngIf="paper?.actual_paper" class="greenDiv">
+                                                        <h4 *ngIf="paper?.actual_paper?.submitted">Marks : {{paper?.actual_paper?.score}}/{{paper?.actual_paper?.marks}} <br> <span>1st Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.actual_paper?.submitted">Marks : NA</h4>
+                                                    </div>
+                                                    <div *ngIf="!paper?.actual_paper" class="greenDiv">
+                                                        <h4 *ngIf="paper?.attempt_status?.attempted">Marks : {{paper?.attempt_status?.score}}/{{paper?.attempt_status?.marks}} <br> <span *ngIf="paper?.reattempt_papers?.length > 0">1st Attempt</span></h4>
+                                                        <h4 *ngIf="!paper?.attempt_status?.attempted">Marks : NA</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="paperThirdRow">
+                                                <div *ngIf="!isBlocked">
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn attemptNow btn-sm" routerLink="/assessment/dashboard/mentor-paper-solution-review/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && paper?.attempt_status?.start_status" class="btn attemptNow btn-sm" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && !paper?.attempt_status?.message" class="btn dataAnalyse attemptNow btn-sm">Test Over</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && paper?.attempt_status?.message" class="btn dataAnalyse attemptNow btn-sm">Upcoming</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn shareButton btn-sm" data-toggle="modal" data-target="#exampleModalRemark">Remark</button>
+                                                </div>
+                                               
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='paper'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='practice'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/assignment-report/{{paper?.id}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3" *ngIf="paper?.paper_type == 'practice'">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <!-- <h2 style="background-color: #FBB623;" class="card-title"><a style="color: white;" href="javascript:void(0)" routerLink="/assessment/paper/mentor-paper-instructions/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Practice {{paper?.paper_count}}</a></h2> -->
+                                                    <h2 class="" [ngStyle]="{'color':paper?.paper_type == 'paper' ? '#1B50A3' : '#FBB623' }">PRACTICE {{paper?.paper_count}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="paperFirstRow">
+                                                <div>
+                                                    <h3 class="examTitle">{{paper?.exam?.title}}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4>Start : <span>{{paper?.exam_start_date_time | date}}, {{paper?.exam_start_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                                <div *ngIf ="paper?.exam_end_date_time">
+                                                    <h4>End : <span>{{paper?.exam_end_date_time | date}}, {{paper?.exam_end_date_time | date:'h:mm a'}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Subject(s) : <span *ngFor="let subject of paper?.subjects; let i = index">{{subject?.title}}<span *ngIf = "paper?.subjects?.length > 1 && paper?.subjects?.length  > i + 1">, </span></span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4 class="allSubjects">Chapter : <span>{{paper?.chapters[0].title}}</span></h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperSecondRow">
+                                                <div>
+                                                    <h4>No of Questions : {{paper?.questions?.length}}</h4>
+                                                </div>
+                                            </div>
+                                            <div class="paperThirdRow">
+                                                <div *ngIf="!isBlocked">
+                                                    <!-- <button class="btn btnReAttempt btn-sm">Re-attempt</button> -->
+                                                    <button *ngIf="paper?.attempt_status?.attempted" class="btn attemptNow btn-sm" routerLink="/assessment/dashboard/mentor-paper-solution-review/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Review</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && paper?.attempt_status?.start_status" class="btn attemptNow btn-sm" routerLink="/assessment/paper/mentor-assignment/{{paper?.exam?.id}}" [queryParams]="{paper: paper?.id}">Attempt</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && !paper?.attempt_status?.message" class="btn attemptNow btn-sm">Test Over</button>
+                                                    <button *ngIf="!paper?.attempt_status?.attempted && !paper?.attempt_status?.start_status && paper?.attempt_status?.message" class="btn attemptNow btn-sm">Upcoming</button>
+                                                </div>
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted" (click)="selectRemark(paper?.attempt_status?.id, paper?.attempt_status?.remarks)" class="btn shareButton btn-sm" data-toggle="modal" data-target="#exampleModalRemark">Remark</button>
+                                                </div>
+            
+                                                <div>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='paper'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/mentor-paper-report/{{paper?.paper_type}}/{{paper?.id}}/1">Report Card</button>
+                                                    <button *ngIf="paper?.attempt_status?.attempted && paper?.paper_type =='practice'" class="btn reportCard btn-sm" routerLink="/assessment/dashboard/assignment-report/{{paper?.id}}">Report Card</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </ng-container>
+                        </div>
+                        <h4 class="text-danger text-center" *ngIf="paperCountData?.over === 0">No Tasks Found</h4>
+                    </div>
+                  </div>
+           
+            <section *ngIf="papers?.length > 0" class="blogPageFold3 pb-5 mt-4 pt-2">
+                <div class="container text-center">
+                    <nav aria-label="navigation">
+                        <ul *ngIf="papers" class="pagination justify-content-center">
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item disabled">
+                                <button (click)="goToPage(1)" class="page-link btn btn-link">First</button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == 1 }" class="page-item previous-item">
+                                <button (click)="goToPage(currentPage - 1)" class="page-link btn"><<</button>
+                            </li>
+
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1 }" class="page-item next-item">
+                                <button (click)="goToPage(currentPage - (-1))" class="page-link btn">>></button>
+                            </li>
+                            <li [ngClass]="{disabled:currentPage == max_page || max_page == 1}" class="page-item last-item">
+                                <button (click)="goToPage(max_page)" class="page-link btn btn-link">Last</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-12">
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="card shadowCard">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="text-center reportSubHeading">Overall Scattered Batch Report</h5>
+                            </div>
+                            <div class="col-md-12">
+                                <div *ngIf="showScatter" style="height: 50vh;" [chart]="scatteredChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadowCard">
+                        <div class="col-md-12 mt-4">
+                            <h5 class="text-center reportSubHeading">My Relative Growth in Paper</h5>
+                        </div>
+                        <div *ngIf="convertedData?.length > 0" class="col-md-12">
+                            <div style="height: 50vh;" [chart]="columnChart"></div>
+                        </div>
+                    </div>
+                </div>
+               
+              </div>
+        </div>
+        
+    </div>
+
+</div>
+
+<div class="modal fade remarkModal" id="exampleModalRemark" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Remark</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeModal>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           <textarea name="" id="" [(ngModel)]="selectedRemark" cols="48" rows="3" placeholder="Remark" readonly></textarea>
+        </div>
+        <!-- <div class="modal-footer">
+        </div> -->
+      </div>
+    </div>
+  </div>

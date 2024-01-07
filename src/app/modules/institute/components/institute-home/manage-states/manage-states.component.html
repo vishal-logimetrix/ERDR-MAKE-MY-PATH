@@ -1,0 +1,119 @@
+<div class="container page_content">
+    <p style="color:cornflowerblue;font-size: small;"> &nbsp;&nbsp;>>&nbsp;Manage States, UT and Cities</p>
+    <hr>
+    
+    <div class="row">
+      <div class="col-md-12">
+    
+<div id="table" *ngIf="showStatesFlag">
+    <table class="table table-bordered table-responsive">
+        <thead class="thead-dark">
+          <tr>
+            <th>Sr. No.</th>
+            <th>States - {{states?.length}}</th>
+            <th>Total Cities</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let state of states | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+            <td>
+                {{state?.identifier}}
+            </td>
+            <td>
+                {{state?.name}}
+            </td>
+            <td>
+                <a href="javascript:void(0)" (click)="showStateCities(state?.id)">{{state?.total_cities}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pagination-controls *ngIf="states?.length > 0" (pageChange)="p = $event"></pagination-controls>
+      <div class="col-md-12">
+        <div class="form-group" style="margin-top: 20px;"> 
+          <label style="color: #255166;" class="col-sm-4 col-form-label">State:</label>
+         
+          <input [(ngModel)]="stateToCreate"
+          id="newInput" type="text" class="form-control shadow p-3  bg-white"
+          placeholder="Delhi" >
+        </div>
+      </div>
+      <button style="width: 160px; margin-top: 10px; background: #255166;color: white;float:left" 
+        [disabled]="!stateToCreate" (click)="createSingleState()" type="button" class="btn btn-light shadow ">Create State
+       </button><br><br>
+      <hr>
+             <!-- <input id="file" type="file" onclick="this.value = null"
+                    class="form-control shadow bg-white" style="border:none;border-radius: 30px;"
+                    (change)="onFileChange($event)">
+              <button style="width: 160px; margin-top: 10px; background: #255166;color: white;float:left" 
+                (click)="createState()" type="button" class="btn btn-light shadow ">Create States
+              </button><br><br><hr>
+              <input id="file" type="file" onclick="this.value = null"
+                    class="form-control shadow bg-white" style="border:none;border-radius: 30px;"
+                    (change)="onFileChange($event)"> -->
+              <div class="row" style="margin-top: 10px;">
+                <label for="inputPassword" id="gradeLabel" class="col-sm-2 col-form-label">Select State</label>
+                <div class="col-sm-5">
+                    <select name="classPass" [(ngModel)]="selectedStateId" (change)="fetchStateIdentifier($event.target.value)"
+                      id="grade" class="form-control">
+                      <option value="">Select State</option>
+                      <option *ngFor="let state of states; let i = index" [value]="state?.id">{{state?.name}}</option>
+                    </select>
+                </div>
+              </div>
+              <!-- <button style="width: 250px; margin-top: 10px; background: #255166;color: white;float:left" 
+                (click)="createCitiesByCsv()" type="button" class="btn btn-light shadow ">Create Cities By State
+              </button>
+              <button style="width: 160px; margin-top: 10px; background: #255166;color: white;float:left" 
+                (click)="createAllCitiesByCsv()" type="button" class="btn btn-light shadow ">Create All Cities
+              </button>
+              <br> -->
+            
+             <br>
+             <form [formGroup]="addCityForm" (ngSubmit)="submit()">
+                <div class="col-md-12">
+                    <div class="form-group" style="margin-top: 20px;"> 
+                      <label style="color: #255166;" class="col-sm-4 col-form-label">City:</label>
+                     
+                      <input formControlName="name"
+                      id="newInput" type="text" class="form-control shadow p-3  bg-white"
+                      placeholder="New Delhi" >
+                    </div>
+                  </div>
+
+                <button style="width: 160px; margin-top: 10px; background: #255166;color: white;float:left" 
+                    [disabled]="!addCityForm.valid" type="submit" class="btn btn-light shadow ">Submit
+                </button>
+            </form>
+     
+</div>
+
+<div id="table" *ngIf="!showStatesFlag">
+    <a href="javascript:void(0)" (click)="showStates()">
+        <i style="font-size: 35px" class="fa fa-angle-left" aria-hidden="true"></i>
+      </a>
+    <table class="table table-bordered table-responsive">
+        <thead class="thead-dark">
+          <tr>
+            <th>Sr. No.</th>
+            <th>City - {{cities?.length}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let city of cities; let i = index">
+            <td>
+                {{i+1}}
+            </td>
+            <td>
+                {{city?.name}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+            
+</div>
+</div>
+</div>
+</div>
+

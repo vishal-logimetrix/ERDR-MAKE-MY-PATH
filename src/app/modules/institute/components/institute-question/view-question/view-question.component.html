@@ -1,0 +1,53 @@
+<div class="container page_content" >
+    <div id="container">
+    <div class="row" id="heading">
+        <span>Question Text</span>
+    </div>
+    <div class="row">
+        <p [innerHtml]="questionDetails?.contents[0].text"></p>
+    </div>
+    <div class="row" id="heading" *ngIf="mcqType || mccType">
+        <span>Options</span>
+    </div>
+    <div class="row" *ngIf="mcqType || mccType">
+        <ul class="list-group" id=list>
+            <ng-container *ngFor="let mcq of mcqDetails">
+                <li class="list-group-item correctmcq" *ngIf="mcq?.correct" [innerHtml]="mcq?.text"></li>
+                <li class="list-group-item" *ngIf="!mcq?.correct" [innerHtml]="mcq?.text"></li>
+            </ng-container>
+        </ul>
+    </div>
+    <div class="row" id="heading" *ngIf="fillUpType">
+        <span>Fill Up</span>
+    </div>
+    <div class="row" *ngIf="fillUpType">
+        <p>{{fillupDetails?.text}}</p>
+    </div> 
+    <div class="row" id="heading">
+        <span>Solution Explanation</span>
+    </div>
+    <div class="row">
+        <p [innerHtml]="solutionDetails?.text"></p>
+    </div>  
+    <div class="row" id="heading">
+        <span>Question F Tags</span>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <ng-container *ngFor="let ftag of questionDetails?.linked_topics">
+                <span class="badge badge-pill badge-success" id="badge"> <b>{{ftag?.title}}</b></span> - {{ftag?.description}}
+            </ng-container>
+        </div> 
+    </div>
+    <div class="row" id="heading">
+        <span>Question Tags</span>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <ng-container *ngFor="let tag of questionDetails?.tags">
+                <span class="badge badge-pill badge-success" id="badge"> <b>{{tag?.text}}</b></span>
+            </ng-container>
+        </div> 
+    </div>
+</div>
+</div>

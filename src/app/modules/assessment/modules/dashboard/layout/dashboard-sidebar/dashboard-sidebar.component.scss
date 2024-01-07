@@ -1,0 +1,145 @@
+
+
+.sidebar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  height: 4.75rem;
+  background: #f4f4f4;
+
+  img {
+    width: 12rem;
+  }
+}
+.profileImage {
+  display: flex;
+  justify-content: center;
+  margin-left: 2vw;
+}
+.detail {
+  font-family: "jaldi", sans-serif;
+  a {
+    color: #ffffff;
+    font-family: "jaldi", sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+  }
+}
+
+.profile-container {
+  height: 10rem;
+  width: 10rem;
+  display: flex;
+  overflow: hidden;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5rem;
+}
+
+.user-img {
+  // width: 100%;
+  display: block;
+  border-radius: 50% !important;
+  // margin-left: 35px;
+}
+.user-img {
+  width: 8rem !important;
+  height: 8rem !important;
+}
+
+.username {
+  font-size: 1.2rem;
+  font-family: "jaldi", sans-serif;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+.sidebar-content {
+  .content {
+    // background-color: #334250;
+    background-color: #048adf;
+    padding: 3rem 0rem;
+  }
+}
+
+.sidebar-links {
+  li {
+    // padding-left: 1.3rem;    /*********/
+    a {
+      .fa {
+        width: 15px;
+      }
+    }
+
+    svg[data-icon='wpf:faq'] {
+      font-size: 23px;
+   }
+    // font-size: 20px;
+  }
+
+  .active {
+    // padding: .5rem; /*********/
+    background: #ffffff;
+    // border-radius: .4rem 0rem 0rem .4rem;  /********/
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    color: #048adf !important;
+  }
+}
+.fa-crown {
+  font-size: 15px;
+}
+.sidebar-links > li > a {
+  color: #e9ecef;
+  // margin-bottom: 7px;
+  font-size: 1.1rem;
+  display: block;
+  font-family: "jaldi", sans-serif;
+  font-weight: bold;
+  padding: 8px 25px;
+  box-shadow: inset 0 0 0 0.09px #048adf;
+	-webkit-transition: all ease 0.8s;
+	-moz-transition: all ease 0.8s;
+	transition: all ease 0.8s;
+}
+.sidebar-links > li:hover > a {
+  box-shadow: inset 300px 0 0 0 #ffffff;
+  color: #048adf ;
+}
+
+@media screen and (max-width: 1366px) {
+  .sidebar-logo {
+    padding: 0;
+    height: 3.75rem;
+  }
+
+  .profile {
+    margin-top: 2rem !important;
+
+    .detail {
+      margin-top: 0 !important;
+      font-family: "jaldi", sans-serif;
+      a {
+        color: #ffffff;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .sidebar-content {
+    .content {
+      padding: 2rem 0rem;
+    }
+  }
+}
+
+.fa-arrow-left {
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-links > li > a {
+    font-size: 1.2rem;
+  }
+}

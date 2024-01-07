@@ -1,0 +1,26 @@
+<div id="sidebar" [ngClass]="{'inactive': !showSidebar}">
+  <app-dashboard-sidebar></app-dashboard-sidebar>
+</div>
+<div id="content" [ngClass]="{'active': !showSidebar || isMobile}">
+  <app-dashboard-nav></app-dashboard-nav>
+  <div id="main" class="position-relative" (click)="hideSidebar()">
+    <router-outlet></router-outlet>
+
+    <div id="loader" *ngIf="showLoader.visibility && showLoader.type==='full'">
+      <img src="{{env.static}}/images/gif/loader.gif" alt="">
+    </div>
+
+    <div id="short-loader" *ngIf="showLoader.visibility && showLoader.type==='short'">
+      <img src="{{env.static}}/images/gif/short-loader.gif" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<!-- <div *ngIf="!isProfileComplete">
+  <app-complete-profile></app-complete-profile>
+</div> -->
+
+<div *ngIf="newAssessmentObj.assessmentPurchased">
+  <app-congratulations [modalData]="newAssessmentObj"></app-congratulations>
+</div>

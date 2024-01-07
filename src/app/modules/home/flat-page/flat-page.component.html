@@ -1,0 +1,10 @@
+<div id="page-content" *ngIf="pageObj">
+  <div class="container" class="mt-5 mb-5">
+    <div class="row p-4">
+      <div class="col-md-12 text-center">
+        <h4>{{pageObj.title}}</h4>
+      </div>
+      <div class="col-md-12" [innerHTML]="pageObj.content | safeHTML"></div>
+    </div>
+  </div>
+</div>

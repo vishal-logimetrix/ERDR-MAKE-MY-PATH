@@ -1,0 +1,26 @@
+<div class="container page_content">
+  <h1 style="text-align: center;"><b>{{examDetails?.title}}</b></h1>
+    <button type="button" class="btn btn-primary" id="std" routerLink="/institute/create-book" [queryParams]="{id: examId}">CREATE BOOK</button>
+<div id="table">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Title</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books">
+            <td>
+               <strong>{{book?.title}}</strong> 
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" id="design_details" routerLink="/institute/edit-book" [queryParams]="{id: book?.id}">EDIT BOOK DETAILS</button>
+                <button type="button" class="btn ml-2" id="std_details" (click)="deleteBook(book?.id)">DELETE</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+</div>

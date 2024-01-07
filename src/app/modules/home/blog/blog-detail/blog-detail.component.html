@@ -1,0 +1,19 @@
+<div id="blog-content">
+  <div class="banner">
+    <div class="card text-white border-0 top-banner post-content">
+      <img class="card-img" src="{{postObj.image}}" alt="Card image">
+      <div class="card-img-overlay">
+        <h1 class="card-title display-4 font-weight-bold">{{ postObj.title }}</h1>
+        <h4 class="card-text short-description">
+          {{postObj.metadescription}}
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-2">
+    <div class="p-4 mt-5 rounded text-justify text-black">
+      <div [innerHTML]=postObj.content></div>
+    </div>
+  </div>
+</div>

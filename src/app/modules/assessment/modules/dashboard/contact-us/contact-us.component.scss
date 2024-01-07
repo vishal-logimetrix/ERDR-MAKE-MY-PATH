@@ -1,0 +1,91 @@
+
+
+label {
+    width: 100%;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 1rem;
+}
+input, textarea, select {
+    border: 1px solid #007BBA;
+    color: #007BBA;
+}
+
+.imageDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.postaquery {
+    width: 60%;
+}
+.btnLeaderboard {
+    padding: 0;
+    font-family: "jaldi", Sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #007bba;
+    background-color: rgba(0,0,0,0);
+  }
+.form-control {
+    margin-top: .5rem;
+}
+.cu-section{
+    font-family: 'jaldi' , sans-serif;
+    min-height: calc(100vh - 85px);
+    h2{
+        color: #000000;
+    font-size: 3em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: 'Jaldi', sans-serif;
+    text-align: center;
+    padding-top: 5vh;
+    span{
+      color: #007bba;
+      font-weight: 700;
+    }
+    }
+    .btnSend{
+        background-color: #007cbb;
+        font-size: 1em;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.5em;
+        letter-spacing: 3.2px;
+        color: #ffffff;
+        border-radius: 50px;
+        box-shadow: 0px 2px 0px 0px #ff4935;
+        padding: 10px 30px;
+    }
+    .btnSend:hover {
+        background-color: #ff4935;
+    }
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #ffffff;
+        margin: 0 0 1em 0;
+        padding: 0;
+    }
+    label{
+        font-family: 'jaldi' , sans-serif;
+    }
+    input{
+        font-family: 'jaldi' , sans-serif;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .cu-section {
+        h2 {
+            font-size: 2em;
+        }
+        .postaquery {
+            width: 50%;
+        }
+    }
+}

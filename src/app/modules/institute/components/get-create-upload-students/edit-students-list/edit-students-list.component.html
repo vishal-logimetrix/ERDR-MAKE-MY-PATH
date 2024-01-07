@@ -1,0 +1,289 @@
+<div class="body">
+    <button type="button" class="btn" id="std_details" (click)="back()" >SEARCH ALL STUDENTS LIST</button>
+    <div class="row">
+            <div  class="col-9">
+                <input type="text" class="form-control" id="Name" placeholder="Search User By Username">
+
+            </div>
+            <div  class="col-3">
+                <button type="button" class="btn btn-primary" id="design_details1" >SEARCH</button>
+            </div>
+        </div> 
+    <hr>
+    <p style="font-size: x-large;font-weight: 400;">User Details</p>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Username :</p>
+        </div>
+        <div class="col-3">
+                <input type="text" class="form-control" id="Name" placeholder="Username">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>User Password :</p>
+        </div>
+        <div class="col-3">
+                <input type="text" class="form-control" id="Name" placeholder="User Password">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Email :</p>
+        </div>
+        <div class="col-3">
+                <input type="text" class="form-control" id="Name" placeholder="Email">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Is active :</p>
+        </div>
+        <div class="col-3" style="padding-left: 40px;">
+            <input type="checkbox" class="form-check-input" value="" checked>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Is individual :</p>
+        </div>
+        <div class="col-3" style="padding-left: 40px;">
+            <input type="checkbox" class="form-check-input" value="" checked> 
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>First Name :</p>
+        </div>
+        <div class="col-3">
+            <textarea class="form-control" rows="5" ></textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Last Name :</p>
+        </div>
+        <div class="col-3">
+            <textarea class="form-control" rows="5" ></textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>User group :</p>
+        </div>
+        <div class="col-3">
+            <select class="form-control" id="sel1">
+                <option>------</option>
+                <option *ngFor="let sub of list">{{sub}}</option>
+            </select>      
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Address :</p>
+        </div>
+        <div class="col-3">
+                <textarea class="form-control" rows="5" ></textarea>
+            </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Image :</p>
+        </div>
+        <div class="col-3">
+                <input type="file" ng2FileSelect />
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Contact Info :</p>
+        </div>
+        <div class="col-3">
+                <input type="text" class="form-control"  >
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Contact verified :</p>
+        </div>
+        <div class="col-3"  style="padding-left: 40px;">
+                <input type="checkbox" class="form-check-input" value="" > 
+            </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Institute Name :</p>
+        </div>
+        <div class="col-3">
+                <textarea class="form-control" rows="5" ></textarea>
+            </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Institute State :</p>
+        </div>
+        <div class="col-3">
+            <select class="form-control" id="sel1">
+                <option>------</option>
+                <option *ngFor="let sub of list">{{sub}}</option>
+            </select>     
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Institute City :</p>
+        </div>
+        <div class="col-3">
+            <select class="form-control" id="sel1">
+                <option>------</option>
+                <option *ngFor="let sub of list">{{sub}}</option>
+            </select>     
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Student Class :</p>
+        </div>
+        <div class="col-3">
+            <select class="form-control" id="sel1">
+                <option>------</option>
+                <option *ngFor="let sub of list">{{sub}}</option>
+            </select>     
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Student Board :</p>
+        </div>
+        <div class="col-3">
+            <select class="form-control" id="sel1">
+                <option>------</option>
+                <option *ngFor="let sub of list">{{sub}}</option>
+            </select>     
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Rollno :</p>
+        </div>
+        <div class="col-3">
+                <textarea class="form-control" rows="5" ></textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>State :</p>
+        </div>
+        <div class="col-3">
+            <select class="form-control" id="sel1">
+                <option>------</option>
+                <option *ngFor="let sub of list">{{sub}}</option>
+            </select>     
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>City :</p>
+        </div>
+        <div class="col-3">
+            <select class="form-control" id="sel1">
+                <option>------</option>
+                <option *ngFor="let sub of list">{{sub}}</option>
+            </select>     
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Email :</p>
+        </div>
+        <div class="col-3">
+                <input type="text" class="form-control" id="Name" placeholder="Email">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Pincode :</p>
+        </div>
+        <div class="col-3">
+                <input type="text" class="form-control">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Parent Name :</p>
+        </div>
+        <div class="col-3">
+                <textarea class="form-control" rows="5" ></textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Parent Income :</p>
+        </div>
+        <div class="col-3">
+                <textarea class="form-control" rows="5" ></textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            <p>Parent Education :</p>
+        </div>
+        <div class="col-3">
+                <textarea class="form-control" rows="5" ></textarea>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" id="design_details" >SAVE DETAILS</button>
+    <hr>
+    <hr>
+    <p style="font-size: x-large;font-weight: 400;">User Enrollments</p>
+    <table class="table table-bordered" >
+            <thead class="thead-dark">
+              <tr style="text-align: center;">
+                <th>#</th>
+                <th>Package</th>
+                <th>Tick/Untick</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pack of stu_package" >
+                <td>{{pack.number}}</td>
+                <td>{{pack.package}}</td>
+                <td style="text-align: center;"> 
+                    <div class="form-check" style="margin-bottom: 20px;">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="">
+                        </label>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-primary" id="design_details" >SAVE ENROLLMENTS DETAILS</button>
+
+</div>

@@ -1,0 +1,147 @@
+<div class="bookmarkQuestions container" #mathjax>
+    <h1 class="heading">My Bookmarks </h1>
+    <div class="totalUser">
+        <!-- <div><span>{{examDetails?.title}}</span></div> -->
+        <button routerLink="/assessment/dashboard/" class="btn float-left btnLeaderboard"><i class="fas fa-angle-double-left mr-1"></i>Dashboard</button>
+        <div *ngIf="bookmarks?.length > 0"><a href="" routerLink="/assessment/dashboard/choose-p/{{bookmarks[0]['learner_exam']['exam']['id']}}" >{{bookmarks[0]['learner_exam']['exam']['title']}}</a></div>
+        <div><span><b>{{subjectName}}</b></span></div>
+    </div>
+    <div><hr></div>
+    <h3 class="subHeading">Chapter : {{chapterName}} ({{questionIds?.length}})</h3>
+    <!-- <div class="greyDiv">
+        <h2 class="heading">{{subjectName}} <i class="fas fa-chevron-right"></i> </h2>
+        <h3>{{chapterName}}</h3>
+    </div> -->
+    <div class="blueDiv">
+        <h2 class="questionNumber">Question: {{currentQuestion}}/ {{questionIds?.length}} <i
+                class="fas fa-chevron-right"></i> </h2>
+        <h3 *ngIf="questionDetails?.type_of_question==='mcq'">Single Choice</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='mcc'">Multiple Choice
+        </h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='fillup'">Fill In The Blanks</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='numerical'">Integral value type</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='subjective'">Subjective</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='fillup_option'">
+Fill up with option</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='boolean'">
+            True/ False</h3>
+        <h3 *ngIf="questionDetails?.type_of_question==='assertion'">
+            Assertion</h3>
+    </div>
+    <div class="questionDetailDiv">
+        <p *ngIf="question?.comprehension" class="font-sm-1 mb-1 comprehension-question"
+            [innerHtml]="question?.comprehension">
+        </p>
+        <!-- <h6 class="mb-0"><strong>Question: 10 Marks</strong></h6> -->
+
+        <ng-container *ngFor="let content of questionDetails?.contents">
+            <p class="font-sm-1 mb-0" *ngIf="content?.language?.text == 'English'" [innerHtml]="content?.text"></p>
+        </ng-container>
+
+    </div>
+    <div class="optionDiv">
+        <ul>
+            <li class="cursor-pointer mb-2 text-black" *ngFor="let option of mcqDetails; let optionIndex = index">
+                <div class="d-flex">
+                    <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                    <span class="ml-3 option-text font-sm-1" [innerHtml]="option?.text"></span>
+                </div>
+                <div *ngIf="option['opt_image']"
+                    class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                    <div #optionImage>
+                        <button type="button" class="close-button d-none btn btn-link text-black"
+                            (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                        <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                    </div>
+                    <button class="p-2 btn btn-link text-black" type="button" (click)="enlargeImage(optionImage)"><i
+                            class="fa fa-expand" aria-hidden="true"></i></button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="nextDiv">
+        <div class="expUnmark">
+            <div>
+                 <button class="btn btnSolution btn-sm" (click)="div2Function()" (click)="goDown()">Explanation</button>
+            </div>
+            <div>
+                <button class="btn btnUnmark btn-sm" data-toggle="modal" data-target="#confirmationModal">Unmark</button>
+            </div>
+        </div>
+        <div class="prevNext">
+            <div *ngIf="currentQuestion > 1" class="prevDiv">
+                <button class="btn" (click)="fetchPrev()">Previous</button>
+            </div>
+            <div *ngIf="currentQuestion < questionIds?.length">
+                <button class="btn" (click)="fetchNext()">Next</button>
+            </div>
+        </div>
+    </div>
+   
+    <div *ngIf="div2" class="solutionDiv" id="soltuionDiv">
+        <div class="mt-2">
+            <p *ngIf="question?.comprehension" class="font-sm-1 mb-1 comprehension-question"
+                [innerHtml]="question?.comprehension">
+            </p>
+            <h6 class="mb-0" [innerHtml]="solutionDetails?.text | safeHtml"><strong></strong></h6>
+
+            <!-- <p class="font-sm-1 mb-0" > -->
+            <!-- [innerHtml]="question?.text" -->
+            <!-- As per RBI guuidelines cheque to be routed through the CTS clearing will not be entertained if they bear alteration in the ______ of the 
+        </p> -->
+        </div>
+        <div class="mt-3">
+
+            <!-- Options -->
+            <div class="mb-2 option-container">
+                <ul>
+                    <li class="cursor-pointer mb-2 text-black"
+                        *ngFor="let option of mcqDetails; let optionIndex = index">
+                        <div class="d-flex">
+                            <span class="font-weight-bold font-sm-1">{{optionIndex + 1}})</span>
+                            <span *ngIf="option?.correct" class="ml-3 option-text font-sm-1 correctmcq"
+                                [innerHtml]="option?.text"></span>
+                            <span *ngIf="!option?.correct" class="ml-3 option-text font-sm-1"
+                                [innerHtml]="option?.text"></span>
+                        </div>
+                        <div *ngIf="option['opt_image']"
+                            class="mt-2 test-img-container d-flex align-items-start justify-content-between">
+                            <div #optionImage>
+                                <button type="button" class="close-button d-none btn btn-link text-black"
+                                    (click)="enlargeImage(optionImage)"><i class="fa fa-times"></i></button>
+                                <img class="img-responsive" [src]="option['opt_image']" alt="Option Image">
+                            </div>
+                            <button class="p-2 btn btn-link text-black" type="button"
+                                (click)="enlargeImage(optionImage)"><i class="fa fa-expand"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-2 next-prev d-flex justify-content-center">
+            <button type="button" class="btn btn-close-Explanation" (click)="closeSolution()">Close Explanation</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade confirmationModalmsg"  id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+      <div class="modal-content" style="border-radius: 16px;border: none;">
+        <div class="modal-header" style="border: none;">
+          <h5 class="modal-title" id="confirmationModalLabel" style="font-size: 25px;font-weight: bold;color: #04607D;font-family: 'jaldi', sans-serif;">Confirmation</h5>
+          <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-center" style="color: #544F4F; font-size: 16px;">Are you sure you want to unmark this question?</p>
+        </div>
+        <div class="modal-footer" style="background-color: #00A3F1; border-radius: 0 0 16px 16px;justify-content: space-between;">
+          <button type="button" id="dimissModal" class="btn btn-sm btn-secondary" style="border-radius: 6px;" data-dismiss="modal" >Cancel</button>
+          <button type="button" class="btn btn-sm text-white" style="background-color: #FF4935; border-radius: 6px;" (click)="unmark()">Yes, unmark it !</button>
+        </div>
+      </div>
+    </div>
+</div>
